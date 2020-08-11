@@ -1,0 +1,209 @@
+<!--//新增会员卡-->
+{template 'header'} {template 'template'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	
+	.input-group-btn {
+		display: block !important;
+	}
+	
+	.am-selected-btn {
+		border-radius: 4px;
+		font-size: 12px;
+	}
+	.w40 {
+		float: left;
+		width: 21% !important;
+	}
+	.ml5 {
+		margin-left: 5px;
+	}
+	.bors {
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+		border-radius: 0 !important;
+	}
+	.border0 {
+		border-radius: 0 !important;
+	}
+	.mgt5 {
+		margin-top: 5px;width: 93%;display: inline-block;
+	}
+	.flol{
+	    float: left;
+	}
+</style>
+<link href="./resource/css/bootstrap.min.css?v=20170426" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170426" rel="stylesheet">
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('plsugins',array('op'=>'markrting','in'=>'member_card_add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data" id="from_data">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">{$act_title}会员卡</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label "><b class="text-danger">*</b>标题 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' id='title' name='title' value="{$info['title']}" class='tpl-form-input' />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label "><b class="text-danger">*</b>等级折扣 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='number' id='discount' maxlength="2" name='discount' value="{$info['discount']}" class='tpl-form-input' />
+										<span class="color-9">请输入0.1至10的数字，输入1代表1折，为0不打折</span>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否启用</label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="c_status" data-am-ucheck  value="1" {if $info['c_status'] ==1}checked{/if}> 是
+											</label>
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="c_status" data-am-ucheck  value="2" {if $info['c_status'] !=1}checked{/if}> 否
+											</label>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">时间</label>
+									<div class="am-u-sm-6 am-u-end" id="sever">
+										{if $info['card']}
+											{loop $info['card'] $index $item}
+												<div class="mgt5">
+													<input type="number" id="card_time[]" name="card_time[]" value="{$item['day']}" class="form-control w40" placeholder="请输入时间,为-1永久有效" style="">
+													<select name="card_commpay[]" class="form-control w40 ml5 bors">
+														<option value="1" {if $item['company'] == 1}selected=""{/if}>日</option>
+														<option value="2" {if $item['company'] == 2}selected=""{/if}>月</option>
+														<option value="3" {if $item['company'] == 3}selected=""{/if}>季度</option>
+														<option value="4" {if $item['company'] == 4}selected=""{/if}>年</option>
+													</select>
+													<input type="number" id="card_money[]" name="card_money[]" value="{$item['money']}" class="form-control w40 ml5" placeholder="请输入金额(元)" style="">
+													<input type="number" id="card_moneys[]" name="card_moneys[]" value="{$item['original_price']}" class="form-control w40 ml5" placeholder="请输入原价(元)">
+													<input type="hidden" id="card_id[]" name="card_id[]" value="{$item['id']}" class="form-control w40 ml5">
+													<span class="input-group-btn wauto flol" onclick="give_add()" style="width: auto;">
+							                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+							                        </span>
+													<span class="input-group-btn flol" style="width: auto;" {if $index != 0} onclick="give_save()" {/if}>
+							                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+							                        </span>
+												</div>
+											{/loop}
+										{else}
+											<div class="mgt5">
+												<input type="number" id="card_time[]" name="card_time[]" value="" class="form-control w40" placeholder="请输入时间" style="">
+												<select name="card_commpay[]" class="form-control w40 ml5 bors">
+													<option value="1">日</option>
+													<option value="2">月</option>
+													<option value="3">季度</option>
+													<option value="4">年</option>
+												</select>
+												<input type="number" id="card_money[]" name="card_money[]" value="" class="form-control w40 ml5" placeholder="请输入价格(元)">
+												<input type="number" id="card_moneys[]" name="card_moneys[]" value="" class="form-control w40 ml5" placeholder="请输入原价(元)">
+												<span class="input-group-btn wauto flol" onclick="give_add()" style="width: auto;">
+						                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+						                        </span>
+												<span class="input-group-btn flol" style="width: auto;">
+						                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+						                        </span>
+											</div>
+										{/if}
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">会员卡详情 </label>
+									<div class="am-u-sm-9 am-u-end">
+										{php echo tpl_ueditor('content', $info['content'])}
+									</div>
+								</div>
+								
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交" />
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a href="javascript:javascript:history.go(-1);" id="a-back-index"><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'footer'}
+<script type="text/javascript">
+	function give_add(){
+		var str ="";
+		str += "<div class=\"mgt5\">";
+		str += "	<input type=\"number\" id=\"card_time[]\" name=\"card_time[]\" value='' class=\"form-control w40\" placeholder=\"请输入时间,为-1永久有效\">";
+		str += "	<select name=\"card_commpay[]\" class=\"form-control w40 ml5 bors\">";
+		str += "		<option value=\"1\">日</option>";
+		str += "		<option value=\"2\">月</option>";
+		str += "		<option value=\"3\">季度</option>";
+		str += "		<option value=\"4\">年</option>";
+		str += "	</select>";
+		str += "	<input type=\"number\" id=\"card_money[]\" name=\"card_money[]\" value='' class=\"form-control w40 ml5\" placeholder=\"请输入金额(元)\" >";
+		str += "	<input type=\"number\" id=\"card_moneys[]\" name=\"card_moneys[]\" value=\"\" class=\"form-control w40 ml5\" placeholder=\"请输入原价(元)\">";
+		str += "	<span class=\"input-group-btn wauto flol\" onclick=\"give_add()\" style=\"width: auto;\">";
+		str += "    	<button class=\"btn btn-default border0\" type=\"button\"><i class=\"fa fa-plus\"></i></button>";
+		str += "	</span>";
+		str += "	<span class=\"input-group-btn flol\" onclick=\"give_save(this)\" style=\"width: auto;\">";
+		str += "		<button class=\"btn btn-danger\" type=\"button\"><i class=\"fa fa-remove\"></i></button>";
+		str += "    </span>";
+		str += "</div>";
+		$('#sever').append(str);
+	}
+	function give_save(obj){
+		$(obj).parent().remove();
+	}
+	$('#btn').click(function(res){
+		if($("input[name='title']").val() == '' || $("input[name='title']").val() == undefined){
+			layer.msg('请填写标题',{icon:2,time:2000});
+			return false;
+		}
+		if($("input[name='discount']").val() == '' || $("input[name='discount']").val() == undefined){
+			layer.msg('请填写等级折扣',{icon:2,time:2000});
+			return false;
+		}
+		if($("input[name='discount']").val() >10 || $("input[name='discount']").val() < 0.1){
+			layer.msg('请填写正确的等级折扣',{icon:2,time:2000});
+			return false;
+		}
+		var index = layer.load(3, {shade: [0.7,'#000']});
+		$.post("{php echo $this->createWebUrl('plsugins',array('op'=>'markrting','in'=>'member_card_add'))}",$("#from_data").serialize(),function(res){
+			console.log(res);
+			layer.closeAll();
+			if(res.code == 1){
+				layer.msg(res.msg,{icon:2,time:2000});
+			}else{
+				layer.msg(res.msg,{icon:1,time:2000},function(res){
+					location.reload();
+				});
+			}
+		},"JSON");
+		return false;
+	})
+</script>

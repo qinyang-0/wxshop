@@ -1,0 +1,81 @@
+{template 'header'}
+<style>
+    #check_layer,#check_layer_step2,#change_money_layer{
+
+        display: none;
+    }
+    .check_list{
+        text-align: center;
+    }
+    .check_list li{
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-cf">用户'{$nick_name}'团队</div>
+                    </div>
+                    <div class="widget-body am-fr">
+                        <!-- 工具栏 -->
+                        <div class="am-tabs" id="doc-my-tabs">
+                            <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify am-tabs-nav am-cf" id="tabs">
+                                <li class="am-active ">
+                                    <a href="javascript:;">一级</a>
+                                </li>
+                                <li class=" ">
+                                    <a href="javascript:;">二级</a>
+                                </li>
+                                <li class=" ">
+                                    <a href="javascript:;">三级</a>
+                                </li>
+
+                            </ul>
+                            <div class="am-tabs-bd">
+                                {loop $list $k $v}
+                                <div class="am-tab-panel {if $k==1}am-active{/if}" style="min-height: 200px;">
+                                    <table width="100%">
+                                        <tr>
+                                            <th>头像</th>
+                                            <th>昵称</th>
+                                            <th>注册时间</th>
+                                            <th>成为下级时间</th>
+                                            <th>是否为分销商</th>
+                                        </tr>
+                                        {loop $v $kk $vv}
+                                        <tr>
+                                            <td><img src="{$vv['m_photo']}" width="100px"/></td>
+                                            <td>{$vv['m_nickname']}</td>
+                                            <td>{$vv['m_add_time']}</td>
+                                            <td>{$vv['c_time']}</td>
+                                            <td>{$vv['is_dis']}</td>
+                                        </tr>
+                                        {/loop}
+                                    </table>
+                                </div>
+                                {/loop}
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {template 'footer'}
+    <script type="text/javascript"> 
+        $(function () {
+            $(document).on('click','#tabs li',function () {
+                var index = $("#tabs li").index(this);
+                $("#tabs li").removeClass('am-active');
+                $(this).addClass('am-active');
+                // console.log(index);
+                $('.am-tabs-bd .am-tab-panel').removeClass('am-active');
+                $('.am-tabs-bd .am-tab-panel').eq(index).addClass('am-active');
+            })
+        })
+    </script>

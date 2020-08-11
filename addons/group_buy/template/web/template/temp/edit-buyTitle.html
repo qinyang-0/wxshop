@@ -1,0 +1,157 @@
+<div class="">
+
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">抢购标题模块</div>
+	</div>
+	<div class="widget am-cf">
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">标题显示风格</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label "  ng-click="buyTitle(item.id,1)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格1</span>
+					<input type="radio" name="module" value="1" on-selected class="frm_radio"  ng-model="item.params.module" />
+				</label>
+				<label class="frm_radio_label " ng-click="buyTitle(item.id,2)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格2</span>
+					<input type="radio" name="module" value="2" on-selected  class="frm_radio"  ng-model="item.params.module"  />
+				</label>
+				<label class="frm_radio_label " ng-click="buyTitle(item.id,3)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格3</span>
+					<input type="radio" name="module" value="3" on-selected  class="frm_radio"  ng-model="item.params.module"  />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">正在抢购标题编辑</label>
+			<div class="frm_controls">
+			<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.limitTitle">
+			</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==1?'block':'none')}">
+			<label for="" class="frm_label">正在抢购副标题编辑</label>
+			<div class="frm_controls">
+			<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.limitTitleDown">
+			</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==1?'block':'none')}">
+			<label for="" class="frm_label">下期预告标题编辑</label>
+			<div class="frm_controls">
+			<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.nextTitle">
+			</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==1?'block':'none')}">
+			<label for="" class="frm_label">下期预告副标题编辑</label>
+			<div class="frm_controls">
+			<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.nextTitleDown">
+			</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">正在抢购字体颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==1?'block':'none')}">
+			<label for="" class="frm_label" style="width: 6em;" >正在抢购背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+				</span>
+					<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+				</span>
+
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==3?'block':'none')}">
+			<label for="" class="frm_label" style="width: 6em;" >正在抢购背景图</label>
+			<div class="frm_controls">
+			<div class="am-panel-bd am-u-md-12" >
+				<div class="am-u-md-3 " style=""  >
+					<div class="am-u-md-12" ng-click="uploadImage(item.id,'pic')" style="border: 1px dashed #ccc;vertical-align: middle;height: 70px;width: 100px;line-height: 70px;padding: 0;">
+						<img ng-if="item.params.pic" class="upload_image_img"  ng-src="{{item.params.pic}}"/>
+						<div ng-if="!item.params.pic " style="width: 100%;text-align: center;" ><i class="fa fa-plus fa-lg" ></i></div>
+					</div>
+					<div class="" style="text-align: center;color: #ccc;font-size: 12px;padding: 0;width: 100px;clear: both;">尺寸：190*70</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==1 || item.params.module==3?'block':'none')}">
+			<label for="" class="frm_label" style="width: 6em;">下期预告字体颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.nocolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.nocolor" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==3?'block':'none')}">
+			<label for="" class="frm_label" style="width: 6em;" >下期预告背景图</label>
+			<div class="frm_controls">
+				<div class="am-panel-bd am-u-md-12" >
+					<div class="am-u-md-3 " style=""  >
+						<div class="am-u-md-12" ng-click="uploadImage(item.id,'nopic')" style="border: 1px dashed #ccc;vertical-align: middle;height: 70px;width: 100px;line-height: 70px;padding: 0;">
+							<img ng-if="item.params.nopic" class="upload_image_img"  ng-src="{{item.params.nopic}}"/>
+							<div ng-if="!item.params.nopic " style="width: 100%;text-align: center;" ><i class="fa fa-plus fa-lg" ></i></div>
+						</div>
+						<div class="" style="text-align: center;color: #ccc;font-size: 12px;padding: 0;width: 100px;clear: both;">尺寸：190*70</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.module==1?'block':'none')}">
+			<label for="" class="frm_label" style="width: 6em;">下期预告背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.nobgcolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.nobgcolor" />
+				</span>
+
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">倒计时字体颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.timeColor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.timeColor" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">倒计时背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.timeBgcolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.timeBgcolor" />
+				</span>
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,11 @@
+<div class="app-mod app-mod-2" >
+    <div style="line-height: 40px; text-align: center; color: #999; font-size: 16px;" ng-show="{{item.params.data.length <= 0}}">没有幻灯片...</div>
+    <div>
+        <div ng-repeat="img in item.params.data">
+            <img ng-src='{{img.img}}' ng-show='$index == 0' style="width:100%;" />
+        </div>
+        <div class="app-mod-2-dots" ng-show="item.params.showpoint == 0">
+            <a ng-style="{'background-color':$index == 0 ? item.params.actcolor : item.params.pointcolor}" ng-repeat="dot in item.params.data"></a>
+        </div>
+    </div>
+</div>

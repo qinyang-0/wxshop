@@ -1,0 +1,424 @@
+	{template 'header'}
+	<style>
+		/*选项卡*/
+		.am-tabs-d2 .am-tabs-nav{
+			background: #fff;
+			border-bottom: 1px solid #eef1f5;
+		}
+		.am-tabs-nav{
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+		}
+		.am-tabs .am-tabs-nav li{
+			width: 120px;
+			line-height: 40px;
+			height: 40px;
+			padding: 0;
+		}
+		.am-tabs .am-tabs-nav li a{
+			width: 120px;
+			line-height: 40px;
+			height: 40px;
+			padding: 0;
+			display: block;
+			margin: 0;
+			text-align: center;
+			background: #fff;
+		}
+		.am-tabs-d2 .am-tabs-nav>.am-active {
+			position: relative;
+			background-color: #fcfcfc;
+			border-bottom: 2px solid #22c397;
+		}
+		.am-tabs-d2 .am-tabs-nav>.am-active a{
+			color: #22c397;
+		}
+		.am-tabs-d2 .am-tabs-nav>.am-active:after{
+			border-bottom-color: #22c397;
+		}
+		/*选项卡end*/
+		.zx-edit-td-input:focus{
+			outline: 1px  dashed #22c397;
+		}
+		.am-switch-success-zx>input[type=checkbox]:checked~.am-switch-checkbox{
+			background: #22c397;
+		}
+	</style>
+	{if empty($id)}
+	<div class="tpl-content-wrapper">
+		<div class="row-content am-cf">
+			<div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+					<div class="widget am-cf">
+						<div class="widget-head am-cf">
+							<div class="widget-title am-cf">商品库</div>
+						</div>
+						<div class="widget-body am-fr">
+							<!-- 工具栏 -->
+							<div class="page_toolbar am-margin-bottom-xs am-cf">
+								<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+									<input type="hidden" name="c" value="site">
+									<input type="hidden" name="a" value="entry">
+									<input type="hidden" name="m" value="group_buy_plugin_bargain">
+									<input type="hidden" name="do" value="index">
+									<input type="hidden" name="op" value="add">
+									<div class="am-u-sm-12 ">
+										<span class="zx-form-span">
+											商品名称：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input type="text" class="am-form-field" name="name" placeholder="商品名称" value="{$_GPC['name']}" style="border-radius: 4px;width: 240px;">
+										</div>
+	                                    <!-- 查询按钮样式 -->
+	                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                                    <div class="zx-but-check">
+	                                        <button type="submit" >
+	                                            <i class="fa fa-search"></i> 查询
+	                                        </button>
+	                                    </div>
+									</div>
+								</form>
+							</div>
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+									<thead class="navbar-inner">
+									<tr>
+										<th >序号</th>
+										<th >商品</th>
+										<th >价格</th>
+										<th >操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									{if !empty($info)}
+										{loop $info $item}
+											<tr>
+												<td>{$item['g_id']}</td>
+												<td>
+													<img src="{php echo tomedia($item['g_icon'])}" width="50"/>
+													{$item['g_name']}
+												</td>
+												<td>{$item['g_price']}</td>
+												<td>
+													{if $item['g_has_option'] == 1}
+														<a class="label label-info" href="javascript:;">暂不支持多规格砍价</a>
+													{else if !empty($item['id'])}
+														<a class="label label-warning" href="javascript:;">已发起砍价</a>
+													{else}
+														{php $i = goods_activity($item['g_id'],3,$this->weid)}
+	                                    				{if $i === true}
+															<a class="label label-success" href="{php echo $this->createWebUrl('index',array('op'=>'add','id'=>$item['g_id']))}">参与砍价</a>
+														{else}
+															<a class="label label-danger" href="javascript:;">{$i}</a>
+														{/if}
+													{/if}
+												</td>
+											</tr>
+										{/loop}
+									{else}
+										<tr>
+											<td colspan="10">
+												没有数据
+											</td>
+										</tr>
+									{/if}
+									</tbody>
+								</table>
+							</div>
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+								<div class="am-fr pagination-total am-margin-right">
+									<div class="am-vertical-align-middle">总记录：{$total}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{else}
+		{template 'template'}
+		<style type="text/css">
+			.input_left_border{
+				width: 8% !important;
+				float: left;
+				border-top-right-radius: 0!important;
+				border-bottom-right-radius: 0!important;
+				border-right: 0!important;
+				text-align: center;
+			}
+			.input_right_border{
+				width: 7% !important;float: left;border-top-left-radius: 0!important;border-bottom-left-radius: 0!important;border-left: 0!important;text-align: center;
+			}
+			.input_right_border_radius{
+				border-top-right-radius: 0!important;
+				border-bottom-right-radius: 0!important;
+				border-right: 0!important;
+			}
+			.input_left_border_radius{
+				border-top-left-radius: 0!important;border-bottom-left-radius: 0!important;border-left: 0!important;
+			}
+			.m5{
+				margin-bottom: 10px;
+			}
+		</style>
+		<div class="tpl-content-wrapper ">
+			<div class="row-content am-cf">
+				<div class="row">
+					<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+						<div class="widget am-cf">
+						<input type="hidden" name="id"value="{php echo $this->createWebUrl('adv',array('op'=>'add'))}" />
+							<form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data" id="beagiaon_from">
+								<input type="hidden" name="id" id="id" value="{$id}" />
+								<input type="hidden" name="b_id" id="b_id" value="{$beagaion['id']}" />
+								<div class="widget-body">
+									<div class="widget-head am-cf">
+										<div class="widget-title am-fl">砍价活动设置</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">商品标题</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type='text' id='' name='' value="{$goods['g_name']}" class='tpl-form-input' readonly="3" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">商品标价</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type='text' id='' name='' value="{$goods['g_price']}" class='tpl-form-input' readonly="" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">设置底价</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type='number' id='end_price' name='end_price' value="{$beagaion['end_price']}" class='tpl-form-input input_left_border' />
+											<input type="text" name="" id="" value="元" readonly="" class="tpl-form-input input_right_border" />
+											<span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">若填0,则代表免费拿</span>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">显示底价 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="2" name="low_price" data-am-ucheck {php echo $beagaion['low_price'] == 2?"checked":''; }>
+												显示
+											</label>
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="1" name="low_price"  data-am-ucheck {php echo $beagaion['low_price'] != 2?"checked":''; }>
+												不显示
+											</label>
+											<br/>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">没到底价 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="1" name="place_order" data-am-ucheck {php echo $beagaion['place_order'] == 1?"checked":'';} {if $beagaion['id']}disabled=""{/if}>
+												可以下单
+											</label>
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="2" name="place_order"  data-am-ucheck {php echo $beagaion['place_order'] != 1?"checked":''; } {if $beagaion['id']}disabled=""{/if}>
+												不可以下单
+											</label>
+											<br/>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">自己砍价 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="1" name="own" data-am-ucheck {php echo $beagaion['own'] == 1?"checked":''; }>
+												禁止
+											</label>
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="2" name="own"  data-am-ucheck {php echo $beagaion['own'] != 1?"checked":''; }>
+												允许
+											</label>
+											<br/>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">活动时间 </label>
+										<div class="am-u-sm-9 am-u-end">
+											{php echo tpl_form_field_daterange('times',$beagaion['times'],true)}
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价时限 </label>
+										<div class="col-sm-9 col-xs-12">
+											<input type='number' id='time_limit' name='time_limit' value="{php echo $beagaion['time_limit'] ? $beagaion['time_limit'] : 1;}" class='tpl-form-input input_left_border' />
+											<input type="text" name="" id="" value="小时" readonly="" class="tpl-form-input input_right_border" />
+											<span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">若填0,则代表当前商品的砍价活动什么时候结束，该砍价结束</span>
+										</div>
+									</div>
+									<!--<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">可砍价总次数 </label>
+										<div class="col-sm-9 col-xs-12">
+											<input type='number' id='total_time' name='total_time' value="{php echo $beagaion['total_time'] ? $beagaion['total_time'] :999;}" class='tpl-form-input input_left_border' />
+											<input type="text" name="" id="" value="次" readonly="" class="tpl-form-input input_right_border" />
+										</div>
+									</div>-->
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">每人可砍次数 </label>
+										<div class="col-sm-9 col-xs-12">
+											<input type='number' id='each_time' name='each_time' value="{php echo $beagaion['each_time']? $beagaion['each_time'] :1;}" class='tpl-form-input input_left_border' />
+											<input type="text" name="" id="" value="次" readonly="" class="tpl-form-input input_right_border" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">活动可发起次数 </label>
+										<div class="col-sm-9 col-xs-12">
+											<input type='number' id='launches' name='launches' value="{php echo $beagaion['launches']? $beagaion['launches'] : 999;}" class='tpl-form-input input_left_border' />
+											<input type="text" name="" id="" value="次" readonly="" class="tpl-form-input input_right_border" />
+											<span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">若填0,则代表不限制次数</span>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">每个用户可发起活动次数 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="1" name="price_cutting_times" data-am-ucheck {php echo $beagaion['price_cutting_times'] == 1 || empty($beagaion['price_cutting_times']) ?"checked":''; }>
+												一次
+											</label>
+											<label class="am-checkbox-inline am-success">
+												<input type="radio"  value="2" name="price_cutting_times"  data-am-ucheck {php echo $beagaion['price_cutting_times'] != 1?"checked":''; }>
+												不限
+											</label>
+											<br/>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价总人数 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type='number' id='total_pople' name='total_pople' value="{php echo isset($beagaion['total_pople']) ? $beagaion['total_pople'] :100;}" class='tpl-form-input input_left_border' />
+											<input type="text" name="" id="" value="人" readonly="" class="tpl-form-input input_right_border" />
+											<span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">若不填或填0，则表示不限参与人数，砍完为止
+若填写参与人数，则参与人数必须大于1；刚好达到参与人数时砍价完成</span>
+											<br/>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价总人数 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<div class="col-sm-9 col-xs-12 m5">
+												<input type="text" name="" id="" value="前" style="width: 10% !important;" readonly="" class="form-control input_left_border" />
+												<input type='number' id='probability' name='probability' value="{$content['probability']}" class='form-control input_left_border input_left_border_radius' />
+												<input type="text" name="" id="" value="人 砍价" readonly="" style="width: 10% !important;" class="form-control input_right_border input_right_border_radius" />
+												<input type='number' id='min_money' name='min_money' value="{$content['min_money']}" class='form-control input_left_border input_left_border_radius'/>
+												<input type="text" name="" id="" value="元 至" readonly="" class="form-control input_right_border input_right_border_radius" />
+												<input type='number' id='max_money' name='max_money' value="{$content['max_money']}" class='form-control input_left_border input_left_border_radius' />
+												<input type="text" name="" id="" value="元" style="width: 10% !important;" readonly="" class="form-control input_right_border input_right_border_radius" />
+											</div>
+											<div class="col-sm-9 col-xs-12 m5">
+												<input type="text" name="" id="" value="剩余 砍价" readonly="" style="width: 10% !important;" class="form-control input_left_border" />
+												<input type='number' id='min_money_surplus' name='min_money_surplus' value="{$content['min_money_surplus']}" class='form-control input_left_border input_left_border_radius'/>
+												<input type="text" name="" id="" value="元 至" readonly="" class="form-control input_right_border input_right_border_radius" />
+												<input type='number' id='max_money_surplus' name='max_money_surplus' value="{$content['max_money_surplus']}" class='form-control input_left_border input_left_border_radius' />
+												<input type="text" name="" id="" value="元" style="width: 10% !important;" readonly="" class="form-control input_right_border input_right_border_radius" />
+											</div>
+											<span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">前N个人砍价波动值，剩余价格波动值</span>
+										</div>
+									</div>
+									<!--<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">每次砍价金额 </label>
+										<div id="proba" class="col-sm-9 col-xs-12" style="padding: 0;">
+											<div class="col-sm-9 col-xs-12 m5" style="color: red">
+												如：如当前用户配置是在金额30元以上可砍1元到2元之间.砍价商品是50元，已砍到30元，根据配置，可砍1-2元之间，那么继续往下砍价，就会砍1-2之间的一个随机数.
+											</div>
+											<div style="clear: both;"></div>
+											{if $content}
+												{loop $content $key $itms}
+													<div class="col-sm-9 col-xs-12 m5">
+														<input type="text" name="" id="" value="当前在金额" style="width: 10% !important;" readonly="" class="form-control input_left_border" />
+														<input type='text' id='probability' name='probability[]' value="{$itms['probability']}" class='form-control input_left_border input_left_border_radius' />
+														<input type="text" name="" id="" value="元 以上 可砍" readonly="" style="width: 10% !important;" class="form-control input_right_border input_right_border_radius" />
+														<input type='text' id='min_money' name='min_money[]' value="{$itms['min_money']}" class='form-control input_left_border input_left_border_radius'/>
+														<input type="text" name="" id="" value="元 至" readonly="" class="form-control input_right_border input_right_border_radius" />
+														<input type='text' id='max_money' name='max_money[]' value="{$itms['max_money']}" class='form-control input_left_border input_left_border_radius' />
+														<input type="text" name="" id="" value="元" style="width: 10% !important;" readonly="" class="form-control input_right_border input_right_border_radius" />
+														{if $key == 0}
+															<span class="input-group-btn wauto" onclick="add()" style="width: auto;">
+									                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+									                        </span>
+								                        {else}
+								                        	<span class="input-group-btn wauto" onclick="del(this)" style="width: auto;">
+									                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+									                        </span>
+								                        {/if}
+													</div>
+												{/loop}
+											{else}
+												<div class="col-sm-9 col-xs-12 m5">
+													<input type="text" name="" id="" value="当前在金额" style="width: 10% !important;" readonly="" class="form-control input_left_border" />
+													<input type='text' id='probability' name='probability[]' value="" class='form-control input_left_border input_left_border_radius' />
+													<input type="text" name="" id="" value="元 以上 可砍" readonly="" style="width: 10% !important;" class="form-control input_right_border input_right_border_radius" />
+													<input type='text' id='min_money' name='min_money[]' value="" class='form-control input_left_border' />
+													<input type="text" name="" id="" value="元 至" readonly="" class="form-control input_right_border input_right_border_radius" />
+													<input type='text' id='max_money' name='max_money[]' value="" class='form-control input_left_border input_left_border_radius' />
+													<input type="text" name="" id="" value="元" style="width: 10% !important;" readonly="" class="form-control input_right_border input_right_border_radius" />
+													<span class="input-group-btn wauto" onclick="add()" style="width: auto;">
+							                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+							                        </span>
+												</div>
+											{/if}
+										</div>
+										<div class="col-sm-9 col-xs-12 m5" style="padding: 0;">
+											
+										</div>
+									</div>-->
+								</div>
+								<input type="hidden" name="token" id="token" value="submit" />
+								<div class="am-am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<button type="button" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a href="javascript:window.history.go(-1);" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
+	{template 'footer'}
+	<script type="text/javascript">
+		function add(){
+			var str = "<div class='col-sm-9 col-xs-12 m5'>";
+				str+= 		"<input type=\"text\" name=\"\" id=\"\" value=\"当前在金额\" style=\"width: 10% !important;\" readonly=\"\" class=\"form-control input_left_border\" />";
+				str+= 		"<input type='text' id='probability' name='probability[]' value=\"\" class='form-control input_left_border input_left_border_radius' />";
+				str+= 		"<input type=\"text\" name=\"\" id=\"\" value=\"元 以上 可砍\" readonly=\"\" style=\"width: 10% !important;\" class=\"form-control input_right_border input_right_border_radius\" />";
+				str+=		"<input type='text' id='min_money' name='min_money[]' value='' class='form-control input_left_border input_left_border_radius' />";
+				str+=		"<input type='text' name='' id='' value='元 至' readonly='' class='form-control input_right_border input_right_border_radius' />";
+				str+=		"<input type='text' id='max_money' name='max_money[]' value='' class='form-control input_left_border input_left_border_radius' />";
+				str+=		"<input type='text' name='' id='' value='元' style='width: 10% !important;' readonly='' class='form-control input_right_border input_right_border_radius' />";
+				str+= 		'<span class="input-group-btn" onclick="del(this)" style="width: auto;">';
+				str+= 			'<button class="btn btn-danger" type="button">';
+				str+= 				'<i class="fa fa-remove"></i>';
+				str+= 			'</button>';
+				str+=		'</span>';
+				str+=	"</div>";
+			$("#proba").append(str);
+		}
+		function del(obj){
+			$(obj).parent().remove();
+		}
+		$("#btn").click(function(res){
+			var data = $('#beagiaon_from').serialize();
+			var end_price = $("#end_price").val() ;
+			if(end_price == '' || end_price < 0 || isNaN(end_price)){
+				layer.msg('请填写底价',{time:2000,icon:2});
+				return false;
+			}
+			$.post("{php echo $this->createWebUrl('index',array('op'=>'add'))}",data,function(res){
+				console.log(res);
+				layer.msg(res.msg,{time:2000,icon:res.code},function(ress){
+					if(res.code == 1){
+						window.location.href = "{php echo $this->createWebUrl('index')}";
+					}
+				});
+			},"JSON");
+		})
+	</script>

@@ -1,0 +1,198 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">用户列表</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form class="toolbar-form" action="./index.php">
+								<input type="hidden" name="c" value="site">
+					            <input type="hidden" name="a" value="entry">
+					            <input type="hidden" name="m" value="group_buy_plugin_fraction">
+								<input type="hidden" name="do" value="member">
+								
+
+								<div class="am-u-sm-12 am-u-md-9  ">
+									<div class="am fr">
+										<div class="am-form-group am-fl zx-form-group">
+											<div class="am-input-group am-input-group-sm tpl-form-border-form">
+												<input type="text" class="am-form-field" name="m_nickname" placeholder="请输入昵称" value="{$from['m_nickname']}">
+												<!-- 边框 -->
+												<div class="zx-border"></div>
+												<!-- 边框结束 -->
+												<div class="am-input-group-btn am-icon-search"></div>
+											</div>
+										</div>
+										<span class="zx-form-span">
+											起始日期：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input type="text" autocomplete="off" name="star_time" class="am-form-field" placeholder="请选择注册起始日期" data-am-datepicker="" value="{$_GPC['star_time']}">
+										</div>
+										<span class="zx-form-span">
+											截止日期：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input type="text" autocomplete="off" name="end_time" class="am-form-field" placeholder="请选择注册截止日期" data-am-datepicker="" value="{$_GPC['end_time']}">
+										</div>
+									</div>
+								</div>
+
+
+								<div class="am-u-sm-12 am-u-md-9  ">
+									<div class="am fr">
+										<span class="zx-form-span" style="margin-left:6px">
+											用户等级：
+										</span>
+										<div class="am-form-group zx-display zx-group">
+											<select name="status" data-am-selected="{btnSize: &#39;sm&#39;, placeholder: &#39;审核状态&#39;}" style="display: none;">
+												<option value=""></option>
+												<option value="0">全部</option>
+												<option value="2" {if $from['status'] == 2}selected=""{/if}>已审核</option>
+												<option value="1" {if $from['status'] == 1}selected=""{/if}>未审核</option>
+											</select>
+										</div>
+										<span class="zx-form-span" style="margin-left: 16px;">
+											用户等级：
+										</span>
+										<div class="am-form-group zx-display zx-group">
+											<select name="level" data-am-selected="{btnSize: &#39;sm&#39;, placeholder: &#39;请选择等级信息&#39;}" style="display: none;">
+												<option value=""></option>
+												<option value="0">全部</option>
+												{loop $level_list $items}
+													<option value="{$items['id']}" {if $from['level'] == $items['id']}selected=""{/if}>{$items['title']}</option>
+												{/loop}
+											</select>
+										</div>
+										 
+									</div>
+								</div>
+								<!-- 订单导出外层Box -->
+								<div class="am-u-sm-12 am-fl">
+									<!-- 订单导出样式 -->
+									<div class="zx-but-box">
+										<a class="j-export" href="javascript:void(0);">
+											<!-- <i class="iconfont icon-daochu am-margin-right-xs"></i> -->
+											用户导出
+										</a>
+									</div>
+									<!-- 查询按钮样式 -->
+									<div class="zx-but-check" style="margin-left:8px;">
+										<button type="submit">
+											查询
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped
+                         tpl-table-black am-text-nowrap">
+								<thead>
+									<tr>
+										<th>用户ID</th>
+										<th>微信头像</th>
+										<th>微信昵称</th>
+										<th>电话</th>
+										<th>剩余积分</th>
+										<th>审核状态</th>
+										<th>会员等级</th>
+										<th>注册时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									{if !empty($info)}
+										{loop $info $item}
+											<tr>
+												<td class="am-text-middle">{$item['m_id']}</td>
+												<td class="am-text-middle">
+													<a href="{$item['m_photo']}" title="点击查看大图" target="_blank">
+														<img src="{$item['m_photo']}" width="72" height="72" alt="">
+													</a>
+												</td>
+												<td class="am-text-middle">{$item['m_nickname']}</td>
+												<td class="am-text-middle">{$item['m_phone']}</td>
+												<td class="am-text-middle">{$item['integral']}</td>
+												<td class="am-text-middle">{php echo $item['status'] == 1 ? '未审核' : '已审核' }</td>
+												<td class="am-text-middle">{php echo $this->level($item['level_id'])}</td>
+												<td class="am-text-middle">{php echo date('Y-m-d H:i',$item['m_add_time'])}</td>
+												<td class="am-text-middle">
+													<div class="tpl-table-black-operation">
+														<a href="{php echo $this->createWebUrl('member',array('op'=>'save','id'=>$item['m_id']))}">
+															<!-- <i class="am-icon-pencil"></i>  -->
+															编辑
+														</a>
+														<a href="javascript:;" class="item-delete tpl-table-black-operation-del" data-id="{$item['m_id']}">
+															<!-- <i class="am-icon-trash"></i>  -->
+															删除
+														</a>
+														<a href="{php echo $this->createWebUrl('member',array('op'=>'details','id'=>$item['m_id']))}">
+															<!-- <i class="am-icon-info"></i> -->
+															 流水
+														</a>
+														<a href="javascript:;" class="item-deletes tpl-table-black-operation-del" data-id="{$item['m_id']}" >
+															<!-- <i class="am-icon-info"></i>  -->
+															下载流水
+														</a>
+													</div>
+												</td>
+											</tr>
+										{/loop}
+									{else}
+										<tr><td colspan="10" style="text-align: center;">暂无数据</td></tr>
+									{/if}
+								</tbody>
+							</table>
+						</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			// 删除元素
+			$('.item-delete').click(function(){
+				var id = $(this).data('id');
+				layer.confirm('一但删除将无法恢复，确定删除吗？', {
+					title: '友情提示'
+				}, function(index) {
+					$.post("{php echo $this->createWebUrl('member',array('op'=>'member_delete'))}", {
+						id: id,
+					}, function(result) {
+						result.code === 0 ? layer.msg(result.msg, {icon: 1}) :layer.msg(result.msg, {icon: 2});
+						location.reload();
+					},"JSON");
+				})
+			})
+			$('.j-export').click(function(){
+				var star_time = $("input[name='star_time']").val();
+				var end_time = $("input[name='end_time']").val();
+				var status = $("select[name='status']").val();
+				var m_nickname = $("input[name='m_nickname']").val();
+				window.location = "{php echo $this->createWebUrl('member',array('op'=>'export'))}&status="+status+"&star_time="+star_time+"&end_time="+end_time+"&m_nickname="+m_nickname;
+			})
+			$('.item-deletes').click(function(){
+				var id = $(this).data('id');
+				window.location = "{php echo $this->createWebUrl('member',array('op'=>'lis'))}&id="+id;
+			})
+		});
+	</script>
+
+</div>
+<!-- 内容区域 end -->
+template 'footer'}

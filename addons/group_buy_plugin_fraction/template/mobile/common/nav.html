@@ -1,0 +1,19 @@
+
+<div class="btm_nav">
+	<a href="{php echo $this->createMobileUrl('index')}" {if $_GPC['do'] == 'index'} class="cur"{/if}>
+		<div class="icon i01"></div>
+		<div class="txt">首页</div>
+	</a>
+	<a href="{php echo $this->createMobileUrl('goods')}" {if $_GPC['do'] == 'goods'} class="cur"{/if}>
+		<div class="icon i02"></div>
+		<div class="txt">全部商品</div>
+	</a>
+	<!--<a href="{php echo $this->createMobileUrl('login')}" {if $_GPC['do'] == 'login'} class="cur"{/if}>
+		<div class="icon i04"></div>
+		<div class="txt">登录</div>
+	</a>-->
+	<a href="{php echo $this->createMobileUrl('user')}" {if $_GPC['do'] == 'user'} class="cur"{/if}>
+		<div class="icon i04"></div>
+		<div class="txt">我的</div>
+	</a>
+</div>

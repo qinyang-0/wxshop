@@ -1,0 +1,322 @@
+{template 'header'}
+{template 'template'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	.input-group-btn{
+		display: inline-block;
+	}
+	.times-goods-input{
+		width: 300px !important;
+		display: inline-block !important;
+	}
+	#table-times-goods .btn{
+		line-height: 28px ;
+	}
+	#table-times-goods th,td{
+		padding: 5px;
+		overflow: hidden;
+	}
+	#table-times-goods td table td{
+		padding: 5px;
+		overflow: hidden;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('room',array('op'=>'add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<input type="hidden" name="taskid" id="taskid" value="{$taskid}" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">会场信息</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">会场名称 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text'  name='title' value="{$info['title']}" class='tpl-form-input'/>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">标签 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text'  name='tag' value="{$info['tag']}" class='tpl-form-input'/>
+										<span class="color-9">显示在首页橱窗头部，和商品详情页面，如果不填写默认为专题的标签</span>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">过期抢购 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline am-success" >
+											<input name="oldshow" type="radio" value="1" data-am-ucheck  {if $info['oldshow']!=0}checked{/if}>
+											允许
+										</label>
+										<label class="am-radio-inline am-success">
+											<input name="oldshow" type="radio"  value="0" data-am-ucheck {if $info['oldshow']==0}checked{/if}>
+											不允许
+										</label>
+										<br/>
+										<span class="color-9">是否允许已经过期的时间段继续抢购</span>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">状态 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline am-success" >
+											<input name="enabled" type="radio" value="1" data-am-ucheck  {if $info['enabled']!=0}checked{/if}>
+											启用
+										</label>
+										<label class="am-radio-inline am-success">
+											<input name="enabled" type="radio"  value="0" data-am-ucheck {if $info['enabled']==0}checked{/if}>
+											禁用
+										</label>
+										<br/>
+										<span class="color-9">设置禁用，不出现在秒杀专题中</span>
+									</div>
+								</div>
+
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label"> </label>
+									<div class="am-u-sm-9 am-u-end">
+										<div style="width: 600px;">
+											<div class="am-fl">
+												时间段及商品
+												<span class="text-danger" style="line-height: 30px;">选择时间段后设置商品</span>
+											</div>
+											<div class="am-fr" style="display: flex;align-items: center;justify-content: space-between;">
+												<select style="width: 150px;" id="select-times">
+													{loop $times $time}
+													<option value="{$time['time']}">{$time['time']}点</option>
+													{/loop}
+												</select>
+												<span class="btn btn-warning btn-xs" id="add-times-goods" style="line-height: 30px;">
+												添加时间段
+												</span>
+											</div>
+										</div>
+										<div class="timeopen-div">
+											{php $count =0;}
+											{loop $times $time}
+											{if !empty($time['goods'])}
+											<input  type="hidden" name="timeopen[{$time['time']}]" value="1">
+											{php $count++;}
+											{/if}
+											{/loop}
+										</div>
+
+										<div style="clear: both;width: 600px;">
+											<table id="table-times-goods" style="{if $count<=0}display: none{/if}" class="am-table am-table-compact am-table-striped  am-text-nowrap">
+												<thead>
+												<tr>
+													<th>时间</th>
+													<th>商品信息</th>
+													<th>操作</th>
+												</tr>
+												</thead>
+												<tbody>
+												{loop $times $time}
+												{if !empty($time['goods'])}
+												<tr>
+													<th>{$time['time']}点</th>
+													<th>
+														<input type='text' style='display: inline-block;width: 300px;' class='times-goods-input{$time["time"]}' readonly t='{$time["time"]}' value='<?php foreach($time['goods'] as $val){echo $val['g_name'].';';}?>' name='goodsid_{$time["time"]}_text'/><span class='btn btn-xs btn-info select-goods' t='{$time["time"]}'>选择商品</span>
+													</th>
+													<th>
+														<span class='del-goods btn btn-xs btn-danger' t='{$time["time"]}'>删除</span>
+													</th>
+												</tr>
+												<tr>
+													<td></td>
+													<td>
+														<table class='am-table am-table-compact am-table-striped am-text-nowrap table-times-goods{$time["time"]}'>
+															<tr>
+																<td>商品名称</td>
+																<td>价格/分销佣金</td>
+																<td>操作</td>
+															</tr>
+															{loop $time['goods'] $v}
+															<tr>
+																<td width='250'>
+																	<img src='{php echo tomedia($v["g_icon"])}' width='25'>
+																	<span class='title' style='max-width:300px;display:inline-block;overflow: hidden;'>{$v["g_name"]}</span>
+																</td>
+																<td>
+																	{if $v["packageprice"]>0}
+																	<span class='btn btn-xs btn-default set-time-goods' data-id='{$v["goodsid"]}' t='{$time["time"]}'>
+																		&yen;{$v["packageprice"]}/&yen;{$v["commission1"]}
+																		</span>
+																		{else}
+																	<span class='btn btn-xs btn-info set-time-goods' data-id='{$v["goodsid"]}' t='{$time["time"]}'>
+
+																		设置
+
+																	</span>
+																	{/if}
+																</td>
+																<td>
+																	<span class='btn btn-xs btn-danger del-time-goods' data-id='{$v["goodsid"]}'>删除</span>
+																	<input type='hidden'  name='ishave{$v["goodsid"]}-{$time["time"]}' value='{$v["goodsid"]}-{$time["time"]}'>
+																</td>
+																{if is_array($v['optiontitle']) }
+																{loop $v['optiontitle']  $it}
+																<input type='hidden' name='time-{$time["time"]}packagegoodsoption{$it["optionid"]}' value='{$it["packageprice"]},{$it["commission1"]},0,0,{$it["total"]},{$it["maxbuy"]},{$it["maxbuy"]}'/>
+																{/loop}
+																{else}
+																<input type='hidden' name='time-{$time["time"]}packgoods{$v["goodsid"]}' value='{$v["packageprice"]},{$v["commission1"]},0,0,{$v["total"]},{$v["maxbuy"]},{$v["maxbuy"]}'/>
+																{/if}
+																<input type='hidden' name='time-{$time["time"]}packagegoods[{$v["goodsid"]}]' value='{$v["option"]}'/>
+															</tr>
+															{/loop}
+														</table>
+													</td>
+													<td></td>
+												</tr>
+												{/if}
+												{/loop}
+												</tbody>
+											</table>
+
+										</div>
+									</div>
+								</div>
+
+
+								<!--<div class="widget-head am-cf">-->
+									<!--<div class="widget-title am-fl">分享及标题设置</div>-->
+								<!--</div>-->
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label ">会场页面标题 </label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--<input type='text'  name='page_title' value="{$info['page_title']}" class='tpl-form-input'/>-->
+										<!--<span class="color-9">会场的页面标题 ,默认为 会场名称</span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label">会场分享标题 </label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--<input type='text'  name='share_title' value="{$info['share_title']}" class='tpl-form-input'/>-->
+										<!--<span class="color-9">如果不填写，默认为会场页面标题</span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label">分享图标</label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--{php /*echo tpl_form_field_image('share_icon',$info['share_icon']?$info['share_icon']:"");*/ }-->
+										<!--<span class="color-9"></span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label">分享描述 </label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--<textarea name="share_desc" rows="4" style="width: 460px;" placeholder="分享描述">{$info['share_desc']}</textarea>-->
+										<!--<span class="color-9"></span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+
+
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<button type="submit" class="j-submit zx-addBut" name="submit" id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a href="{php echo $this->createWebUrl('room',array('op'=>'index','taskid'=>$taskid))}" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'footer'}
+<script>
+    $('#btn').click(function(){
+        var title = $.trim($("input[name='title']").val());
+
+        if(title == '' || title == undefined){
+            layer.msg("请输入专题名称");
+            $("input[name='title']").focus();
+            return false;
+        }
+
+    })
+	//选择时间段后生成表格
+	$(document).on('click','#add-times-goods',function () {
+        var now_time = $('#select-times').val();
+
+        if($("input[name='timeopen["+now_time+"]']").val() !=undefined){
+
+            return false;
+		}
+		$("#table-times-goods").show();
+		var str = "<tr><th>"+now_time+"点</th><th><input type='text' style='display: inline-block;width: 300px;' class='times-goods-input"+now_time+"' readonly t='"+now_time+"' value='' name='goodsid_"+now_time+"_text'/><span class='btn btn-xs btn-info select-goods' t='"+now_time+"'>选择商品</span></th><th><span class='del-goods btn btn-xs btn-danger' t='"+now_time+"'>删除</span></th></tr><tr><td></td><td><table class='am-table am-table-compact am-table-striped am-text-nowrap table-times-goods"+now_time+"'><tr><td>商品名称</td><td>价格/分销佣金</td><td>操作</td></tr></table></td><td></td></tr>";
+
+		$('#table-times-goods > tbody').append(str);
+		$(".timeopen-div").append('<input type="hidden" name="timeopen['+now_time+']" value="1" />');
+
+    });
+    //选择商品点击后
+    $(document).on('click','.select-goods',function () {
+		var time = $(this).attr('t');
+        layer.open({
+            title:'选择商品',
+            type: 2,
+            area: ['750px', '500px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{php echo $this->createWebUrl('room',array('op'=>'get_goods'))}&time="+time
+        });
+	});
+	//点击设置商品价格后
+    $(document).on('click','.set-time-goods',function () {
+        var id = $(this).attr('data-id');
+        var time = $(this).attr('t');
+        var pid = 0;
+        layer.open({
+            title:'设置商品',
+            type: 2,
+            area: ['750px', '500px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{php echo $this->createWebUrl('room',array('op'=>'get_goods_option'))}&goodsid="+id+"&pid="+pid+"&time="+time
+        });
+    });
+    //删除商品项
+	$(document).on('click','.del-time-goods',function () {
+		$(this).parent('td').parent('tr').remove();
+    });
+	//删除时间段
+	$(document).on('click','.del-goods',function () {
+        var t = $(this).attr('t');
+        $(this).parent('th').parent('tr').next('tr').remove();
+        $(this).parent('th').parent('tr').remove();
+
+        $("input[name='timeopen["+t+"]']").remove();
+    })
+
+</script>

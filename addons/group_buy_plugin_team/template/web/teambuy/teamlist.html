@@ -1,0 +1,194 @@
+{template 'header'}
+
+{template 'template'}
+<style>
+    #check_layer,#check_layer_step2,#change_money_layer{
+
+        display: none;
+    }
+    .check_list{
+        text-align: center;
+    }
+    .check_list li{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .am-tabs-d2 .am-tabs-nav{
+        background: #fff;
+        border-bottom: 1px solid #eef1f5;
+    }
+    .am-tabs-nav{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .am-tabs .am-tabs-nav li{
+        width: 120px;
+        line-height: 40px;
+        height: 40px;
+        padding: 0;
+    }
+    .am-tabs .am-tabs-nav li a{
+        width: 120px;
+        line-height: 40px;
+        height: 40px;
+        padding: 0;
+        display: block;
+        margin: 0;
+        text-align: center;
+        background: #fff;
+    }
+    .am-tabs-d2 .am-tabs-nav>.am-active {
+        position: relative;
+        background-color: #fcfcfc;
+        border-bottom: 2px solid #22c397;
+    }
+    .am-tabs-d2 .am-tabs-nav>.am-active a{
+        color: #22c397;
+    }
+    .am-tabs-d2 .am-tabs-nav>.am-active:after{
+        border-bottom-color: #22c397;
+    }
+    /*微擎底层时间插件样式*/
+    .daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect{
+        width: auto;
+        padding-right: 40px;
+    }
+</style>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-cf">拼团管理</div>
+                    </div>
+                    <div  class="am-tabs am-tabs-d2">
+                        <ul class="am-tabs-nav am-cf">
+                            <li class="{if empty($_GPC['state'])}am-active{/if}"><a href="{php echo $this->createWebUrl('teaminfo')}">全部</a></li>
+                            <li class="{if intval($_GPC['state'])==2}am-active{/if}"><a href="{php echo $this->createWebUrl('teaminfo',array('state'=>2))}">进行中</a></li>
+                            <li class="{if intval($_GPC['state'])===-1}am-active{/if}"><a href="{php echo $this->createWebUrl('teaminfo',array('state'=>-1))}">拼团失败</a></li>
+                            <li class="{if intval($_GPC['state'])==10}am-active{/if}"><a href="{php echo $this->createWebUrl('teaminfo',array('state'=>10))}">拼团成功</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget-body am-fr">
+                        <!-- 工具栏 -->
+                        <div class="widget-body am-fr">
+                            <!-- 工具栏 -->
+                            <div class="page_toolbar am-margin-bottom-xs am-cf">
+                                <form action="index.php" method="get" class="form-horizontal" role="form" id="search_form">
+                                    <input type="hidden" name="c" value="site"/>
+                                    <input type="hidden" name="a" value="entry"/>
+                                    <input type="hidden" name="m" value="group_buy_plugin_team"/>
+                                    <input type="hidden" name="do" value="teaminfo"/>
+                                    <input type="hidden" name="op" value="list"/>
+                                    <div class="am-u-sm-12 ">
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group" style="width: 90px;">
+                                            <select name="state" data-am-selected="{searchBox: 1, btnSize: 'sm',placeholder:'请选择状态', maxHeight: 400}" style="display: none;">
+                                                <option value="all">全部</option>
+                                                <option value="2" {if intval($_GPC['state'])==2}selected{/if}>进行中</option>
+                                                <option value="-1" {if intval($_GPC['state'])===-1}selected{/if}>拼团失败</option>
+                                                <option value="10" {if intval($_GPC['state'])==10}selected{/if}>拼团成功</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group" style="width: 265px">
+                                            {php echo tpl_form_field_daterange('time', array('start'=> empty($_GPC['time']['start'])?date('Y-m-d',(time()-1*24*60*60)):$_GPC['time']['start'],'end'=> empty($_GPC['time']['end'])?date('Y-m-d',time()):$_GPC['time']['end']),false);}
+                                        </div>
+
+
+                                        <div class="zx-but-check">
+                                            <button type="submit" >
+                                                <i class="fa fa-search"></i> 查询
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        <div class="page_toolbar am-margin-bottom-xs am-cf">
+                            <form action="javascript:;" method="get" class="form-horizontal" role="form" id="form1">
+
+                                <div class="am-scrollable-horizontal am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+                                        <thead class="navbar-inner">
+                                        <tr>
+                                            <th style="width:120px;">商品标题</th>
+                                            <th>拼团类型</th>
+                                            <th style="width:90px;">开团用户</th>
+                                            <th>拼团价</th>
+                                            <th>开启拼团时间</th>
+                                            <th>结束时间</th>
+                                            <th>当前人数</th>
+                                            <th>成团人数</th>
+                                            <th style="width:80px;">当前状态</th>
+                                            <!--<th style="width:160px;">操作</th>-->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {if !empty($list)}
+                                        {loop $list $k $v}
+                                        <tr>
+                                            <td>
+                                                <img width="50px" src="{$_W['attachurl']}{$v['goods_image']}" />
+                                                {$v['goods_titile']}
+                                            </td>
+                                            <td>
+                                                {php echo $v['is_ladder']==1?'阶梯团':'普通团'}
+                                            </td>
+                                            <td>
+                                                <img src="{$v['m_photo']}" width="50" style="border-radius: 50%;" />
+                                                {php echo getusernickname($v['m_nickname']);}
+                                            </td>
+                                            <td>
+                                                {$v['price']}元
+                                            </td>
+                                            <td>
+                                                {php echo date('Y-m-d H:i:s',$v['ctime'])}
+                                            </td>
+                                            <td>
+                                                {php echo date('Y-m-d H:i:s',$v['end_time'])}
+                                            </td>
+                                            <td>
+                                                {$v['now_num']}人
+                                            </td>
+                                            <td>
+                                                {$v['all_num']}人
+                                            </td>
+                                            <td>
+                                                {php echo $v['state']==2?'<span class="btn btn-info btn-xs">拼团中</span>':($v['state']==-1?'<span class="btn btn-waring btn-xs">拼团失败</span>':'<span class="btn btn-success btn-xs">拼团成功</span>')}
+                                            </td>
+                                        </tr>
+                                        {/loop}
+                                        {else}
+                                        <tr>
+                                            <td colspan="999">
+                                                暂无数据
+                                            </td>
+                                        </tr>
+                                        {/if}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+                                    <div class="am-fr" style="float: left;">
+                                        <a class="zx-addBut" href="javascript:window.history.go(-1) ;">返回</a>
+                                    </div>
+
+                                    {$pager}
+                                    <div class="am-fr pagination-total am-margin-right">
+                                        <div class="am-vertical-align-middle">总记录：{$total}</div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+    {template 'footer'}

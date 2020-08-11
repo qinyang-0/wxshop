@@ -1,0 +1,160 @@
+<div class="temp_item temp_item_space"  >
+	<div class="frm_control_group">
+		<label for="" class="frm_label">卡片内容</label>
+		<div class="frm_controls msg">
+			<span class="frm_textarea_box textarea_60px" style="height: 100px;">
+				<textarea style="height: 100px;" name="content" class="frm_textarea" rows="6" placeholder="" ng-model="item.params.content" ></textarea>
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">卡片边距</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="100" value="{{item.params.margin}}" name="margin"></li>
+			<span class="my_slider_notice">{{item.params.margin}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">文字尺寸</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.fontsize}}" name="fontsize"></li>
+			<span class="my_slider_notice">{{item.params.fontsize}} 像素</span>
+		</div>
+	</div>
+	
+	<div class="frm_control_group" > 
+	  	<label for="" class="frm_label">卡片头部</label> 
+	   	<div class="frm_controls"> 
+	   		<label class="frm_radio_label "  ng-click="item.params.ishead = 0"> 
+	   			<i class="icon_radio"></i> 
+	   			<span class="lbl_content">不显示</span>
+	   			<input type="radio" name="ishead" value="0" on-selected class="frm_radio"  ng-model="item.params.ishead" /> 
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="item.params.ishead = 1">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">显示</span>
+	   			<input type="radio" name="ishead" value="1" on-selected  class="frm_radio"  ng-model="item.params.ishead"  /> 
+	   		</label>
+	   	</div>
+	</div>
+	<div ng-show="item.params.ishead == 1">	
+		<div class="frm_control_group" > 
+		  	<label for="" class="frm_label">文字位置</label> 
+		   	<div class="frm_controls"> 
+		   		<label class="frm_radio_label "  ng-click="item.params.headalign = 'left'"> 
+		   			<i class="icon_radio"></i> 
+		   			<span class="lbl_content">左边</span>
+		   			<input type="radio" name="headalign" value="left" on-selected class="frm_radio"  ng-model="item.params.headalign" /> 
+		   		</label>
+		   		<label class="frm_radio_label " ng-click="item.params.headalign = 'center'">
+		   			<i class="icon_radio"></i>
+		   			<span class="lbl_content">中间</span>
+		   			<input type="radio" name="headalign" value="center" on-selected  class="frm_radio"  ng-model="item.params.headalign"  /> 
+		   		</label>
+		   		<label class="frm_radio_label " ng-click="item.params.headalign = 'right'">
+		   			<i class="icon_radio"></i>
+		   			<span class="lbl_content">右边</span>
+		   			<input type="radio" name="headalign" value="right" on-selected  class="frm_radio"  ng-model="item.params.headalign"  /> 
+		   		</label>		   		
+		   	</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">头部文字</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_400">
+					<input type="text" class="frm_input" ng-model="item.params.headcontent">
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">头部尺寸</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.headsize}}" name="headsize"></li>
+				<span class="my_slider_notice">{{item.params.headsize}} 像素</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">头部颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.headcolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.headcolor" />
+				</span>
+			</div>
+		</div>
+
+	</div>
+
+
+	<div class="frm_control_group" > 
+	  	<label for="" class="frm_label">卡片尾部</label> 
+	   	<div class="frm_controls"> 
+	   		<label class="frm_radio_label "  ng-click="item.params.isbot = 0"> 
+	   			<i class="icon_radio"></i> 
+	   			<span class="lbl_content">不显示</span>
+	   			<input type="radio" name="isbot" value="0" on-selected class="frm_radio"  ng-model="item.params.isbot" /> 
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="item.params.isbot = 1">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">显示</span>
+	   			<input type="radio" name="isbot" value="1" on-selected  class="frm_radio"  ng-model="item.params.isbot"  /> 
+	   		</label>
+	   	</div>
+	</div>
+	<div ng-show="item.params.isbot == 1">
+		<div class="frm_control_group" > 
+		  	<label for="" class="frm_label">文字位置</label> 
+		   	<div class="frm_controls"> 
+		   		<label class="frm_radio_label "  ng-click="item.params.botalign = 'left'"> 
+		   			<i class="icon_radio"></i> 
+		   			<span class="lbl_content">左边</span>
+		   			<input type="radio" name="botalign" value="left" on-selected class="frm_radio"  ng-model="item.params.botalign" /> 
+		   		</label>
+		   		<label class="frm_radio_label " ng-click="item.params.botalign = 'center'">
+		   			<i class="icon_radio"></i>
+		   			<span class="lbl_content">中间</span>
+		   			<input type="radio" name="botalign" value="center" on-selected  class="frm_radio"  ng-model="item.params.botalign"  /> 
+		   		</label>
+		   		<label class="frm_radio_label " ng-click="item.params.botalign = 'right'">
+		   			<i class="icon_radio"></i>
+		   			<span class="lbl_content">右边</span>
+		   			<input type="radio" name="botalign" value="right" on-selected  class="frm_radio"  ng-model="item.params.botalign"  /> 
+		   		</label>		   		
+		   	</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">尾部文字</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_400">
+					<input type="text" class="frm_input" ng-model="item.params.botcontent">
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">尾部尺寸</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.botsize}}" name="botsize"></li>
+				<span class="my_slider_notice">{{item.params.botsize}} 像素</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">尾部颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.botcolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.botcolor" />
+				</span>
+			</div>
+		</div>
+
+	</div>
+	<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">
+		<i class="icon20_commons add_grays"></i> 
+	</a>
+
+</div>
+

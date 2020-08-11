@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<style>
+    .am-tabs .am-tabs-nav li a{
+        padding: 0.5em 0.5em;
+    }
+</style>
+<body style="background: #fff;">
+<div class="widget am-cf">
+    <div class="am-tabs" id="doc-my-tabs">
+        <div class="am-tabs-bd">
+            <div class="am-tab-panel am-active" style="min-height: 300px;overflow: scroll;">
+                <!--页面-->
+                <select data-am-selected="" class="tpl-form-input" id="member_link_page" >
+                    <option value="" data-val="">请选择...</option>
+                    {loop $options $item}
+                    <option value="{$item['gc_id']}" data-val="{$item['gc_name']}">{$item['gc_name']}</option>
+                    {/loop}
+                </select>
+            </div>
+    </div>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+        <div style="margin-left: 20px;">
+            数据来源&nbsp;&nbsp;<span id ="reslut"></span> <span class="btn btn-success sure-click" style="float: right">确定</span>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    $(function() {
+        // $('#doc-my-tabs').tabs();
+    })
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    //用户中心菜单栏链接
+    $(document).on("change","#member_link_page",function () {
+        $("#reslut").html($("#member_link_page").children("option:selected").attr("data-val"));
+        var types = $("#member_link_page").children("option:selected").attr("data-type");
+        if(types == undefined || types == ''){
+        	types = 'url';
+        }
+        parent.$("#ifrname_name").val($("#member_link_page").children("option:selected").attr("data-val"));
+        parent.$("#ifrname_url").val($("#member_link_page").children("option:selected").val());
+    });
+    $(document).on("click",".sure-click",function () {
+        parent.layer.close(index);
+    });
+</script>

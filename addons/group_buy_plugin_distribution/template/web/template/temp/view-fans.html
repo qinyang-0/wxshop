@@ -1,0 +1,35 @@
+<style type="text/css">
+	.words{
+		width:50px;
+		padding:5px;
+		text-align:center;
+		display:inline-block;
+		vertical-align:top;
+		height:50px;
+		line-height:20px;
+	}
+	.img{
+		float: left;margin-left: 11px;
+	}
+	.img-left{
+		float: left;margin: auto;width: 30px;height: 30px;margin-top: 5px;position: relative;margin-left: -11px;
+	}
+	.img-left img{
+		width: 100%;border-radius: 50%;border:1px solid;
+	}
+</style>
+<div class="temp_item temp_item_title" ng-style="{'padding':item.params.padding+'px','background':item.params.bgcolor}">
+	<div class="item_cell_box" style="align-items: center;">
+		<div class="temp_title_limg">
+			<div class="words" ng-style="{'font-size':item.params.size+'px','background':item.params.btncolor,'color':item.params.btn_color,'border-radius':item.params.btnrdeis+'px'}">{{item.params.wods}}</div>
+		</div>
+		<div class="img">
+			<div class="img-left" ng-repeat=" items in item.params.img">
+				<img src="{{items.img}}" alt="" ng-style="{'z-index':index,'border-color':item.params.img_redios}" />
+			</div>
+		</div>
+		<div style="float: right;width: 35%;text-align: right;">
+			<span ng-style="{'color':item.params.right_color}">等360人围观</span>
+		</div>
+	</div>
+</div>

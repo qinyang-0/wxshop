@@ -1,0 +1,69 @@
+{template 'header'}
+{template 'template'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #23c397;
+	    color: #fff;
+	}
+</style>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form id="my-form" action="{php echo $this->createWebUrl('diy',array('op'=>'add'))}" class="am-form tpl-form-line-form" method="post" novalidate="novalidate">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<div class="widget-body">
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">{if empty($info)}新增{else}编辑{/if}模板</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">标题 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' id='name' name='name' value="{$info['name']}" class='form-control' />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">排序 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text'  name='store' value="{$info['store']}" class='form-control' />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">模版封面 </label>
+									<div class="am-u-sm-9 am-u-end zx-sendNotice">
+										{php echo tpl_form_field_image('img',$info['img']);}
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">是否启用 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<div class="btn-group" data-toggle="buttons">		
+											<label class="btn btn-default {if $info['isact'] == 1 || empty($info['isact'])}active{/if}">
+												<input type="radio" name="isact" value="1" {if $info['isact'] == 1 || empty($info['isact'])}checked="checked"{/if}>启用
+											</label>
+											<label class="btn btn-default  {if $info['isact'] == -1}active{/if}  ">
+												<input type="radio" name="isact" value="-1" {if $info['isact'] == -1}checked="checked"{/if}>禁用
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="submit" name="submit" id="btn" value="提交" class="j-submit zx-addBut" />
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 内容区域 end -->
+{template 'footer'}

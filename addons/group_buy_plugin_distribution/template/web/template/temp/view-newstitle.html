@@ -1,0 +1,9 @@
+<div class="temp_item temp_item_news" ng-style="{'padding':item.params.padding+'px','background':item.params.bgcolor}">
+	<div class="temp_news_title" ng-style="{'font-size':item.params.size+'px','color':item.params.color}">
+		{{item.params.content}}
+	</div>
+	<div class="temp_news_time" ng-style="{'color':item.params.color2}">
+		<span ng-if="item.params.author" style="margin-right: 10px;">{{item.params.author}}</span>
+		<span >{{item.params.time}}</span>
+	</div>
+</div>

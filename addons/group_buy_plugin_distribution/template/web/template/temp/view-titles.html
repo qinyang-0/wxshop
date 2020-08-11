@@ -1,0 +1,19 @@
+<div class="temp_item temp_item_title" ng-style="{'padding':item.params.paddingv+'px '+item.params.paddingh+'px','background':item.params.bgcolor}">
+	
+	<div class="item_cell_box" style="align-items: center;" data-id="1">
+		<div class="temp_title_limg" ng-show="item.params.lefticon == 1">
+			<img ng-style="{'width':item.params.lwidth+'px'}" ng-src="{{item.params.leftimg}}">
+		</div>
+		
+		<div class="item_cell_flex" ng-style="{'text-align':item.params.pos,'font-size':item.params.size+'px','color':item.params.color}">
+			<div class="w80">
+				{{item.params.content}} 
+			  <span ng-style="{'text-align':item.params.pos,'font-size':item.params.right_size+'px','color':item.params.right_color}">{{item.params.right_content}}</span>
+			</div>		
+		<div class="flr" ng-style="{'font-size':item.params.text_size+'px','color':item.params.text_color}">{{item.params.text_content}}</div>
+		</div>
+		<!--<div class="temp_title_rimg" ng-show="item.params.righticon">
+			<img ng-style="{'width':item.params.rwidth+'px'}" ng-src="{{item.params.rightimg}}">
+		</div>-->
+	</div>
+</div>

@@ -1,0 +1,152 @@
+<div class="">
+
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">标题模块</div>
+	</div>
+	<div class="widget am-cf">
+<div class="temp_item temp_item_space"  >
+	<div class="frm_control_group">
+		<label for="" class="frm_label">上下边距</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="100" value="{{item.params.paddingv}}" name="paddingv"></li>
+			<span class="my_slider_notice">{{item.params.paddingv}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">左右边距</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="100" value="{{item.params.paddingh}}" name="paddingh"></li>
+			<span class="my_slider_notice">{{item.params.paddingh}} 像素</span>
+		</div>
+	</div>	
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">标题内容</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_300">
+				<input type="text" class="frm_input" ng-model="item.params.content" ng-trim="false">
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">标题位置</label>
+		<div class="frm_controls">
+			<label class="frm_radio_label" ng-click="item.params.types = 1">
+	   			<i class="icon_radio"></i> 
+	   			<span class="lbl_content">居左</span>
+	   			<input type="radio" name="types" value="1" on-selected class="frm_radio"  ng-model="item.params.types" /> 
+	   		</label>
+	   		<label class="frm_radio_label" ng-click="item.params.types = 2">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">居中</span>
+	   			<input type="radio" name="types" value="2" on-selected  class="frm_radio"  ng-model="item.params.types"  /> 
+	   		</label>
+	   		<label class="frm_radio_label" ng-click="item.params.types = 3">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">居右</span>
+	   			<input type="radio" name="types" value="3" on-selected  class="frm_radio"  ng-model="item.params.types"  /> 
+	   		</label>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">副标题内容</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_300">
+				<input type="text" class="frm_input" ng-trim="false" ng-model="item.params.right_content">
+			</span>
+		</div>
+	</div>
+	<!--<div class="frm_control_group">
+		<label for="" class="frm_label">右边内容</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_300">
+				<input type="text" class="frm_input" ng-trim="false" ng-model="item.params.text_content">
+			</span>
+		</div>
+	</div>-->
+	<div class="frm_control_group">
+		<label for="" class="frm_label">标题尺寸</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.size}}" name="size"></li>
+			<span class="my_slider_notice">{{item.params.size}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">副标题尺寸</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.right_size}}" name="right_size"></li>
+			<span class="my_slider_notice">{{item.params.right_size}} 像素</span>
+		</div>
+	</div>
+	<!--<div class="frm_control_group">
+		<label for="" class="frm_label">右边标题尺寸</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.text_size}}" name="text_size"></li>
+			<span class="my_slider_notice">{{item.params.text_size}} 像素</span>
+		</div>
+	</div>	-->
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">标题颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.color" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.color" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">副标题颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.right_color" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.right_color" />
+			</span>
+		</div>
+	</div>
+	<!--<div class="frm_control_group" >
+		<label for="" class="frm_label">右边标题颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.text_color" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.text_color" />
+			</span>
+		</div>
+	</div>-->
+
+	<div class="frm_control_group" >
+		<div class="am-u-md-3" style="display: flex;align-items: center;justify-content: space-around;height: 70px;">
+			<span>链接:</span>
+		</div>
+		<div class="am-u-md-9" style="display: flex;align-items: center;justify-content: space-around;height: 70px;">
+
+			<span style="border: 1px solid #ccc;padding: 5px 10px;border: 1px solid #ccc;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;" class="showLink{{item.id}}1" ng-click="showLink(item.id,1)">
+							<i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;<span class="link-select" >{{item.params.url_name?item.params.url_name:'请选择链接页面'}}</span><input type="hidden" class="link-select-val" value=""/>
+						</span>
+
+		</div>
+	</div>
+
+	<br>
+	<a class="" href="javascript:;" ng-mousedown="delItem(item.id,$event)" style="display: flex;align-items: center;">
+		<i class="icon20_commons add_grays"></i> 删除
+	</a>
+
+</div>
+	</div>
+</div>

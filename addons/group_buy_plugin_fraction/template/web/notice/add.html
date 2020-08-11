@@ -1,0 +1,82 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form id="my-form" action="{php echo $this->createWeburl('goods',array('op'=>'class','in'=>'add'))}" class="am-form tpl-form-line-form" method="post" novalidate="novalidate">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<div class="widget-body">
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">消息发送</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">接受用户等级 </label>
+									<div class="am-u-sm-9 am-u-end zx-sendNotice">
+										<select name="level" data-am-selected="{btnSize: &#39;sm&#39;, placeholder: &#39;请选择等级信息&#39;}" style="display: none;">
+											<option value=""></option>
+											<option value="0">全部</option>
+											{loop $level_list $items}
+												<option value="{$items['id']}" {if $from['level'] == $items['id']}selected=""{/if}>{$items['title']}</option>
+											{/loop}
+										</select>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">发送用户 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<!--<input type="text" class="tpl-form-input" name="title" value="{$info['title']}" required="">-->
+										<textarea name="phone" rows="" cols="" class="tpl-form-input" placeholder="请填写要发送用户的手机号,发送多个用户，请在每个用户的电话号码用@隔开,发送全部用户清填写0"></textarea>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">发送内容 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<textarea name="content" rows="" cols="" class="tpl-form-input" placeholder="发送内容"></textarea>
+									</div>
+								</div>
+								
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<a href="javascript:;" id="btn" class="j-submit zx-addBut ">提交</a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 内容区域 end -->
+
+{template 'footer'}
+<script type="text/javascript">
+	$('#btn').click(function(res){
+		var phone = $("textarea[name='phone']").val();
+		var content = $("textarea[name='content']").val();
+		var level = $("select[name='level']").val();
+		var id = $("input[name='id']").val();
+		if(phone === ''){
+			layer.msg('请填写发送用户');
+			return false;
+		}
+		if(content == '' || content == undefined){
+			layer.msg('请填写发送内容');
+			return false;
+		}
+		$.post("{php echo $this->createWebUrl('notice',array('op'=>'add','type'=>'add'))}",{phone:phone,content:content,level:level},function(res){
+			if(res.code == 0){
+				layer.msg(res.msg);
+				location.reload();
+			}else{
+				layer.msg(res.msg);
+			}
+		},"JSON");
+	})
+</script>

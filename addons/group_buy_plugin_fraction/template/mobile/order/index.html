@@ -1,0 +1,143 @@
+{template 'common/header'}
+<link rel="stylesheet" href="{php echo MODULE_URL}style/mobile/tpshop/css/style.css">
+<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/mobile/tpshop/css/iconfont.css"/>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/global.js"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/layer.js"  type="text/javascript" ></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/swipeSlide.min.js" type="text/javascript" charset="utf-8"></script>
+<style>
+    div.cuptyp {
+        box-sizing: content-box;
+        border: 2px solid transparent;
+    }
+    div.checked {
+        border: 2px solid #e23435;
+    }
+    .phoneclck {
+        /*部分手机不能点击问题*/
+        cursor: pointer
+    }
+</style>
+<div class="classreturn loginsignup " style="background-color: #449cff;color: #fff;">
+    <div class="content">
+        <div class="ds-in-bl return">
+            <a href="{php echo $this->createMobileUrl('goods_info',array('id'=>$id))}" style="width: 2rem;"><img src="{php echo MODULE_URL}style/mobile/images/ico_goback.png" alt="返回"></a>
+        </div>
+        <div class="ds-in-bl search center">
+            <span>填写订单</span>
+        </div>
+        <!--<div class="ds-in-bl menu">
+            <a href="javascript:void(0);"><img src="/template/mobile/rainbow/static/images/class1.png" alt="菜单"></a>
+        </div>-->
+    </div>
+</div>
+<form name="cart2_form" id="cart2_form" method="post">
+    <!--立即购买才会用到-e-->
+    <div class="edit_gtfix">
+        <a href="{php echo $this->createMobileUrl('address',array('op'=>'list','id'=>$id))}">
+            <div class="namephone fl">
+            	{if empty($address)}
+	            	<div class="top">
+	                    <div class="le fl">请选择收货地址</div>
+	                    <div class="lr fl">{$address['phone']}</div>
+	                </div>
+	                <div class="bot">
+	                    <i class="dwgp"></i>
+	                    <span>{$address['address']}</span>
+	                </div>
+            	{else}
+	                <div class="top">
+	                    <div class="le fl">{$address['name']}</div>
+	                    <div class="lr fl">{$address['phone']}</div>
+	                </div>
+	                <div class="bot">
+	                    <i class="dwgp"></i>
+	                    <span>{$address['address']}</span>
+	                </div>
+                {/if}
+                <input type="hidden" value="{$address['id']}" name="address_id"/> <!--收货地址id-->
+            </div>
+            <div class="fr youjter">
+                <i class="Mright"></i>
+            </div>
+            <div class="ttrebu">
+                <img src="{php echo MODULE_URL}style/mobile/tpshop/images/tt.png"/>
+            </div>
+        </a>
+    </div>
+
+    <!--商品信息-s-->
+    <div class="ord_list fill-orderlist p">
+        <div class="maleri30">
+            <div class="shopprice">
+                <div class="img_or fl"><img src="{php echo tomedia($goods['g_icon'])}"/></div>
+                <div class="fon_or fl">
+                    <h2 class="similar-product-text">{$goods['g_name']}</h2>
+                    <div></div>
+                </div>
+                <div class="price_or fr">
+                    <p class="red"><span>￥</span><span>{$goods['g_price']}</span></p>
+                    <p class="ligfill">x1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--商品信息-e-->
+
+    <div class="information_dr ma-to-20">
+        <div class="maleri30">
+            <div class="xx-list">
+                <p class="p"style="margin-bottom: 10px;">
+                    <span class="fl">商品积分：</span>
+                    <span class="fr red"><span></span><span>{$goods['g_price']}</span>积分</span>
+                </p>
+                <p class="p">
+                    <span class="fl">当前积分：</span>
+                    <span class="fr red"><span></span><span id="postFee">{$user['integral']}</span>积分</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--订单金额-e-->
+
+    <!--提交订单-s-->
+    <div class="mask-filter-div" style="display: none;"></div>
+    <div class="payit fillpay ma-to-200" style="position: fixed;bottom: 0;width: 100%;">
+        <div class="fr submit_price">
+            <a href="javascript:void(0)" onclick="submit_order()" style="background-color: #fb4769">立即兑换</a>
+        </div>
+        <div class="fl">
+            <p><span class="pmo">应付积分：</span>￥<span id="payables">{$goods['g_price']}</span><span></span></p>
+        </div>
+    </div>
+    <!--提交订单-e-->
+</form>
+</body>
+</html>
+{template 'common/footer'}
+
+<script type="text/javascript">
+	function submit_order(){
+		//地址id
+		var address = $("input[name='address_id']").val();
+		//商品id
+		var id = "{$id}";
+		if(address == '' || address == undefined){
+			app.alert('请选择收货地址','提示');
+			return false;
+		}
+		$.post("{php echo $this->createMobileUrl('order',array('op'=>'add'))}",{id:id,address:address},function(res){
+			if(res.code == 0){
+				app.alert(res.msg,'提示',function(){
+					window.location.href = "{php echo $this->createMobileUrl('order_list')}";
+				});
+			}else{
+				app.alert(res.msg,'提示');
+				return false;
+			}
+		},"JSON");
+		
+	}
+</script>

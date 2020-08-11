@@ -1,0 +1,246 @@
+{template 'header'}
+{template 'template'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('plsugins',array('op'=>'markrting','in'=>'bannel_add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">充值返利配置</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否启用充值返利 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_id[value]" data-am-ucheck  value="1" {if $info['markrting_id'] ==1 }checked{/if}>是
+											</label>
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_id[value]" data-am-ucheck  value="-1" {if $info['markrting_id'] !=1 }checked{/if}>否
+											</label>
+											<input type="hidden" name="markrting_id[name]" id="" value="是否启用充值返利" />
+										</div>
+									</div>
+									<div id="is-show" class="{php echo $info['markrting_id']!='1'?hidden:'';}">
+										<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">返利金 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type="text" name="markrting_rebate[value]" id="" value="{if $info['markrting_rebate']}{$info['markrting_rebate']}{else}释放金{/if}" placeholder="默认:释放金" />
+											<input type="hidden" name="markrting_rebate[name]" id="" value="释放金" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">返利 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type="text" name="markrting_rebates[value]" id="" value="{if $info['markrting_rebates']}{$info['markrting_rebates']}{else}释放{/if}" placeholder="默认:释放" />
+											<input type="hidden" name="markrting_rebates[name]" id="" value="释放" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">今日到账 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type="text" name="markrting_rebates_money[value]" id="" value="{if $info['markrting_rebates_money']}{$info['markrting_rebates_money']}{else}今日到账{/if}" placeholder="默认:今日到账" />
+											<input type="hidden" name="markrting_rebates_money[name]" id="" value="今日到账" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">立即支付 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type="text" name="markrting_rebates_money_pay[value]" id="" value="{if $info['markrting_rebates_money_pay']}{$info['markrting_rebates_money_pay']}{else}立即支付{/if}" placeholder="默认:今日到账" />
+											<input type="hidden" name="markrting_rebates_money_pay[name]" id="" value="立即支付" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">{if $info['markrting_rebates']}{$info['markrting_rebates']}{else}释放{/if}开始时间</label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_dist_type_release[value]" data-am-ucheck  value="1" {if $info['markrting_dist_type_release'] ==1 }checked{/if}> 当日开始{if $info['markrting_rebates']}{$info['markrting_rebates']}{else}释放{/if}
+											</label>
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_dist_type_release[value]" data-am-ucheck  value="2" {if $info['markrting_dist_type_release'] !=1 }checked{/if}> 隔日开始{if $info['markrting_rebates']}{$info['markrting_rebates']}{else}释放{/if}
+											</label>
+												<span class="color-9" style="display: inherit;"></span>
+											<input type="hidden" name="markrting_dist_type[name]" id="" value="分销类型,百分比和固定金额" />
+										</div>
+									</div>
+									
+									<!--<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否覆盖 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<select name="markrting_cover[value]" class="tpl-form-input">
+												<option value="1" {php echo $info['markrting_cover']==='1'?selected:'';}>是</option>
+												<option value="-1" {php echo $info['markrting_cover']!='1'?selected:'';}>否</option>
+											</select>
+											<span class="color-9">当充值余额赠送的会员卡和用户本身的会员卡起冲突时是否覆盖</span>
+											<input type="hidden" name="markrting_cover[name]" id="" value="当余额赠送的会员卡和用户本身的会员卡起冲突时是否覆盖" />
+										</div>
+									</div>-->
+									
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">依次购买 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<select name="markrting_successively[value]" class="tpl-form-input">
+												<option value="1" {php echo $info['markrting_successively']==='1'?selected:'';}>是</option>
+												<option value="-1" {php echo $info['markrting_successively']!='1'?selected:'';}>否</option>
+											</select>
+											<span class="color-9">是否根据充值余额的权重，依次购买，如用户购买了A，是否可以继续购买B</span>
+											<input type="hidden" name="markrting_successively[name]" id="" value="是否根据充值余额的权重，依次购买，如用户购买了A，是否可以继续购买B" />
+										</div>
+									</div>
+									
+									<!--<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否开启{if $info['markrting_rebate']}{$info['markrting_rebate']}{else}释放金{/if}</label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_release_gold[value]" data-am-ucheck  value="1" {if $info['markrting_release_gold'] ==1}checked{/if}> 是
+											</label>
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_release_gold[value]" data-am-ucheck  value="2" {if $info['markrting_release_goldg_dist_type_id'] !=1}checked{/if}> 否
+											</label>
+											<span class="color-9" style="display: block;">注:一但开启，小程序的充值只能使用充值返利，关闭过后才能使用充值余额，两个功能只能同时使用一个.</span>
+											<input type="hidden" name="markrting_release_gold[name]" id="" value="是否开启{if $info['markrting_rebate']}{$info['markrting_rebate']}{else}释放金{/if}" />
+										</div>
+									</div>-->
+									
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">会员特权 </label>
+										<div class="am-u-sm-9 am-u-end zx-sendNotice">
+											{php echo tpl_form_field_image('markrting_privilege[value]', $info['markrting_privilege'])}
+											<span class="color-9">会员中心，头部下面的图片</span>
+											<input type="hidden" name="markrting_privilege[name]" id="" value="会员中心，头部下面的图片" />
+										</div>
+									</div>
+									<!--<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">会员充值说明 </label>
+										<div class="am-u-sm-9 am-u-end">
+											{php echo tpl_ueditor('markrting_content[value]',$info['markrting_content']);}
+											<input type="hidden" name="markrting_content[name]" id="" value="会员充值说明" />
+										</div>
+									</div>-->
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">余额说明 </label>
+										<div class="am-u-sm-9 am-u-end">
+											{php echo tpl_ueditor('markrting_integle[value]',$info['markrting_integle']);}
+											<input type="hidden" name="markrting_integle[name]" id="" value="余额说明" />
+										</div>
+									</div>
+								</div>
+								<!--分销-->
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否开启分销</label>
+									<div class="am-u-sm-9 am-u-end">
+										<div style="margin-bottom:10px;">
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_dist_type_id[value]" data-am-ucheck  value="1" {if $info['markrting_dist_type_id'] ==1}checked{/if}> 是
+											</label>
+											<label class="am-radio-inline am-success">
+												<input type="radio" name="markrting_dist_type_id[value]" data-am-ucheck  value="2" {if $info['markrting_dist_type_id'] !=1}checked{/if}> 否
+											</label>
+											<input type="hidden" name="markrting_dist_type_id[name]" id="" value="是否开启分销" />
+										</div>
+										<span class="color-9">此分销配置为 “余额充值” 和 “充值返利” 共同的配置；若开启，则  “余额充值” 和 “充值返利” 都将开启分销 ，若关闭，则 “余额充值” 和 “充值返利” 都将关闭分销。</span>
+									</div>
+								</div>
+								<div id="markrting_dist_type_id" {if $info['markrting_dist_type_id'] != 1} style="display:none;" {/if}>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">分销类型</label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-radio-inline am-success">
+													<input type="radio" name="markrting_dist_type[value]" data-am-ucheck  value="1" {if $info['markrting_dist_type'] ==1}checked{/if}> 固定金额
+												</label>
+											<label class="am-radio-inline am-success">
+													<input type="radio" name="markrting_dist_type[value]" data-am-ucheck  value="2" {if $info['markrting_dist_type'] !=1}checked{/if}> 百分比
+												</label>
+												<span class="color-9" style="display: inherit;">这里设置为固定金额，请到会员余额里面进行填写.若不填写充值将不参与三级分销.<span style="color: red;">注：请先安装和配置分销插件.</span></span>
+											<input type="hidden" name="markrting_dist_type[name]" id="" value="分销类型,百分比和固定金额" />
+										</div>
+									</div>
+									<div id="discounts" {if $info['markrting_dist_type'] ==1} style="display:none;" {/if}>
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label">1级分销佣金 </label>
+											<div class="am-u-sm-9 am-u-end">
+												<input type="number" name="markrting_dist1[value]" id="" value="{$info['markrting_dist1']}" />
+												<input type="hidden" name="markrting_dist1[name]" id="" value="用户充值1级分销佣金比例" />
+												<span class="color-9">这里的比例是用户进行余额充值，给3级分销的佣金,请勿填写%,填入1就是1%.如不需要该功能请设置为0</span>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label">2级分销佣金 </label>
+											<div class="am-u-sm-9 am-u-end">
+												<input type="number" name="markrting_dist2[value]" id="" value="{$info['markrting_dist2']}" />
+												<input type="hidden" name="markrting_dist2[name]" id="" value="用户充值2级分销佣金比例" />
+												<span class="color-9">这里的比例是用户进行余额充值，给3级分销的佣金,请勿填写%,填入1就是1%.如不需要该功能请设置为0</span>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label">3级分销佣金 </label>
+											<div class="am-u-sm-9 am-u-end">
+												<input type="number" name="markrting_dist3[value]" id="" value="{$info['markrting_dist3']}" />
+												<input type="hidden" name="markrting_dist3[name]" id="" value="用户充值3级分销佣金比例" />
+												<span class="color-9">这里的比例是用户进行余额充值，给3级分销的佣金,百分比请勿填写%,填入1就是1%，如是固定金额直接接入数字.</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--提交-->
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+$("input[name='markrting_id[value]']").change(function(res){
+	console.log($(this).val());
+	if($(this).val()=="1"){
+	    $("#is-show").removeClass("hidden");
+	}else{
+        $("#is-show").addClass("hidden");
+	}
+})
+$("input[name='markrting_dist_type[value]']").change(function(res){
+	var val = $(this).val();
+	if(val == 1){
+		$('#discounts').hide();
+	}else{
+		$('#discounts').show();
+	}
+})
+$("input[name='markrting_dist_type_id[value]']").change(function(res){
+	var val = $(this).val();
+	if(val == 1){
+		$('#markrting_dist_type_id').show();
+	}else{
+		$('#markrting_dist_type_id').hide();
+	}
+})
+</script>
+{template 'footer'}

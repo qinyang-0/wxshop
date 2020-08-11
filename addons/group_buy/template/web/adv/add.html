@@ -1,0 +1,432 @@
+{template 'header'}
+{template 'template'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #22c397;
+		color: #fff;
+	}
+	.input-group-btn {
+		display: block !important;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+				<input type="hidden" name="id"value="{php echo $this->createWebUrl('adv',array('op'=>'add'))}" />
+					<form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<input type="hidden" name="id" id="id" value="{$info['ban_id']}" />
+						<div class="widget-body">
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">{$act_title}广告</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">广告名称</label>
+									<div class="col-sm-9 col-xs-12">
+										<input type='text' id='name' name='name' value="{$info['ban_name']}" class='tpl-form-input' />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">显示位置</label>
+									<div class="am-u-sm-9 am-u-end">
+										<select name="type" class="tpl-form-input">
+											<option value="1" {if $info['ban_type'] == '1' }selected{/if}>首页顶部</option>
+											<option value="2" {if $info['ban_type'] == '2' }selected{/if}>首页中部</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-form-group">
+
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">链接地址</label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="ckeckbox inline control-label" style="cursor: default;pointer-events: none;">
+											<input type="radio" class="adv-link-type" name="ban_link_type" {php echo  empty($info['ban_link_type']) || $info['ban_link_type']==0?'checked':"";} value="0" style="pointer-events:auto;"/>无
+											<!--</label>-->
+											<!--<label class="ckeckbox inline">-->
+											<input type="radio" class="adv-link-type" name="ban_link_type" {php echo $info['ban_link_type']==1?'checked':"";} value="1"  style="pointer-events:auto;"/>内链
+											<!--</label>-->
+											<!--<label class="ckeckbox inline">-->
+											<input type="radio" class="adv-link-type" name="ban_link_type" {php echo $info['ban_link_type']==2?'checked':"";} value="2"  style="pointer-events:auto;"/>自定义单页
+											<!--</label>-->
+											<!--<label class="ckeckbox inline">-->
+											<input type="radio" class="adv-link-type" name="ban_link_type" {php echo $info['ban_link_type']==3?'checked':"";} value="3" style="pointer-events:auto;"/>自定义链接
+										</label>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<input class="hidden" name="ban_link_content_1" value="{$ban_link_content_1}"/>
+										<div class="col-xs-12 col-sm-12 link-type adv-link-type-1 control-label" {php echo $info['ban_link_type']!=1?'style="display: none;"':"";} >
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label">选择跳转位置</label>
+											<div class="am-u-sm-9 am-u-end">
+												<select id="adv-link-type-class" class="form-control">
+													<option value="page">前端跳转页面</option>
+													<option value="goods">商品</option>
+													<option value="action-goods">活动商品</option>
+												</select>
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label">选择关联内容</label>
+											<div class="am-u-sm-9 am-u-end">
+												<div class="panel panel-info page-table" style="">
+													<div class="table-responsive panel-body">
+														<table class="table table-hover" style="min-width: 300px;">
+															<thead class="navbar-inner">
+															<tr>
+																<th>名称</th>
+																<th>操作</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr align="left">
+																<td>首页</td>
+																<td>
+																	<span class="btn btn-info btn-xs content-checked" data-content="../coupon/coupon" >选取</span>
+																</td>
+															</tr>
+															<tr align="left">
+																<td>优惠券页</td>
+																<td>
+																	<span class="btn btn-info btn-xs content-checked" data-content="../coupon/coupon" >选取</span>
+																</td>
+															</tr>
+															<tr  align="left">
+																<td>商品分类页</td>
+																<td>
+																	<span class="btn btn-info btn-xs content-checked" data-content="../classify/classify">选取</span>
+																</td>
+															</tr>
+															<tr  align="left">
+																<td>申请团长页</td>
+																<td>
+																	<span class="btn btn-info btn-xs content-checked" data-content="../apply/apply">选取</span>
+																</td>
+															</tr>
+															<tr  align="left">
+																<td>申请供应商页</td>
+																<td>
+																	<span class="btn btn-info btn-xs content-checked" data-content="../supplier/supplier">选取</span>
+																</td>
+															</tr>
+															<tr  align="left">
+																<td>购物车页</td>
+																<td>
+																	<span class="btn btn-info btn-xs content-checked" data-content="../cart/cart">选取</span>
+																</td>
+															</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+												<div class="panel panel-info goods-table" style="display: none">
+													<div class="table-responsive panel-body">
+														<div class="am-form-group">
+															<label class="col-xs-12 col-sm-2 col-md-1 col-lg-1 control-label">货号</label>
+															<div class="col-xs-12 col-sm-3 col-lg-3">
+																<input class="tpl-form-input" style="width: 100%" id="goods-table-num" type="text" value="" placeholder="商品货号">
+															</div>
+															<label class="col-xs-12 col-sm-2 col-md-1 col-lg-1 control-label">名称</label>
+															<div class="col-xs-12 col-sm-3 col-lg-3">
+																<input class="tpl-form-input" style="width: 100%" id="goods-table-title" type="text" value="" placeholder="商品名称">
+															</div>
+															<div class="col-xs-12 col-sm-2 col-lg-2">
+																<button class="btn btn-danger goods-table-search" data-url="{php echo $this->createWebUrl('adv',array('op'=>'getGoodsList'))}&type=goods" type="button"><i class="fa fa-search"></i> 搜索</button>
+															</div>
+														</div>
+														<table class="table table-hover" style="min-width: 300px;">
+															<thead class="navbar-inner">
+															<tr>
+																<th width="100">商品货号</th>
+																<th width="200">商品名称</th>
+																<th width="60">封面图</th>
+																<th width="60">操作</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr>
+																<td colspan="999">暂无数据</td>
+															</tr>
+															</tbody>
+														</table>
+														<div class="ajax-page">
+
+														</div>
+													</div>
+												</div>
+												<div class="panel panel-info action-goods-table" style="display: none;">
+													<div class="table-responsive panel-body">
+														<div class="am-form-group">
+															<label class="col-xs-12 col-sm-2 col-md-3 col-lg-2 control-label">货号</label>
+															<div class="col-xs-12 col-sm-4 col-lg-4">
+																<input class="tpl-form-input" style="width: 100%" id="action-goods-table-num" type="text" value="" placeholder="商品货号">
+															</div>
+															<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">商品名称</label>
+															<div class="col-xs-12 col-sm-4 col-lg-4">
+																<input class="tpl-form-input" style="width: 100%" id="action-goods-table-title" type="text" value="" placeholder="商品名称">
+															</div>
+
+														</div>
+														<div class="am-form-group">
+
+															<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">活动名称</label>
+															<div class="col-xs-12 col-sm-4 col-lg-4">
+																<input class="tpl-form-input" style="width: 100%" id="action-goods-table-action" type="text" value="" placeholder="活动名称">
+															</div>
+															<div class="col-xs-12 col-sm-4 col-lg-4">
+																<button class="btn btn-danger action-goods-table-search" type="button" data-url="{php echo $this->createWebUrl('adv',array('op'=>'getGoodsList'))}&type=action-goods"><i class="fa fa-search"></i> 搜索</button>
+															</div>
+														</div>
+														<table class="table table-hover" style="min-width: 300px;">
+															<thead class="navbar-inner">
+															<tr>
+																<th width="80">活动名称</th>
+																<th width="100">商品货号</th>
+																<th width="200">商品名称</th>
+																<th width="60">封面图</th>
+																<th width="60">操作</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr>
+																<td colspan="999">暂无数据</td>
+															</tr>
+															</tbody>
+														</table>
+														<div class="ajax-page">
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-xs-12 col-sm-12 link-type adv-link-type-2 control-label" {php echo $info['ban_link_type']!=2?'style="display: none;"':"";}>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">单页标题</label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type="text" name="ban_link_content_2_title" value="{$ban_link_content_2_title}" placeholder="请输入单页的头部标题" class="form-control"/>
+											<em class="text-danger">请输入单页的头部标题</em>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">单页内容</label>
+										<div class="am-u-sm-9 am-u-end">
+											{php echo tpl_ueditor('ban_link_content_2',$ban_link_content_2);}
+										</div>
+									</div>
+
+								</div>
+								<div class="col-xs-12 col-sm-12 control-label link-type adv-link-type-3 " {php echo $info['ban_link_type']!=3?'style="display: none;"':"";}>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">外链地址</label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type="text" class="form-control" name="ban_link_content_3" value="{$ban_link_content_3}" placeholder="外链地址"/>
+										</div>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">图片</label>
+									<div class="col-sm-9 col-xs-12">
+										{php echo tpl_form_field_image('img',$info['ban_img']);}
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">排序</label>
+									<div class="col-sm-9 col-xs-12">
+										<input type='text' id='order' name='order' value="{$info['ban_order']}" class='tpl-form-input' />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否显示</label>
+									<div class="col-sm-9 col-xs-12">
+										<div class="btn-group" data-toggle="buttons">
+											<label class="btn btn-default {if $info['ban_is_show'] == 1 || empty($info['ban_is_show']) }active{/if}">
+												<input type="radio" name="is_show" value="1" {if $info['ban_is_show'] == 1 || empty($info['ban_is_show']) }checked{/if}>启用
+											</label>
+											<label class="btn btn-default {if $info['ban_is_show'] == -1}active{/if} ">
+												<input type="radio" name="is_show" value="-1" {if $info['ban_is_show'] == -1}checked{/if}>禁用
+											</label>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+				<div class="am-am-form-group">
+					<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+						<input type="hidden" name="submit" value="提交"/>
+						<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+						<a href="{php echo $this->createWebUrl('adv')}" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+					</div>
+				</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script>
+    localStorage.setItem('ban_link_content_1', '{$ban_link_content_1}');
+    var old_url = localStorage.getItem('ban_link_content_1')
+    $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+    $('#btn').click(function(){
+        var img = $("input[name='img']").val();
+        var name = $("input[name='name']").val();
+        var link_type = $("input[name='ban_link_type']:checked").val();
+        var ban_link_content_1 = $("input[name='ban_link_content_1']").val();
+        var ban_link_content_2 = $("input[name='ban_link_content_2']").val();
+        var ban_link_content_3 = $("input[name='ban_link_content_3']").val();
+
+        // if(name == '' || name == undefined){
+        //     alert('请填写广告名称!');
+        //     return false;
+        // }
+        // if(img == '' || img == undefined){
+        //     alert('请上传图片!');
+        //     return false;
+        // }
+        // if(link_type !=0 && (ban_link_content_1=="" || ban_link_content_1==undefined) && (ban_link_content_2=="" || ban_link_content_2==undefined) && (ban_link_content_3=="" || ban_link_content_3==undefined)){
+        //     alert('请选择或填写链接内容!');
+        //     return false;
+        // }
+        localStorage.clear();
+        return true;
+    });
+    //选择类型方式后
+    $(document).on("change","input[name=ban_link_type]",function () {
+
+        var val = $(this).val();
+        $(".link-type").hide();
+        $(".adv-link-type-"+val).show();
+    });
+    //选择类型后
+    $(document).on("change","#adv-link-type-class",function () {
+        $('.adv-link-type-1').find(".panel").hide();
+        var val =$(this).children("option:selected").val();
+
+        $("."+val+"-table").show();
+        if( val == "goods"){
+            var title = $('#goods-table-title').val();
+            var num = $('#goods-table-num').val();
+            $.post("{php echo $this->createWebUrl('adv',array('op'=>'getGoodsList'))}",{'type':val,'title':title,'num':num},function (res) {
+                $(".goods-table table tbody").html(res.data);
+                $(".goods-table .ajax-page").html(res.page);
+                var old_url = localStorage.getItem("ban_link_content_1");
+                $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+            },"JSON");
+        }else if(val == "action-goods"){
+            var title = $('#action-goods-table-title').val();
+            var num = $('#action-goods-table-num').val();
+            var action = $('#action-goods-table-action').val();
+            console.log(1)
+            $.post("{php echo $this->createWebUrl('adv',array('op'=>'getGoodsList'))}",{'type':val,'title':title,'num':num,'action':action},function (res) {
+                $(".action-goods-table table tbody").html(res.data);
+                $(".action-goods-table .ajax-page").html(res.page);
+                var old_url = localStorage.getItem("ban_link_content_1");
+                $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+            },"JSON");
+        }
+    });
+    //点商品列表的分页
+    $(document).on("click",".goods-table div .pagination li a",function (e) {
+        e.preventDefault();
+        var href = $(this).attr("href");
+        var title = $('#goods-table-title').val();
+        var num = $('#goods-table-num').val();
+        $.post(href,{'type':'goods','title':title,'num':num},function (res) {
+            $(".goods-table table tbody").html(res.data);
+            $(".goods-table .ajax-page").html(res.page);
+            var old_url = localStorage.getItem("ban_link_content_1");
+            $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+        },"JSON");
+
+    });
+    //点商品列表的搜索后
+    $(document).on("click",".goods-table-search",function () {
+        var href = $(this).attr("data-url");
+        var title = $('#goods-table-title').val();
+        var num = $('#goods-table-num').val();
+        $.post(href,{'title':title,'num':num},function (res) {
+            $(".goods-table table tbody").html(res.data);
+            $(".goods-table .ajax-page").html(res.page);
+            var old_url = localStorage.getItem("ban_link_content_1");
+            $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+        },"JSON");
+    });
+    //点活动商品列表的分页
+    $(document).on("click",".action-goods-table div .pagination li a",function (e) {
+        e.preventDefault();
+        var href = $(this).attr("href");
+        var title = $('#action-goods-table-title').val();
+        var num = $('#action-goods-table-num').val();
+        $.post(href,{'type':'action-goods','title':title,'num':num},function (res) {
+            $(".action-goods-table table tbody").html(res.data);
+            $(".action-goods-table .ajax-page").html(res.page);
+            var old_url = localStorage.getItem("ban_link_content_1");
+            $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+        },"JSON");
+
+    });
+    //点活动商品列表的搜索后
+    $(document).on("click",".action-goods-table-search",function () {
+        var href = $(this).attr("data-url");
+        var title = $('#action-goods-table-title').val();
+        var num = $('#action-goods-table-num').val();
+        var action = $('#action-goods-table-action').val();
+        $.post(href,{'title':title,'num':num,'action':action},function (res) {
+            $(".action-goods-table table tbody").html(res.data);
+            $(".action-goods-table .ajax-page").html(res.page);
+            var old_url = localStorage.getItem("ban_link_content_1");
+            $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+        },"JSON");
+    });
+    //点击选取后取值
+    $(document).on("click",".content-checked",function () {
+        var old_url = localStorage.getItem('ban_link_content_1');
+        if( old_url!=''){
+            $(".content-checked[data-content='"+old_url+"']").addClass("btn-info").removeClass("btn-warning").html("选取");
+        }
+        $(this).removeClass("btn-info").addClass("btn-warning").html("已选取");
+        var url = $(this).attr("data-content");
+        localStorage.setItem('ban_link_content_1', url);
+        $("input[name=ban_link_content_1]").val(url);
+        $("input[name=ban_link_content_2]").val('');
+        $("input[name=ban_link_content_3]").val('');
+    });
+    //填写单页后
+    $(document).on("change","input[name=ban_link_content_2]",function () {
+        if($.trim($(this).val())!=""){
+            $("input[name=ban_link_content_1]").val('');
+            $("input[name=ban_link_content_3]").val('');
+        }
+    });
+    //填写外链后
+    $(document).on("input propertychange","input[name=ban_link_content_3]",function () {
+        if($.trim($(this).val())!=""){
+            $("input[name=ban_link_content_2]").val('');
+            $("input[name=ban_link_content_1]").val('');
+        }
+    });
+
+
+</script>
+</div>
+<!-- 内容区域 end -->
+{template 'footer'}

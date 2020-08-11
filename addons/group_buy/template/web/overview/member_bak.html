@@ -1,0 +1,305 @@
+{template 'header'}
+<style>
+    /*顶部部分*/
+    .todayboxs {
+        margin: 24px 0;
+    }
+
+    .flex-items {
+        display: flex;
+    }
+
+    .todayboxs .flex-item {
+        background-color: #fff;
+        width: 100%;
+        height: 104px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        margin-right: 24px;
+        color: #333;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+    }
+
+    .flex-items .flex-item {
+        flex: 1;
+    }
+
+    .todayboxs .icon {
+        width: 56px;
+        height: auto;
+        margin-right: 16px;
+    }
+
+    img {
+        vertical-align: middle;
+        border: 0;
+    }
+
+    .todayboxs .num {
+        font-size: 24px;
+    }
+
+    /*顶部部分结束*/
+    /*中部*/
+    .row-panel {
+        margin-bottom: 24px;
+        display: flex;
+        padding-right: 24px;
+    }
+
+    .row-panel .row-panel-7 {
+        width: 50%;
+        flex-shrink: 1;
+    }
+
+
+    .mypanel .mypanel-heading {
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 1px solid #f0f0f0;
+        height: 48px;
+        line-height: 48px;
+    }
+
+    .tasks .flex-item {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 20px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #747474;
+    }
+
+    .row-panel .row-panel-5 {
+        width: 50%;
+        margin-left: 24px;
+        flex-shrink: 0;
+    }
+
+    .tasks .num.hasnum {
+        color: #436be6;
+    }
+
+    .tasks .num {
+        font-size: 15px;
+        color: #9e9e9e;
+        font-weight: 600;
+    }
+
+
+    .quick-panel .mypanel-body, .total-panel .mypanel-body {
+        padding: 20px 0;
+    }
+
+    .total-mes .num {
+        height: 48px;
+        line-height: 48px;
+        font-size: 15px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .quick-nav .flex-item, .total-mes .flex-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 68px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        color: #747474;
+    }
+
+    .quick-nav .fa {
+        height: 48px;
+        line-height: 48px;
+        font-size: 24px;
+        display: block;
+        transition: all 0.3s;
+    }
+
+    .quick-nav .flex-item:hover {
+        color: #22c397;
+    }
+
+    .quick-nav .flex-item:hover i {
+        font-size: 40px;
+    }
+
+    .flex-item {
+        background-color: #fff;
+        width: 100%;
+        padding: 20px;
+        align-items: center;
+        margin-right: 24px;
+        color: #333;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+        position: relative;
+        margin-top: 65px;
+    }
+
+      .flex-item .top-title {
+        position: absolute;
+        left: 0;
+        top: -64px;
+        width: 100%;
+        height: 128px;
+        text-align: center;
+
+    }
+
+   .flex-item .top-title {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+        background: #fff;
+        text-align: center;
+
+    }
+
+
+     .flex-item table {
+        width: 100%;
+        text-align: center;
+        margin-top: 50px;
+        color: #747474;
+
+    }
+
+      .flex-item table tr th, td {
+          width: 8%;
+        line-height: 42px;
+        overflow: hidden; /*超出部分隐藏*/
+        border-bottom: 1px dashed #eee;
+    }
+
+      .flex-item table tr th:last-child, td:last-child {
+        width: 10%;
+    }
+
+
+    .flex-item table tr:last-child{
+        border-bottom: 1px solid #A553CB ;
+    }
+    .title1{
+        text-align:left;
+        margin-left: 16px;
+        color: white;
+    }
+    .title2{
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        display:inline-block
+    }
+    .data{
+        float: right;
+        border-radius:20px ;
+        border: 2px solid white;
+        line-height: 20px;
+        margin-right: 18px;
+        font-size: 12px;
+        color: white;
+        margin-top: 20px;
+        text-align: center;
+        letter-spacing:3px;
+
+    }
+    .exel{
+        width:80px;
+        height: 30px;
+        background-color:#22C397;
+        color:white;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+</style>
+<div class="tpl-content-wrapper" style="margin-left: 130px;">
+    <div class="row-content am-cf" style="padding: 0;">
+        <!--<div class="row">-->
+        <!--顶部-->
+        <!--排行榜-->
+        {if $this->supplier_role==0 }
+        <div class="flex-item member">
+            <div class="top-title"  style=" background: -webkit-linear-gradient(left,#A553CB,#AA50CD,#B84AD3,#BF46D5 );" >
+                <div class="title" >
+                    <div class="title1" style="font-size: 14px;width: 30%;float: left;margin-top: 20px">会员消费第一名</div>
+                    <div  class="data back" style="width:50px; height: 25px "><a href="{php echo $this->createWebUrl('overview',array('op'=>'index'))}">返回</a></div>
+                    <div class="title1" style="font-size: 26px;font-weight: 600; clear: both">{php echo  $excel_member[0]['total']>0?  $excel_member[0]['total']:0;}</div>
+
+                    <div   class="title1" style="font-size: 14px;margin-top: 5px">
+                        <span  class="title2" style="max-width: 150px;">{php echo  $excel_member[0]['title']?  $excel_member[0]['title']:0;}</span>
+                        <span class="title2" style="max-width: 150px; ">  小区&nbsp{php echo  $excel_member[0]['shop_name']? $excel_member[0]['shop_name']:0;}</span>
+                    </div>
+                    <div class="" style="margin-right: 18px;margin-top: -31px;float: right">
+                        <a href="{php echo $this->createWebUrl('overview',array('op'=>'member','fresh'=>1))}" >
+                            <img style="width: 20px;height: 20px" src="{php echo MODULE_URL}public/bg/fresh.png"></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <table>
+                <tr style="text-align: left;height: 50px; border-bottom: 1px solid #A553CB ;">
+                                <th  >销售榜单</th>
+                                <th>会员名称</th>
+                                <th>会员电话</th>
+                                <th>会员身份</th>
+                                <th style="width: 25%">所属小区 </th>
+                                <th>团长名称</th>
+                                <th>团长电话</th>
+                                <th  style="width: 15%" >第一次消费时间</th>
+                                <th  >累计消费额</th>
+                </tr>
+
+                {if !empty($get_all_member)}
+                {loop $get_all_member $k $v}
+                <tr style="text-align: left">
+                                    <td>{php echo intval($k)+1;}</td>
+                                    <td>{php echo $v["title"];}</td>
+                                    <td>{php echo $v["m_phone"];}</td>
+                                    <td>{php echo $v["m_is_head"]==2?团长:会员;}</td>
+                                    <td>{$v["address"]}{php echo $v["shop_name"]; }</td>
+                                    <td>{php echo $v["head_name"]; }</td>
+                                    <td>{php echo $v["phone"];}</td>
+                                    <td>{php echo date("Y-m-d h:i:s", $v["first_pay"]);} </td>
+                                    <td>￥{php echo $v["total"];}</td>
+                   </tr>
+                {/loop}
+                {else}
+
+                {/if}
+            </table>
+            <div style="height:60px; float: right;margin-top: 10px">  {$pager}</div>
+            <div class="exel " ><a href="javascript:void(0);"  style="right:250px"  >导出表格</a></div>
+            <div style="width:100%;height:100px;margin-top:30px; right: 0"><span style="float: right;">总记录:{php echo $pages}</span></div>
+        </div>
+        {/if}
+
+        <!--</div>-->
+    </div>
+</div>
+
+<script>
+    //查询待付款订单
+    $.post("{php echo $this->createWebUrl('overview',array('op'=>'check_order_status'))}", {"tset": 1}, function (res) {
+        if (res.status === 0) {
+            $('.no-pay-order').html(res.data.count);
+            if (res.data.count == 0) {
+                $('.no-pay-order').removeClass('hasnum');
+            }
+        }
+    }, "JSON");
+    $(".exel").click(function () {
+        var id=3;
+        window.location.href="{php echo $this->createWebUrl('overview',array('op'=>'member'))}&id="+id;
+
+
+    });
+</script>
+<!-- 内容区域 end -->
+{template 'footer'}

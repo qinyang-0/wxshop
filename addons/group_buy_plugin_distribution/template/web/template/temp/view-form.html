@@ -1,0 +1,43 @@
+<div class="app-form-box" ng-style="{'background':item.params.bgcolor,'padding':item.params.padding+'px'}">	<img src="{{item.params.img}}" style="width: 100%;"/>	<!--<div ng-repeat="v in item.params.data">
+		
+		<div class="app_form_item pd5" ng-if="v.type == 'input'">
+			<li class="" ng-if="v.name">{{v.name}}</li>
+			<li class="show_form_r">
+				<input type="" class="show_form_input" placeholder="{{v.pla}}" name="">
+			</li>
+		</div>
+
+		<div class="app_form_item pd5" ng-if="v.type == 'text'">
+			<li class="" ng-if="v.name">{{v.name}}</li>
+			<li class="show_form_r">
+				<textarea class="show_form_text" placeholder="{{v.pla}}"></textarea>
+			</li>
+		</div>
+
+		<div class="app_form_item item_cell_box" ng-if="v.type == 'time' || v.type == 'city' || v.type == 'times'">
+			<li class="show_form_l" ng-if="v.name">{{v.name}}</li>
+			<li class="show_form_r" style="color: #999">
+				{{v.pla}}
+			</li>
+		</div>		
+
+		<div class="app_form_item pd5" ng-if="v.type == 'radio'">
+			<div class="" ng-if="v.name">{{v.name}}</div>
+			<div class="show_form_r">
+				<li ng-repeat="vv in v.data" class="app_radio_item">
+					<input type="radio" name="">{{vv.name}}
+				</li>
+			</div>
+		</div>	
+
+		<div class="app_form_item pd5" ng-if="v.type == 'checkbox'">
+			<div class="" ng-if="v.name">{{v.name}}</div>
+			<div class="show_form_r">
+				<li ng-repeat="vv in v.data" class="app_radio_item">
+					<input type="checkbox" name="">{{vv.name}}
+				</li>
+			</div>
+		</div>
+
+	</div>
+	<span class="app_form_submit" ng-style="{'background':item.params.btnbg,'color':item.params.btncolor}">提交</span>--></div>

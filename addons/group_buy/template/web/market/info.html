@@ -1,0 +1,78 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">领取详情</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+								<div class="am-scrollable-horizontal am-u-sm-12">
+									<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+										<thead class="navbar-inner">
+										<tr>
+											<th style="width:120px;">优惠券名称</th>
+											<th style="width:80px;">领取人</th>
+											<th style="width:120px;">领取时间</th>
+											<th style="width:80px;">是否使用</th>
+											<th style="width:120px;">使用时间</th>
+										</tr>
+										</thead>
+										<tbody>
+										{if !empty($info)}
+										{loop $info $key $item}
+										<tr>
+											<td>{$item['name']}</td>
+											<td style="display: flex;align-items: center;">
+												<img src="{php echo tomedia($item['m_photo']);}" style="width: 30px;border-radius: 100%;"/>&nbsp;&nbsp;
+												<div style="">
+													{$item['m_nickname']} <br/> {$item['m_phone']}
+												</div>
+											</td>
+											<td>
+												{php echo date('Y-m-d H:i:s',$item['grant_time'])}
+											</td>
+											<td>{if $item['is_use'] == 1 }
+												已使用
+												{else}
+												未使用
+												{/if}
+											</td>
+											<td>
+
+												{php echo $item['use_coupon_time'] >0?date('Y-m-d H:i:s',$item['use_coupon_time']):'';}
+											</td>
+										</tr>
+										{/loop}
+										{else}
+										<tr>
+											<td colspan="999">
+												没有数据
+											</td>
+										</tr>
+										{/if}
+										</tbody>
+									</table>
+								</div>
+								<div class="am-u-lg-12 am-cf" style="text-align: right;">
+									{$page}
+									<div class="am-fr pagination-total am-margin-right">
+										<div class="am-vertical-align-middle">总记录：{$total}</div>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'footer'}
+<script type="text/javascript">
+
+</script>

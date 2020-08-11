@@ -1,0 +1,414 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #428bca;
+	    color: #fff;
+	}
+	.steps>li:before {
+		display: block;
+		content: "";
+		width: 100%;
+		height: 1px;
+		font-size: 0;
+		overflow: hidden;
+		border-top: 4px solid #CED1D6;
+		position: relative;
+		top: 21px;
+		z-index: 1;
+	}
+	.steps>li:last-child:before {
+		max-width: 50%;
+		width: 50%;
+	}
+	.steps>li:first-child:before {
+		max-width: 50%;
+		left: 50%;
+	}
+	.steps {
+		 list-style: none;
+		 display: table;
+		 width: 100%;
+		 padding: 0;
+		 margin: 0;
+		 position: relative;
+		 border: 0;
+		margin-bottom: 20px;
+	 }
+	.steps>li {
+		display: table-cell;
+		text-align: center;
+		width: 1%;
+	}
+	.steps>li .step {
+		border: 5px solid #CED1D6;
+		color: #546474;
+		font-size: 15px;
+		border-radius: 100%;
+		position: relative;
+		z-index: 2;
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+	}
+	.steps>li .step, .steps>li.complete .step:before {
+		line-height: 35px;
+		background-color: #FFF;
+		text-align: center;
+	}
+	.steps>li .title {
+		display: block;
+		margin-top: 4px;
+		max-width: 100%;
+		color: #949EA7;
+		font-size: 14px;
+		z-index: 104;
+		text-align: center;
+		table-layout: fixed;
+		word-wrap: break-word;
+	}
+
+	.steps>li.active .step, .steps>li.active:before, .steps>li.complete .step, .steps>li.complete:before {
+		border-color: #09BB07;
+		color: #fff;
+		background: #09BB07;
+	}
+	.steps>li.active .title{
+		color:#09BB07;
+	}
+
+	.info-table th,.info-table td{
+		font-weight: 500;
+		color: #949EA7;
+		padding: 0 0 10px 0;
+		vertical-align: top;
+		font-size: 12px;
+		min-width: 80px;
+	}
+
+	.dashed-line{
+		border-top: 1px dashed #e5e5e5;
+	}
+
+</style>
+
+
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form id="form" action="" class="am-form tpl-form-line-form" method="post">
+						<!--本页隐藏传值-->
+						<input type="hidden" name="id" id="id" value="{$info['at_id']}" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<ul class="steps" style="margin-top: 20px">
+								<li class="{if $info[0]['go_status'] >= 10 && $info[0]['go_status']!=120 && $info[0]['go_status']!=110}active{/if}">
+									<span class="step">{if $info[0]['go_status'] >= 10 && $info[0]['go_status']!=120 && $info[0]['go_status']!=110}√{else}1{/if}</span>
+									<span class="title">待付款</span>
+								</li>
+
+								<li class="{if $info[0]['go_status'] >= 20 && $info[0]['go_status']!=120 && $info[0]['go_status']!=110}active{/if}">
+									<span class="step">{if $info[0]['go_status'] >= 20 && $info[0]['go_status']!=120  && $info[0]['go_status']!=110}√{else}2{/if}</span>
+									<span class="title">备货中</span>
+								</li>
+
+								<li class="{if $info[0]['go_status'] >= 30 && $info[0]['go_status']!=120 && $info[0]['go_status']!=110}active{/if}">
+									<span class="step">{if $info[0]['go_status'] >= 30 && $info[0]['go_status']!=120  && $info[0]['go_status']!=110}√{else}3{/if}</span>
+									<span class="title">待取货</span>
+								</li>
+
+								<li class="{if $info[0]['go_status'] >= 40 && $info[0]['go_status']!=120 && $info[0]['go_status']!=110}active{/if}">
+									<span class="step">{if $info[0]['go_status'] >= 60 && $info[0]['go_status']!=120  && $info[0]['go_status']!=110}√{else}4{/if}</span>
+									<span class="title">售后</span>
+								</li>
+							</ul>
+
+							<div class="panel panel-default" style="border-bottom:0;border-right: 0;border-left:0;margin-bottom: 0;">
+								<div class="panel-body" style="padding: 0 15px;">
+									<div class="col-sm-6 col-md-6 col-xs-12" style="border-right: 1px solid rgb(221, 221, 221);">
+										<h4 style="font-weight: 600;">订单信息<!--<span class="secured-title">担保交易</span>--></h4>
+										<table class="info-table">
+											<tbody>
+											<tr>
+												<th>订单编号：</th>
+												<td>{$info[0]['go_code']}</td>
+											</tr>
+											<tr>
+												<th>活动名称：</th>
+												<td>{$info[0]['oss_ac_name']}</td>
+											</tr>
+											<tr>
+												<th>小区：</th>
+												<td>{$info[0]['oss_v_name']}</td>
+											</tr>
+											<tr>
+												<th>团长：</th>
+												<td>{$info[0]['oss_head_name']}</td>
+											</tr>
+											<tr>
+												<th >付款方式：</th>
+												<td>{if $info[0]['go_pay_type']==1}微信支付{/if}</td>
+											</tr>
+											<tr>
+												<th>买家：</th>
+												<td><a href="{php echo $this->createWebUrl('order',array('op'=>'index','buy_people'=>$item['oss_buy_name']))}" class="text-info">{$info[0]['oss_buy_name']}</a>
+													{$info[0]['oss_buy_phone']}
+												</td>
+											</tr>
+											</tbody>
+										</table>
+										<div class="dashed-line"></div>
+										<table class="info-table" style="margin-top: 10px;">
+											<tbody>
+
+											<tr>
+												<th>配送方式：</th>
+												<td>{php echo $info[0]['go_send_type']==1?'自提':'';}{php echo $info[0]['go_send_type']==2?'团长送货':'';}{php echo $info[0]['go_send_type']==3?'快递':'';}</td>
+											</tr>
+											{if $info[0]['go_send_type']==2}
+												<tr>
+													<th>配送时间：</th>
+													<td>{$info[0]['delivery_time']}</td>
+												</tr>
+											{/if}
+											{if $info[0]['go_send_type']==3}
+											<tr>
+												<th>收货信息：</th>
+												<td>
+													<p>{$info[0]['oss_address_name']}&nbsp;&nbsp;{$info[0]['oss_address_phone']}</p>
+													<p>{$str}-{php echo $info[0]['oss_address']=='undefined'?'':$info[0]['oss_address'];}</p>
+												</td>
+											</tr>
+											{/if}
+
+											{if $info[0]['go_send_type']==2}
+											<tr>
+												<th>收货信息：</th>
+												<td>
+													<p>{$info[0]['oss_address_name']}&nbsp;&nbsp;{$info[0]['oss_address_phone']}</p>
+													<p>配送地址-{php echo $info[0]['oss_address']=='undefined'?'':$info[0]['oss_address'];}</p>
+												</td>
+											</tr>
+											{/if}
+
+											{if $info[0]['go_send_type']==1}
+											<tr>
+												<th>自提信息：</th>
+												<td>
+													<p>{$info[0]['oss_address_name']}&nbsp;&nbsp;{$info[0]['oss_address_phone']}</p>
+													<p>提货地址-{php echo $info[0]['oss_address']=='undefined'?'':$info[0]['oss_address'];}</p>
+												</td>
+											</tr>
+											{/if}
+
+											<tr>
+												<th>买家留言：</th>
+												<td>{$info[0]['go_comment']} </td>
+											</tr>
+											<tr>
+												<td colspan="2" align="center">
+													<button type="button" data-id="{$info[0]['go_code']}" type="button" class="btn btn-info" id="print_order">打印小票</button>
+												</td>
+											</tr>
+											<!--<tr>-->
+											<!--<th>备注：</th>-->
+											<!--<td> </td>-->
+											<!--</tr>-->
+											</tbody>
+										</table>
+
+										<!--<div class="dashed-line"></div>-->
+										<!--<table style="margin:10px 0 10px 120px;display: block;">-->
+										<!--<tbody>-->
+										<!--<tr>-->
+										<!--<td><a class="confirm-handle btn btn-info btn-xs" >小票打印</a></td>-->
+										<!--</tr>-->
+										<!--</tbody>-->
+										<!--</table>-->
+									</div>
+									<div class="col-sm-6 col-md-6 col-xs-12" style="position: relative;">
+										<div style="padding: 0px 0px 30px 40px;">
+											<h4 class="" style="font-weight: 600;"><span class="fa fa-info text-error" style="font-size: 20px;"></span> 订单状态：{php echo $this->orderStatus($info[0]['go_status'])}</h4>
+											<div class="state-desc">
+
+											</div>
+											<!--<div class="state-btn">-->
+											<!--<div class="btn btn-xs btn-blue" data-toggle="modal" data-target="#refund-form">发货</div>-->
+											<!--<div class="btn btn-xs btn-link js-remark hide">备注</div>-->
+											<!--</div>-->
+										</div>
+										{if $info[0]['go_status'] > 10}
+											<div class="state-remind-region" style="position: absolute;bottom: -200px;left: 10px;">
+												<div class="dashed-line"></div>
+												<div class="state-remind" >
+													<h4 class="text-danger">交易提醒：</h4>
+													<ul>
+														<li class="text-danger">交易已成功，如果买家提出售后要求，请积极与买家协商，做好售后服务。</li>
+													</ul>
+												</div>
+											</div>
+										{/if}
+									</div>
+								</div>
+							</div>
+
+							<table class="table table-hover" style="min-width: 300px;">
+								<thead class="navbar-inner">
+								<tr>
+									<th style="width:180px;">商品</th>
+									<th style="width:180px;">状态</th>
+									<th style="width:120px;">单价（元）</th>
+									<th style="width:80px;">数量</th>
+									<th style="width:80px;">规格</th>
+									<th style="width:80px;">佣金</th>
+									<th style="width:100px;">小计(元)</th>
+								</tr>
+								</thead>
+								<tbody>
+								{if !empty($info)}
+								{loop $info $key $item}
+								<tr>
+									<td style="display: flex;align-items: center;">
+										<a href="{php echo tomedia($item['oss_g_icon'])}" target="_blank"><img src="{php echo tomedia($item['oss_g_icon'])}" width="50" style="display: block;width: 50px;height: 50px;margin-right: 5px;"/></a>
+										<!--<img src="/attachment/{$item['oss_g_icon']}"  style="display: block;width: 50px;height: 50px;margin-right: 5px;"/>-->
+										<div>
+											<a href="javascript:;" class="text-info">{php echo strlen($item['oss_g_name'])>30?mb_substr($item['oss_g_name'],0,30,'utf-8')."...":$item['oss_g_name']}</a>
+										</div>
+
+									</td>
+									<td>
+										{if $item['oss_ggo_status'] > 1}
+											{php echo $this->orderStatus($item['oss_ggo_status']);}
+										{else}
+											{php echo $this->orderStatus($item['go_status']);}
+										{/if}
+									</td>
+									<td>{$item['oss_g_price']}</td>
+									<td>{$item['oss_g_num']}</td>
+									<td>{$item['oss_ggo_title']}</td>
+									<td>比例{php echo empty($item['oss_commission_num'])?'0':(int) $item['oss_commission_num'];}%
+										<br>￥{php echo empty($item['oss_commission'])?'0.00':$item['oss_commission'];}
+									</td>
+									<td><span class="text-danger">{php echo number_format($item['oss_g_price']*$item['oss_g_num'],2)}</span></td>
+								</tr>
+								{/loop}
+								<tr>
+									<td colspan="99" align="right">
+										<p>运费： + <span class="text-danger">{php echo $info[0]['go_send_pay']<=0?'0.00':number_format($info[0]['go_send_pay'],2)}</span>元</p>
+										<p>优惠券： - <span class="text-danger">{php echo $info[0]['go_fdc_price']<=0?'0.00':number_format($info[0]['go_fdc_price'],2)}</span>元</p>
+										<p>满减优惠： - <span class="text-danger">{php echo $info[0]['go_full_reduce_price']<=0?'0.00':number_format($info[0]['go_full_reduce_price'],2)}</span>元</p>
+										{if $info[0]['oss_is_seckill'] == 2}
+											<p>砍价优惠： - <span class="text-danger">{php echo $info[0]['go_member_card_reduce']<=0?'0.00':number_format($info[0]['go_member_card_reduce'],2)}</span>元</p>
+										{else}
+											<p>积分抵扣： - <span class="text-danger">{php echo $info[0]['integral']<=0?'0.00':number_format($info[0]['integral'],2)}</span>元</p>
+											<p>会员卡优惠： - <span class="text-danger">{php echo $info[0]['go_member_card_reduce']<=0?'0.00':number_format($info[0]['go_member_card_reduce'],2)}</span>元</p>
+										{/if}
+										<p>返利金支付： - <span class="text-danger">{php echo $info[0]['go_release_price']<=0?'0.00':number_format($info[0]['go_release_price'],2)}</span>元</p>
+										<p>余额支付： - <span class="text-danger">{php echo $info[0]['go_balance_price']<=0?'0.00':number_format($info[0]['go_balance_price'],2)}</span>元</p>
+										<p>微信支付： - <span class="text-danger">{php echo $info[0]['go_wx_price']<=0?'0.00':number_format($info[0]['go_wx_price'],2)}</span>元</p>
+
+										<p>实收合计： <span class="text-danger" style="display: none;"><?php
+							$real_price = 0;
+							foreach($info as $k => $v){
+											if($info[0]['go_pay_time']>0){
+								$real_price +=$v['oss_g_price']*$v['oss_g_num'];
+											}
+								}
+								$real_price += $info[0]['go_send_pay'] -$info[0]['go_fdc_price'];
+								$real_price -= $info[0]['go_full_reduce_price'];
+								echo $real_price<=0?'0.00':number_format($real_price,2);
+?></span> <span class="text-danger">{php echo $info[0]['go_real_price']}</span>元 </p>
+										<p>佣金合计： <span class="text-danger"><?php
+							$oss_commission = 0;
+							foreach($info as $k => $v){
+											if($v['oss_ggo_status']==1 && $info[0]['go_pay_time']>0){
+												$oss_commission +=$v['oss_commission'];
+											}
+
+								}
+								echo $oss_commission <= 0?'0.00':number_format($oss_commission,2);
+?></span>元 </p>
+
+									</td>
+								</tr>
+								{else}
+								<tr>
+									<td colspan="3">
+										没有数据
+									</td>
+								</tr>
+								{/if}
+								</tbody>
+							</table>
+						</div>
+					</form>
+
+					<table class="table table-hover" style="min-width: 300px;">
+						<thead class="navbar-inner">
+						<tr>
+							<th style="width:180px;">操作者</th>
+							<th style="width:120px;">时间</th>
+							<th style="width:80px;">描述</th>
+						</tr>
+						</thead>
+						<tbody>
+						{if !empty($log)}
+						{loop $log $key $item}
+						<tr>
+							<td >
+								{$item['gol_u_name']}
+							</td>
+							<td >
+								{php echo date("Y-m-d H:i:s",$item['gol_add_time'])}
+							</td>
+							<td >
+								{$item['gol_des']}
+							</td>
+						</tr>
+						{/loop}
+
+						{else}
+						<tr>
+							<td colspan="3">
+								没有数据
+							</td>
+						</tr>
+						{/if}
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'footer'}
+<script>
+	$(document).on('click','#print_order',function () {
+		var code = $(this).attr('data-id');
+		if(code == '' || code == undefined){
+		    layer.msg("参数错误",{icon:2,time:1500})
+			return false;
+		}
+		var load = layer.load();
+		$.post("{php echo $this->createWebUrl('order',array('op'=>'print_order'))}",{code:code},function (res) {
+			layer.close(load);
+            if(res.status == 0){
+                layer.msg(res.msg,{icon: 1,time:1000});
+            }else{
+                layer.msg(res.msg,{icon: 2,time:1000});
+            }
+        },'JSON')
+    })
+</script>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="1.0">
+	<application setting="false">
+		<name><![CDATA[麦芒社区团购砍价插件]]></name>
+		<identifie><![CDATA[group_buy_plugin_bargain]]></identifie>
+		<version><![CDATA[1.2.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[麦芒社区团购砍价插件]]></ability>
+		<description><![CDATA[麦芒社区团购砍价插件]]></description>
+		<author><![CDATA[zd]]></author>
+		<url><![CDATA[http://www.scmmwl.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+			<item type="wxapp"/>
+		</supports>
+		<main_module name="group_buy" />
+		<plugin-main name="group_buy" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="后台入口" do="mobile" state="" direct="false" />
+		</cover>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

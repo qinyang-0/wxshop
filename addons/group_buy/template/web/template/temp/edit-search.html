@@ -1,0 +1,85 @@
+<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">搜索模块</div>
+	</div>
+	<div class="widget am-cf">
+
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">框内颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.incolor" />
+				</span>
+					<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.incolor" />
+				</span>
+
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">边框颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.border_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.border_color" />
+				</span>
+
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">边框圆角</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="100" value="{{item.params.border_radius}}" name="border_radius"></li>
+				<span class="my_slider_notice">{{item.params.border_radius}} 像素</span>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">文本內容</label>
+			<div class="frm_controls ">
+				<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.text">
+			</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">文本颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.text_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.text_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">显示风格</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label "  ng-click="goodsType(item.id,left)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">靠左</span>
+					<input type="radio" name="type" value="left" on-selected class="frm_radio"  ng-model="item.params.text_align" />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsType(item.id,text_align)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">居中</span>
+					<input type="radio" name="type" value="center" on-selected  class="frm_radio"  ng-model="item.params.text_align"  />
+				</label>
+			</div>
+		</div>
+	</div>
+</div>

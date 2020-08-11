@@ -1,0 +1,110 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<style>
+	.tpl-table-black tbody>tr>td{
+		padding: 10px 6px;
+	}
+</style>
+<body>
+<!-- 内容区域 start -->
+
+<div class=" ">
+		<div class="">
+				<div class="" style="padding: 10px 0;">
+
+					<div class="">
+						<!-- 工具栏 -->
+						<div class="page_toolbar  am-cf">
+							<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="distribution">
+								<input type="hidden" name="op" value="see_goods_info">
+								<!--<div class="am-u-sm-12 ">-->
+
+									<!--<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">-->
+										<!--<input type="text" class="am-form-field" name="title" placeholder="商品名" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">-->
+									<!--</div>-->
+
+									<!--&lt;!&ndash; 查询按钮样式 &ndash;&gt;-->
+									<!--<div class="zx-but-check">-->
+										<!--<button type="submit" >-->
+											<!--<i class="fa fa-search"></i> 查询-->
+										<!--</button>-->
+									<!--</div>-->
+								<!--</div>-->
+							</form>
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+									<thead class="navbar-inner">
+									<tr>
+										<th>名称</th>
+										<th >封面</th>
+										<th >规格</th>
+										<th >数量</th>
+									</tr>
+									</thead>
+									<tbody>
+									{if !empty($info)}
+									{loop $info $key $item}
+									<tr>
+										<td>{$item['g_name']}</td>
+										<td>
+											<img src="{php echo tomedia($item['g_icon'])}" width="28"/>
+										</td>
+										<td>
+											{if empty($item['oss_ggo_title'])}
+											无
+											{else}
+											{$item['oss_ggo_title']}
+											{/if}
+
+										</td>
+										<td>{$item['num']}
+
+										</td>
+
+									</tr>
+									{/loop}
+									{else}
+									<tr>
+										<td colspan="3">
+											没有数据
+										</td>
+									</tr>
+									{/if}
+									</tbody>
+								</table>
+							</div>
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<span class=" close-click  zx-but-check" style="float: right;margin-right: 20px;color: #0a0a0a;">返回</span>
+
+
+</body>
+
+<script type="text/javascript">
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    //点确定取消弹窗
+    $(document).on("click",".close-click",function () {
+        parent.layer.close(index);
+    });
+
+</script>

@@ -1,0 +1,253 @@
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>社区团购拼团管理</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="renderer" content="webkit">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <link rel="icon" type="image/png" href="{php echo MODULE_URL}favicon.ico">
+
+    <meta name="apple-mobile-web-app-title" content="">
+
+    <link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.switch.css">-->
+
+    <link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+
+    <link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+
+    <script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+
+    <script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+
+    <script>
+
+        BASE_URL = 'https://demo.yiovo.com/';
+
+        STORE_URL = 'index.php?s=/store';
+
+    </script>
+
+    <link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" id="layuicss-layer">
+
+    <!-- 脚步js开始 -->
+
+    <script src="{php echo MODULE_URL}style/js/layer.js "></script>
+
+    <script src="{php echo MODULE_URL}style/js/laydate/laydate.js "></script>
+
+    <script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+
+    <script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+
+    <!--<script src="{php echo MODULE_URL}style/js/amazeui.switch.min.js "></script>-->
+
+    <script src="{php echo MODULE_URL}style/js/webuploader.html5only.js "></script>
+
+    <script src="{php echo MODULE_URL}style/js/art-template.js "></script>
+
+    <script src="{php echo MODULE_URL}style/js/app.js "></script>
+
+    <script src="{php echo MODULE_URL}style/js/file.library.js "></script>
+
+    <!--<script src="{php echo MODULE_URL}style/js/zx.js"></script>-->
+
+    <!--结束-->
+
+    <!--微擎模板文件-->
+
+    <link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+
+    <link href="{php echo MODULE_URL}style/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./resource/css/common.css?v=20170426" rel="stylesheet">
+
+
+
+    <!--模板文件结束-->
+
+</head>
+
+<style>
+
+    .clear_scrollbar::-webkit-scrollbar {
+
+        display: none
+
+    }
+
+    body{
+
+        width: 920px !important;
+
+        min-width: 920px !important;
+        overflow-x: hidden;
+
+    }
+
+</style>
+
+</head>
+
+<div class="modal-body" style="width: 920px;">
+
+    <div class="row">
+
+        <div class="input-group" style="padding:0 16px;">
+
+            <input type="text" class="form-control" name="keyword" id="goodsid_input" value="{$_GPC['keywords']}" placeholder="请输入商品标题" style="width:250px;">
+
+            <span class="input-group-btn" style="display: inline-block;margin-left:20px;">
+
+                <button type="button" class="btn btn-default" id="search">搜索</button>
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="content" style="padding-top:5px;" data-name="goodsid">
+
+    <style type="text/css">
+
+    .popover{z-index:10000;}
+
+    .alert{margin:10px 0;padding:10px;}
+
+    .content .table{border-collapse:collapse;border:none;}
+
+    .content .table tr{border-collapse: collapse;border-left:1px solid #ededed;border-right:1px solid #ededed;}
+
+    .content .table > tbody > tr > td{border-top:1px solid #ededed;border-left:0;border-right:0;}
+
+    .table{margin-bottom:0;}
+
+    .we7-modal-dialog .modal-body, .modal-dialog .modal-body{padding:10px 20px;}
+
+</style>
+
+    <div style="height:480px;min-width:850px;">
+
+        <table class="table" border="1" cellspacing="0" width="920px" cellpadding="0">
+
+            <thead style="background: #f7f7f7;">
+
+            <tr>
+
+                <td>商品</td>
+
+                <th style="width:100px;text-align: center;">操作</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <!--{loop $list $k $v}-->
+
+                <tr>
+
+                    <td>
+
+                        <img src="{$_W['attachurl']}{$v['goods_image']}" style="width:30px;height:30px;padding1px;border:1px solid #ccc"> {$v['goods_title']}
+
+                    </td>
+
+                    <td style="width:80px;">
+
+                        {if empty($v['has'])}
+
+                        <a href="javascript:;" class="label label-primary" style="background-color: #22c397;border-color: #22c397;" data-info='{php echo json_encode($v,JSON_UNESCAPED_UNICODE)}' onclick="window.parent.frames.chosegoods(this)">选择</a>
+
+                        {else}
+
+                        <a href="javascript:;" class="label label-danger">{$v['has']}</a>
+
+                        {/if}
+
+                    </td>
+
+                </tr>
+
+            <!--{/loop}-->
+
+            <!--{if empty($list)}-->
+
+            <tr>
+
+                <td colspan="999" style="text-align: center">暂无商品</td>
+
+            </tr>
+
+            <!--{/if}-->
+
+            </tbody>
+
+        </table>
+
+        <div style="text-align:right;width:100%;margin-bottom:20px;">
+
+            {$pager}
+
+        </div>
+        
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+    $("#search").click(function(){
+
+        var keywords = $("#goodsid_input").val();
+
+        if(keywords=='' || keywords==undefined){
+
+            window.location.href="{php echo $this->createWebUrl('goods')}";
+
+        }else{
+
+            window.location.href="{php echo $this->createWebUrl('goods')}&keywords="+keywords;
+
+        }
+
+    });
+
+    $('#goodsid_input').keydown(function(e){
+
+        if(e.keyCode == 13){
+
+            //模拟点击按钮，触发上面的 Click 事件
+
+            var keywords = $("#goodsid_input").val();
+
+            if(keywords=='' || keywords==undefined){
+
+                window.location.href="{php echo $this->createWebUrl('goods')}";
+
+            }else{
+
+                window.location.href="{php echo $this->createWebUrl('goods')}&keywords="+keywords;
+
+            }
+
+        }
+
+    });
+
+    
+
+</script>

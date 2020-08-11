@@ -1,0 +1,410 @@
+{template 'header'}<style>
+    /*顶部部分*/
+    .todayboxs {
+		margin: 0 0 24px 0;
+    }
+
+    .flex-items {
+        display: flex;
+    }
+
+    .todayboxs .flex-item {
+        background-color: #fff;
+        width: 23%;
+        margin-bottom: 22px;
+        float: left;
+        height: 104px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        margin-right: 24px;
+        color: #333;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+    }
+
+    .flex-items .flex-item {
+        flex: 1;
+    }
+
+    .todayboxs .icon {
+        width: 56px;
+        height: auto;
+        margin-right: 16px;
+    }
+
+    img {
+        vertical-align: middle;
+        border: 0;
+    }
+
+    .todayboxs .num {
+        font-size: 24px;
+    }
+
+    .todayboxs  {
+        color: #747474;
+    }
+
+    /*顶部部分结束*/
+    /*中部*/
+    .row-panel {
+        margin-bottom: 24px;
+        display: flex;
+        padding-right: 24px;
+    }
+
+    .row-panel .row-panel-7 {
+        width: 50%;
+        flex-shrink: 1;
+    }
+
+    .mypanel {
+        position: relative;
+        background-color: #fff;
+        padding: 0 20px;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+    }
+
+    .mypanel .mypanel-heading {
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 1px solid #f0f0f0;
+        height: 48px;
+        line-height: 48px;
+    }
+
+    .tasks .flex-item {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 20px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #747474;
+    }
+
+    .row-panel .row-panel-5 {
+        width: 50%;
+        margin-left: 24px;
+        flex-shrink: 0;
+    }
+
+    .tasks .num.hasnum {
+        color: #436be6;
+    }
+
+    .tasks .num {
+        font-size: 15px;
+        color: #9e9e9e;
+        font-weight: 600;
+    }
+
+
+    .quick-panel .mypanel-body, .total-panel .mypanel-body {
+        padding: 20px 0;
+    }
+
+    .total-mes .num {
+        height: 48px;
+        line-height: 48px;
+        font-size: 15px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .quick-nav .flex-item, .total-mes .flex-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 68px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        color: #747474;
+    }
+
+    .quick-nav .fa {
+        height: 48px;
+        line-height: 48px;
+        font-size: 24px;
+        display: block;
+        transition: all 0.3s;
+    }
+
+    .quick-nav .flex-item:hover {
+        color: #22c397;
+    }
+
+    .quick-nav .flex-item:hover i {
+        font-size: 40px;
+    }
+
+    .rank .flex-item {
+        background-color: #fff;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        margin-right: 24px;
+        color: #333;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+        position: relative;
+        margin-top: 65px;
+    }
+
+    .rank .flex-item .top-title {
+        position: absolute;
+        left: 0;
+        top: -65px;
+        width: 100%;
+        height: 128px;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        background: #fff;
+
+    }
+
+
+
+    .rank .flex-item .top-title div {
+       /* width: 100%;*/
+        display: block;
+      /*  line-height: 1;*/
+    }
+
+    .rank .flex-item .top-title  div:first-child {
+       /* margin-top: 28px;*/
+    }
+
+    .rank .flex-item .top-title  div:last-child {
+   /*     margin-top: 6px;*/
+    }
+
+    .rank .flex-item table {
+        width: 100%;
+        text-align: center;
+        margin-top: 50px;
+        color: #747474;
+
+    }
+
+    .tr{
+        color: #000;
+        justify-content: space-between;
+
+    }
+    .tr th{
+        text-align: center;
+    }
+
+    .rank .flex-item table tr th, td {
+        max-width: 100px;
+        line-height: 42px;
+        overflow: hidden; /*超出部分隐藏*/
+        white-space: nowrap; /*不换行*/
+        text-overflow: ellipsis; /*超出部分文字以...显示*/
+        border-bottom: 1px dashed #eee;
+
+    }
+
+    .rank .flex-item table tr th:last-child, td:last-child {
+        width: 10%;
+    }
+
+    .rank .flex-item table tr:first-child th, td {
+        /*border-top: 0;*/
+    }
+
+    table tr th:first-child, td {
+        width: 10%;
+    }
+
+    .title1{
+        text-align:left;
+        margin-left: 16px;
+        color: white;
+
+    }
+    .title2{
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        display:inline-block
+    }
+    .data{
+        float: right;
+        border-radius:20px ;
+        border: 2px solid white;
+        line-height: 20px;
+        margin-right: 18px;
+        font-size: 12px;
+        color: white;
+        margin-top: 20px;
+        text-align: center;
+        letter-spacing:2px;
+
+    }
+</style>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="plsugins">
+								<input type="hidden" name="op" value="markrting">
+								<input type="hidden" name="in" value="gold">
+								<div class="am-u-sm-12 " style="margin-top: 10px;">
+									<span class="zx-form-span">
+										微信昵称：
+									</span>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<input type="text" class="am-form-field" name="title" placeholder="微信昵称" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">
+									</div>
+									<span class="zx-form-span">
+										{php echo $this->sc('markrting_rebate') ?  : '释放金' }是否过期
+									</span>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<select name="type" data-am-selected="{ btnSize: 'sm',placeholder:'请选择是否过期', maxHeight: 400}" style="display: none;">
+											<option value=""></option>
+											<option value="1" {if $type == 1}selected=""{/if}>是</option>
+											<option value="2" {if $type == 2}selected=""{/if}>否</option>
+										</select>
+									</div>
+									<div class="zx-but-check">
+										<button type="submit" >
+											<i class="fa fa-search"></i> 查询
+										</button>
+									</div>
+									<div class="zx-but-check">
+										<a href="javascript:;" onclick="inc()">
+											刷新前端数据
+										</a>
+									</div>
+								</div>
+							</form>
+							<div style="position: relative;">
+								<div class="todayboxs">
+						            <a class="flex-item" href="javascript:;">
+						                <img class="icon" src="../addons/group_buy/public/bg/Block-4.png">
+						                <div class="text">
+						                    <div class="num"><span>￥</span>{$stay[0]['money']}
+						                    </div>
+						                    <div class="title">待{php echo $this->sc('markrting_rebates') ?  : '释放' }</div>
+						                </div>
+						            </a>
+									<a class="flex-item" href="javascript:;">
+										<img class="icon" src="../addons/group_buy/public/bg/Block-5.png">
+										<div class="text">
+											<div class="num"><span>￥</span>{$already[0]['money']}</div>
+											<div class="title">已{php echo $this->sc('markrting_rebates') ?  : '释放' }</div>
+										</div>
+									</a>
+									<a class="flex-item" href="javascript:;">
+										<img class="icon" src="../addons/group_buy/public/bg/Block-6.png">
+										<div class="text">
+											<div class="num"><span>￥</span>{$money[0]['money']}</div>
+											<div class="title">待使用</div>
+										</div>
+									</a>
+									<a class="flex-item" href="javascript:;">
+										<img class="icon" src="../addons/group_buy/public/bg/Block-7.png">
+										<div class="text">
+											<div class="num"><span>￥</span>{$use_money[0]['money']}</div>
+											<div class="title">已使用</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							
+							
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+										<thead class="navbar-inner">
+											<tr>
+												<th style="width:20px;">头像</th>
+												<th style="width:100px;">昵称</th>
+												<th>手机号</th>
+												<th>{php echo $this->sc('markrting_rebate') ?  : '释放金' }</th>
+												<th>{php echo $this->sc('markrting_rebates') ?  : '释放' }时间</th>
+												<th >{php echo $this->sc('markrting_rebates') ?  : '释放' }状态</th>
+												<th >使用状态</th>
+												<!--<th >备注</th>-->
+											</tr>
+										</thead>
+									<tbody>
+										{if !empty($info)}
+											{loop $info $key $item}
+												<tr>
+													<td>
+														<img src="{$item['m_photo']}" width="30" style="border-radius: 50%;"/>
+													</td>
+													<td>{$item['m_nickname']}</td>
+													<td>{$item['m_phone']}</td>
+													<td>{$item['money']}
+														{if $item['use_money'] > 0}&nbsp;&nbsp;&nbsp;<span style="color: red;">已使用{$item['use_money']}</span>{/if}
+													</td>
+													<td>{php echo date('Y-m-d H:i:s',$item['time'])}</td>
+													<td>
+														{if $item['time'] <= strtotime(date('Y-m-d'))}
+															<span style="color:red;">已{php echo $this->sc('markrting_rebates') ?  : '释放' }</span>
+														{else}
+															待{php echo $this->sc('markrting_rebates') ?  : '释放' }
+														{/if}
+													</td>
+													<td>
+														{if $item['list_type'] == 1}
+															未使用
+														{else if $item['list_type'] == 2}
+															<span style="color:red;">已{php echo $this->sc('markrting_rebates') ?  : '释放' }</span>
+														{else if $item['list_type'] == 4}
+															已使用
+														{else}
+															已过期
+														{/if}
+													</td>
+													<!--<td>{$item['reason']}</td>-->
+												</tr>
+											{/loop}
+										{else}
+											<tr>
+												<td colspan="12" style="text-align: center;">
+													没有数据
+												</td>
+											</tr>
+										{/if}
+									</tbody>
+								</table>
+							</div>
+
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+								<div class="am-fr pagination-total am-margin-right">
+									<div class="am-vertical-align-middle">总记录：{$total}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}
+<script type="text/javascript">
+	function inc(){
+		$.post("{php echo $this->createWebUrl('plsugins',array('op'=>'markrting','in'=>'recharge_indexlock'))}",{id:1},function(res){
+			if(res.code == 1){
+				layer.msg(res.msg);
+			}
+		},"JSON");
+	}
+</script>

@@ -1,0 +1,152 @@
+{template 'common/header'}
+<!-- 中间内容开始 -->
+<article id="wrapper">
+	<div id="scroller">
+		<div class="blueBox">
+			<div class="index_header cf" style="background: #fff;">
+				<a href="{php echo $this->createMobileUrl('index')}" class="logo" style="background: url({php echo tomedia($this->sc('image'))}) no-repeat 0 center;"></a>
+				<a href="{php echo $this->createMobileUrl('user')}" class="headerUser" style="background: url({php echo MODULE_URL}style/mobile/pos/img/icon_personal.png) no-repeat center;"></a>
+			</div>
+			<!--<div class="index_search"><input type="text" placeholder="搜索商品" readonly="readonly"></div>-->
+			<!--<div style="height:16px;"></div>-->
+		</div>
+		<!-- banner切换 -->
+		<div class="bannerBox">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					{loop $tumb $item}
+					<div class="swiper-slide">
+						<a href="{$item['href']}">
+							<img src="{php echo tomedia($item['img'])}" class="scrollLoading" data-url="{php echo tomedia($item['img'])}" />
+						</a>
+					</div>
+					{/loop}
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+		<!-- 公告栏 -->
+		{if !empty($article)}
+		<div class="indexNoticeBox">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					{loop $article $item}
+						<div class="swiper-slide">
+							<a href="{php echo $this->createMobileUrl('article',array('id'=>$item['id']))}">
+								{$item['title']}
+							</a>
+							<span>{php echo date('Y-m-d',$item['time'])}</span>
+						</div>
+					{/loop}
+				</div>
+			</div>
+		</div>
+		{/if}
+		<div class="InforBox mt20">
+			<a href="{php echo $this->createMobileUrl('goods')}" class="kd_tit">
+				<h2>推荐</h2>
+			</a>
+			{loop $info $key $item}
+				{if $key%2 == 0}<div class="jfgoods">{/if}
+				<a href="{php echo $this->createMobileUrl('goods_info',array('id'=>$item['g_id']))}" class="fl" style="height: 500px;">
+					<div class="jf-img">
+						<img src="{php echo tomedia($item['g_icon'])}" class="scrollLoading" data-url="{php echo tomedia($item['g_icon'])}" />
+					</div>
+					<div class="jf-txt">
+						<div class="jf-name" style="text-overflow: ellipsis;overflow: hidden;">{$item['g_name']}</div>
+						<div class="jf-pri">{$item['g_price']}积分</div>
+					</div>
+				</a>
+				{if $key%2 != 0}</div>{/if}	
+			{/loop}
+		</div>
+		<script type="text/javascript">
+			var frontPath = '';
+		</script>
+		<!--<iframe id="syncIframe" src="" style="width:0px;height:0px;display:none"></iframe>-->
+		<script src="{php echo MODULE_URL}style/mobile/js/heartbeat.js"></script>
+		<script src="{php echo MODULE_URL}style/mobile/js/getcardlist.js"></script>
+	</div>
+	<div style="width: 100%;height: 118px;background: #fff;"></div>
+	{template 'common/nav'}
+	<!--搜索-->
+	<div class="siderSearch">
+		<div class="h1">
+			<a href="javascript:void(0);" class="close"></a>
+			<div class="searchBox">
+				<input type="search" class="top_search" placeholder="输入商品关键词" onkeypress="getKey()">
+			</div>
+			<a href="javascript:void(0);" class="head-right">搜索</a>
+		</div>
+	</div>
+</article>
+<script>
+	function getKey() {
+		var serchKeywords = $(".top_search").val();
+		if(event.keyCode == 13) {
+			if(serchKeywords != "") {
+				window.location.href = '/mobile/exchange/productList.jhtml?keyword=' + serchKeywords + "&exchangeChannel=client";
+			}
+		}
+	}
+	$(function() {
+		var swiper = new Swiper('.indexNoticeBox .swiper-container', {
+			paginationClickable: true,
+			autoplay: 3000,
+			loop: true,
+			direction: 'vertical'
+		});
+		var swiper = new Swiper('.bannerBox .swiper-container', {
+			autoplay: 5000,
+			loop: true,
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+		});
+		$('.index_search').click(function() {
+			window.location.href = "{php echo $this->createMobileUrl('goods')}";
+		});
+		$('.siderSearch .close').click(function() {
+			$('.siderSearch').animate({
+				right: -750
+			}, 300);
+			$('body').css({
+				height: 'auto',
+				'overflow': 'auto'
+			});
+		});
+		$('.siderSearch .head-right').click(function() {
+			var serchKeywords = $(".top_search").val();
+			window.location.href = '/mobile/exchange/productList.jhtml?keyword=' + serchKeywords + "&exchangeChannel=client";
+		});
+		var winH = $(window).height();
+		var i = 2;
+		var status = 1;
+		$(window).scroll(function () { 
+		  var pageH = $(document.body).height(); //页面总高度 
+		  var scrollT = $(window).scrollTop(); //滚动条top 
+		  //滚动条的位置
+		  var aa = (pageH-winH-scrollT)/winH;
+		  
+		  if(aa < 0.02 && status == 1){ //当滚动条小于0.02是  就开始加载
+		  	status ++;
+		  	$.post("{php echo $this->createMobileUrl('index')}",{page:i,code:1},function(res){
+		  		if(res.code == 0){
+		  			//加载成功
+		  			var data = res.data;
+		  			var str = '';
+		  			if(data != ''){
+		  				$('.InforBox').append(res.msg);
+		  				status --;
+		  			}else{
+		  					
+		  			}
+		  		}
+		  	},"JSON");
+		  	i++;
+		  }
+		});
+	});
+</script>
+</body>
+
+</html>

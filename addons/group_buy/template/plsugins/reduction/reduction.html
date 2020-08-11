@@ -1,0 +1,87 @@
+{template 'header'}
+{template 'template'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #428bca;
+	    color: #fff;
+	}
+	.input-group-btn {
+		display: block !important;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('plsugins',array('op'=>'reduction','in'=>'reduction'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">满减活动相关设置</div>
+								</div>
+
+								<div class="am-form-group">
+
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">{$open_full_reduction['name']} </label>
+									<div class="am-u-sm-9 am-u-end" style="margin-bottom: 10px;">
+										<label class="am-checkbox-inline am-success">
+											<input type="radio"  value="1" name="{$open_full_reduction['id']}" data-am-ucheck {php echo $open_full_reduction['value']==1?"checked":''; }>
+											开启
+										</label>
+										<label class="am-checkbox-inline am-success">
+											<input type="radio"  value="0" name="{$open_full_reduction['id']}"  data-am-ucheck {php echo $open_full_reduction['value']!=1?"checked":''; }>
+											关闭
+										</label>
+										<br/>
+										<span class="color-9">设置是否开启满减</span>
+
+									</div>
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">{$full_reduction_limit_price['name']} </label>
+									<div class="am-u-sm-9 am-u-end">
+										满<input type='text' name='{$full_reduction_limit_price['id']}' value="{$full_reduction_limit_price['value']}" class='tpl-form-input' style="width:160px;display:inline-block;" placeholder="100"/>元，减
+										<input type='text' name='{$full_reduction_price['id']}' value="{$full_reduction_price['value']}" class='tpl-form-input' style="width:160px;display:inline-block;" placeholder="10"/>元
+										<br>
+										<span class="color-9">满减的规则</span>
+									</div>
+
+								</div>
+
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交" />
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+    $('#btn').click(function(){
+        var commission = $.trim($("#commission").val());
+        if(!isOneToHundred(commission) ){
+            layer.msg('请输入1到100正确的数，最多保留2位小数',{icon:2,time:2000});
+            return false;
+        }
+    })
+</script>
+{template 'footer'}

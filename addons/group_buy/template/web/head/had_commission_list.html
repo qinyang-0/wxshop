@@ -1,0 +1,136 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">团长列表</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+        					<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="head">
+								<input type="hidden" name="op" value="had_commission_list">
+								<div class="am-u-sm-12 ">
+									<span class="zx-form-span">
+										状态：
+									</span>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<select name="head_status" data-am-selected="{btnSize: 'sm',placeholder:'请选择审核状态', maxHeight: 400}" style="display: none;">
+											<option value="0" {if $_GPC['head_status'] =='0'}selected{/if}>全部</option>
+											<option value="1" {if $_GPC['head_status'] =='1'}selected{/if}>有误</option>
+										</select>
+									</div>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<input type="text" class="am-form-field" name="name" placeholder="用户名/姓名" value="{$_GPC['name']}" style="border-radius: 4px;width: 240px;">
+									</div>
+									<!-- 查询按钮样式 -->
+									<div class="zx-but-check">
+										<button type="submit" >
+											<i class="fa fa-search"></i> 查询
+										</button>
+									</div>
+								</div>
+							</form>
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+									<thead class="navbar-inner">
+									<tr>
+										<th>编号</th>
+										<th>团长</th>
+										<th>手机号/姓名</th>
+										<th>总佣金</th>
+										<th>待审核佣金</th>
+										<th>已提现佣金</th>
+										<th>可提现佣金</th>
+										<th>操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									{if !empty($info)}
+									{loop $info $key $item}
+									<tr>
+										<td class="am-text-middle">{$item['m_id']}</td>
+										<td class="am-text-middle"><img src="{$item['m_photo']}" width="50" style="border-radius: 50%;"/>
+											{php echo empty($item['m_nickname'])?"暂无":trim($item['m_nickname'])}
+											<!--<span class="text-info">{$item['m_recommend_code']}</span>-->
+										</td>
+										<td class="am-text-middle">{php echo empty($item['m_phone'])?"暂无":$item['m_phone']}<br/>/{php echo empty($item['m_name'])?"暂无":$item['m_name']}</td>
+										<td class="am-text-middle">{$item['total_commission']}
+											<br />
+										团长送货费用:{$item['send_pay']}
+										</td>
+										<td class="am-text-middle">{$item['audited_commission']}</td>
+										<td class="am-text-middle">{$item['withdrawal_commission']}</td>
+										<td class="am-text-middle" style="{if $item['chenked']}background: #0093ff;{/if}">{$item['m_money']}</td>
+										<td class="am-text-middle">{$item['m_commission']}</td>
+										<td><!--删除可以用ajax实现-->
+											<a onclick="setHead('{$item['m_openid']}')"  class="btn btn-info btn-xs">补全</a>
+										</td>
+									</tr>
+									{/loop}
+									{else}
+									<tr>
+										<td colspan="3">
+											没有数据
+										</td>
+									</tr>
+									{/if}
+									</tbody>
+								</table>
+							</div>
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+								<div class="am-fr pagination-total am-margin-right">
+									<div class="am-vertical-align-middle">总记录：{$total}</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}
+<script type="text/javascript">
+
+    function setHead(openid){
+        if(openid == '' || openid == undefined){
+            layer.msg('非法操作',{icon:2,time:2000});
+            return false;
+        }
+        layer.confirm("确定补全吗？",{icon:3,title:'提示'},function (index) {
+        	layer.load(3, {shade: [0.5,'#000']});
+            $.post("{php echo $this->createWebUrl('head',array('op'=>'had_commission_set'))}",{openid:openid},function(res){
+            	layer.closeAll();
+                if(res.status == 0){
+//                  计算补全过后的是好多?
+					layer.confirm("补全过后的需增加"+res.msg+",确定补全?",{icon:3,title:'提示'},function (index) {
+						layer.closeAll();
+						layer.load(3, {shade: [0.5,'#000']});
+						 $.post("{php echo $this->createWebUrl('head',array('op'=>'had_commission_set'))}",{openid:openid,type:1},function(res){
+						 	console.log(res);
+						 	if(res.status == 0){
+						 		layer.msg(res.msg,{icon:1,time:1000},function(res){
+						 			location.reload();
+						 		});
+						 	}else{
+						 		layer.msg(res.msg,{icon:2,time:1000});
+						 	}
+						 },'json')
+					})
+                } else {
+                    layer.msg(res.msg,{icon:2,time:1000});
+                }
+            },"JSON")
+		});
+    }
+</script>

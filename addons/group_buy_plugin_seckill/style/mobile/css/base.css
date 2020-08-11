@@ -1,0 +1,180 @@
+﻿@charset "utf-8";
+@font-face  /*特粗*/
+{
+font-family: pf_HEAVY;
+src:url(PINGFANG HEAVY.TTF);
+}
+@font-face  /*细体*/
+{
+font-family: pf_LIGHT;
+src:url(PINGFANG LIGHT.TTF);
+}
+@font-face  /*常规*/
+{
+font-family: pf_REGULAR;
+src:url(PINGFANG REGULAR.TTF);
+}
+@font-face  /*粗体*/
+{
+font-family: pf_BOLD;
+src:url(PINGFANG BOLD.TTF);
+}
+@font-face  /*特细*/
+{
+font-family: pf_EXTRALIGHT;
+src:url(PINGFANG EXTRALIGHT.TTF);
+}
+
+@font-face  /*中等*/
+{
+font-family: pf_MEDIUM;
+src:url(PINGFANG MEDIUM.TTF);
+}
+
+/*reset css*/
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i,center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed,figure, figcaption,.footer, .header,  footer, header, menu, nav, output, ruby, section, summary,time, mark, audio, video{margin: 0;padding: 0;border: 0;font: inherit;vertical-align: baseline;}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,.footer, .header, footer, header,  menu, nav, section {display: block;}
+/*html{font-size: 100px;}*/
+html{font-size: 100%;}
+body{position: relative; width: 750px; margin:0 auto;font-size: 24px; color:#333;font-family:'pf_MEDIUM',PingFangSC-Medium, sans-serif,"微软雅黑"; background: #f8f8f7;}
+ol, ul {list-style: none;}
+blockquote,q {quotes: none;}
+a{text-decoration: none;display: inline-block;color:#333;outline: none;}
+*{outline: none;-webkit-tap-highlight-color:rgba(0,0,0,0);outline: none;}
+a:focus,a:active,a:link,a:visited,a:hover{outline: none;text-decoration: none;}
+blockquote:before, blockquote:after,q:before, q:after {content: ''; content: none;}
+img{ max-width: 100%;}
+table {border-collapse: collapse;border-spacing: 0;}
+textarea,input,button{resize: none; outline: none;-webkit-appearance: none;}
+::-webkit-input-placeholder { color: #ccc;}
+.tixian_input::-webkit-input-placeholder { line-height: 120px;}
+del{text-decoration: line-through;}
+/*清除浮动*/
+.cf:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.cf{*zoom:1;}
+.block{ display: block;}
+.none{display:none;}
+
+
+/*移动端 h5*******************************************************/
+a,button,input,optgroup,select,textarea {
+    -webkit-tap-highlight-color:rgba(0,0,0,0); /*去掉a、input和button点击时的蓝色外边框和灰色半透明背景*/
+}
+a, img {
+    -webkit-touch-callout: none; /*禁止长按链接与图片弹出菜单*/
+}
+/*body{
+    -webkit-overflow-scrolling:touch; 
+}*/
+/* html {-ms-touch-action: none;height: 100%;}
+body { height: 100%;overflow:auto;}   */
+/********************************************************/
+.fl{float:left;}
+.fr{float:right;}
+.text_l{text-align: left;}
+.text_c{ text-align: center;}
+.text_r{ text-align: right;}
+
+.bt1{border-top: 1px solid #dcdcdc;}
+.br1{border-right: 1px solid #dcdcdc;}
+.bb1{border-bottom: 1px solid #dcdcdc;}
+.b_tb_b{border-top: 1px solid #dcdcdc;border-bottom: 1px solid #dcdcdc;}
+/*超出显示...*/
+.ellipsis{white-space:nowrap; text-overflow:ellipsis;overflow:hidden; display:block;}
+/*强制换行*/
+.br{word-break:break-all;word-wrap:break-word;}
+
+.red{ color: #e65757 !important; }
+.c_ffa200{color: #ffa200 !important;}/*褐黄色*/
+.bg_fff{ background: #fff; }
+.bg-fff{ background: #fff; }
+.c_999{ color: #999 !important; }
+.c_666{ color: #666 !important; }
+
+.d5em{ display: inline-block; width: .5em; height: 1em; }
+.w2em{display:inline-block;width:2em;height:1em;}
+.ff_ms{ font-family: 'Microsoft YaHei'; }
+.ff_Arial{ font-family: 'Arial'; }
+
+.mt20{margin-top: 20px;}
+.mt30{margin-top: 30px;}
+.pb40{padding-bottom: 40px;}
+.mb20{margin-bottom:20px;}
+
+.w30{width: 30%;}
+.w40{width: 40%;}
+
+/*icon*/
+i{display: inline-block;}
+
+.box_a{display: block;margin: 0; padding: 0; border: none; outline: none;}
+
+/*header*/
+/*#header{height:90px;position:fixed; left: 50%; top: 0;margin-left:-375px; width:750px; z-index: 22;background:url(../images/headerbg.jpg) no-repeat center;}
+#header h1{position:absolute;left: 0;top:0;width:100%;line-height:90px;color:#fff;font-size:36px; text-align:center;}
+#header a{position:absolute;top:0;width:90px;height:90px; line-height: 90px;color: #fff; font-size: 30px;vertical-align: middle; z-index:33;}
+#header .header-left{left:20px; }
+#header .header-right{text-align: right;right:20px;}
+#header a i{ position: absolute; top: 25px; height: 40px; background-image: url(../images/icon.png); background-repeat: no-repeat;}
+.icon-back{left: 0; width:40px;background-position: 0 0;}
+.icon-menu{right:0; width:46px;background-position:-40px 0;}
+.icon-share{right:0;width:40px;background-position:-160px 0;}
+*/
+
+/*底部菜单*/
+
+footer{background:#257fcf;padding:36px 20px 40px;color:#fff;font-size:24px;text-align:center;}
+.LinkBox{height: 50px;padding-left: 80px;}
+.LinkBox a{float: left;width: 210px; height: 50px; line-height: 50px;padding-left: 40px;box-sizing: border-box; text-align: left;color: #fff;}
+.LinkBox a.wx{background:url(../images/wechat.png) no-repeat 0 center;background-size:30px;}
+.LinkBox a.wb{background:url(../images/sina.png) no-repeat 0 center;background-size:30px;}
+.LinkBox a.pc{background:url(../images/computer.png) no-repeat 0 center;background-size:30px;}
+footer p{line-height: 42px;
+    height:42px;}
+/*#wrapper {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        bottom:0px;
+        left: 0;
+        width: 100%;
+        background: #f3f4f5;
+    }
+#scroller {
+    position: absolute;
+    z-index: 1;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    width: 100%;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;
+}*/
+
+
+
+
+
+.mask{display: none; position: fixed; left:50%; top: 0;bottom: 0; width: 750px; margin-left: -375px; z-index: 99; background:  rgba(0,0,0,.6);}
+
+.noneBox{margin:0; padding: 0;}
+.noneBox a,.noneBox img{margin: 0; padding: 0;border: none;display: block;}
+
+
+
+
+
+
+

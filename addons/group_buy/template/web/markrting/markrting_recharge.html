@@ -1,0 +1,67 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">会员充值</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<!--<div class="am-u-sm-12 am-fl am-margin-bottom-xs">
+							<div class="am-btn-group am-btn-group-xs ">
+								<a class="zx-addBut" href="{php echo $this->createWebUrl('markrting',array('op'=>'add'))}">
+									<i class="fa fa-plus"></i> 添加充值
+								</a>
+							</div>
+						</div>-->
+						
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+								<div class="am-scrollable-horizontal am-u-sm-12">
+									<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+										<thead class="navbar-inner">
+										<tr>
+											<th>会员</th>
+											<th>订单号</th>
+											<th>支付时间</th>
+											<th>充值金额</th>
+										</tr>
+										</thead>
+										<tbody>
+										{if !empty($info)}
+										{loop $info $key $item}
+										<tr>
+											<td>
+												<img src="{$item['m_photo']}" width="50" style="border-radius: 50%;"/><span style="margin-left: 5px;">{$item['m_nickname']}</span>
+											</td>
+											<td>{$item['order_code']}</td>
+											<td>{php echo date("Y-m-d H:i",$item['pay_time'])}</td>
+											<td>{$item['recharge_money']}</td>
+										</tr>
+										{/loop}
+										{else}
+										<tr>
+											<td colspan="999">
+												没有数据
+											</td>
+										</tr>
+										{/if}
+										</tbody>
+									</table>
+								</div>
+								<div class="am-u-lg-12 am-cf" style="text-align: right;">
+									{$page}
+									<div class="am-fr pagination-total am-margin-right">
+										<div class="am-vertical-align-middle">总记录：{$total}</div>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}

@@ -1,0 +1,25 @@
+<div class="app-images-box" ng-style="{'background':item.params.bgcolor}">
+	<div class="app-images" data-id='1'>
+		<!--<li ng-repeat="images in item.params.data" ng-style="{'padding':item.params.padding+'px',width:(item.params.type == 1 ? 100 : (item.params.type == 2 ? 50 : 33.3)) +'%'}">
+			<a href="javascript:;">
+				<p ng-style=""><img ng-src="{{images.img}}" /></p>
+				<p class="app-images-font" ng-if="item.params.istext == 1" ng-style="{'font-size':item.params.fontsize+'px','color':item.params.fontcolor}">{{images.title}}</p>
+			</a>
+		</li>
+		<div class="clear"></div>-->
+		<div href="javascript:;" class="group" ng-src="{{images.img}}" ng-style="{'padding':item.params.padding+'px'}">
+			<div class="weui-grid__icon w100">
+				<img src="{{item.params.data[0].img}}" alt="" class="w100" draggable="false">
+			</div>
+		</div>
+		<!---->
+		<div href="javascript:;" class="group">
+			<div class="weui-grid__icon w100" ng-style="{'padding':item.params.padding+'px'}">
+				<img src="{{item.params.data[1].img}}" alt="" class="w100" draggable="false">
+			</div> 
+			<div class="weui-grid__icon w100" ng-style="{'padding':item.params.padding+'px'}">
+				<img src="{{item.params.data[2].img}}" alt="" class="w100" draggable="false">
+			</div>
+		</div>
+	</div>
+</div>

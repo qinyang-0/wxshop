@@ -1,0 +1,127 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #428bca;
+	    color: #fff;
+	}
+	.input-group-btn{
+		display: block;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('config',array('op'=>'login'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">基本设置</div>
+								</div>
+								<!--<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">{$info['member_distribution_show']['name']} </label>
+									<div class="am-u-sm-10 am-u-end">
+										<label class="am-checkbox-inline am-success">
+											<input type="radio"  value="1" name="{$info['member_distribution_show']['id']}" data-am-ucheck {php echo $info['member_distribution_show']['value']!=2?"checked":''; }>
+											开启
+										</label>
+										<label class="am-checkbox-inline am-success">
+											<input type="radio"  value="2" name="{$info['member_distribution_show']['id']}" data-am-ucheck {php echo $info['member_distribution_show']['value']==2?"checked":''; }>
+											关闭
+										</label>
+										<br>
+										<span class="color-9">个人中心是否显示分销商城</span>
+									</div>
+								</div>-->
+								<input type="hidden" name="id" id="id" value="{$info['id']}" />
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">账号</label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' name='login' value="{$info['username']}" class='tpl-form-input' placeholder="请输入账号" autocomplete="off" />
+										<!--<span class="color-9">首页分享出去的自定义标题</span>-->
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">密码 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='password' name='pass1' value="" class='tpl-form-input' placeholder="请输入密码" />
+										<!--<span class="color-9">首页分享出去的自定义标题</span>-->
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">再次输入密码 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='password' name='pass2' value="" class='tpl-form-input' placeholder="请再次输入密码" />
+										<!--<span class="color-9">首页分享出去的自定义标题</span>-->
+									</div>
+								</div>
+								
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="token" value="submit"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$("#btn").click(function(res){
+		var id = $("input[name='id']").val();
+		var login = $("input[name='login']").val();
+		var pass1 = $("input[name='pass1']").val();
+		var pass2 = $("input[name='pass2']").val();
+		var data = {};
+		if(login == '' || login == undefined){
+			layer.msg('请输入账号');
+			return false;
+		}
+		data['id'] = id;
+		data['login'] = login;
+		if(pass1 == '' || pass1 == undefined){
+			layer.msg('请输入密码');
+			return false;
+		}
+		data['pass1'] = pass1;
+		if(pass2 == '' || pass2 == undefined){
+			layer.msg('请输入密码');
+			return false;
+		}
+		data['pass2'] = pass2;
+		if(pass1 != pass2){
+			layer.msg('两次密码不一致');
+			return false;
+		}
+		data['token'] = 'submit';
+		layer.load(0, {shade: [0.5, '#000000']});
+		$.post("{php echo $this->createWebUrl('config',array('op'=>'login'))}",data,function(res){
+			layer.closeAll();
+			if(res.code == 1){
+				layer.msg(res.msg,{icon:1,time:2000},function(res){
+					window.location.href = "{php echo $this->createWebUrl('config',array('op'=>'menu_index'))}";
+				});
+			}else{
+				layer.msg(res.msg,{icon:2,time:2000})
+			}
+		},"JSON");
+		return false;
+	});
+</script>
+{template 'footer'}

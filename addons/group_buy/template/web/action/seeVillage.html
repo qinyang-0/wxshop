@@ -1,0 +1,224 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">查看小区</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form class="toolbar-form" action="./index.php">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="action">
+								<input type="hidden" name="op" value="seeVillage">
+								<input type="hidden" name="id" value="{$ac_id}">
+								<div class="am-u-sm-12 ">
+									<div class="am fr">
+
+										<span class="zx-form-span">
+										小区名称：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+
+												<input type="text" class="am-form-field" name="title" placeholder="小区名称" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">
+										</div>
+										<span class="zx-form-span">
+										团长：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input class="am-form-field zx-butInput" name="team" type="text" value="{$team}" placeholder="团长名称">
+										</div>
+
+										<span class="zx-form-span">
+										区域：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input class="am-form-field zx-butInput" name="location" type="text" value="{$location}" placeholder="区域关键字">
+										</div>
+										<!-- 查询按钮样式 -->
+										<div class="zx-but-check">
+											<button type="submit" >
+												<i class="fa fa-search"></i> 查询
+											</button>
+										</div>
+									</div>
+								</div>
+								<!-- 订单导出外层Box -->
+								<div class="am-u-sm-12 am-fl">
+									<!-- 查询按钮样式 -->
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button" class="btn btn-info" id="all-add">
+											<i class="fa fa-check"></i> 批量参与
+										</button>
+									</div>
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button"class="btn btn-warning" id="all-cancle">
+											<i class="fa fa-close"></i> 批量取消
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+								<thead class="navbar-inner">
+									<tr>
+										<th >
+											<label class="am-checkbox-inline am-success">
+												<input type="checkbox"  id="check-all" data-am-ucheck data-id="0">&nbsp;
+											</label>
+										</th>
+										<th >小区/店铺</th>
+										<th >团长</th>
+										<th >区域</th>
+										<th >是否在活动中</th>
+										<th >操作</th>
+									</tr>
+								</thead>
+								<tbody>
+								{if !empty($info)}
+									{loop $info $key $item}
+									<tr>
+										<td class="am-text-middle ">
+											<label class="am-checkbox-inline am-success">
+												<input type="checkbox" data-id="{$item['vg_id']}" data-atid="{$ac_id}" data-am-ucheck class="check-order">&nbsp;
+											</label>
+										</td>
+										<td>
+											<span class="text-error">{$item['vg_name']}</span>
+											<br/>{$item['vg_team_name']}
+										</td>
+										<td>
+											<span class="text-error">{$item['m_nickname']}</span>
+											<br/>{$item['m_name']}
+										</td>
+										<td>{$item['rg_all_area']}</td>
+										<td>
+											{if $item['gav_ac_id'] > 0 }
+												<span class="btn-success btn-xs btn">是</span>
+											{else}
+												<span class="btn-warning btn-xs btn">否</span>
+											{/if}
+										</td>
+										<td>
+											{if $item['gav_ac_id'] > 0 }
+											<a onclick="linkVillage('{$item['vg_id']}','{$ac_id}','cancel')"  class="btn btn-warning btn-xs" >取消参与</a>
+											{else}
+											<a onclick="linkVillage('{$item['vg_id']}','{$ac_id}','add')" class="btn btn-info btn-xs">参与</a>
+											{/if}
+										</td>
+									</tr>
+									{/loop}
+								{else}
+									<tr>
+										<td colspan="3">
+											没有数据
+										</td>
+									</tr>
+								{/if}
+								</tbody>
+							</table>
+                		</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+	function linkVillage(vid,ac_id,act){
+		if(vid == '' || vid == undefined || ac_id == '' || ac_id == undefined){
+			layer.msg('非法进入');
+			return false;
+		}
+        if(act == 'cancel'){
+            var notice = '确定取消？';
+        }else if( act == 'add'){
+            var notice = '确定关联？';
+        }else{
+            return false;
+        }
+        layer.confirm(notice, {icon: 3, title:'提示'}, function(index) {
+            $.post("{php echo $this->createWebUrl('action',array('op'=>'linkVillage'))}", {
+                id: ac_id,
+                vid: vid,
+                act: act
+            }, function (res) {
+                layer.close(index)
+                if (res.status == 0) {
+                    // alert(res.msg);
+                    location.reload();
+                } else {
+                    // alert(res.msg);
+					layer.msg(res.msg)
+                }
+            }, "JSON");
+        });
+	}
+    //勾选本页全部
+    $(document).on("click","#check-all",function () {
+        if($(this).is(':checked')){
+            $(".check-order").prop("checked",true);
+        }else{
+            $(".check-order").prop("checked",false);
+        }
+    });
+    //批量参与
+    $(document).on("click","#all-add",function () {
+        var id = '';
+        $(".check-order:checked").each(function () {
+            id +=$(this).attr("data-id")+',';
+        });
+        var acid =  $(".check-order:checked").attr("data-atid");
+        $.post("{php echo $this->createWebUrl('action',array('op'=>'linkVillage'))}",{id:acid,vid:id,act:'add'},function(res){
+
+            if(res.status == 0){
+                layer.msg(res.msg)
+                setTimeout(function () {
+                    location.href = "{php echo $this->createWebUrl('action',array('op'=>'seeVillage','id'=>$ac_id))}";
+                },1500)
+            }else{
+                layer.msg(res.msg)
+            }
+        },"JSON")
+        return false;
+    });
+    //批量取消
+    $(document).on("click","#all-cancle",function () {
+        var id = '';
+        $(".check-order:checked").each(function () {
+            id +=$(this).attr("data-id")+',';
+        });
+        var acid =  $(".check-order:checked").attr("data-atid");
+        $.post("{php echo $this->createWebUrl('action',array('op'=>'linkVillage'))}",{id:acid,vid:id,act:'cancel'},function(res){
+
+            if(res.status == 0){
+                layer.msg(res.msg);
+                setTimeout(function () {
+                    location.href = "{php echo $this->createWebUrl('action',array('op'=>'seeVillage','id'=>$ac_id))}";
+                },1500)
+
+            }else{
+                layer.msg(res.msg)
+            }
+        },"JSON")
+        return false;
+    });
+</script>
+	{template 'footer'}

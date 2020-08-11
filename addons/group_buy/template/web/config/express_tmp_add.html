@@ -1,0 +1,92 @@
+{template 'header'}
+{template 'template'}
+<style>
+    .tpl-form-line-form #zx-diy-day-text .zx-half-width-input{
+        width: 120px;
+    }
+    .input-group-btn {
+        display: block;
+    }
+    /*微擎底层时间插件样式*/
+    .daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect{
+        width: auto;
+        padding-right: 40px;
+    }
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+    <!--本页自定义样式-->
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+    <!--右侧详细内容区域，灰框之内,from 妹子-->
+    <div class="row-content am-cf">
+        <!--2列式简单布局,from bootstap-->
+        <div class="row">
+            <!--12列布局,from 妹子-->
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+                <div class="widget am-cf">
+                    <form id="form" action="{php echo $this->createWebUrl('config',array('op'=>'express_tmp_add'))}" class="am-form tpl-form-line-form" method="post">
+                        <!--本页隐藏传值-->
+                        <input type="hidden" name="id" id="id" value="{$info['id']}" />
+                        <!--右侧正文 from 自定义 -->
+                        <div class="widget-body">
+                            <!--右侧正文 规定所有边距为0 from bootstap -->
+                            <fieldset>
+                                <!--小标题 from 自定义-->
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl">{$act_title}活动</div>
+                                </div>
+                                <!--表单项开始 from 妹子-->
+                                <div class="am-form-group">
+                                    <!-- form-require表单项必填 from 自定义-->
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">快递名称 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type="text" class="tpl-form-input" name="name" value="{$info['name']}" required="" >
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label ">快递简码 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type="text" class="tpl-form-input" name="simplecode" value="{$info['simplecode']}">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label ">状态 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <label class="am-checkbox-inline am-success">
+											<input type="radio"  value="1" name="start" data-am-ucheck {php echo $info['start']==1?"checked":''; }>
+											启用
+										</label>
+										<label class="am-checkbox-inline am-success">
+											<input type="radio"  value="0" name="start"  data-am-ucheck {php echo $info['start']!=1?"checked":''; }>
+											禁用
+										</label>
+                                    </div>
+                                </div>
+                                
+                                
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                        <input type="hidden" name="submit" value="提交"/>
+                                        <button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+                                        <a href="{php echo $this->createWebUrl('config',array('op'=>'express_tmp'))}" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+
+    </script>
+</div>
+<!-- 内容区域 end -->
+
+{template 'footer'}

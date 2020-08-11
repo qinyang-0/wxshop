@@ -1,0 +1,287 @@
+{template 'header'}
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget__order-detail widget-body am-margin-bottom-lg">
+						<div class="am-u-sm-12">
+							<ul class="order-detail-progress progress-{if !empty($info['time1']) && empty($info['time2'])}3{else if !empty($info['time2'])}5{else}2{/if}">
+								<li style="width: 25%;">
+									<span>下单时间</span>
+									<div class="tip">{php echo date('Y-m-d H:i:s',$info['go_add_time'])}</div>
+								</li>
+								<li style="width: 25%;">
+									<span>发货</span> {if !empty($info['time1'])}
+									<div class="tip">发货于{php echo date('Y-m-d H:i:s',$info['time1'])}</div>
+									{/if}
+								</li>
+								<li style="width: 25%;">
+									<span>收货</span> {if !empty($info['time2'])}
+									<div class="tip">收货于{php echo date('Y-m-d H:i:s',$info['time2'])}</div>
+									{/if}
+								</li>
+								<li style="width: 25%;">
+									<span>完成</span> {if !empty($info['time2'])}
+									<div class="tip">完成于 {php echo date('Y-m-d H:i:s',$info['time2'])}</div>
+									{/if}
+								</li>
+							</ul>
+						</div>
+
+						<div class="widget-head am-cf">
+							<div class="widget-title am-fl">基本信息</div>
+						</div>
+						<div class="am-scrollable-horizontal">
+							<table class="regional-table am-table am-table-bordered am-table-centered
+                            am-text-nowrap am-margin-bottom-xs">
+								<tbody>
+									<tr>
+										<th>订单号</th>
+										<th>买家</th>
+										<th>订单金额</th>
+										<th>支付状态</th>
+										<th>交易状态</th>
+									</tr>
+									<tr>
+										<td>{$info['go_code']}</td>
+										<td>
+											<p>{$info['data'][0]['oss_buy_name']}</p>
+											<p class="am-link-muted">(电话：{$info['data'][0]['oss_buy_phone']})</p>
+										</td>
+										<td class="">
+											<div class="td__order-price am-text-left">
+												<ul class="am-avg-sm-2">
+													<li class="am-text-right">订单总额：</li>
+													<li class="am-text-right">{$info['go_all_old_price']}元+{$info['go_all_price']}积分 </li>
+												</ul>
+											</div>
+										</td>
+										<td>{if $info['go_status'] >= 20 && $info['go_status'] <= 100}
+											已支付
+											{else}
+												{if $info['go_status'] == 10}
+													<span style="color: red;">未支付</span>
+												{else}
+													<span style="color: red;">已取消</span>	
+												{/if}
+											{/if}
+										</td>
+										<td>
+											{if $info['go_status'] != 120}
+											<p>发货状态：
+												<span class="am-badge am-badge-success">
+                                                {if $info['go_status'] == 30 || $info['go_status'] == 100}已发货
+                                                {else}待发货
+                                                {/if}
+												</span>
+											</p>
+											<p>收货状态： 
+												<span class="am-badge am-badge-success">
+                                            	{if $info['go_status'] == 100}已收货
+                                                	{else if $info['go_status'] == 30}待收货
+                                                	{else}待发货
+                                                {/if}
+											</span>
+											</p>
+											{else}
+												<span style="color: red;">已取消</span>	
+											{/if}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="widget-head am-cf">
+							<div class="widget-title am-fl">商品信息</div>
+						</div>
+						<div class="am-scrollable-horizontal">
+							<table class="regional-table am-table am-table-bordered am-table-centered
+                            am-text-nowrap am-margin-bottom-xs">
+								<tbody>
+									<tr>
+										<th>商品名称</th>
+										<th>单价</th>
+										<th>购买数量</th>
+										<th>商品总价</th>
+									</tr>
+									{loop $info['data'] $item}
+										<tr>
+											<td class="goods-detail am-text-middle">
+												<div class="goods-image">
+													<img src="{php echo tomedia($item['oss_g_icon'])}" alt="">
+												</div>
+												<div class="goods-info">
+													<p class="goods-title">{$item['oss_g_name']}</p>
+													<!--<p class="goods-spec am-link-muted">
+														官方客服QQ：:1361545828; </p>-->
+												</div>
+											</td>
+											<td>{$item['oss_g_price']}元+{$item['oss_g_old_price']}积分</td>
+											<td>{$item['oss_g_num']}</td>
+											<td>{php echo $item['oss_g_price']*$item['oss_g_num']}元+{$item['oss_g_old_price']}积分</td>
+										</tr>
+									{/loop}
+									<tr>
+										<td colspan="4" class="am-text-right am-cf">
+											<!--<span class="am-fl">买家留言：无</span>-->
+											<span class="am-fr">总计：{$info['go_all_old_price']}元</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="widget-head am-cf">
+							<div class="widget-title am-fl">收货信息</div>
+						</div>
+						<div class="am-scrollable-horizontal">
+							<table class="regional-table am-table am-table-bordered am-table-centered
+                            am-text-nowrap am-margin-bottom-xs">
+								<tbody>
+									<tr>
+										<th>收货人</th>
+										<th>收货电话</th>
+										<th>收货地址</th>
+									</tr>
+									<tr>
+										<td>{$info['data'][0]['oss_address_name']}</td>
+										<td>{$info['data'][0]['oss_address_phone']}</td>
+										<td>{$info['oss_address']}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<!--<div class="widget-head am-cf">
+							<div class="widget-title am-fl">付款信息</div>
+						</div>
+						<div class="am-scrollable-horizontal">
+							<table class="regional-table am-table am-table-bordered am-table-centered
+                                am-text-nowrap am-margin-bottom-xs">
+								<tbody>
+									<tr>
+										<th>应付款金额</th>
+										<th>支付方式</th>
+										<th>支付流水号</th>
+										<th>付款状态</th>
+										<th>付款时间</th>
+									</tr>
+									<tr>
+										<td>￥1.00</td>
+										<td>微信支付</td>
+										<td>4200000135201808020290121628</td>
+										<td>
+											<span class="am-badge
+                                        am-badge-success">
+                                                已付款</span>
+										</td>
+										<td>
+											2018-08-02 17:43:45 </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>-->
+						<!-- 发货信息 -->
+						<div class="widget-head am-cf">
+							<div class="widget-title am-fl">发货信息</div>
+						</div>
+						<div class="am-scrollable-horizontal">
+							<table class="regional-table am-table am-table-bordered am-table-centered
+                                    am-text-nowrap am-margin-bottom-xs">
+								<tbody>
+									<tr>
+										<!--<th>物流公司</th>
+										<th>物流单号</th>-->
+										<th>发货状态</th>
+										<th>发货时间</th>
+									</tr>
+									<tr>
+										<!--<td></td>
+										<td></td>-->
+										<td>
+											<span class="am-badge am-badge-success">{if $info['go_status'] >= 30}已发货{else}未发货{/if}</span>
+										</td>
+										<td>{if $info['go_status'] >= 30}{php echo date('Y-m-d H:i:s',$info['time1'])}{/if}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script id="tpl-update-price" type="text/template">
+		<div class="am-padding-top-sm">
+			<form class="form-update-price am-form tpl-form-line-form" method="post" action="index.php?s=/store/order/updateprice/order_id/10096">
+				<div class="am-form-group">
+					<label class="am-u-sm-3 am-form-label"> 订单金额 </label>
+					<div class="am-u-sm-9">
+						<input type="number" min="0.00" class="tpl-form-input" name="order[update_price]" value="{{ order_price }}">
+						<small>最终付款价 = 订单金额 + 运费金额</small>
+					</div>
+				</div>
+				<div class="am-form-group">
+					<label class="am-u-sm-3 am-form-label"> 运费金额 </label>
+					<div class="am-u-sm-9">
+						<input type="number" min="0.00" class="tpl-form-input" name="order[update_express_price]" value="{{ express_price }}">
+					</div>
+				</div>
+			</form>
+		</div>
+	</script>
+
+	<script>
+		$(function() {
+
+			/**
+			 * 修改价格
+			 */
+			$('.j-update-price').click(function() {
+				var $this = $(this);
+				var data = $this.data();
+				// var orderId = $(this).data('order_id');
+				layer.open({
+					type: 1,
+					title: '订单价格修改',
+					area: '340px',
+					offset: 'auto',
+					anim: 1,
+					closeBtn: 1,
+					shade: 0.3,
+					btn: ['确定', '取消'],
+					content: template('tpl-update-price', data),
+					success: function(layero) {
+
+					},
+					yes: function(index) {
+						// console.log('asdasd');
+						// 表单提交
+						$('.form-update-price').ajaxSubmit({
+							type: "post",
+							dataType: "json",
+							success: function(result) {
+								result.code === 1 ? $.show_success(result.msg, result.url) :
+									$.show_error(result.msg);
+							}
+						});
+						layer.close(index);
+					}
+				});
+			});
+
+			/**
+			 * 表单验证提交
+			 * @type {*}
+			 */
+			$('.my-form').superForm();
+
+		});
+	</script>
+
+</div>
+{template 'footer'}

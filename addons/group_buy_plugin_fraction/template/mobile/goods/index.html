@@ -1,0 +1,424 @@
+{template 'common/header'}
+<link rel="stylesheet" href="{php echo MODULE_URL}style/mobile/css/searchxyk.css">
+<script type="text/javascript" src="{php echo MODULE_URL}style/mobile/js/mobliesearchproduct.js"></script>
+<link type="text/css" rel="stylesheet" href="{php echo MODULE_URL}style/mobile/css/sweetalert.css" />
+<script type="text/javascript" src="{php echo MODULE_URL}style/mobile/js/sweetalert.min.js"></script>
+<style>
+	.waiting {
+		height: 40px;
+		line-height: 40px;
+		width: 100%;
+		text-align: center;
+	}
+	
+	.gslist .gs-img,
+	.gslist .gs-img img {
+		height: 368px;
+	}
+	
+	.gslist {
+		height: 500px;
+	}
+	
+	.gslist a {
+		height: 500px;
+	}
+</style>
+<!-- 中间内容开始 -->
+<article id="wrapper ">
+	<div id="scroller">
+		<h1><a href="javascript:;" class="go_back"></a>
+			<form action="" method="post">
+				 <div class="searchBox">
+			        <input type="search" class="top_search" value="{$_GPC['g_name']}" placeholder="输入品牌或商品关键词" name="g_name">
+			    </div>
+			    <button class="head-right" style="background: #449cff;border: 0;">搜索</button>
+		    <!--<a href="javascript:void(0);"  onclick="getKey2()"  class="head-right">搜索</a>-->
+			</form>
+		   
+		</h1>
+
+		<div class="noneBox">
+			<div class="gsnav">
+				<a href="javascript:void(0);" onclick="selectSort($(this))">积分排序<i class="arrow"></i></a>
+				<a href="javascript:void(0);" onclick="selectSort($(this))">销量优先</a>
+				<a href="javascript:void(0);" id="sort">筛选<i class="sort"></i></a>
+			</div>
+		</div>
+
+		<!-- 搜索结果：商品展示 -->
+		<div class="proList">
+			{loop $info $key $item}
+				{if $key%2 == 0}<div class="gslist">{/if}
+			
+				<a href="{php echo $this->createMobileUrl('goods_info',array('id'=>$item['g_id']))}" class="fl">
+					<div class="gs-img"><img src="{php echo tomedia($item['g_icon'])}"></div>
+					<div class="gs-txt">
+						<div class="gs-name" style="text-overflow: ellipsis;overflow: hidden;">
+							{$item['g_name']}
+						</div>
+						<div class="gs-pri">{$item['g_price']}积分</div>
+					</div>
+				</a>
+				{if $key%2 != 0}</div>{/if}
+			{/loop}
+		</div>
+		<div id='loadMore' class="waiting" style='display: none;'>加载更多！</div>
+		<div id='lastPage' class="waiting" style='display: none;'>没有更多内容了！</div>
+		<script>
+			$(function() {
+				$('#sort').click(function() {
+					$('.mask').fadeIn();
+					$('.sortBox').animate({
+						right: 0
+					}, 300);
+				});
+				$('.btnbottom a').click(function() {
+					$('.mask').fadeOut();
+					$('.sortBox').animate({
+						right: -586
+					}, 300);
+				});
+			});
+		</script>
+		{template 'common/nav'}
+	</div>
+	</div>
+</article>
+
+<!-- 中间内容结束 -->
+<div class="mask"></div>
+<div class="sortBox">
+	<!--接口地址-->
+	<input type="hidden" name="url" id="url" value="{php echo $this->createMobileUrl('goods',array('types'=>'ajax'))}" />
+	<!--跳转地址-->
+	<input type="hidden" name="address" id="address" value="{php echo $this->createMobileUrl('goods_info')}" />
+	<!-- 隐藏积分范围 -->
+	<input type="hidden" id="scoreScope" value="" />
+	<!-- 兑换方式-->
+	<input type="hidden" id="exchangeMethod" value="1" />
+	<!-- 商品分类 -->
+	<input type="hidden" id="categoryPram" value="" />
+	<input type="hidden" value="" name="categoryId" id="categoryId" />
+
+	<!--隐藏排序类别-->
+	<input type="hidden" value="" name="strSortField" id="strSortField" />
+	<!--隐藏排序方式-->
+	<input type="hidden" value="" name="strOrderType" id="strOrderType" />
+	<div class="sortype">
+		<div class="tit">积分范围</div>
+		<div class="tag" style="margin-bottom:12px;">
+			<input class="sch_input01" type="number" name="searchMin" id="searchMin" value="0" maxlength='100000' size='100000'/>
+			<div class="line"></div>
+			<input class="sch_input01" type="number" name="searchMax" id="searchMax" value="" maxlength='100000' size='100000'/>
+		</div>
+	</div>
+	<div class="sortype">
+		<div class="tit">分类</div>
+		<div class="tag">
+			{loop $cate $item}
+				<a id="ptype" onclick="getFilterProductList($(this))" class="ptype" data-id="{$item['gc_id']}" href="javascript:void(0);" value="{$item['gc_id']}">{$item['gc_name']}</span></a>
+			{/loop}
+		</div>
+	</div>
+
+	<div class="btnbottom">
+		<a href="javascript:void(0);" onclick="resetFilterProductList()" style="background:#fb4769">返回</a>
+		<a href="javascript:void(0);" style="background:#449cff" onclick="confirmFilterProductList()">完成</a>
+	</div>
+</div>
+<input type="hidden" id='pageIndex' name="pagenos" value="1">
+<input type="hidden" id="pageCount" value="42">
+<div id="frontPath" style="display: none;"></div>
+<div id="webType" style="display: none;">jhtml</div>
+<div class="mask"></div>
+<script>
+	function getFilterProductList(obj){
+		var idValue = $(obj).attr("id");
+//		alert($(obj).css("background-color"));
+		if($(obj).css("background-color") == "rgb(255, 0, 0)"){    //红色
+//			$("#"+idValue).css("background-color" ,"rgb(240, 239, 240)").siblings().css("background-color" ,"rgb(240, 239, 240)");
+//			if(idValue == "pScore"){ 
+//				$("#scoreScope").val("");
+//			}else if(idValue == "payMethod"){
+//				$("#exchangeMethod").val("");
+//			}else if(idValue == "ptype"){
+			$('.ptype').removeAttr('style');
+			$("#categoryPram").val("");
+//			}
+		}else{
+			$('.ptype').removeAttr('style');
+			$(obj).css('background-color','red');
+			$(obj).css('color','#fff');
+//			$("#"+idValue).css("background-color" ,"rgb(240, 239, 240)").siblings().css("background-color" ,"rgb(240, 239, 240)");
+//			$(obj).css("background-color","#ff00006b");
+//			if(idValue == "pScore"){ 
+//				$("#scoreScope").val($(obj).html());
+//				$("#searchMin").val("");
+//				$("#searchMax").val("");
+//			}else if(idValue == "payMethod"){
+//				$("#exchangeMethod").val($(obj).attr("value"));
+//			}else if(idValue == "ptype"){
+			$("#categoryPram").val($(obj).attr("value"));
+//			}
+		}
+	}
+	
+	
+	$(function() {
+		// *****more02点击*************************************
+		$('.more02').click(function() {
+			$(this).next('.yh_Pop').fadeIn(300);
+			$('.mask').fadeIn(300);
+		});
+		$('.yh_Pop').click(function() {
+			$('.yh_Pop').fadeOut(300);
+			$('.mask').fadeOut(300);
+		});
+		// *****more02点击*************************************
+		// *****应用删除*************************************
+		$('.del_area').on('click', '.event', function() {
+			$(this).parent().addClass('cur').fadeOut(300);;
+			$(this).delay(300).animate({
+				'opcity': 1
+			}, 1, function() {
+				$(this).parent().remove();
+			});
+			$('.add_area').append($(this).parent().prop('outerHTML'));
+			$('.add_area a').removeClass('cur');
+		});
+		// *****应用删除*************************************
+		// *****应用增加*************************************
+		$('.add_area').on('click', '.event', function() {
+			$(this).parent().addClass('cur');
+			$(this).delay(300).animate({
+				'opcity': 1
+			}, 300, function() {
+				$(this).parent().remove();
+			});
+			$('.del_area').append($(this).parent().prop('outerHTML'));
+			$('.del_area a').removeClass('cur');
+		});
+		// *****应用增加*************************************
+		// *****修改应用按钮*************************************
+		$('.editBox a').click(function() {
+			if($(this).parent().hasClass('cur')) {
+				$(this).text('编辑').parent().removeClass('cur');
+				$('.appBox a .event').hide();
+			} else {
+				$(this).text('完成').parent().addClass('cur');
+				$('.appBox a .event').show();
+			}
+		});
+		// *****修改应用按钮*************************************
+
+		// *****增删应用弹窗关闭*************************************
+		$('.menuEditBox .close').click(function() {
+			$('.editBox a').text('编辑').parent().removeClass('cur');
+			$('.appBox a .event').hide();
+			$('.menuEditBox').slideUp(300);
+		});
+		// *****增删应用弹窗关闭*************************************
+		// *****右下浮动菜单*************************************
+		$('.fixedMenu_img').click(function() {
+			if($(this).parent().hasClass('cur')) {
+				$(this).parent().removeClass('cur');
+			} else {
+				$(this).parent().addClass('cur');
+			}
+		});
+		// *****右下浮动菜单*************************************
+		// *****返回顶部按钮*************************************
+		$('.goToTop,.go_top02').click(function() {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 300);
+		});
+		$(window).scroll(function() {
+			if($(window).scrollTop() >= 800) {
+				$('.goToTop').show();
+			} else {
+				$('.goToTop').hide();
+			}
+
+			if($(window).scrollTop() > 790) {
+				$('.Tab_Ul02').show();
+			} else {
+				$('.Tab_Ul02').hide();
+			}
+
+		});
+		// *****返回顶部按钮*************************************
+		// *****产品等tab选项卡*************************************
+		$('.Tab_Ul li,.Tab_Ul02 li').click(function() {
+			$(this).addClass('cur').siblings().removeClass('cur');
+			$('.Tab_Ul li').eq($(this).index()).addClass('cur').siblings('.Tab_Ul li').removeClass('cur');
+			$('.Tab_Ul02 li').eq($(this).index()).addClass('cur').siblings('.Tab_Ul02 li').removeClass('cur');
+			$('.TabContent').eq($(this).index()).css({
+				width: 750,
+				height: 'auto',
+				opcity: 1,
+				position: 'static'
+			}).siblings('.TabContent').css({
+				width: 1,
+				height: '1',
+				opcity: 0,
+				position: 'fixed'
+			});
+			$('body,html').animate({
+				scrollTop: $('.Ul_titBox').offset().top
+			}, 300);
+		});
+		$('.Tab_Ul02').hide();
+		// $(window).scroll(function() {
+		//   if ($(window).scrollTop()>$('.Ul_titBox').offset().top) {
+		//     $('.Tab_Ul').addClass('fixed');
+		//   } else {
+		//     $('.Tab_Ul').removeClass('fixed');
+		//   }
+		// });
+		// *****产品等tab选项卡*************************************
+
+		// *****app菜单*************************************
+
+		var swiper = new Swiper('.serversBox .swiper-container', {
+			pagination: '.swiper-pagination',
+			slidesPerView: 5,
+			paginationClickable: true,
+		});
+		$('.serverMore').click(function() {
+			$('.menuEditBox').fadeIn(300);
+		});
+		// *****app菜单*************************************
+		// *****信用卡*************************************
+		var swiper = new Swiper('.xykCont .swiper-container', {
+			pagination: '.swiper-pagination',
+			slidesPerView: 'auto',
+			paginationClickable: true,
+			spaceBetween: 10,
+		});
+		// *****信用卡*************************************
+
+		//卡天地start
+
+		var swiper = new Swiper('.cartiandi .swiper-container', {
+			pagination: '.swiper-pagination',
+			slidesPerView: 2,
+			centeredSlides: true,
+			paginationClickable: true,
+			spaceBetween: 80
+		});
+		//卡天地end
+
+		// *****全国优惠*************************************
+		var swiper = new Swiper('.qgyhCont .swiper-container', {
+			pagination: '.swiper-pagination',
+			slidesPerView: 'auto',
+			paginationClickable: true,
+			spaceBetween: 20,
+			autoHeight: true,
+		});
+		// *****全国优惠*************************************
+		// *****附近打折*************************************
+		var swiper = new Swiper('.fjdzCont .swiper-container', {
+			pagination: '.swiper-pagination',
+			slidesPerView: 'auto',
+			paginationClickable: true,
+			spaceBetween: 20,
+			autoHeight: true,
+		});
+		// *****附近打折*************************************
+		// *****滚动通知公告*************************************
+		var swiper = new Swiper('.indexNoticeBox .swiper-container', {
+			paginationClickable: true,
+			loop: true,
+			autoplay: 3000,
+			direction: 'vertical'
+		});
+		// *****滚动通知公告*************************************
+		// *****banner*************************************
+		var swiper = new Swiper('.bannerBox .swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			autoHeight: true, //enable auto height
+		});
+		// *****banner*************************************
+		// *****外汇买卖*************************************
+		var swiper = new Swiper('.whmmCont .swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			autoHeight: true, //enable auto height
+		});
+		// *****外汇买卖*************************************
+		// *****贵金属行情*************************************
+		var swiper = new Swiper('.gjsCont .swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			autoHeight: true, //enable auto height
+		});
+		// *****贵金属行情*************************************
+		// *****地图*************************************
+		$('.mapPage01').css({
+			top: 1600
+		});
+		$('.findMore').click(function() {
+			$('.mapPage01').animate({
+				top: 0
+			}, 300);
+		});
+		$('.icon_now').click(function() {
+			$('.icon_dz').show();
+		});
+		$('.icon_dz').click(function() {
+			$('.text_new').show();
+		});
+		$('.text_new').click(function() {
+			$('.mask').fadeIn();
+			$('.popMap').fadeIn();
+		});
+		$('.popLabelBox span').click(function() {
+			$('.map_name').val($(this).text());
+		});
+		$('.btn_sure').click(function() {
+			$('.icon_dz').hide();
+			$('.text_new').hide();
+			$('.mask').fadeOut(300);
+			$('.popMap').fadeOut(300);
+			$('.mapPage02').hide(300);
+			$('.mapPage01').delay(300).animate({
+				top: 1600
+			}, 300);
+		});
+		$('.btn_cancel').click(function() {
+			$('.mask').fadeOut(300);
+			$('.popMap').fadeOut(300);
+			// $('.icon_dz').hide();
+			// $('.text_new').hide();
+		});
+		$('.f_input').click(function() {
+			$('.mapPage02').show();
+		});
+		$('.place_box .item').click(function() {
+			$('.mask').fadeIn();
+			$('.popMap').fadeIn();
+		});
+		$('.map_back01').click(function() {
+			$('.mapPage02').hide();
+		});
+		// *****地图*************************************
+		// *****头部右侧按钮*************************************
+		$('.headerMenu ').click(function() {
+			if($(this).hasClass('cur')) {
+				$(this).removeClass('cur');
+				$('.personInforPop').slideUp(300);
+			} else {
+				$(this).addClass('cur');
+				$('.personInforPop').fadeIn();
+			}
+		});
+		// *****头部右侧按钮*************************************
+	});
+</script>
+</body>
+
+</html>

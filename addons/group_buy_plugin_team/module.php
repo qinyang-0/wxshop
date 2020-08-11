@@ -1,0 +1,1 @@
+<?phpif (!(defined('IN_IA'))) {	exit('Access Denied');}class Group_buy_plugin_teamModule extends WeModule{		public function welcomeDisplay()	{		//入口文件		global $_W,$_GPC;		$url = "/index.php?c=site&a=entry&do=index&m=group_buy_plugin_team";		header('location: ' . $url);		exit();	}}?>

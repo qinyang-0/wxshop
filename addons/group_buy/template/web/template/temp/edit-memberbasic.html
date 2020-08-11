@@ -1,0 +1,102 @@
+<div class="">
+
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">用户中心自定义</div>
+	</div>
+	<div class="widget am-cf">
+<div class="temp_item temp_item_basic" >
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">头部背景图</label>
+		<div class="frm_controls">
+			<div class="frm_input_box frm_input_box_100" ng-click="uploadImage(memberbasic,'head_bg_img')" style="border: 1px dashed #ccc;vertical-align: middle;height: 62px;width: 125px;line-height: 62px;padding: 0;">
+				<img ng-if="memberbasic.head_bg_img" class="upload_image_img"  ng-src="{{memberbasic.head_bg_img}}"/>
+			</div>
+			<br/>
+			<span class="color-9">推荐尺寸750*370</span>
+		</div>
+	</div>
+
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">订单栏</label>
+		<div class="frm_controls">
+				<div style="border: 1px solid #ccc;height: 75px;width: 52px;float: left;text-align: center;border-right:0;">
+					<div class="frm_input_box frm_input_box_100" ng-click="uploadImage(memberbasic,'icon1')" style="vertical-align: middle;height: 50px;width: 49px;line-height: 50px;padding: 0;border:0;overflow: hidden;">
+						<img ng-if="memberbasic.order.icon1" class="" style="width: 100%;margin: 0 auto;" ng-src="{{memberbasic.order.icon1}}"/>
+
+					</div>
+					<span style="height: 25px;">待付款</span>
+				</div>
+			<div style="border: 1px solid #ccc;height: 75px;width: 52px;float: left;text-align: center;border-right:0;">
+			<div class="frm_input_box frm_input_box_100" ng-click="uploadImage(memberbasic,'icon2')" style="vertical-align: middle;height: 50px;width: 49px;line-height: 50px;padding: 0;border:0;overflow: hidden;">
+					<img ng-if="memberbasic.order.icon2" class="" style="width: 100%;margin: 0 auto;" ng-src="{{memberbasic.order.icon2}}"/>
+
+				</div>
+				<span style="height: 25px;">待配送</span>
+			</div>
+			<div style="border: 1px solid #ccc;height: 75px;width: 52px;float: left;text-align: center;border-right:0;">
+			<div class="frm_input_box frm_input_box_100" ng-click="uploadImage(memberbasic,'icon3')" style="vertical-align: middle;height: 50px;width: 49px;line-height: 50px;padding: 0;border:0;overflow: hidden;">
+					<img ng-if="memberbasic.order.icon3" class="" style="width: 100%;margin: 0 auto;" ng-src="{{memberbasic.order.icon3}}"/>
+
+				</div>
+				<span style="height: 25px;">待提货</span>
+			</div>
+			<div style="border: 1px solid #ccc;height: 75px;width: 52px;float: left;text-align: center;border-right:0;">
+			<div class="frm_input_box frm_input_box_100" ng-click="uploadImage(memberbasic,'icon4')" style="vertical-align: middle;height: 50px;width: 49px;line-height: 50px;padding: 0;border:0;overflow: hidden;">
+					<img ng-if="memberbasic.order.icon4" class="" style="width: 100%;margin: 0 auto;" ng-src="{{memberbasic.order.icon4}}"/>
+
+				</div>
+				<span style="height: 25px;">已提货</span>
+			</div>
+			<div style="border: 1px solid #ccc;height: 75px;width: 52px;float: left;text-align: center;">
+			<div class="frm_input_box frm_input_box_100" ng-click="uploadImage(memberbasic,'icon5')" style="vertical-align: middle;height: 50px;width: 49px;line-height: 50px;padding: 0;border:0;overflow: hidden;">
+					<img ng-if="memberbasic.order.icon5" class="" style="width: 100%;margin: 0 auto;" ng-src="{{memberbasic.order.icon5}}"/>
+
+				</div>
+				<span style="height: 25px;">售后</span>
+			</div>
+		</div>
+	</div>
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">菜单栏样式</label>
+		<div class="frm_controls">
+	    	<label class="frm_radio_label" ng-click="memberbasic.menu.type = '1'">
+	    		<i class="icon_radio"></i> 
+	    		<span class="lbl_content">列表形式</span>
+	    		<input type="radio" name="type" on-selected value="1" class="frm_radio"  ng-model="memberbasic.menu.type"  />
+	    	</label> 
+	    	<label class="frm_radio_label " ng-click="memberbasic.menu.type = '2'">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">十六宫格形式</span>
+	    		<input type="radio" name="type" on-selected value="2" class="frm_radio"  ng-model="memberbasic.menu.type"  />
+	    	</label>
+		</div>
+	</div>	
+	<div class="frm_control_group">
+		<label for="" class="frm_label">菜单栏</label>
+		<div class="frm_controls">
+			<div class="am-panel am-panel-default am-g " ui-sortable="sortableOptions" ng-model="memberbasic.menu.data">
+				<!--<div class="am-panel-hd">基础（默认）样式</div>-->
+				<div class="am-panel-bd am-u-md-12 am-form" ng-repeat="good in memberbasic.menu.data" >
+						<div class="am-u-md-3 " style=""  >
+							<div class="am-u-md-4" ng-click="uploadImage(good,'goodimg')" style="border: 1px dashed #ccc;vertical-align: middle;height: 40px;width: 40px;line-height: 40px;padding: 0;">
+								<img ng-if="good.img" class="upload_image_img"  ng-src="{{good.img}}"/>
+							</div>
+						</div>
+						<div class="am-u-md-9" >
+							<div class="am-form-group" style="min-height: 30px;">
+								<label class="am-u-sm-3 am-form-label">名称:</label>
+								<div class="am-u-sm-9">
+									<input type="text" value="" class="" style="padding:0;line-height: 1.4;"  ng-model="good.title">
+								</div>
+							</div>
+
+
+						</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</div></div></div>

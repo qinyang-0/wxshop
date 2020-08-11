@@ -1,0 +1,283 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #428bca;
+	    color: #fff;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('district',array('op'=>'villageAdd'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<input type="hidden" name="id" id="id" value="{$id}" />
+						<input type="hidden" name="rg_id" id="rg_id" value="{$rg['rg_id']}" />
+						<input type="hidden" name="province_name"  value="" />
+						<input type="hidden" name="city_name"  value="" />
+						<input type="hidden" name="area_name"  value="" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">{$act_title}小区</div>
+								</div>
+								<!--表单项开始 from 妹子-->
+								<div class="am-form-group">
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">团长小区/店铺名称 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type='text'  name='team_name' value="{$vg['vg_name']}" class='tpl-form-input'/>
+										</div>
+									</div>
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">所属地区 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<span style="width: 150px;">
+											<select name="province" style="width: 150px;display: inline-block;" class="tpl-form-input">
+											<option value="">请选择...</option>
+											{if !empty($province)}
+												{loop $province $v}
+												<option value="{$v['ad_code']}" {php echo $v['ad_code']== $rg['rg_province_id']?'selected':'';}>{$v['name']}</option>
+												{/loop}
+											{/if}
+										</select>
+										</span>
+										<span style="width: 150px;">
+											<select name="city" style="width: 150px;display: inline-block;"class="tpl-form-input">
+												<option value="">请选择...</option>
+											{if !empty($city)}
+												{loop $city $v}
+												<option value="{$v['ad_code']}" {php echo $v['ad_code']== $rg['rg_city_id']?'selected':'';}>{$v['name']}</option>
+												{/loop}
+											{/if}
+											</select>
+										</span>
+										<span style="width: 150px;">
+											<select name="areas" style="width: 150px;display: inline-block;"  class="tpl-form-input">
+												<option value="">请选择...</option>
+												{if !empty($areas)}
+												{loop $areas $v}
+												<option value="{$v['ad_code']}" {php echo $v['ad_code']== $rg['rg_area_id']?'selected':'';}>{$v['name']}</option>
+												{/loop}
+												{/if}
+											</select>
+										</span>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">详细地址 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' id="address" name='address' value="{$vg['vg_address']}" placeholder="小区的详细地址" class='tpl-form-input'/>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">经纬度 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" readonly name="lng" id="labour_lng" value="{$vg['vg_longitude']}" style="width: 200px;display: inline-block;"  class="tpl-form-input"/>
+										&nbsp;&nbsp;&nbsp;
+										<input type="text" readonly name="lat" id="labour_lat" value="{$vg['vg_latitude']}" style="width: 200px;display: inline-block;"  class="tpl-form-input" />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">拾取地址 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input id="text_" type="text" value=""  class="tpl-form-input" style="width: 200px;display: inline-block;" title="在此输入大概位置后在地图上拾取坐标"/>
+										&nbsp;&nbsp;&nbsp;
+										<input type="button" value="查询" onclick="searchByStationName();" class="btn btn-info"/>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label "> </label>
+									<div class="am-u-sm-9 am-u-end">
+										<div id="container" style="height: 300px;width: 460px"></div>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a onclick="history.go(-1);return false;" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=XPNLMUsc0GqC5cNdRlQoOCPb3xcqqRGN"></script>
+<script>
+    $('#btn').click(function(){
+        var area = parseInt($.trim($("select[name=areas]").val()));
+        var name = $.trim($("input[name='name']").val());
+        var team_name = $.trim($("input[name='team_name']").val());
+        var address = $.trim($("textarea[name='address']").val());
+        /*if(isNaN(area)  || area<= 0){
+            alert("请选择上级地区");
+           return false;
+        }
+        if(name == '' || name == undefined){
+            alert("请输入小区名称");
+            return false;
+        }
+        if(team_name == '' || team_name == undefined){
+            alert("请输入店铺/团队名称");
+            return false;
+        }
+        if(address == '' || address == undefined){
+            alert("请输入小区地址");
+            return false;
+        }*/
+    });
+    //加载时初始为原本的值（省市区）
+    var province_name = $.trim($("select[name=province] option:selected").text());
+    var city_name = $.trim($("select[name=city] option:selected").text());
+    var area_name = $.trim($("select[name=areas] option:selected").text());
+    $("input[name=province_name]").val(province_name);
+    $("input[name=city_name]").val(city_name);
+    $("input[name=area_name]").val( area_name );
+    //选省请求市
+    //妹子的有毒 后面再说 todo...........
+    // $(document).on('click','select[name=province] + .am-selected-content > .am-selected-text', function() {
+    //     var action = $(this).data('selected');
+    //     console.log(22);
+    //
+    //         $('select[name=province]').trigger('changed.selected.amui');
+    // });
+    $(document).on("change","select[name=province]",function () {
+        console.log(1)
+        var id = parseInt($(this).val());
+        $("input[name=city_name]").val("");
+        $("input[name=area_name]").val( "" );
+        if( !isNaN(id) ){
+            $("input[name=province_name]").val( $(this).find("option:selected").text() );
+            $("select[name=areas]").html('<option >请选择县/区</option>');
+            $.post("{php echo $this->createWebUrl('head',array('op'=>'getArea'))}",{area_id:id},function(res){
+                $str = "<option >请选择城市</option>";
+                for( x in res ){
+                    $str += "<option value='"+res[x]['ad_code']+"'>"+res[x]['name']+"</option>";
+                }
+                $("select[name=city]").html($str);
+            },"JSON")
+        }
+
+
+    });
+    //选市请求区
+    $(document).on("change","select[name=city]",function () {
+        var id = parseInt($(this).val());
+        $("input[name=area_name]").val( "" );
+        if( !isNaN(id) ){
+            $("input[name=city_name]").val( $(this).find("option:selected").text() );
+            $.post("{php echo $this->createWebUrl('head',array('op'=>'getArea'))}",{area_id:id},function(res){
+                $str = "<option >请选择县/区</option>";
+                for( x in res ){
+                    $str += "<option value='"+res[x]['ad_code']+"'>"+res[x]['name']+"</option>";
+                }
+                $("select[name=areas]").html($str);
+            },"JSON")
+        }
+
+    });
+    //选择区
+    $(document).on("change","select[name=area]",function () {
+        var id = parseInt($(this).val());
+        if( !isNaN(id) ){
+            $("input[name=area_name]").val( $(this).find("option:selected").text() );
+        }
+    });
+    //百度地图
+    var map = new BMap.Map("container");
+    var geoc = new BMap.Geocoder();
+    //标注信息窗口
+    var opts = {
+        width : 120,     // 信息窗口宽度
+        height: 60,     // 信息窗口高度
+        title : "您拾取的地址为：" , // 信息窗口标题
+        enableMessage:true,//设置允许信息窗发送短息
+        message:""
+    }
+    var int_city = {if !empty($info['vg_address'])}"{$info['vg_address']}"{else}'北京'{/if};
+        map.centerAndZoom(int_city, 12);//这里是初始地图所显示的城市
+        map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+
+        map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+        map.addControl(new BMap.OverviewMapControl()); //添加默认缩略地图控件
+        map.addControl(new BMap.OverviewMapControl({isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT}));   //右下角，打开
+
+        var localSearch = new BMap.LocalSearch(map);
+        localSearch.enableAutoViewport(); //允许自动调节窗体大小
+        function searchByStationName(key = "") {
+            map.clearOverlays();//清空原来的标注
+            var keyword = key == "" ? document.getElementById("text_").value : key;
+            localSearch.setSearchCompleteCallback(function (searchResult) {
+                var poi = searchResult.getPoi(0);
+                //document.getElementById("result_").value = poi.point.lng + "," + poi.point.lat;//这里是追加到对应的input文本框里，可以根据自己的需要来修改
+                map.centerAndZoom(poi.point, 13);
+                var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地方对应的经纬度
+                map.addOverlay(marker);
+                // var content = document.getElementById("text_").value + "<br/><br/>经度：" + poi.point.lng + "<br/>纬度：" + poi.point.lat;
+                // var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+                // marker.addEventListener("click", function () {
+                //     this.openInfoWindow(infoWindow);
+                // });
+                var infoWindow = new BMap.InfoWindow(key == "" ? document.getElementById("text_").value : key, opts);  // 创建信息窗口对象
+                map.openInfoWindow(infoWindow, poi.point); //开启信息窗口
+                $("#labour_lng").val(poi.point.lng);
+                $("#labour_lat").val(poi.point.lat);
+                // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            });
+            localSearch.search(keyword);
+        }
+
+        //这里是点击事件
+        map.addEventListener("click", function (e) {
+            var lng = e.point.lng;
+            var lat = e.point.lat;
+            //这里是清空所有标记
+            map.clearOverlays();//清空原来的标注
+            //创建一个新的标记
+            map.centerAndZoom(e.point, 16);
+            map.addOverlay(new BMap.Marker(e.point));
+            geoc.getLocation(e.point, function (rs) {
+                var addComp = rs.addressComponents;
+                //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+                //双击拾取地图坐标后显示在input
+                $("#address").val(addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+                var infoWindow = new BMap.InfoWindow($("#address").val(), opts);  // 创建信息窗口对象
+                map.openInfoWindow(infoWindow, e.point); //开启信息窗口
+            });
+            $("#labour_lng").val(lng);
+            $("#labour_lat").val(lat);
+        });
+        //滚动缩放
+        map.centerAndZoom(new BMap.Point(116.4035, 39.915), 8);
+        setTimeout(function () {
+            map.setZoom(14);
+        }, 2000);  //2秒后放大到14级
+        map.enableScrollWheelZoom(true);
+
+
+        //当直接输入地址时
+        $(document).on("blur", "input[name=address]", function () {
+            if ($.trim($(this).val())) {
+                searchByStationName($(this).val());
+            }
+        });
+
+</script>

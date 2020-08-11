@@ -1,0 +1,75 @@
+{template 'header'}
+
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-cf">麦芒团购分销插件-系统首页</div>
+                    </div>
+                    <div class="widget-body am-fr">
+                        <!-- 工具栏 -->
+                        <div class="page_toolbar am-margin-bottom-xs am-cf">
+                            <!--<form class="toolbar-form" action="">-->
+                                <div class="am-u-sm-12 ">
+                                    <div class="am fr">
+                                        <div class="am-form-group am-fl">
+                                            <div class="am-input-group am-input-group-sm tpl-form-border-form">
+                                                <!--<input class="form-control" name="name" id="" type="text" value="{$name}" placeholder="活动名称">-->
+                                                <!--<input type="text" class="am-form-field" name="name" placeholder="广告名称" value="{$name}" style="border-radius: 4px;width: 240px;">-->
+                                            </div>
+                                        </div>
+                                        <!-- 查询按钮样式 -->
+                                        <!--<div class="zx-but-check">
+                                            <button type="submit" >
+                                                <i class="fa fa-search"></i> 查询
+                                            </button>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <!-- 订单导出外层Box -->
+
+                            <!--</form>-->
+                        </div>
+
+
+
+                        <div class="am-scrollable-horizontal am-u-sm-12">
+                            <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+                                <thead class="navbar-inner">
+                                <tr>
+                                    <th >当前版本:</th>
+                                    <th >{$data['now_version']}</th>
+                                </tr>
+                                <tr>
+                                    <th >服务器环境:</th>
+                                    <th >{$data['software']}</th>
+                                </tr>
+                                <tr>
+                                    <th >操作系统:</th>
+                                    <th >{$data['os']}</th>
+                                </tr>
+                                <tr>
+                                    <th>PHP版本</th>
+                                    <th>{$data['php_version']}</th>
+                                </tr>
+                                <tr>
+                                    <th >mysql版本:</th>
+                                    <th >{$data['mysql_version']}</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- 内容区域 end -->
+{template 'footer'}

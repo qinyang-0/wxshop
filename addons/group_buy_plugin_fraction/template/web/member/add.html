@@ -1,0 +1,103 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form id="my-form" action="{php echo $this->createWeburl('goods',array('op'=>'class','in'=>'add'))}" class="am-form tpl-form-line-form"
+					 method="post" novalidate="novalidate">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<div class="widget-body">
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">基本信息</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">等级名称 </label>
+									<div class="am-u-sm-9 am-u-end ">
+										<input type="text" class="tpl-form-input" name="title" value="{$info['title']}" required="">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">等级优惠类型 </label>
+									<div class="am-u-sm-9 am-u-end zx-sendNotice">
+										<select name="type" required="" data-am-selected="{searchBox: 1, btnSize: &#39;sm&#39;,
+                                             placeholder:&#39;顶级分类&#39;, maxHeight: 400}"
+										 style="display: none;">
+											<option value="1" {if $info['type']==1} selected="" {/if}>立减 </option> <option value="2" {if $info['type']==2}
+											 selected="" {/if}>折扣 </option> </select> </div> </div> <div class="am-form-group">
+												<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">商品优惠金额 </label>
+												<div class="am-u-sm-9 am-u-end">
+													<input type="text" class="tpl-form-input" name="money" value="{$info['money']}" required="">
+												</div>
+									</div>
+									<!--<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">状态 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline">
+	                                        <input type="radio" name="spec_type" value="1" data-am-ucheck="" checked="" class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+	                                        启用
+	                                    </label>
+										<label class="am-radio-inline" style="display: none;">
+	                                        <input type="radio" name="spec_type" value="-1" data-am-ucheck="" class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+	                                        <span class="am-link-muted">禁用</span>
+	                                    </label>
+									</div>
+								</div>-->
+									<!--<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">等级排序 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="number" class="tpl-form-input" name="gc_order" value="{$info['gc_order']}" required="" pattern="^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$">
+										<small>数字越小越靠前</small>
+									</div>
+								</div>-->
+									<div class="am-form-group">
+										<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+											<div class="zx-but-box">
+												<a href="javascript:;" id="btn" class="j-submit ">提交</a>
+											</div>
+										</div>
+									</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 内容区域 end -->
+
+{template 'footer'}
+<script type="text/javascript">
+	$('#btn').click(function (res) {
+		var title = $("input[name='title']").val();
+		var type = $("select[name='type']").val();
+		var money = $("input[name='money']").val();
+		var id = $("input[name='id']").val();
+		if (title == '') {
+			layer.msg('请输入等级名称');
+			return false;
+		}
+		if (money == '' || money == undefined) {
+			layer.msg('请填写优惠金额');
+			return false;
+		}
+		$.post("{php echo $this->createWebUrl('member',array('op'=>'add','types'=>'1'))}", {
+			title: title,
+			type: type,
+			money: money,
+			id: id
+		}, function (res) {
+			if (res.code == 0) {
+				layer.msg(res.msg);
+				location.reload();
+			} else {
+				layer.msg(res.msg);
+			}
+		}, "JSON");
+	})
+</script>

@@ -1,0 +1,16 @@
+<div class="temp_item temp_item_title" ng-style="">
+
+	<div class="item_cell_box" style="align-items: center;">
+
+		<div class='phone' ng-style="{'background':item.params.background}">
+			<div class='youhui' ng-style="{'font-size':item.params.title_size+'px','color':item.params.title_color}">{{item.params.title}}</div>
+			<div class='input'>
+				<form>
+					<input placeholder-class="place-holder" name="input" placeholder="{{item.params.input_title}}" ng-style="{'font-size':item.params.input_size+'px'}" />
+					<button formType="submit" ng-style="{'font-size':item.params.btn_size+'px','color':item.params.btn_color,'background':item.params.btn_backgornd}">{{item.params.btn_text}}</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>

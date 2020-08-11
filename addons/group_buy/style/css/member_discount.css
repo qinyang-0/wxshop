@@ -1,0 +1,230 @@
+.goods-spec-many #goods_distributisons .goods-spec-line {
+	border: 1px dashed #e3e2e5;
+}
+
+.goods-spec-many #goods_distributisons .spec-batchs {
+	margin-bottom: 1.5rem;
+}
+
+.goods-spec-many #goods_distributisons .spec-batchs .am-form-label {
+	padding-top: 0;
+}
+
+.goods-spec-many #goods_distributisons .spec-batchs .am-form-group {
+	margin-left: .6rem;
+	margin-bottom: .8rem;
+}
+
+.goods-spec-many #goods_distributisons .spec-batchs .am-form-group input {
+	width: 140px;
+}
+
+.goods-spec-many #goods_distributisons .btn_distribution {
+	margin-bottom: 1.5rem;
+}
+
+.goods-spec-many #goods_distributisons .btn_distribution .am-form-label {
+	padding-top: 0;
+}
+
+.goods-spec-many #goods_distributisons .btn_distribution .am-form-group {
+	margin-left: .6rem;
+	margin-bottom: .8rem;
+}
+
+.goods-spec-many #goods_distributisons .btn_distribution .am-form-group input {
+	width: 140px;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.td-spec-value {
+	padding: .7rem 1.3rem !important;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image {
+	font-size: 0;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .upload-image {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px dashed #E3E2E5;
+	border-radius: 4px;
+	text-align: center;
+	cursor: pointer;
+	color: #B2AEBC;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .upload-image .iconfont {
+	line-height: 32px;
+	font-size: 1.2rem;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .upload-image:hover {
+	border: 1px dashed #2589ff;
+	color: #2589ff;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .data-image {
+	position: relative;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .data-image img {
+	width: 100%;
+	height: 100%;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .data-image .image-delete {
+	display: none;
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	line-height: 15px;
+	background: rgba(153, 153, 153, 0.7);
+	border-radius: 50%;
+	text-align: center;
+	color: #fff !important;
+	font-size: 1rem;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .data-image .image-delete:hover {
+	background: #000;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel td.spec-image .data-image:hover .image-delete {
+	display: block;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel input {
+	display: inline-block !important;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel input.ipt-goods-no {
+	width: 140px;
+}
+
+.goods-spec-many #goods_distributisons .spec-sku-tabel input.ipt-w80 {
+	width: 80px;
+}
+.goods-spec-many #goods_discount .goods-spec-line {
+	border: 1px dashed #e3e2e5;
+}
+
+.goods-spec-many #goods_discount .spec-batchs {
+	margin-bottom: 1.5rem;
+}
+
+.goods-spec-many #goods_discount .spec-batchs .am-form-label {
+	padding-top: 0;
+}
+
+.goods-spec-many #goods_discount .spec-batchs .am-form-group {
+	margin-left: .6rem;
+	margin-bottom: .8rem;
+}
+
+.goods-spec-many #goods_discount .spec-batchs .am-form-group input {
+	width: 140px;
+}
+
+.goods-spec-many #goods_discount .btn_distribution {
+	margin-bottom: 1.5rem;
+}
+
+.goods-spec-many #goods_discount .btn_distribution .am-form-label {
+	padding-top: 0;
+}
+
+.goods-spec-many #goods_discount .btn_distribution .am-form-group {
+	margin-left: .6rem;
+	margin-bottom: .8rem;
+}
+
+.goods-spec-many #goods_discount .btn_distribution .am-form-group input {
+	width: 140px;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.td-spec-value {
+	padding: .7rem 1.3rem !important;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image {
+	font-size: 0;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .upload-image {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px dashed #E3E2E5;
+	border-radius: 4px;
+	text-align: center;
+	cursor: pointer;
+	color: #B2AEBC;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .upload-image .iconfont {
+	line-height: 32px;
+	font-size: 1.2rem;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .upload-image:hover {
+	border: 1px dashed #2589ff;
+	color: #2589ff;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .data-image {
+	position: relative;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .data-image img {
+	width: 100%;
+	height: 100%;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .data-image .image-delete {
+	display: none;
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	line-height: 15px;
+	background: rgba(153, 153, 153, 0.7);
+	border-radius: 50%;
+	text-align: center;
+	color: #fff !important;
+	font-size: 1rem;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .data-image .image-delete:hover {
+	background: #000;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel td.spec-image .data-image:hover .image-delete {
+	display: block;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel input {
+	display: inline-block !important;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel input.ipt-goods-no {
+	width: 140px;
+}
+
+.goods-spec-many #goods_discount .spec-sku-tabel input.ipt-w80 {
+	width: 80px;
+}

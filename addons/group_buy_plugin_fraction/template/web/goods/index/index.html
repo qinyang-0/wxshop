@@ -1,0 +1,243 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">出售中的商品</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form class="toolbar-form" action="./index.php">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy_plugin_fraction">
+								<input type="hidden" name="do" value="goods">
+
+								<div class="am-u-sm-12 am-u-md-9">
+									<div class="am fr">
+										<div class="am-form-group am-fl one">
+											<select name="g_cid" data-am-selected="{searchBox: 1, btnSize: &#39;sm&#39;,
+	                                             placeholder:&#39;请选择商品分类&#39;, maxHeight: 400}" style="display: none;">
+												<option value=""></option>
+												{loop $goods_cate $item}
+													<option value="{$item['gc_id']}">{$item['gc_name']}</option>
+													 {/loop} </select>
+										</div>
+										<div class="am-form-group am-fl tow">
+											<select name="g_is_online" data-am-selected="{searchBox: 1, btnSize: &#39;sm&#39;,
+	                                             placeholder:&#39;请选择商品分类&#39;, maxHeight: 400}" style="display: none;">
+												<option value="1" {if $from[ 'g_is_online']==1} selected="" {/if}>上架 </option>
+												<option value="-1" {if $from[ 'g_is_online']==-1} selected="" {/if}>下架 </option>
+											</select>
+										</div>
+										<div class="am-form-group am-fl three" style="width:240px;">
+											<div class="am-input-group am-input-group-sm tpl-form-border-form">
+												<input type="text" class="am-form-field" name="g_name" placeholder="请输入商品名称" value="{$from['g_name']}" style="border-radius: 4px;">
+												<!-- <div class="am-input-group-btn">
+																	<button class="am-btn am-btn-default am-icon-search" type="submit"></button>
+																</div> -->
+											</div>
+
+										</div>
+										<div class="am-form-group am-fl">
+											<div class="zx-but-check" style="margin-left:8px;">
+												<button type="submit">
+													查询
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="am-u-sm-12">
+									<div class="zx-but-box">
+										<a class="j-export" href="{php echo $this->createWebUrl('goods',array('op'=>'add'))}">
+											<!-- <i class="iconfont icon-daochu am-margin-right-xs"></i> -->
+											添加产品
+										</a>
+									</div>
+
+									<!-- <div class="am-form-group zx-form-group">
+										<div class="am-btn-group am-btn-group-xs">
+											<a class="zx-addBut" href="{php echo $this->createWebUrl('goods',array('op'=>'add'))}">
+												添加产品
+											</a>
+										</div>
+									</div> -->
+								</div>
+							</form>
+						</div>
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped
+                         tpl-table-black am-text-nowrap">
+								<thead>
+									<tr>
+										<th>商品ID</th>
+										<th>商品图片</th>
+										<th>商品名称</th>
+										<th>商品分类</th>
+										
+										<th>商品售价</th>
+										<th>实际销量</th>
+										
+										<th>限制数量</th>
+										<th>商品排序</th>
+										
+										<th>是否上架</th>
+										<th>推荐状态</th>
+										<th>添加时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									{if !empty($info)} {loop $info $item}
+									<tr>
+										<td class="am-text-middle">{$item['g_id']}</td>
+										<td class="am-text-middle">
+											<a href="{php echo tomedia($item['g_icon'])}" title="点击查看大图" target="_blank">
+												<img src="{php echo tomedia($item['g_icon'])}" width="70" alt="商品图片">
+											</a>
+										</td>
+										<td class="am-text-middle">
+											<p class="item-title">{$item['g_name']}</p>
+										</td>
+										<td class="am-text-middle">{php echo $this->goods_class($item['g_cid'])}</td>
+										<td class="am-text-middle">{$item['integral']}积分+{$item['g_price']}元</td>
+										<td class="am-text-middle">{$item['g_real_sale_num']}</td>
+										<td class="am-text-middle">{$item['limit']}</td>
+										<td class="am-text-middle">{$item['g_order']}</td>
+										<td class="am-text-middle">
+											<div class="am-u-sm-9">
+												<div class="tpl-switch">
+													<input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" name="type" data-id="{$item['g_id']}" data-type="g_is_online" data-state="{$item['g_is_online']}" {if $item[ 'g_is_online']==1} checked="" {/if}>
+													<div class="tpl-switch-btn-view">
+														<div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td class="am-text-middle">
+											<div class="am-u-sm-9">
+												<div class="tpl-switch">
+													<input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" name="type" data-id="{$item['g_id']}" data-type="g_is_recommand" data-state="{$item['g_is_recommand']}" {if $item[ 'g_is_recommand']==1} checked="" {/if}>
+													<div class="tpl-switch-btn-view">
+														<div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td class="am-text-middle">{php echo date('Y-m-d H:i:s',$item['g_add_time'])}</td>
+										<td class="am-text-middle">
+											<div class="tpl-table-black-operation">
+												<a href="{php echo $this->createWebUrl('goods',array('op'=>'add','id'=>$item['g_id']))}">
+													<!-- <i class="am-icon-pencil"></i>  -->
+													编辑
+												</a>
+												<a href="javascript:;" class="item-delete tpl-table-black-operation-del" data-id="{$item['g_id']}">
+													<!-- <i class="am-icon-trash"></i>  -->
+													删除
+												</a>
+												<a class="tpl-table-black-operation-green" href="{php echo $this->createWebUrl('goods',array('op'=>'add','id'=>$item['g_id'],'type'=>10))}">
+													一键复制
+												</a>
+											</div>
+										</td>
+									</tr>
+									{/loop} {else}
+									<tr>
+										<td colspan="9" style="text-align: center;">暂无数据</td>
+									</tr>
+									{/if}
+								</tbody>
+							</table>
+						</div>
+						<div class="am-u-lg-12 am-cf">
+							<div class="am-fr"> </div>
+							<div class="am-fr pagination-total am-margin-right">
+								{$page}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+
+			// 商品状态
+			$('.j-state').click(function() {
+				// 验证权限
+				if(!"1") {
+					return false;
+				}
+				var data = $(this).data();
+				if(data.type == 'g_is_online') {
+					var d = '确定要' + (parseInt(data.state) === 1 ? '下架' : '上架') + '该商品吗？';
+				}
+				layer.confirm(d, {
+					title: '友情提示'
+				}, function(index) {
+					$.post("{php echo $this->createWebUrl('goods',array('op'=>'state'))}", {
+						goods_id: data.id,
+						state: parseInt(data.state) === 1 ? -1 : 1,
+						type: data.type,
+					}, function(result) {
+						result.code === 0 ? layer.msg(result.msg, {
+							icon: 1
+						}) : layer.msg(result.msg, {
+							icon: 2
+						});
+						location.reload();
+					}, "JSON");
+					layer.close(index);
+				});
+
+			});
+
+			// 删除元素
+			$('.item-delete').click(function() {
+				var id = $(this).data('id');
+				layer.confirm('确定要删除该商品吗？', {
+					title: '友情提示'
+				}, function(index) {
+					$.post("{php echo $this->createWebUrl('goods',array('op'=>'delete'))}", {
+						id: id,
+					}, function(result) {
+						result.code === 0 ? layer.msg(result.msg, {
+							icon: 1
+						}) : layer.msg(result.msg, {
+							icon: 2
+						});
+						location.reload();
+					}, "JSON");
+				})
+
+			})
+			$("input[name='type']").change(function(res) {
+				var data = $(this).data();
+				$.post("{php echo $this->createWebUrl('goods',array('op'=>'state'))}", {
+					goods_id: data.id,
+					state: parseInt(data.state) === 1 ? -1 : 1,
+					type: data.type,
+				}, function(result) {
+					result.code === 0 ? layer.msg(result.msg, {
+						icon: 1
+					}) : layer.msg(result.msg, {
+						icon: 2
+					});
+					location.reload();
+				}, "JSON");
+			})
+		});
+	</script>
+</div>
+<!-- 内容区域 end -->
+</div>
+{template 'footer'}

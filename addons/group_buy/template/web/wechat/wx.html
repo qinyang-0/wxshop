@@ -1,0 +1,61 @@
+<div class="widget-head am-cf">
+	<div class="widget-title am-fl">公众号模板消息配置</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否启用模板消息 </label>
+	<div class="am-u-sm-9 am-u-end">
+		<select name="wechat_id[value]" class="tpl-form-input">
+			<option value="1" {php echo $info['wechat_id']==='1'?selected:'';}>是</option>
+			<option value="-1" {php echo $info['wechat_id']=='-1'?selected:'';}>否</option>
+		</select>
+		<input type="hidden" name="wechat_id[name]" id="" value="是否启用模板消息" />
+	</div>
+</div>
+<div id="is-show" class="{php echo $info['wechat_id']=='-1'?hidden:'';}">
+	<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">公众号appid </label>
+		<div class="am-u-sm-9 am-u-end">
+			<input type='text' name='wechat_appid[value]' value="{$info['wechat_appid']}" class='tpl-form-input' />
+			<input type="hidden" name="wechat_appid[name]" id="公众号appid" value="公众号appid" />
+			<span class="color-9">公众号appid</span>
+		</div>
+	</div>
+	<!--<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">公众号appsecert </label>
+		<div class="am-u-sm-9 am-u-end">
+			<input type='text' name='wechat_secert[value]' value="{$info['wechat_secert']}" class='tpl-form-input' />
+			<input type="hidden" name="wechat_secert[name]" id="公众号appsecert" value="公众号appsecert" />
+			<span class="color-9">公众号appsecert</span>
+		</div>
+	</div>-->
+	<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">支付成功给团长发送消息模板id </label>
+		<div class="am-u-sm-9 am-u-end">
+			<input type='text' name='wechat_deliver_pay[value]' value="{$info['wechat_deliver_pay']}" class='tpl-form-input' />
+			<input type="hidden" name="wechat_deliver_pay[name]" id="" value="支付成功给团长发送消息模板id" />
+			<span class="color-9">注：一级行业请选择<span style="color: red;">'IT科技'</span> ,二级行业请选择<span style="color: red;">'互联网|电子商务'</span>,搜索<span style="color: red;">订单支付成功提醒</span>,选择编号为<span style="color: red;">OPENTM416836000</span>的模板</span>
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">支付成功给团长发送消息模板内容 </label>
+		<div class="am-u-sm-9 am-u-end">
+			<textarea name="wechat_deliver_pay_content[value]" rows="" cols="" class='tpl-form-input'>{$info['wechat_deliver_pay_content']}</textarea>
+			<input type="hidden" name="wechat_deliver_pay_content[name]" id="" value="支付成功给团长发送消息模板内容" />
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">发货给团长发送消息模板id </label>
+		<div class="am-u-sm-9 am-u-end">
+			<input type='text' name='wechat_deliver[value]' value="{$info['wechat_deliver']}" class='tpl-form-input' />
+			<input type="hidden" name="wechat_deliver[name]" id="" value="发货给团长发送消息模板id" />
+			<span class="color-9">注：一级行业请选择<span style="color: red;">'IT科技'</span> ,二级行业请选择<span style="color: red;">'互联网|电子商务'</span>,搜索<span style="color: red;">发货提醒</span>,选择编号为<span style="color: red;">OPENTM417484401</span>的模板</span>
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">发货给团长发送消息模板内容 </label>
+		<div class="am-u-sm-9 am-u-end">
+			<textarea name="wechat_deliver_content[value]" rows="" cols="" class='tpl-form-input'>{$info['wechat_deliver_content']}</textarea>
+			<input type="hidden" name="wechat_deliver_content[name]" id="" value="发货给团长发送消息模板内容" />
+		</div>
+	</div>
+</div>

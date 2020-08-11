@@ -1,0 +1,178 @@
+{template 'header'}
+<style type="text/css">
+    .btn-group .active {
+        background-color: #428bca;
+        color: #fff;
+    }
+    a:visited,a:active,a:link{
+        color: white !important;
+    }
+    .gray{
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+
+        filter: grayscale(100%);
+
+        filter: gray;
+    }
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+    <!--本页自定义样式-->
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+    <!--右侧详细内容区域，灰框之内,from 妹子-->
+    <div class="row-content am-cf">
+        <!--2列式简单布局,from bootstap-->
+        <div class="row">
+            <!--12列布局,from 妹子-->
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+                <div class="widget am-cf">
+                    <form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+                        <!--右侧正文 from 自定义 -->
+                        <div class="widget-body">
+                            <!--右侧正文 规定所有边距为0 from bootstap -->
+                            <fieldset>
+                                <!--小标题 from 自定义-->
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl">更新升级</div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">当前版本</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type='text'  name='' disabled value="{$now_version_num}" class='tpl-form-input' />
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group" id="down_load" style="display: none;">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">下载中</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <progress value="0" max="100"></progress>
+                                        <span class="color-9" style="color: red;">0%</span>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group" id="unzip" style="display: none;">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">解压中</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <!--<progress value="0" max="100"></progress>
+                                        <span class="color-9" style="color: red;">0%</span>-->
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group" id="install_load" style="display: none;">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">安装中</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <!--<progress value="0" max="100"></progress>
+                                        <span class="color-9" style="color: red;">0%</span>-->
+                                    </div>
+                                </div>
+
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                        <a href="javascript:;" id="checkupdate" class="j-submit zx-addBut">检查升级</a>
+                                        <a href="javascript:;" id="update_now" style="display: none;" class="j-submit zx-addBut">立即升级</a>
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var dt='';
+    $("#checkupdate").click(function(){
+        $.post(
+            "{php echo $this->createWebUrl('version',array('op'=>'hasnew'))}",
+            {token:1},
+            function(res){
+                console.log(res);
+                if(res.status==0){
+                    $("#update_now").show();
+                    $("#update_now").data("version",res.data);
+                }
+                layer.msg(res.msg);
+            },'json'
+        );
+    });
+    $("#update_now").click(function(){
+        var is_check = $(this).data('is_check');
+        if(is_check){
+            return false;
+        }
+        $(this).data('is_check',1);
+        $(this).addClass("gray");
+        var now_version = $(this).data("version");
+        $("#down_load").show();
+        download(now_version)
+        $.post(
+            "{php echo $this->createWebUrl('version',array('op'=>'update'))}",
+            {new_version:now_version},
+            function(res){
+                console.log(res);
+            },'json'
+        );
+    });
+    function download(verssion){
+        dt = setInterval(function(){
+            $.post(
+                "{php echo $this->createWebUrl('version',array('op'=>'downloading'))}",
+                {new_version:verssion},
+                function(res){
+                    console.log(res);
+                    if(res.status==0){
+                        $("#down_load").find("progress").val(res.parsent);
+                        if(res.parsent>=100){
+                            res.parsent = 100;
+                            layer.msg("下载完成即将开始解压");
+                            uzip(verssion)
+                            $("#unzip").show();
+                            clearInterval(dt);
+                        }
+                        $("#down_load").find(".color-9").text(res.parsent+'%');
+                    }
+                },'json'
+            )
+        },1500);
+    }
+    function uzip(verssion){
+        $.post(
+            "{php echo $this->createWebUrl('version',array('op'=>'unzip'))}",
+            {new_version:verssion},
+            function(res){
+                console.log(res);
+                layer.msg(res.msg);
+                if(res.status==0){
+                    install_new(verssion);
+                }
+            },'json'
+        )
+    }
+    function install_new(verssion){
+        $("#install_load").show();
+        $.get(
+            "{php echo $this->createWebUrl('version',array('op'=>'install_new'))}&verssion="+verssion,
+            function(res){
+                console.log(res);
+                layer.msg(res.msg);
+                if(res.status==0){
+                    window.location.reload();
+                }else{
+                    $("#update_now").data('is_check',false);
+                    $("#update_now").removeClass("gray");
+                }
+            },'json'
+        );
+    }
+</script>
+
+{template 'footer'}

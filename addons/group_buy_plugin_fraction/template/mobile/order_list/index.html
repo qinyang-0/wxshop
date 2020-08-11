@@ -1,0 +1,204 @@
+{template 'common/header'}
+<link rel="stylesheet" href="{php echo MODULE_URL}style/mobile/tpshop/css/style.css">
+<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/mobile/tpshop/css/iconfont.css" />
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/global.js"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/layer.js" type="text/javascript"></script>
+<script src="{php echo MODULE_URL}style/mobile/tpshop/js/swipeSlide.min.js" type="text/javascript" charset="utf-8"></script>
+
+<body class="g4">
+	<div class="classreturn loginsignup " style="background: #449cff;color: #fff;">
+		<div class="content">
+			<div class="ds-in-bl return">
+				<a href="{php echo $this->createMobileUrl('user')}" style="width: 2rem;"><img src="{php echo MODULE_URL}style/mobile/images/ico_goback_2.png" alt="返回"></a>
+			</div>
+			<div class="ds-in-bl search center">
+				<span>我的订单</span>
+			</div>
+			<a href="{php echo $this->createMobileUrl('user')}" style="float: right;"><div class="ds-in-bl search center headerUser"></div></a>
+			<!--<div class="ds-in-bl menu">
+				<a href="javascript:void(0);"><img src="/template/mobile/rainbow/static/images/class1.png" alt="菜单"></a>
+			</div>-->
+		</div>
+	</div>
+	<div class="tit-flash-sale p mytit_flash" style="width: 100%;">
+		<div class="maleri30">
+			<ul class="">
+				<li style="width: 25%;" {if $status=='' } class="red" {/if}>
+					<a href="{php echo $this->createMobileUrl('order_list')}" class="tab_head">全部订单</a>
+				</li>
+				<li style="width: 25%; " {if $status=='20' } class="red" {/if}>
+					<a href="{php echo $this->createMobileUrl('order_list',array('status'=>20))}" class="tab_head ">待发货</a>
+				</li>
+				<li style="width: 25%; " {if $status=='30' } class="red" {/if}>
+					<a href="{php echo $this->createMobileUrl('order_list',array('status'=>30))}" class="tab_head ">待收货</a>
+				</li>
+				<li style="width: 25%; " {if $status=='100' } class="red" {/if}>
+					<a href="{php echo $this->createMobileUrl('order_list',array('status'=>100))}" class="tab_head ">已完成</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--订单列表-s-->
+	<div class="ajax_return ">
+		{if !empty($info)}
+			{loop $info $item}
+				<div class="mypackeg ma-to-20 getmore ">
+					<div class="packeg p ">
+						<div class="maleri30 ">
+							<div class="fl ">
+								<!--<h1><span></span><span class="bgnum "></span></h1>-->
+								<p class="bgnum "><span>订单编号:</span><span>{$item['go_code']}</span></p>
+							</div>
+							<div class="fr ">
+								<span data-id="{$item['go_status']}">
+									{if $item['go_status'] == 20}待发货
+									{elseif $item['go_status'] == 30}已发货
+									{else}已完成{/if}
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="shop-mfive p ">
+						<div class="maleri30 ">
+							<div class="sc_list se_sclist paycloseto ">
+								<a href="javascript:;">
+									<div class="shopimg fl ">
+										<img src="{php echo tomedia($item['oss_g_icon'])}">
+									</div>
+									<div class="deleshow fr ">
+										<div class="deletes ">
+											<span class="similar-product-text ">{$item['oss_g_name']}</span>
+										</div>
+										<!--<div class="deletes ">
+											<span class="similar-product-text ">银饰:足银</span>
+										</div>-->
+										<div class="prices wiconfine ">
+											<p class="sc_pri "><span>积分:</span><span>{$item['oss_g_price']}</span></p>
+										</div>
+										<div class="qxatten wiconfine ">
+											<p class="weight "><span>数量</span>&nbsp;<span>{$item['oss_g_num']}</span></p>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="shop-rebuy-price p ">
+						<div class="maleri30 ">
+							<span class="price-alln ">
+							<span class="red ">积分:{$item['oss_total_price']}</span><span class="threel " id="goodsnum ">共1件</span>
+							</span>
+							{if $item['go_status'] == 30}
+								<a class="shop-rebuy paysoon" href="javascript:;" onclick="goods({$item['go_id']})">确认收货</a>
+							{/if}
+						</div>
+					</div>
+				</div>
+			{/loop}
+		{else}
+			<div class="ajax_return">
+                <!--没有内容时-s--->
+	            <div class="comment_con p">
+	                <div class="none" style="display: block;">
+	                    <img src="{php echo MODULE_URL}style/mobile/tpshop/images/none2.png">
+	                    <br><br>
+	                    抱歉未查到数据！
+	                    <!--<div class="paiton">
+	                        <div class="maleri30">
+	                            <a class="soon" href="/"><span>去逛逛</span></a>
+	                        </div>
+	                    </div>-->
+	                </div>
+	            </div>
+            	<!--没有内容时-e--->
+            </div>
+		{/if}
+	</div>
+	{template 'common/footer'}
+	<!--订单列表-e-->
+	<script type="text/javascript ">
+		/**
+		 * 确定收货
+		 */
+		function orderConfirm(id) {
+			if(!confirm("确定收到该订单商品吗? "))
+				return false;
+			location.href = "/index.php?m=Mobile&c=Order&a=order_confirm&id=" + id;
+		}
+		var winH = $(window).height();
+		var i = 2;
+		var status = 1;
+		$(window).scroll(function () {
+		  var pageH = $(document.body).height(); //页面总高度 
+		  var scrollT = $(window).scrollTop(); //滚动条top 
+		  //滚动条的位置
+		  var aa = (pageH-winH-scrollT)/winH;
+		  if(aa < 0.02 && status == 1){ //当滚动条小于0.02是  就开始加载
+		  	status ++;
+		  	$.post("{php echo $this->createMobileUrl('order_list',array('status'=>$status))}",{page:i,type:2},function(res){
+		  		if(res.code == 0){
+		  			var data = res.data;
+		  			var str = '';
+		  			if(data != ''){
+		  				$.each(data,function(j,i){
+							str += "";
+							str += '<div class="mypackeg ma-to-20 getmore "><div class="packeg p "><div class="maleri30 "><div class="fl "><p class="bgnum "><span>订单编号:</span><span>'+i.go_code+'</span></p></div><div class="fr "><span data-id="">';
+							if(i.go_status == 20){
+								str += '待发货';
+							}else if(i.go_status == 30){
+								str += '已发货';
+							}else{
+								str += '已完成';
+							}
+							str += '</span></div></div></div>';
+							str += '<div class="shop-mfive p "><div class="maleri30 "><div class="sc_list se_sclist paycloseto "><a href="javascript:;"><div class="shopimg fl "><img src="'+i.oss_g_icon+'"></div><div class="deleshow fr "><div class="deletes "><span class="similar-product-text ">'+i.oss_g_name+'</span></div><div class="prices wiconfine "><p class="sc_pri "><span>积分:</span><span>'+i.oss_g_price+'</span></p></div><div class="qxatten wiconfine "><p class="weight "><span>数量</span>&nbsp;<span>'+i.oss_g_num+'</span></p></div></div></a></div></div></div><div class="shop-rebuy-price p "><div class="maleri30 "><span class="price-alln "><span class="red ">积分:'+i.oss_total_price+'</span><span class="threel " id="goodsnum ">共1件</span></span></div></div></div>';
+		  				})
+		  				$('.ajax_return').append(str);
+		  				status --;
+		  			}else{
+		  				
+		  			}
+		  		}
+		  	},"JSON");
+		  	i++;
+		  }
+		});
+		function goods(id){
+			var top = document.documentElement.scrollTop;
+			document.documentElement.scrollTop = 0;
+			$('body').css('height','28.4rem');
+			$('body').css('overflow','hidden');
+			if(id == '' || id == undefined){
+				app.alert('请传入id','提示');
+				detr(top);
+				return false;
+			}
+			app.confirm('是否确定收货?','提示', function () {
+//				detr(top);
+				$.post("{php echo $this->createMobileUrl('order_list',array('op'=>'save'))}",{id:id},function(res){
+					if(res.code == 0){
+						app.alert(res.msg,'提示',function(res){
+							location.reload();
+						});
+					}else{
+						app.alert(res.msg,'提示',function(res){
+							detr(top);
+						});
+					}
+				},"json");
+		    },function(){
+		    	detr(top);
+		    });
+		}
+		function detr(top){
+			setTimeout(function(){
+				$('body').css('height','auto');
+			$('body').css('overflow','auto');
+			document.documentElement.scrollTop = top;
+			},500)
+		}
+	</script>
+	{template 'common/footer'}

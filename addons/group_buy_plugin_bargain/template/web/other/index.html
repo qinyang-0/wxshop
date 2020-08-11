@@ -1,0 +1,108 @@
+{template 'header'}
+{template 'template'}
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data" id="beagiaon_from">
+						<div class="widget-body">
+							<div class="widget-head am-cf">
+								<div class="widget-title am-fl">基本设置</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价列表顶部图</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									{php echo tpl_form_field_image('beagiaon_img',$arr['beagiaon_img']);}
+									<span class="color-9">推荐上传图片尺寸为375像素*230像素，如不上传将显示默认图</span>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价列表背景色</label>
+								<div class="col-sm-9 col-xs-12 ">
+									<input type="color" value="{php echo $arr['beagiaon_color'] ? $arr['beagiaon_color'] : '#f8f8f8';}" name="beagiaon_color">
+								</div>
+							</div>
+							<!--<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价详情顶部图</label>
+								<div class="col-sm-9 col-xs-12 zx-sendNotice">
+									{php echo tpl_form_field_image('beagiaon_top_img',$arr['beagiaon_top_img']);}
+									<span class="color-9">推荐上传图片尺寸为375像素*230像素，如不上传将显示默认图</span>
+								</div>
+							</div>-->
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价详情背景色</label>
+								<div class="col-sm-9 col-xs-12">
+									<input type="color" value="{php echo $arr['beagiaon_top_color'] ? $arr['beagiaon_top_color'] : '#f8f6f7';}" name="beagiaon_top_color">
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">立即砍价</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									<input type="text" value="{$arr['beagiaon_title_lj']}" name="beagiaon_title_lj" class="tpl-form-input" placeholder="默认：立即砍价">
+									<sapn class="color-9">小程序页面-立即砍价-文字更改.</sapn>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">继续砍价</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									<input type="text" value="{$arr['beagiaon_title_jx']}" name="beagiaon_title_jx" class="tpl-form-input" placeholder="默认：继续砍价">
+									<sapn class="color-9">小程序页面-继续砍价-文字更改.</sapn>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">喊好友砍价</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									<input type="text" value="{$arr['beagiaon_title_friend']}" name="beagiaon_title_friend" class="tpl-form-input" placeholder="默认：一起来砍价">
+									<sapn class="color-9">小程序页面,喊好友砍价,文字更改.</sapn>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">帮好友砍价</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									<input type="text" value="{$arr['beagiaon_title_friend_b']}" name="beagiaon_title_friend_b" class="tpl-form-input" placeholder="默认：帮好友砍价">
+									<sapn class="color-9">小程序页面,帮好友砍价,文字更改.</sapn>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">我也要砍价</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									<input type="text" value="{$arr['beagiaon_title_my']}" name="beagiaon_title_my" class="tpl-form-input" placeholder="默认：我也要砍价">
+									<sapn class="color-9">小程序页面,我也要砍价,文字更改.</sapn>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价列表页标题</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									<input type="text" value="{$arr['beagiaon_title_goods_list']}" name="beagiaon_title_goods_list" class="tpl-form-input" placeholder="默认：砍价">
+									<sapn class="color-9">小程序页面,砍价列表页标题,文字更改.</sapn>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价详情页标题</label>
+								<div class="col-sm-9 col-xs-12  zx-sendNotice">
+									<input type="text" value="{$arr['beagiaon_title_goods_info']}" name="beagiaon_title_goods_info" class="tpl-form-input" placeholder="默认：一起来砍价">
+									<sapn class="color-9">小程序页面,砍价商品详情页,文字更改.</sapn>
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">全局砍价规则设置</label>
+								<div class="col-sm-9 col-xs-12">
+									{php echo tpl_ueditor('content',$arr['content']);}
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="token" id="token" value="submit" />
+						<div class="am-am-form-group">
+							<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+								<input type="hidden" name="token" id="token" value="submit" />
+								<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}

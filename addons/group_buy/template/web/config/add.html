@@ -1,0 +1,76 @@
+{template 'header'}
+<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/css/menu.css"/>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form id="my-form" action="{php echo $this->createWebUrl('config',array('op'=>'add'))}" class="am-form tpl-form-line-form" method="post" novalidate="novalidate">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<input type="hidden" name="uid" id="uid" value="{$id}" />
+						<div class="widget-body">
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">菜单授权
+										<span style="color: red;font-size: 13px;">(注:选择子菜单一定要选择上级菜单，不然不会生效。)</span>
+									</div>
+								</div>
+								<div class="box" style="border-top: 0;">
+									<div class="nav-tabs-custom">
+										<div class="tab-content">
+											<div class="active tab-pane">
+												<div class="box-body">
+													{loop $menu $item}
+														<div class="box box-header admin-node-header">
+															<div class="box-header">
+																<div class="checkbox">
+																	<label>
+	                                                  					<input class="rules_all" type="checkbox" name="rules[]" value="{$item['id']}" {$item['check']}>
+	                                                  					<i class=" {$item['icon']}"></i>  {$item['name']}
+	                                              					</label>
+																</div>
+															</div>
+															<div class="box-body">
+																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																{loop $item['data'] $index}
+																	<label class="admin-node-label">
+																		<input type="checkbox" name="rules[]" value="{$index['id']}" class="infos_{$item['id']}" {$index['check']}>&nbsp;{$index['name']}  
+																	</label>
+																{/loop}
+															</div>
+														</div>
+													{/loop}
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+											<input type="submit" name="submit" id="btn" value="提交" class="j-submit zx-addBut" />
+										</div>
+									</div>
+								</div>
+								
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	{template 'footer'}
+<!-- 内容区域 end -->
+<script type="text/javascript">
+	$(".rules_all").change(function(e){
+		var id = $(this).val();
+		if($(this).is(":checked")){
+			$(".infos_"+id).prop("checked",true);
+		}else{
+			$(".infos_"+id).prop("checked",false);
+		}
+	})
+</script>

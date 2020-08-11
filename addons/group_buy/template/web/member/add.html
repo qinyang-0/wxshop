@@ -1,0 +1,150 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	.input-group-btn{
+		display: inline-block;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('member',array('op'=>'add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<input type="hidden" name="id" id="id" value="{$info['m_id']}" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">{$act_title}用户</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">用户昵称 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' name='nickname' value="{$info['m_nickname']}" class='tpl-form-input'/>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">手机号 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' name='phone' value="{$info['m_phone']}" class='tpl-form-input'/>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">真实姓名 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' name='name' value="{$info['m_name']}" class='tpl-form-input'/>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">备注 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<textarea name="info" rows="2" style="width: 460px;">{$info['m_comment']}</textarea>
+									</div>
+								</div>
+								{if $this->fileexit()}
+									<div class="widget-head am-cf">
+										<div class="widget-title am-fl">分销</div>
+									</div>
+									<!--小标题 from 自定义-->
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">上级分销用户</label>
+										<div class="am-u-sm-9 am-u-end">
+											<div class="input-group ">
+												<input type="text" id="showGoodsName" value="{$groups['m_nickname']}" class="form-control" readonly>
+												<span class="input-group-btn">
+													<button class="btn btn-default select-goods" type="button" >选择上级</button>
+												</span>
+											</div>
+											<div class="input-group multi-img-details" id="showGoodsImg" style="width: 510px;">
+												
+												<div class="multi-item goods_item">
+													{if $groups}
+														<img src="{$groups['m_photo']}" class="img-responsive img-thumbnail" title="{$groups['m_nickname']}">
+														<input type="hidden" name="ids" value="{$groups['m_id']}">
+														<!--<span class="goods_float">{$v['g_name']}</span>-->
+														<em class="close" title="删除" data-id="{$groups['m_id']}">×</em>
+													{/if}
+												</div>
+											</div>
+										</div>
+									</div>
+								{/if}
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a href="{php echo $this->createWebUrl('member')}" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{template 'footer'}
+<script>
+    $('#btn').click(function(){
+        var phone = $.trim($("input[name='phone']").val());
+        var name = $.trim($("input[name='name']").val());
+        // var info = $("input[name='info']").val().trim().replace(/\s/g,"");
+        if(  !isPhoneNo_info(phone)){
+            alert("请输入正确手机号");
+           return false;
+        }
+        if(name == '' || name == undefined){
+            alert("请输入姓名");
+           return false;
+        }
+    })
+    function isPhoneNo_info(phone) {
+        var pattern = /^1[3456789]\d{9}$/;
+        return pattern.test(phone);
+    }
+    //点击选择上级
+    $(document).on("click",".select-goods",function () {
+        var ids = $('input[name=ids]').val();
+        var id = '{php echo $_GPC["id"];}';
+        console.log(ids);
+        layer.open({
+            title:'选择上级',
+            type: 2,
+            area: ['700px', '620px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{php echo $this->createWebUrl('member',array('op'=>'group_info'))}&ids="+ids+"&id="+id
+        });
+    });
+    $(document).on("click",".close",function () {
+        var ids = '';
+        $(this).parent('.goods_item').remove();
+        $(".close").each(function () {
+            var did = $(this).data().id;
+            ids +=','+did;
+        });
+        var name_str = '';
+        $(".goods_float").each(function () {
+            var name_each = $(this).html();
+            name_str +=name_each+';';
+        });
+        $("input[name=ids]").val(ids);
+        $("#showGoodsName").val(name_str);
+	});
+</script>

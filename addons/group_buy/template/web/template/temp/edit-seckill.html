@@ -1,0 +1,102 @@
+<div class="">
+
+
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">秒杀模块</div>
+	</div>
+	<div class="widget am-cf">
+		<div class="frm_control_group">
+			<label for="" class="frm_label" style="width: 6em;" >限时秒杀图片</label>
+			<div class="frm_controls">
+				<div class="am-panel-bd am-u-md-12" >
+					<div class="am-u-md-3 " style=""  >
+						<div class="am-u-md-12" ng-click="uploadImage(item.id,'seckill_img')" style="border: 1px dashed #ccc;vertical-align: middle;height: 30px;width: 170px;line-height: 70px;padding: 0;">
+							<img ng-if="item.params.seckill_img" class="upload_image_img"  ng-src="{{item.params.seckill_img}}"/>
+							<div ng-if="!item.params.seckill_img " style="width: 100%;text-align: center;" ><i class="fa fa-plus fa-lg" ></i></div>
+						</div>
+						<div class="" style="text-align: center;color: #ccc;font-size: 12px;padding: 0;width: 100px;clear: both;">尺寸：170*30</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">整体背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.bg_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.bg_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">时间段字体颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.time_font_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.time_font_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">选中时间背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.select_bg_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.select_bg_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">已售背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.sale_bg_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.sale_bg_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">已售字体颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.sale_font_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.sale_font_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">原价字体颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.old_font_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.old_font_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">现价字体颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.now_font_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.now_font_color" />
+				</span>
+			</div>
+		</div>
+
+	</div>
+</div>

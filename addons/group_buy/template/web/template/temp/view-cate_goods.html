@@ -1,0 +1,186 @@
+<style>
+	.goods_module_1 .list .list_right .list_right_title{
+		margin-left: 5px;
+	}
+	.goods_module_2 .list .list_right .list_right_title{
+		margin-left: 8px;
+	}
+	.goods_module_4 .list >div:nth-child(3n){
+		margin-right: 0!important;
+	}
+	.goods_module_5 .list .list_li_right{
+		width: 49%;float: right;
+	}
+	.goods_module_5 .list .list_li_left{
+		width: 49%;float: left;
+	}
+	.goods_module_5 .list .list_i2:nth-child(2n+1){
+		margin-right:2%!important;
+	}
+	.goods_module_5 .list .list_i3{
+		margin-right:2%!important;
+	}
+	.goods_module_5 .list .list_i3:nth-child(3n+3){
+		margin-right:0%!important;
+	}
+	.goods_module_5 .list .list_i3 .price{
+		display: flex;
+    	flex-direction: column;
+	}
+	.hide_s{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.hide_m{
+		display: -webkit-box!important;    
+		-webkit-box-orient: vertical;       
+		overflow: hidden;
+		text-overflow:ellipsis;
+		word-break:break-all;
+		-webkit-line-clamp: 2;
+	}
+	.o_price{
+		font-size:12px;
+	}
+	.m_price{
+		font-size:16px;
+	}
+</style>
+<div class="app-mod app-mod-2" >
+	<div class="app-mod-top" style="z-index: 20000">
+		<span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+		<span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+		<span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+	</div>
+	<div ng-style="{display:(item.params.is_class==1?'block':'none')}"  style="clear: both;margin-bottom: 5px;">
+		<ul  style="width: 100%;display: flex;align-items: center;justify-content: space-around;">
+			<li style="width:40px; height:36px;line-height: 36px;border-bottom: 1px solid red;">分类1</li>
+			<li style="width:40px; height:36px;line-height: 36px;">分类2</li>
+			<li style="width:40px; height:36px;line-height: 36px;">分类3</li>
+			<li style="width:40px; height:36px;line-height: 36px;">分类4</li>
+		</ul>
+	</div>
+	<div class="goods_module_1" ng-style="{display:(item.params.goods_module==1?'block':'none')}"  style="clear: both;z-index: 10000;">
+		<div class="list" style="border:0;" ng-style="{'padding-left':(item.params.margin),'padding-right':(item.params.margin),'borderRadius':(item.params.radius)}" ng-repeat="images in [1,2,3,4]">
+			<div style="padding:3px;box-shadow: 0 0 5px rgba(0,0,0,0.1);overflow:hidden;display: flex;align-items: center;justify-content: space-around;margin-bottom:10px;" ng-style="{'borderRadius':(item.params.radius)}">
+				<div style="width: 100px;position: relative;" class="list_left">
+					<img style="width: 100%;" ng-src="../addons/group_buy/public/images/eg.jpg" >
+					<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;"  ng-style="{display:(item.params.is_new==1?'absolute':'none')}">新品</div>
+					<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;" ng-style="{display:(item.params.is_hot==1?'absolute':'none')}">热销</div>
+				</div>
+				<div style="max-width: 57%;"  class="list_right">
+					<div class="list_right_title hide_s" style="font-size: 12px;line-height:1.4em;">
+						商品名称，最多显示一行。商品名称，最多显示一行。商品名称，最多显示一行。
+                    </div>
+                    <div class="list_right_title hide_m" style="font-size: 10px;line-height:1.4em;color:#999;">
+						商品描述，最多显示两行。商品描述，最多显示两行。
+					</div>
+					<div style="clear: both;height: 20px;margin-left: 5px;" class="list_right_sum">
+						<span style="border: 1px solid #70cd7f;padding:0 4px;color:#c2c2c2;background: #ffffff;border-radius: 10px;height: 18px;line-height: 15px;font-size: 11px;float:left;margin-top:3px;">还剩1份/已售100份</span>
+					</div>
+	
+					<div style="margin-top: 6px; clear: both;height: 24px;margin-left: 5px;" class="list_right_price">
+						<span style="color:red;background: #ffffff;height: 18px;line-height: 18px;font-size: 16px;float:left;" class="list_right_price_new"><span class="o_price">¥</span><span class="m_price">39</span><span class="o_price">.99</span></span>
+						<span style="color:#ccc;background: #ffffff;height: 18px;line-height: 23px;font-size: 12px;float:left;" class="list_right_price_old"><s>¥59.99</s></span>
+						<span style="width: 22px;float:right;" class="list_right_price_icon"><img src="../addons/group_buy/public/images/icon-add-shopCart.png" style="width: 100%"></span>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+    </div>
+    <div class="goods_module_2" ng-style="{display:(item.params.goods_module==2?'block':'none')}" style="clear: both;z-index: 10000;">
+		<div class="list"   ng-style="{'overflow':'hidden','padding-left':(item.params.margin),'padding-right':(item.params.margin),'borderRadius':(item.params.radius),'border':'0'}" ng-repeat="images in [1,2,3,4]">
+			<div style="display: flex;align-items: center;justify-content: space-between;border-bottom:1px solid #ccc;">
+				<div style="width: 100px;position: relative;" class="list_left">
+					<img style="width: 100%;" ng-src="../addons/group_buy/public/images/eg.jpg" >
+					<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;"  ng-style="{display:(item.params.is_new==1?'absolute':'none')}">新品</div>
+					<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;" ng-style="{display:(item.params.is_hot==1?'absolute':'none')}">热销</div>
+				</div>
+				<div style="max-width: 54%;" class="list_right">
+					<div class=" hide_s" style="font-size: 12px;line-height:1.4em;">
+						商品名称，最多显示一行。商品名称，最多显示一行。商品名称，最多显示一行。
+                    </div>
+                    <div class=" hide_m" style="font-size: 10px;line-height:1.4em;color:#999;">
+						商品描述，最多显示两行。商品描述，最多显示两行
+					</div>
+					<div style="clear: both;height: 20px; margin-top:3px;" class="list_right_sum">
+						<span style="color:#c2c2c2;background: #ffffff;border :1px solid #c2c2c2;border-radius: 5px;height: 18px;line-height: 18px;font-size: 11px;float:left;">已售100份</span>
+					</div>
+					<div style="clear: both;height: 20px;" class="list_right_intime">
+						<span style="color:#ffffff;height: 20px;line-height: 18px;font-size: 12px;float:right;width: 80px;background: #ff6052;text-align: center;border-radius: 10px;margin-right: 8px;">立即抢购</span>
+					</div>
+					<div style="clear: both;height: 24px;" class="list_right_price">
+						<span style="color:red;background: #ffffff;height: 18px;line-height: 18px;font-size: 16px;float:left;"><span class="o_price">¥</span><span class="m_price">39</span><span class="o_price">.99</span></span>
+						<span style="color:#c2c2c2;background: #ffffff;height: 18px;line-height: 23px;font-size: 12px;float:left;"><s>¥59.99</s></span>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+    </div>
+    <div ng-style="{display:(item.params.goods_module==3?'block':'none')}" style="clear: both;z-index: 10000;" >
+		<div class="list"  ng-style="{'padding-left':(item.params.margin),'padding-right':(item.params.margin),'borderRadius':(item.params.radius)}" ng-repeat="images in [1,2,3,4]">
+			<div style="position: relative;" >
+				<img style="height: 200px;width: 100%;" ng-src="../addons/group_buy/public/images/eg.jpg">
+				<span style="position: absolute;top:10px;right: 0;background: rgba(0,0,0,.5);border-radius:6px 0 0 6px;font-size: 12px;color: #ffffff;width: 90px;text-align: center">累计销量：300</span>
+				<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;"  ng-style="{display:(item.params.is_new==1?'absolute':'none')}">新品</div>
+				<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;" ng-style="{display:(item.params.is_hot==1?'absolute':'none')}">热销</div>
+			</div>
+			<div class="hide_s" style="font-size: 11px;">
+				商品名称，最多显示一行。商品名称，最多显示一行。商品名称，最多显示一行。
+			</div>
+			<div style="clear: both;height: 20px;">
+				<span style="color:#ccc;background: #ffffff;border:1px solid red;border-radius: 30px 0 0 30px;height: 18px;line-height: 18px;font-size: 11px;float:left;padding-left:6px;">已售300份</span>
+				<span style="color:#fff;background: red;border:1px solid red;border-radius: 0 30px 30px 0;height: 18px;line-height: 18px;font-size: 11px;float:left;padding-right:6px;">仅剩100份</span>
+			</div>
+			<div style="margin-top: 6px; clear: both;height: 24px;">
+				<span style="color:red;background: #ffffff;height: 18px;line-height: 18px;font-size: 18px;float:left;"><span class="o_price">¥</span><span class="m_price">39</span><span class="o_price">.99</span></span>
+				<span style="color:#ccc;background: #ffffff;height: 18px;line-height: 23px;font-size: 12px;float:left;"><s>¥59.99</s></span>
+				<span style="color:#ffffff;height: 20px;line-height: 18px;font-size: 12px;float:right;width: 80px;background: red;text-align: center;border-radius: 10px;margin-right: 8px;">加入购物车</span>
+			</div>
+		</div>
+    </div>
+    <div class="goods_module_4" ng-style="{display:(item.params.goods_module==4?'block':'none')}" style="clear: both;z-index: 10000;">
+		<div class="list" ng-style="{'padding-left':item.params.margin,'padding-right':item.params.margin}" style="display: flex;">
+			<div style="width: 200px;margin-right:2%;overflow: hidden;" ng-hide="$index > 2" ng-style="{'borderRadius':(item.params.radius)}"  ng-repeat="images in [1,2,3] track by $index">
+				<div style="width: 100%;position: relative;">
+					<img style="width: 100%;" src="../addons/group_buy/public/images/eg.jpg" >
+					<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;"  ng-style="{display:(item.params.is_new==1?'absolute':'none')}">新品</div>
+					<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;" ng-style="{display:(item.params.is_hot==1?'absolute':'none')}">热销</div>
+				</div>
+				<div style="width: 100%;">
+					<div class="hide_m" style="font-size: 11px;">
+						商品名称，最多显示两行。商品名称，最多显示两行。商品名称，最多显示两行。
+					</div>
+					<div style="margin-top: 6px; clear: both;height: 24px;">
+						<span style="color:red;background: #ffffff;height: 18px;line-height: 18px;font-size: 12px;float:left;"><span class="o_price">¥</span><span class="m_price">39</span><span class="o_price">.99</span></span>
+						<span style="color:#ccc;background: #ffffff;height: 18px;line-height: 18px;font-size: 12px;float:left;"><s>¥59.99</s></span>
+					</div>
+					<div style="width:88%;padding:0 10px;margin:0 auto;margin-bottom: 10px;box-sizing: border-box;border-radius: 6px;background: #ff5555;height:22px;text-align: center;line-height:22px;color: #fff;font-size: 10px;">加入购物车</div>
+				</div>
+			</div>
+		</div>
+    </div>
+	<div ng-style="{display:(item.params.goods_module==5?'block':'none')}" style="clear: both;z-index: 10000;" class="goods_module_5">
+		<div class="list" style="display:flex;flex-wrap:wrap;" ng-style="{'padding-left':item.params.margin,'padding-right':item.params.margin}">
+			<div  ng-class="{'list_i3':item.params.nums == 3,'list_i2':item.params.nums == 2}" ng-style="{'overflow':'hidden','border-radius':item.params.radius,'width':(item.params.nums == 3 ? '32%' : item.params.nums == 2 ? '49%' : '100%'),'position':'relative','box-sizing':'border-box','margin-bottom':'10px','min-height':(item.params.nums == 3 ? '176px' : item.params.nums == 2 ? '215px' : '176px')}"   ng-repeat="images in item.params.data">
+				<div style="position: relative;">
+					<img style="width: 100%;"  src="../addons/group_buy/public/images/eg.jpg">
+					<!--<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;"  ng-style="{display:(item.params.is_new==1?'absolute':'none')}">新品</div>
+					<div style="background: red;color: #ffffff;border-radius:0 0 12px 12px;height: 30px;width: 32px;position: absolute;top:0;left:8px;" ng-style="{display:(item.params.is_hot==1?'absolute':'none')}">热销</div>-->
+				</div>
+				<div class="hide_m" style="font-size: 11px;">商品名称，最多显示两行。商品名称，最多显示两行。商品名称，最多显示两行。</div>
+				<div style="margin-top: 6px; clear: both;height: 24px;" class="price">
+					<span style="color:red;background: #ffffff;height: 18px;line-height: 18px;font-size: 16px;float:left;" ng-show="item.params.present_price == 1"><span class="o_price">¥</span><span class="m_price">39</span><span class="o_price">.99</span></span>
+					<span style="color:#ccc;background: #ffffff;height: 18px;line-height: 23px;font-size: 12px;float:left;" ng-show="item.params.original_price == 1"><s>¥59.99</s></span>
+				</div>
+				<div style="width:26px;height:26px;border-radius: 20px;position:absolute;bottom:0;right:0px;" ng-style="{display:(item.params.stats==1?'block':'none')}">
+					<img style="width:100%;" src="../addons/group_buy/public/images/icon-add-shopCart.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

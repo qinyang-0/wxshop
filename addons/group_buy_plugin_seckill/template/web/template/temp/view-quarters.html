@@ -1,0 +1,17 @@
+<style type="text/css">
+	.lefts{float: left;width: 30%;line-height: 45px;text-align: center;overflow:hidden;text-overflow:ellipsis; }
+	.lis{width: 100%;}
+	.tops{float: left;width: 70%;height: 45px;text-align: left;overflow:hidden;text-overflow:ellipsis; }
+</style>
+<div class="app-images-box" style="background: #ffffff;">
+	<div class="app-images ">
+		<li class="lis" ng-repeat="good in item.params.data" ng-style="{'padding':item.params.padding+'px','font-size':item.params.fontsize+'px','color':item.params.fontcolor}">
+			<div class="tops">
+				<div href="">{{good.name}}</div>
+				<div href="">{{good.address}}</div>
+			</div>
+			<div class="lefts" ng-style="{'color':good.site_color}">{{good.site}}</div>
+		</li>
+		<div class="clear"></div>
+	</div>
+</div>

@@ -1,0 +1,146 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	.am-tabs-d2 .am-tabs-nav{
+		background: #fff;
+		border-bottom: 1px solid #eef1f5;
+	}
+	.am-tabs-nav{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	.am-tabs .am-tabs-nav li{
+		width: 120px;
+		line-height: 40px;
+		height: 40px;
+		padding: 0;
+	}
+	.am-tabs .am-tabs-nav li a{
+		width: 120px;
+		line-height: 40px;
+		height: 40px;
+		padding: 0;
+		display: block;
+		margin: 0;
+		text-align: center;
+		background: #fff;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active {
+		position: relative;
+		background-color: #fcfcfc;
+		border-bottom: 2px solid #22c397;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active a{
+		color: #22c397;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active:after{
+		border-bottom-color: #22c397;
+	}
+	/*选项卡end*/
+	.zx-edit-td-input:focus{
+		outline: 1px  dashed #22c397;
+	}
+	.am-switch-success-zx>input[type=checkbox]:checked~.am-switch-checkbox{
+		background: #22c397;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">开发</div>
+								</div>
+								<div class="am-tabs am-tabs-d2">
+									<ul class="am-tabs-nav am-cf">
+										<li {if $in == 'index'}class="am-active"{/if} ><a href="{php echo $this->createWebUrl('update',array('op'=>'index','in'=>'index'))}">系统升级</a></li>
+										<li {if $in == 'wx'}class="am-active"{/if}><a href="{php echo $this->createWebUrl('authorization',array('op'=>'index','in'=>'wx'))}">版本更新</a></li>
+										<li {if $op == 'examine' || $op == 'release'}class="am-active"{/if}><a href="{php echo $this->createWebUrl('authorization',array('op'=>'examine'))}">开发</a></li>
+										<!--<li {if $in == 'wx'}class="am-active"{/if}><a href="{php echo $this->createWebUrl('update',array('op'=>'index','in'=>'wx'))}">版本更新</a></li>-->
+									</ul>
+								</div>
+								<div style="display: block;" id="submit">
+									<div class="am-form-group">
+								        <label class="am-u-sm-3 am-u-lg-2 am-form-label ">功能页面</label>
+								        <div class="col-sm-6 col-xs-2">
+								        	<select name="pages" class='tpl-form-input'>
+								        		{loop $config $key $item}
+								        		<option value="{$item}">{$item}</option>
+								        		{/loop}
+								        	</select>
+								        </div>
+								    </div>
+									<div class="am-form-group">
+								        <label class="am-u-sm-3 am-u-lg-2 am-form-label ">标题</label>
+								        <div class="col-sm-6 col-xs-2">
+								        	<input type='text' id='title' name='title' value="" class='tpl-form-input'/>
+								        </div>
+								    </div>
+									<div class="am-form-group">
+								        <label class="am-u-sm-3 am-u-lg-2 am-form-label ">所在服务类目</label>
+								        <div class="col-sm-6 col-xs-2">
+								        	<select name="category" class='tpl-form-input'>
+								        		{loop $category $item}
+									        		<option value="{$item['first_id']}" data-value="{$item['second_id']}" data-first="{$item['first_class']}" data-second="{$item['second_class']}">{$item['first_class']}</option>
+								        		{/loop}
+								        	</select>
+								        </div>
+								    </div>
+								    <div class="form-group" id="upgrade">
+								        <label class="col-sm-2 control-label"></label>
+								        <div class="col-sm-9 col-xs-12">
+								            <div class="form-control-static">
+								                <input type="button" id="tomin" value="提交" class="btn btn-primary">
+								            </div>
+								        </div>
+								    </div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#tomin').click(function(res){
+		layer.load(0,{shade: [0.5, '#000000']});
+		var pages = $("select[name='pages']").val();
+		var title = $("input[name='title']").val();
+		var category = $("select[name='category']").val();
+		var value = $("select[name='category']").find("option:selected").data('value');
+		var first = $("select[name='category']").find("option:selected").data('first');
+		var second = $("select[name='category']").find("option:selected").data('second');
+		$.post("{php echo $this->createWebUrl('authorization',array('op'=>'release'))}",{pages:pages,title:title,category:category,value:value,first:first,second:second,token:'submit'},function(res){
+			layer.closeAll();
+			if(res.errcode != 0){
+				layer.msg('小程序已提交审核，请等待审核结果!!!',{icon:2});
+			} else {
+				layer.msg('提交审核成功，请等待审核通过');
+			}
+		},"JSON");
+		
+		
+	})
+</script>
+{template 'footer'}

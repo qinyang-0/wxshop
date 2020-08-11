@@ -1,0 +1,116 @@
+{template 'common/header'}
+{template 'header'}
+<ul class="nav nav-tabs">
+	<li>
+		<a href="{php echo $this->createWebUrl('district',array('op'=>'village'))}">小区列表</a>
+	</li>
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('district',array('op'=>'area'))}">地区列表</a>
+	</li>
+	<!--<li>-->
+		<!--<a href="{php echo $this->createWebUrl('district',array('op'=>'add'))}">新增用户</a>-->
+	<!--</li>-->
+	<div class="pull-right">
+		<a href="{php echo $this->createWebUrl('district',array('op'=>'areaAdd'))}" class="btn btn-primary">+添加地区</a>
+	</div>
+</ul>
+<div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+        <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+            <input type="hidden" name="c" value="site">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="m" value="group_buy">
+            <input type="hidden" name="do" value="district">
+			<input type="hidden" name="op" value="area">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">地区名称</label>
+				<div class="col-xs-12 col-sm-3 col-lg-3">
+					<input class="form-control" name="title" id="title" type="text" value="{$_GPC['title']}" placeholder="地区名称">
+				</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3">
+					<button class="btn btn-danger" type="submit"><i class="fa fa-search"></i> 搜索</button>
+					<!--<button class="btn btn-primary" type="reset"><i class="fa fa-reply-all"></i> 重置</button>-->
+				</div>
+			</div>
+        </form>
+    </div>
+</div>
+
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" id="form">
+        <div class="panel panel-default">
+            <div class="panel-heading">所有信息</div>
+            <div class="panel-body">
+                <div class="table-responsive panel-body">
+                    <table class="table table-hover" style="min-width: 300px;">
+                        <thead class="navbar-inner">
+	                        <tr>
+	                            <th style="width:120px;">地区名称</th>
+	                            <th style="width:150px;">添加时间</th>
+	                            <th style="width:200px;">省/市/区</th>
+	                            <th style="width:150px;">操作</th>
+	                        </tr>
+                        </thead>
+                        <tbody>
+                        {if !empty($info)}
+	                        {loop $info $key $item}
+	                        <tr>
+	                            <td>{$item['rg_name']}</td>
+	                            <td>
+									{php echo date("Y-m-d H:i:s",$item['rg_add_time'])}
+                                </td>
+								<td>{$item['rg_all_area']}</td>
+	                            <td><!--删除可以用ajax实现-->
+									<a href="{php echo $this->createWebUrl('district',array('op'=>'areaAdd','id'=>$item['rg_id']))}"  class="btn btn-success">修改</a>
+									<a href="{php echo $this->createWebUrl('district',array('op'=>'village','area'=>$item['rg_id']))}"  class="btn btn-warning">查看小区</a>
+									<!--删除保留-->
+									<a class="btn btn-danger" onclick="if(confirm('是否删除?')){deletes('{$item['rg_id']}')}else{return false;}">删除</a>
+
+	                            </td>
+	                        </tr>
+	                        {/loop}
+                        {else}
+	                        <tr>
+	                            <td colspan="3">
+	                                没有数据
+	                            </td>
+	                        </tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+				<!--<button type="submit" name="submit"  class="btn btn-primary">确定修改</button>-->
+            </div>
+        </div>
+    </form>
+    {$page}
+</div>
+
+<!--模态窗-->
+<div id="modal-communicate" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{template 'footer'}
+<script type="text/javascript">
+	function deletes(id){
+		if(id == '' || id == undefined){
+			alert('非法进入');
+			return false;
+		}
+		$.post("{php echo $this->createWebUrl('district',array('op'=>'areaDel'))}",{id:id},function(res){
+			if(res.status == 0){
+				alert(res.msg);
+				location.reload();
+			}else{
+				alert(res.msg);
+			}
+		},"JSON")
+	}
+
+</script>

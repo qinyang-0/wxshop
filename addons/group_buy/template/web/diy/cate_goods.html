@@ -1,0 +1,250 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<style>
+    .am-tabs .am-tabs-nav li a{
+        padding: 0.5em 0.5em;
+    }
+</style>
+<body style="background: #fff;">
+<div class="widget am-cf">
+    <div class="am-tabs" id="doc-my-tabs">
+        {if $_GPC['type']!='member_menu'}
+	        <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify am-tabs-nav am-cf">
+	            <li class="{if $type=='goods'}am-active{/if} "><a href="{php echo $this->createWebUrl('diy',array('op'=>'cate_goods','type'=>'goods','dataid'=>$dataid));}">产品</a></li>
+	            <li class="{if $type=='action_goods'}am-active{/if} "><a href="{php echo $this->createWebUrl('diy',array('op'=>'cate_goods','type'=>'action_goods','dataid'=>$dataid));}">活动产品</a></li>
+	        </ul>
+        {/if}
+        <div class="am-tabs-bd">
+            <div class="am-tab-panel {if $type=='goods'}am-active{/if}" style="min-height: 200px;">
+                <!--产品-->
+                <table class="am-table am-table-compact am-table-striped  am-text-nowrap" style="min-width: 300px;">
+                    <div class=" tpl-form-border-form zx-form-input zx-display zx-group">
+                        <input type="text" class="am-form-field" id="goods-query-title" name="title" placeholder="商品名称" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">
+                    </div>
+                    <div class="zx-but-check">
+                        <button type="button" id="goods-query">
+                            <i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                    <thead class="navbar-inner">
+	                    <tr>
+		                    <th>名称</th>
+		                    <th>操作</th>
+	                    </tr>
+                    </thead>
+                    <tbody>
+	                    {if !empty($goods)}
+		                    {loop $goods $k $v}
+		                   		{php $v['g_icon'] = tomedia($v['g_icon']);}
+		                    	<tr align="left">
+		                    		<td>{$v['g_name']}</td>
+		                    		<td class="goods_sel">
+		                    			<span class="btn btn-info btn-xs content-checked" data-id="{php echo $v['g_id']}" data-content="{php echo base64_encode(json_encode($v))}" >选取</span>
+		                    		</td>
+		                    	</tr>
+		                    {/loop}
+	                    {/if}
+                    </tbody>
+                </table>
+                <div>
+                    {$page}
+                </div>
+            </div>
+            <div class="am-tab-panel {if $type=='action_goods'}am-active{/if}" style="min-height: 200px;">
+                <!--活动产品-->
+                <table class="am-table am-table-compact am-table-striped  am-text-nowrap" style="min-width: 300px;">
+                    <div class=" tpl-form-border-form zx-form-input zx-display zx-group">
+                        <input type="text" class="am-form-field" id="action-goods-query-title" name="title" placeholder="商品名称" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">
+                    </div>
+                    <div class="zx-but-check">
+                        <button type="button" id="action-goods-query" >
+                            <i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                    <thead class="navbar-inner">
+	                    <tr>
+	                        <th>名称</th>
+	                        <th>操作</th>
+	                    </tr>
+                    </thead>
+                    <tbody>
+	                    {if !empty($action_goods)}
+		                    {loop $action_goods $key $val}
+		                    	{php $val['g_icon'] = tomedia($val['g_icon']);}
+			                    <tr align="left">
+			                        <td>{$val['g_name']}</td>
+			                        <td class="goods_sel">
+			                            <span class="btn btn-info btn-xs content-checked" data-id="{php echo $val['g_id']}"  data-content="{php echo base64_encode(json_encode($val))}" >选取</span>
+			                        </td>
+			                    </tr>
+		                    {/loop}
+	                    {/if}
+                    </tbody>
+                </table>
+                <div>
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+        <div style="margin-left: 20px;">
+            链接到&nbsp;&nbsp;<span id ="reslut"></span> <span class="btn btn-success sure-click" style="float: right">确定</span>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    $(function() {
+        // $('#doc-my-tabs').tabs();
+    })
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    // var goodsIdsarr =window.parent.document.getElementById('layui-layer-iframe'+index).contentWindow.location.search; 
+    // var goodsIdsStr = goodsIdsarr.split('&').pop()
+    // var goodsIds = goodsIdsStr.replace(/\%27/g,'').split('=')[1].split(',')
+    var goodsIds = window.sessionStorage.getItem('categoods_select_goods_id').split(',');
+    console.log(goodsIds)
+    function changeStatus(range,id=''){
+        let status = !1;
+        if(range=='all'){
+            $(".goods_sel span").each(function(item){
+                if(goodsIds.indexOf($(this).attr('data-id'))>=0){
+                    $(this).removeClass("btn-info").addClass("btn-disabled").html('已选取');
+                }
+            })
+        }else if(range=='single'){
+            console.log(id)
+            if(goodsIds.indexOf(id)>=0){
+                status = !0
+            }
+        }
+        return status
+    }
+    changeStatus('all')
+   
+    //用户中心菜单栏链接
+    $(document).on("change","#member_link_page",function () {
+        $("#reslut").html($("#member_link_page").children("option:selected").attr("data-val"));
+        var types = $("#member_link_page").children("option:selected").attr("data-type");
+        if(types == undefined || types == ''){
+        	types = 'url';
+        }
+        parent.$(".showLink{$dataid}").children('.link-select').html($("#member_link_page").children("option:selected").val());
+        parent.$(".showLink{$dataid}").children('.link-select-val').val($("#member_link_page").children("option:selected").val());
+        parent.$(".showLinkName{$dataid}").children('.link-select-title').val($("#member_link_page").children("option:selected").attr("data-val"));
+        parent.$("#ifrname_name").val($("#member_link_page").children("option:selected").attr("data-val"));
+        parent.$("#ifrname_url").val($("#member_link_page").children("option:selected").val());
+        parent.$("#ifrname_type").val(types);
+        parent.$("#ifrname_img").val($("#member_link_page").children("option:selected").attr("data-img"));
+    });
+    //选择页面中传值
+    $(document).on("change","#link_page",function () {
+        $("#reslut").html($("#link_page").children("option:selected").attr("data-val"));
+        parent.$(".showLink{$dataid}").children('.link-select').html($("#link_page").children("option:selected").attr("data-val"));
+        parent.$(".showLink{$dataid}").children('.link-select-val').val($("#link_page").children("option:selected").val());
+        parent.$("#ifrname_name").val($("#link_page").children("option:selected").attr("data-val"));
+        parent.$("#ifrname_url").val($("#link_page").children("option:selected").val());
+        parent.$("#ifrname_type").val('url');
+    });
+    //点确定取消弹窗
+    $(document).on("click",".sure-click",function () {
+        parent.layer.close(index);
+    });
+    //点击选取的时候传值
+    $(document).on("click",".content-checked",function () {
+        if(changeStatus('single',$(this).attr('data-id'))) return;
+        $("#reslut").html($(this).parent().siblings('td').html());
+        parent.$(".showLink{$dataid}").children('.link-select').html($(this).parent().siblings('td').html());
+        parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).attr("data-content"));
+        $(".goods_sel span").each(function(item){
+            if(!$(this).hasClass("btn-disabled")){
+                $(this).addClass("btn-info").html('选取');
+            }
+        })
+        $(this).removeClass("btn-info").addClass("btn-success").html('已选取');
+        parent.$("#ifrname_name").val($(this).parent().siblings('td').html());
+        parent.$("#ifrname_url").val($(this).attr("data-content"));
+        parent.$("#ifrname_type").val('url');
+    });
+    //当输入外链时
+    $(document).on("input propertychange",".out-link-val",function () {
+        $("#reslut").html('h5页面：'+$(this).val());
+        parent.$(".showLink{$dataid}").children('.link-select').html($(this).val());
+        parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).val());
+        parent.$("#ifrname_name").val($(this).val());
+        parent.$("#ifrname_url").val($(this).val());
+        parent.$("#ifrname_type").val('out_link');
+    });
+    //当输入小程序时
+    $(document).on("input propertychange",".small-val",function () {
+    	var small_val = $(".small-val").val() ==''?' ':$(".small-val").val();
+    	var small_appid = $(".small-appid").val() ==''?' ':$(".small-appid").val();
+        $("#reslut").html('小程序，'+small_val);
+        parent.$(".showLink{$dataid}").children('.link-select').html('小程序页面:'+small_val);
+        parent.$(".showLink{$dataid}").children('.link-select-val').val(small_val);
+        parent.$("#ifrname_name").val(small_appid);
+        parent.$("#ifrname_url").val(small_val);
+        parent.$("#ifrname_type").val('app');
+    });
+    //当输入小程序时
+    $(document).on("input propertychange",".small-appid",function () {
+    	var small_val = $(".small-val").val() ==''?' ':$(".small-val").val();
+    	var small_appid = $(".small-appid").val() ==''?' ':$(".small-appid").val();
+        $("#reslut").html('小程序，'+small_val);
+        parent.$(".showLink{$dataid}").children('.link-select').html('小程序页面:'+small_val);
+        parent.$(".showLink{$dataid}").children('.link-select-val').val(small_val);
+        parent.$("#ifrname_name").val(small_appid);
+        parent.$("#ifrname_url").val(small_val);
+        parent.$("#ifrname_type").val('app');
+    });
+    //拨打电话
+    $(document).on("input propertychange",".phone-val",function () {
+        $("#reslut").html('电话号码：'+$(".phone-val").val());
+        parent.$(".showLink{$dataid}").children('.link-select').html($(this).val());
+        parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).val());
+        parent.$("#ifrname_name").val('电话');
+        parent.$("#ifrname_url").val($(this).val());
+        parent.$("#ifrname_type").val('tel');
+    });
+    //视频
+    $(document).on("input propertychange",".video-val",function () {
+        $("#reslut").html('视频：'+$(".video-val").val());
+        parent.$(".showLink{$dataid}").children('.link-select').html($(this).val());
+        parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).val());
+        parent.$("#ifrname_name").val('视频');
+        parent.$("#ifrname_url").val($(this).val());
+        parent.$("#ifrname_type").val('video');
+    });
+
+    //活动产品查询
+    $(document).on('click','#action-goods-query',function () {
+        var title = $('#action-goods-query-title').val();
+        if(title=='' || title==undefined){
+            layer.msg('未输入查询条件');
+            $('#action-goods-query-title').focus();
+            return false;
+        }
+        var url = "{php echo $this->createWebUrl('diy',array('op'=>'cate_goods','type'=>'action_goods','dataid'=>$dataid));}&title="+title;
+        window.location.href = url;
+    });
+    //产品查询
+    $(document).on('click','#goods-query',function () {
+        var title = $('#goods-query-title').val();
+        if(title=='' || title==undefined){
+            layer.msg('未输入查询条件');
+            $('#goods-query-title').focus();
+            return false;
+        }
+        var url = "{php echo $this->createWebUrl('diy',array('op'=>'cate_goods','type'=>'goods','dataid'=>$dataid));}&title="+title;
+        window.location.href = url;
+    });
+</script>

@@ -1,0 +1,57 @@
+{template 'common/header'}
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/mobile/css/fas.css">
+<article id="wrapper" name="wrapper">
+	<div id="scroller">
+		<div class="finance_header cf">
+			<a href="javascript:window.history.go(-1)" class="goback"></a>
+			<h1>公告列表<br>
+        </h1>
+		</div>
+		<input type="hidden" name="url" id="url" value="{php echo $this->createMobileUrl('article')}" />
+		<div class="nt-list">
+			{loop $info $item}
+				<a href="{php echo $this->createMobileUrl('article',array('id'=>$item['id']))}">
+					<div class="date">{php echo date('Y-m-d',$item['time'])}</div>
+					<div class="ntit">{$item['title']}</div>
+				</a>
+			{/loop}
+		</div>
+	</div>
+	<div class="cover"></div>
+</article>
+{template 'common/footer'}
+
+<script type="text/javascript">
+		var winH = $(window).height();
+		var url = $('#url').val();
+		var i = 2;
+		var status = 1;
+		$(window).scroll(function () { 
+		  var pageH = $(document.body).height(); //页面总高度 
+		  var scrollT = $(window).scrollTop(); //滚动条top 
+		  //滚动条的位置
+		  var aa = (pageH-winH-scrollT)/winH;
+		  
+		  if(aa < 0.02 && status == 1){ //当滚动条小于0.02是  就开始加载
+		  	status ++;
+		  	$.post("{php echo $this->createMobileUrl('article',array('op'=>'list'))}",{page:i,code:1},function(res){
+		  		if(res.code == 0){
+		  			//加载成功
+		  			var data = res.data;
+		  			var str = '';
+		  			if(data != ''){
+		  				$.each(data,function(j,i){
+		  					str += '<a href="'+url+"&id="+i.id+'">';
+							str += '	<div class="date">'+i.time.+'</div>';
+							str += '	<div class="ntit">'+i.title+'</div>';
+							str += '</a>';
+		  				})
+		  				$('.nt-list').append(str);
+		  				status --;)
+		  			}
+		  		}
+		  	},"JSON");
+		  	i++;
+		  }
+		});
+</script>

@@ -1,0 +1,99 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">积分流水</div>
+					</div>
+					<div class="widget-body am-fr">
+						
+						<!--<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form class="toolbar-form" action="./index.php">
+								<input type="hidden" name="c" value="site">
+					            <input type="hidden" name="a" value="entry">
+					            <input type="hidden" name="m" value="group_buy_plugin_fraction">
+					            <input type="hidden" name="do" value="member">
+								<div class="am-u-sm-12 am-u-md-9 am-u-sm-push-3">
+									<div class="am fr">
+										<div class="am-form-group am-fl">
+											<select name="status" data-am-selected="{btnSize: &#39;sm&#39;, placeholder: &#39;审核状态&#39;}" style="display: none;">
+												<option value=""></option>
+												<option value="0">全部</option>
+												<option value="2" {if $from['status'] == 2}selected=""{/if}>已审核</option>
+												<option value="1" {if $from['status'] == 1}selected=""{/if}>未审核</option>
+											</select>
+										</div>
+										<div class="am-form-group am-fl">
+											<div class="am-input-group am-input-group-sm tpl-form-border-form">
+												<input type="text" class="am-form-field" name="m_nickname" placeholder="请输入微信昵称" value="{$from['m_nickname']}">
+												<div class="am-input-group-btn">
+													<button class="am-btn am-btn-default am-icon-search" type="submit"></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>--> 
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped
+                         tpl-table-black am-text-nowrap">
+								<thead>
+									<tr>
+										<th>用户ID</th>
+										<th>时间</th>
+										<th>操作信息</th>
+									</tr>
+								</thead>
+								<tbody>
+									{if !empty($info)}
+										{loop $info $item}
+											<tr>
+												<td class="am-text-middle">{$id}</td>
+												<td class="am-text-middle">{php echo date('Y-m-d H:i',$item['gol_add_time'])}</td>
+												<td class="am-text-middle">{$item['gol_comment']}</td>
+											</tr>
+										{/loop}
+									{else}
+										<tr><td colspan="10" style="text-align: center;">暂无数据</td></tr>
+									{/if}
+								</tbody>
+							</table>
+						</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			// 删除元素
+			$('.item-delete').click(function(){
+				var id = $(this).data('id');
+				layer.confirm('一但删除将无法恢复，确定删除吗？', {
+					title: '友情提示'
+				}, function(index) {
+					$.post("{php echo $this->createWebUrl('member',array('op'=>'member_delete'))}", {
+						id: id,
+					}, function(result) {
+						result.code === 0 ? layer.msg(result.msg, {icon: 1}) :layer.msg(result.msg, {icon: 2});
+						location.reload();
+					},"JSON");
+				})
+			})
+		});
+	</script>
+
+</div>
+<!-- 内容区域 end -->
+template 'footer'}

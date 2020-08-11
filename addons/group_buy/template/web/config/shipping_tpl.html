@@ -1,0 +1,315 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<style>
+    .province {
+        float: left;
+        position: relative;
+        width: 165px;
+        height: 35px;
+        line-height: 35px;
+        border: 1px solid #fff;
+        padding-top: -10px;
+    }
+    .province ul {
+        list-style: outside none none;
+        position: absolute;
+        padding: 0;
+        background: #edf6ff;
+        border: 1px solid #a6d2fe;
+        display: none;
+        width: auto;
+        width: 250px;
+        z-index: 999999;
+        left: -30px;
+        top: 32px;
+    }
+    .province ul li {
+        float: left;
+        min-width: 60px;
+        margin-left: 20px;
+        height: 30px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+    }
+    body::-webkit-scrollbar { width: 0 !important }
+    table tr th,td{
+        text-align: center;
+        width:110px;
+    }
+    table tr th{
+        color: #999;
+        font-size: 13px;
+    }
+    table tr td{
+        padding: 10px;
+    }
+
+    table tr td input{
+        margin: 0 auto;
+    }
+</style>
+<body style="background: #fff;">
+<div class="widget am-cf">
+    <form class="am-form tpl-form-line-form">
+    <div class="am-form-group">
+        <input type="hidden" name="random_tpl" value="{$random}"/>
+        <div class="am-u-sm-12 am-u-end">
+            <table  style='width:100%;'>
+                <thead>
+                <tr class="type-weight" style='{php echo $info["type"]!=2?"":"display:none;"; }' >
+
+                    <th class="show_h" style="">首重(克)</th>
+                    <th class="show_h" style="">首费(元)</th>
+                    <th class="show_h" style="">续重(克)</th>
+                    <th class="show_h" style="">续费(元)</th>
+                </tr>
+                <tr class="type-num" style='{php echo $info["type"]==2?"":"display:none;"; }'>
+
+                    <th class="show_n" style="">首件(个)</th>
+                    <th class="show_n" style="">运费(元)</th>
+                    <th class="show_n" style="">续件(个)</th>
+                    <th class="show_n" style="">续费(元)</th>
+                </tr>
+
+                </thead>
+                <tbody id='tbody-areas'>
+                <tr  class="type-weight" style='{php echo $info["type"]!=2?"":"display:none;"; }'>
+                    <!--按重量计费-->
+                    <td class="show_h text-center">
+                        <input type="number" value="{$item['firstweight']}" class="form-control {$random}_firstweight_tpl" name="{$random}_firstweight_tpl" style="width:80px;"></td>
+
+                    <td class="show_h text-center">
+                        <input type="number" value="{$item['firstprice']}" class="form-control {$random}_firstprice_tpl" name="{$random}_firstprice_tpl"  style="width:80px;"></td>
+
+                    <td class="show_h text-center">
+                        <input type="number" value="{php echo empty($item['secondweight'])?1000:$item['secondweight']}" class="form-control {$random}_secondweight_tpl" name="{$random}_secondweight_tpl"  style="width:80px;">
+
+                    </td>
+                    <td class="show_h text-center">
+                        <input type="number" value="{$item['secondprice']}" class="form-control {$random}_secondprice_tpl" name="{$random}_secondprice_tpl"  style="width:80px;">
+
+                    </td>
+                </tr>
+                <tr  class="type-num" style='{php echo $info["type"]==2?"":"display:none;"; }'>
+                    <!--按件计费-->
+                    <td class="show_n text-center">
+                        <input type="number" value="{php echo empty($item['firstnum'])?1:$item['firstnum']}" class="form-control {$random}_firstnum_tpl" name="{$random}_firstnum_tpl" style="width:80px;">
+
+                    </td>
+                    <td class="show_n text-center">
+                        <input type="number" value="{$item['firstnumprice']}" class="form-control {$random}_firstnumprice_tpl" name="{$random}_firstnumprice_tpl"  style="width:80px;">
+                    </td>
+                    <td class="show_n text-center">
+
+                        <input type="number" value="{php echo empty($item['secondnum'])?1:$item['secondnum']}" class="form-control {$random}_secondnum_tpl" name="{$random}_secondnum_tpl"  style="width:80px;">
+                    </td>
+                    <td class="show_n text-center">
+                        <input type="number" value="{$item['secondnumprice']}" class="form-control {$random}_secondnumprice_tpl" name="{$random}_secondnumprice_tpl"  style="width:80px;">
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="am-form-group">
+        <div class="am-u-sm-12 am-u-end">
+            {if !empty($shipping_areas)}
+            {loop $shipping_areas $k $v}
+            <div class="province">
+                <label class="am-checkbox-inline am-success" style="margin-left:20px;padding: 0 0 5px 24px;vertical-align: middle;">
+                    <input type="checkbox" class="cityall" name="city" code="{$v['ad_code']}" city="{$v['name']}" style="margin-top: -10px"  data-am-ucheck {php echo in_array($v['ad_code'],$codes)?"disabled checked":"";}> {$v['name']}<span class="citycount" style="color:#ff6600"></span>
+                </label>
+                {if !empty($v['city'])}
+
+                <ul style="padding-bottom: 15px; display: none;">
+                    {loop $v['city'] $key $val}
+                    <li>
+                        <label class="am-checkbox-inline am-success" style="padding:0 0 0 20px;" >
+                            <input type="checkbox" class="city" name="city" style="margin-top:-3px;" code="{$val['ad_code']}" city="{$val['name']}" data-am-ucheck {php echo in_array($val['ad_code'],$codes)?"disabled checked":"";}> {$val['name']}</label>
+                    </li>
+                    {/loop}
+                    {loop $v['area'] $key $val}
+                    <li>
+                        <label class="am-checkbox-inline am-success" style="padding:0 0 0 20px;">
+                            <input type="checkbox" class="city" name="city" style="margin-top:-3px;" code="{$val['ad_code']}" city="{$val['name']}" data-am-ucheck {php echo in_array($val['ad_code'],$codes)?"disabled checked":"";}> {$val['name']}</label>
+                    </li>
+                    {/loop}
+                </ul>
+                {/if}
+            </div>
+            {/loop}
+            {/if}
+        </div>
+
+        </div>
+    </form>
+</div>
+<div class="modal-footer" style="padding: 10px;text-align: center">
+    <button type="button" class="j-submit zx-addBut " id="btnSubmitArea" value="确定" >确定</button>
+    <button class="btn" type="button" id="close_layer">关闭</button>
+    <!--<a href="javascript:;"  class="btn btn-primary" >确定</a>-->
+    <!--<a href="javascript:;" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a>-->
+</div>
+</body>
+<script>
+    var index = parent.layer.getFrameIndex(window.name);
+    $(function () {
+
+        //显示下属城市的
+        $(".province").hover(function () {
+            $(this).children('ul').show();
+        },function () {
+            $(this).children('ul').hide();
+        });
+        //点击省选下面所有
+        $(document).on("change",".cityall",function () {
+            if($(this).prop('checked')){//获取是否选中 并判断
+                $(this).prop('checked', true); //修改设置为选中状态
+                $(this).parent('label').siblings('ul').find("input[name=city]").uCheck('check');
+                $(this).siblings('.citycount').html("["+$(this).parent('label').siblings('ul').find("input[name=city]").length+"]")
+            }else{
+                $(this).prop('checked', false);//修改设置为不选中状态
+                $(this).parent('label').siblings('ul').find("input[name=city]").uCheck('uncheck');
+                $(this).siblings('.citycount').html()
+            }
+        });
+        //点击市下面所有
+        $(document).on("change",".city",function () {
+            if($(this).prop('checked')){//获取是否选中 并判断
+                $(this).prop('checked', true); //修改设置为选中状态
+            }else{
+                $(this).prop('checked', false);//修改设置为不选中状态
+            }
+            var count = $(this).parent().parent().parent("ul").find(".city:checked").length;
+            if(count == $(this).parent().parent().parent("ul").find(".city").length){
+                $(this).parent().parent().parent("ul").siblings('label').find(".cityall").uCheck('check');
+            }
+            if(count>0){
+                $(this).parent().parent().parent("ul").siblings('label').find('.citycount').html("["+count+"]");
+            }else{
+                $(this).parent().parent().parent("ul").siblings('label').find('.citycount').html("");
+            }
+
+        });
+        //点关闭,关闭本层
+        $(document).on("click","#close_layer",function () {
+            parent.layer.close(index);
+        });
+
+        //点确定，生成表单结构放到原页面
+        $(document).on("click","#btnSubmitArea",function () {
+            var type ="{$_GPC['type']}";
+            var random = "{$random}";
+            var str = "<input type='checkbox' name='random[]' value='"+random+"' checked style='display: none;'/>";
+            var firstweight_tpl = $("."+random+"_firstweight_tpl").val();
+            var firstprice_tpl = $("."+random+"_firstprice_tpl").val();
+            var secondweight_tpl = $("."+random+"_secondweight_tpl").val();
+            var secondprice_tpl = $("."+random+"_secondprice_tpl").val();
+            var firstnum_tpl = $("."+random+"_firstnum_tpl").val();
+            var firstnumprice_tpl = $("."+random+"_firstnumprice_tpl").val();
+            var secondnum_tpl = $("."+random+"_secondnum_tpl").val();
+            var secondnumprice_tpl = $("."+random+"_secondnumprice_tpl").val();
+console.log(secondnumprice_tpl)
+            if(type==1){
+                //按重量
+                str +="<input type='hidden' name='frist["+random+"]' value='"+firstweight_tpl+"'/>";
+                str +="<input type='hidden' name='firstprice["+random+"]' value='"+firstprice_tpl+"'/>";
+                str +="<input type='hidden' name='second["+random+"]' value='"+secondweight_tpl+"'/>";
+                str +="<input type='hidden' name='secondprice["+random+"]' value='"+secondprice_tpl+"'/>";
+                if(firstweight_tpl==''&& firstweight_tpl==undefined){
+                    layer.msg("请输入首重");
+                    return false;
+                }
+                if(firstprice_tpl==''&& firstprice_tpl==undefined){
+                    layer.msg("请输入首费");
+                    return false;
+                }
+                if(secondweight_tpl==''&& secondweight_tpl==undefined){
+                    layer.msg("请输入续重");
+                    return false;
+                }
+                if(secondprice_tpl==''&& secondprice_tpl==undefined){
+                    layer.msg("请输入续费");
+                    return false;
+                }
+            }else if(type ==2){
+                //按件
+                str +="<input type='hidden' name='firstnum["+random+"]' value='"+firstnum_tpl+"'/>";
+                str +="<input type='hidden' name='firstnumprice["+random+"]' value='"+firstnumprice_tpl+"'/>";
+                str +="<input type='hidden' name='secondnum["+random+"]' value='"+secondnum_tpl+"'/>";
+                str +="<input type='hidden' name='secondnumprice["+random+"]' value='"+secondnumprice_tpl+"'/>";
+                if(firstnum_tpl==''&& firstnum_tpl==undefined){
+                    layer.msg("请输入首件");
+                    return false;
+                }
+                if(firstnumprice_tpl==''&& firstnumprice_tpl==undefined){
+                    layer.msg("请输入运费");
+                    return false;
+                }
+                if(secondnum_tpl==''&& secondnum_tpl==undefined){
+                    layer.msg("请输入续件");
+                    return false;
+                }
+                if(secondnumprice_tpl==''&& secondnumprice_tpl==undefined){
+                    layer.msg("请输入续费");
+                    return false;
+                }
+            }
+            //获取城市
+            var citys_code ="";
+            var citys_name ="";
+            var count =0;
+            $("input[name=city]:checked").each(function () {
+                citys_code +=","+$(this).attr("code");
+                citys_name +=","+$(this).attr("city");
+                count++;
+            });
+            if(count==0){
+                layer.msg("未选择任何城市，放弃请点关闭");
+                return false;
+            }
+            str +="<input type='hidden' class='citys_code' name='citys_code["+random+"]' value='"+citys_code+"'/>";
+            str +="<input type='hidden' name='citys_name["+random+"]' value='"+citys_name+"'/>";
+            // parent.$("#form").append(str);
+            // console.log(secondprice_tpl,secondnumprice_tpl,type);
+            // console.log(((type==1)?secondprice_tpl:secondnumprice_tpl));
+            var str_context = "<div class='card-block "+random+"'>" +
+                    str+
+                "<div class=''>" +
+                "<span class='show-first-"+random+"'><span class='show-frist'> 首重/件(克/个)：</span>"+
+                ((type==1)?firstweight_tpl:firstnum_tpl)+"</span>" +
+                "<span class='show-frist-price-"+random+"'><span class='show-frist-price'> 首费(元) ：</span>"+
+                ((type==1)?firstprice_tpl:firstnumprice_tpl)+"</span>" +
+                "<span class='show-second-"+random+"'><span class='show-second'> 续重/件(克/个) ：</span>"+
+                ((type==1)?secondweight_tpl:secondnum_tpl)+"</span>" +
+                "<span class='show-xufei-"+random+"'><span class='show-xufei'> 续费(元) ：</span>"+
+                ((type==1)?secondprice_tpl:secondnumprice_tpl)+"</span>" +
+                "<a href='javascript:;' data-index='"+random+"' onclick='$(this).parent().parent().remove()' class='del-rules-btn float-right text-blue' style='color: #428bca;'>[-删除条目]</a>"+
+                "</div>" +
+                "<div class=''>" +
+                    "<div>" +
+                    "<span>区域：</span>" +
+                    "<span class='cityshtml'>"+citys_name+"</span>" +
+                    "</div>"
+                "</div>" +
+                "</div>";
+            parent.$("#content-area").append(str_context);
+            layer.msg("成功");
+            parent.layer.close(index);
+        })
+
+
+    })
+
+
+</script>

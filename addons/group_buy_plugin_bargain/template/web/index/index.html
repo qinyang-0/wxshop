@@ -1,0 +1,176 @@
+{template 'header'}
+<style>
+	/*选项卡*/
+	.am-tabs-d2 .am-tabs-nav{
+		background: #fff;
+		border-bottom: 1px solid #eef1f5;
+	}
+	.am-tabs-nav{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	.am-tabs .am-tabs-nav li{
+		width: 120px;
+		line-height: 40px;
+		height: 40px;
+		padding: 0;
+	}
+	.am-tabs .am-tabs-nav li a{
+		width: 120px;
+		line-height: 40px;
+		height: 40px;
+		padding: 0;
+		display: block;
+		margin: 0;
+		text-align: center;
+		background: #fff;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active {
+		position: relative;
+		background-color: #fcfcfc;
+		border-bottom: 2px solid #22c397;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active a{
+		color: #22c397;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active:after{
+		border-bottom-color: #22c397;
+	}
+	/*选项卡end*/
+	.zx-edit-td-input:focus{
+		outline: 1px  dashed #22c397;
+	}
+	.am-switch-success-zx>input[type=checkbox]:checked~.am-switch-checkbox{
+		background: #22c397;
+	}
+</style>
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">商品列表</div>
+					</div>
+					<div  class="am-tabs am-tabs-d2">
+						<ul class="am-tabs-nav am-cf">
+							<li class="{if $status == 1}am-active{/if}"><a href="{php echo $this->createWebUrl('index')}">砍价中</a></li>
+							<li class="{if $status == 2}am-active{/if}"><a href="{php echo $this->createWebUrl('index',array('status'=>2))}">未开始</a></li>
+							<li class="{if $status == 3}am-active{/if}"><a href="{php echo $this->createWebUrl('index',array('status'=>3))}">已结束</a></li>
+						</ul>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="index">
+								<div class="am-u-sm-12 ">
+									<span class="zx-form-span">
+										商品名称：
+									</span>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<input type="text" class="am-form-field" name="name" placeholder="商品名称" value="{$_GPC['name']}" style="border-radius: 4px;width: 240px;">
+									</div>
+                                    <!-- 查询按钮样式 -->
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="zx-but-check">
+                                        <button type="submit" >
+                                            <i class="fa fa-search"></i> 查询
+                                        </button>
+                                    </div>
+                                    <div class="am-btn-group am-btn-group-xs ">
+										<a class="zx-addBut" href="{php echo $this->createWebUrl('index',array('op'=>'add'))}">
+											<i class="fa fa-plus"></i> 添加商品
+										</a>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+								<thead class="navbar-inner">
+								<tr>
+									<th>序号</th>
+									<th>商品</th>
+									<th>商品标价</th>
+									<th>砍到底价</th>
+									<th>商品库存</th>
+									<th>发起次数</th>
+									<th>活动时间</th>
+									<th>操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								{if !empty($info)}
+									{loop $info $item}
+										<tr>
+											<td>{$item['id']}</td>
+											<td>
+												<img src="{php echo tomedia($item['g_icon'])}" width="50"/>
+												<sapn>{$item['g_name']}</sapn>	
+											</td>
+											<td>{$item['g_price']}</td>
+											<td>{$item['end_price']}</td>
+											<td>{$item['num']}</td>
+											<td>
+												{if $item['count'] == 0}
+													{$item['count']}
+												{else}
+													<a href="{php echo $this->createWebUrl('index',array('op'=>'select','id'=>$item['g_id']))}">{$item['count']}</a>
+												{/if}
+											</td>
+											<td>
+												{php echo date('Y年m月d日',$item['status_time'])}<br />
+												{$item['end_time']}</td>
+											<td>
+												<a class="label label-success" href="{php echo $this->createWebUrl('index',array('op'=>'select','id'=>$item['g_id']))}">活动数据</a>
+												<a class="label label-success" href="{php echo $this->createWebUrl('index',array('op'=>'add','id'=>$item['g_id'],'be_id'=>$item['id']))}">编辑</a>
+												<a class="label label-success" href="javascript:;" onclick="del({$item['id']})">删除</a>
+											</td>
+										</tr>
+									{/loop}
+								{else}
+									<tr>
+										<td colspan="10">
+											没有数据
+										</td>
+									</tr>
+								{/if}
+								</tbody>
+							</table>
+						</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}
+<script type="text/javascript">
+	function del(id){
+		if(id == '' || id == undefined){
+			layer.msg('参数错误',{time:2000,icon:2},function(res){
+				location.reload();
+			});
+		}
+		$.post("{php echo $this->createWebUrl('index',array('op'=>'del'))}",{id:id},function(res){
+			console.log(res);
+			layer.closeAll();
+			layer.msg(res.msg,{time:2000,icon:res.code},function(ress){
+				if(res.code == 1){
+					location.reload();
+				}
+			})
+		},"JSON");
+	}
+</script>

@@ -1,0 +1,108 @@
+<style type="text/css">
+	.check_input{
+		float: left;
+		border-right: 0 !important;
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+		width: 10% !important;
+	}
+	.zs{
+		margin: 13px 12%;
+	    font-size: 15px;
+	    color: red;
+	    background: #fce9e6;
+	    text-align: left;
+        padding: 10px 20px;
+	}
+</style>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">独立规则</label>
+	<div class="am-u-sm-9 am-u-end">
+		<label class="am-checkbox-inline am-success">
+			<input type="radio" name="dis_type" data-am-ucheck  value="1" {if $info['dis_type'] == 1}checked{/if}> 启用独立佣金比例
+		</label>
+		<label class="am-checkbox-inline am-success">
+			<input type="radio" name="dis_type" data-am-ucheck  value="2" {if $info['dis_type'] != 1}checked{/if}> 不启用独立佣金比例
+		</label>
+		<span style="display: inherit;color: red;">启用独立佣金设置，此商品拥有独自的佣金比例,不受分销商等级比例及默认设置限制</span>
+	</div>
+</div>
+<div id="distribution_goods" {if $info['dis_type'] != 1}style="display: none;"{/if}>
+	<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">佣金规则</label>
+		<div class="am-u-sm-9 am-u-end">
+			<label class="am-checkbox-inline am-success">
+				<input type="radio" name="dis_rule" data-am-ucheck  value="1" {if $info['dis_rule'] == 1 || empty($info['dis_rule'])}checked{/if}> 统一分销佣金
+			</label>
+			<label class="am-checkbox-inline am-success" {if $info['g_has_option'] != '1'} style="display: none;" {/if}>
+				<input type="radio" name="dis_rule" data-am-ucheck  value="2" {if $info['dis_rule'] == 2}checked{/if}> 详细设置分销佣金
+			</label>
+			<!--<span style="display: inherit;color: red;"></span>-->
+		</div>
+	</div>
+	<div class="zs">
+		注：填写佣金规则<br/>如果是数字(只能是纯数字),则是以固定金额给佣金<br/>
+		例如 1 就是按照卖一件,给分销商1元<br/>
+		如果是百分号<br/>
+		例如 1% 则是以支付商品金额的百分比给佣金<br/>
+		如果是 0 ,则代表不给分销商钱<br/>
+		如果是 -1 ,则代表使用总配置.
+	</div>
+	<!-- 分销佣金规则 -->
+	<div id="dis_rule_single" {if $info['dis_rule'] == 1 || empty($info['dis_rule'])}style="display: block;"{else}style="display: none;"{/if}>
+		<!--单规格-->
+		{loop $dis_config $iso}
+			<div class="am-form-group">
+				<label class="am-u-sm-3 am-u-lg-2 am-form-label">{$iso['name']}</label>
+				<div class="am-u-sm-9 am-u-end">
+					<input type='text' id='single_distribution_{$iso["level"]}' name='single_distribution_{$iso["level"]}' value="{$distion_arr[$iso['level']]}" class='tpl-form-input '/>
+				</div>
+			</div>
+		{/loop}
+	</div>
+	<div id="dis_rule_many" {if $info['dis_rule'] != 1} style="display: block;"{else}style="display: none;"{/if}>
+		<!--多规格-->
+		<link rel="stylesheet" type="text/css" href="../addons/group_buy/style/css/member_discount.css"/>
+		<!--详细设置   就是说详细设置多规格的会员价-->
+		<div id="" class="goods-spec-many am-form-group" style="display: block;">
+			<div class="goods-spec-box am-u-sm-9 am-u-sm-push-2 am-u-end">
+				<div class="am-scrollable-horizontal" style="display: block;" id="goods_distributisons">
+					<div class="goods-spec-line am-margin-top-lg am-margin-bottom-lg"></div>
+					<div class="spec-batchs am-form-inline btn_distribution" >
+						<div class="am-form-group">
+							<label class="am-form-label">批量设置</label>
+						</div>
+						{loop $dis_config $iso}
+							<div class="am-form-group am-form-success">
+								<input type="text" placeholder="{$iso['name']}" data-id="{$iso['level']}"  class="am-field-valid batch-spec-price">
+							</div>
+						{/loop}
+						<div class="am-form-group">
+							<button type="button" class="btn-distribution am-btn am-btn-sm am-btn-secondary am-radius">确定</button>
+				       	</div>
+					</div>
+					<table class="spec-sku-tabel am-table am-table-bordered am-table-centered am-margin-bottom-xs am-text-nowrap">
+						<tbody>
+						{if !empty($spec)}
+							<tr>
+								{loop array_reverse($spec) $k $v}
+									<th>{$v['title']}</th>
+								{/loop}
+								{loop $dis_config $iso}
+									<th>{$iso['name']}</th>
+								{/loop}
+							</tr>
+							{$distribution_html}
+						{/if}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>		
+		
+	</div>
+	
+	
+	
+	
+</div>

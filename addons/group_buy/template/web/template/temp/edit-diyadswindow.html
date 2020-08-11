@@ -1,0 +1,44 @@
+<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+
+		<div class="widget-head am-cf">
+			<div class="widget-title am-cf">弹窗广告模块</div>
+		</div>
+	<div class="widget am-cf">
+		<div class="temp_item temp_item_space"  >
+
+
+
+
+			<div class="am-panel am-panel-default am-g" ui-sortable="sortableOptions" ng-model="item.params.data">
+				<!--<div class="am-panel-hd">基础（默认）样式</div>-->
+				<div class="am-panel-bd am-u-md-12" ng-repeat="good in item.params.data">
+					<div class="am-u-md-3 " style=""  >
+						<div class="am-u-md-12" ng-click="uploadImage(good,'goodimg')" style="border: 1px dashed #ccc;vertical-align: middle;height: 70px;width: 100px;line-height: 70px;padding: 0;">
+							<img ng-if="good.img" class="upload_image_img"  ng-src="{{good.img}}"/>
+							<div ng-if="!good.img " style="width: 100%;text-align: center;" ><i class="fa fa-plus fa-lg" ></i></div>
+						</div>
+						<div class="" style="text-align: center;color: #ccc;font-size: 12px;padding: 0;width: 100px;clear: both;">尺寸：550*750</div>
+					</div>
+					<div class="am-u-md-8" >
+
+						<div class="am-form-group">
+							<label class="am-u-sm-3 am-form-label">链接:</label>
+							<div class="am-u-sm-9">
+						<span style="border: 1px solid #ccc;padding: 5px 10px;border: 1px solid #ccc;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;" class="showLink{{item.id}}{{good.id}}" ng-click="showLink(item.id,good.id)">
+							<i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;<span class="link-select" >{{good.url_name?good.url_name:'请选择链接页面'}}</span><input type="hidden" class="link-select-val" value=""/>
+						</span>
+							</div>
+						</div>
+						<span></span>
+
+					</div>
+				</div>
+
+			</div>
+			<!--<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">-->
+				<!--<i class="icon20_commons add_grays"></i>-->
+			<!--</a>-->
+		<div style="clear: both;"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,188 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #428bca;
+	    color: #fff;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form id="form" action="{php echo $this->createWebUrl('distribution',array('op'=>'routeAdd'))}" class="am-form tpl-form-line-form" method="post">
+						<input type="hidden" name="id" id="id" value="{$info['dr_id']}" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">{$act_title}配送单</div>
+								</div>
+								<!--表单项开始 from 妹子-->
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">路线名称 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="name" value="{$info['dr_name']}" required="" placeholder="路线名称">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">配送员 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="people" value="{$info['dr_people']}" required="" placeholder="配送员">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">联系电话 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="phone" value="{$info['dr_phone']}" required="" placeholder="联系电话">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">关联团长 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="col-xs-12 col-sm-4 col-md-4 control-label text-left">已选择团长（<span id="team-num" class="text-danger">{$info['dr_num']}</span>）个 <span class="btn btn-xs btn-info" id="select-team">查询团长</span></label>
+										<input type="hidden" name="link_head" value="{$info['dr_link_head']}"/>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label "> </label>
+									<div class="am-u-sm-9 am-u-end">
+										<div class=" page-table" style="display: none;">
+											<div class="table-responsive ">
+												<table class="table table-hover" style="min-width: 300px;">
+													<thead class="navbar-inner">
+													<tr>
+														<th>团长店铺名</th>
+														<th>团长姓名</th>
+														<th>联系电话</th>
+														<th>操作</th>
+													</tr>
+													</thead>
+													<tbody>
+
+													</tbody>
+												</table>
+												<div class="ajax-page">
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a onclick="history.go(-1);return false;" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+{template 'common/footer'}
+{template 'footer'}
+<script>
+
+	$('#btn').click(function(){
+    var img = $("input[name='img']").val();
+    var name = $("input[name='name']").val();
+    var link_type = $("input[name='ban_link_type']:checked").val();
+    var ban_link_content_1 = $("input[name='ban_link_content_1']").val();
+	var ban_link_content_2 = $("input[name='ban_link_content_2']").val();
+	var ban_link_content_3 = $("input[name='ban_link_content_3']").val();
+
+    // if(name == '' || name == undefined){
+        //     alert('请填写广告名称!');
+        //     return false;
+        // }
+        // if(img == '' || img == undefined){
+        //     alert('请上传图片!');
+        //     return false;
+        // }
+        // if(link_type !=0 && (ban_link_content_1=="" || ban_link_content_1==undefined) && (ban_link_content_2=="" || ban_link_content_2==undefined) && (ban_link_content_3=="" || ban_link_content_3==undefined)){
+        //     alert('请选择或填写链接内容!');
+        //     return false;
+        // }
+    return true;
+    });
+	//选择团长时展开表格
+	$(document).on('click','#select-team',function () {
+
+		$('.page-table').show();
+		var old = $('input[name=link_head]').val();
+        $.post("{php echo $this->createWebUrl('distribution',array('op'=>'getHeadVillage'))}",{'action':'getHeadVillage','old':old},function (res) {
+            $(".page-table table tbody").html(res.data);
+            $(".page-table .ajax-page").html(res.page);
+            $("#team-num").html(res.num);
+            // $(".content-checked[data-content='"+old_url+"']").removeClass("btn-info").addClass("btn-warning").html("已选取");
+        },"JSON");
+    })
+    //点选择团长时的分页
+    $(document).on("click",".page-table div .pagination li a",function (e) {
+        e.preventDefault();
+        var href = $(this).attr("href");
+        var old = $('input[name=link_head]').val();
+        $.post(href,{'action':'getHeadVillage','old':old},function (res) {
+            $(".page-table table tbody").html(res.data);
+            $(".page-table .ajax-page").html(res.page);
+            $("#team-num").html(res.num);
+        },"JSON");
+
+    });
+    //点击选取后取值
+    $(document).on("click",".content-checked",function () {
+        var index = $(this).attr('data-index');
+        var val = $(this).attr('data-content');
+        var old = $('input[name=link_head]').val();
+        old = old+","+val;
+        $('input[name=link_head]').val(old);
+        $.post("{php echo $this->createWebUrl('distribution',array('op'=>'getHeadVillage'))}",{'action':'getHeadVillage','old':old,'page':index},function (res) {
+            $(".page-table table tbody").html(res.data);
+            $(".page-table .ajax-page").html(res.page);
+            $("#team-num").html(res.num);
+        },"JSON");
+    });
+    //点击删除后后取值
+    $(document).on("click",".content-del",function () {
+        var index = $(this).attr('data-index');
+        var val = $(this).attr('data-content');
+        var old = $('input[name=link_head]').val();
+        var old_arr = old.split(',');
+        var now = '';
+        for(var i in old_arr){
+            if(old_arr[i]!="" && old_arr[i]!=val){
+                now +=","+old_arr[i];
+			}
+		}
+        // console.log(now)
+        $('input[name=link_head]').val(now);
+        $.post("{php echo $this->createWebUrl('distribution',array('op'=>'getHeadVillage'))}",{'action':'getHeadVillage','old':now,'page':index},function (res) {
+            $(".page-table table tbody").html(res.data);
+            $(".page-table .ajax-page").html(res.page);
+            $("#team-num").html(res.num);
+        },"JSON");
+    });
+</script>

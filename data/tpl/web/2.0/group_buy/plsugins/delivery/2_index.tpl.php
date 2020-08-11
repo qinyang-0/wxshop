@@ -1,0 +1,220 @@
+<?php defined('IN_IA') or exit('Access Denied');?><?php (!empty($this) && $this instanceof WeModuleSite || 1) ? (include $this->template('header', TEMPLATE_INCLUDEPATH)) : (include template('header', TEMPLATE_INCLUDEPATH));?>
+<?php (!empty($this) && $this instanceof WeModuleSite || 1) ? (include $this->template('template', TEMPLATE_INCLUDEPATH)) : (include template('template', TEMPLATE_INCLUDEPATH));?>
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	.input_left_border{
+		width: 16% !important;
+		float: left;
+		border-top-right-radius: 0!important;
+		border-bottom-right-radius: 0!important;
+		border-right: 0!important;
+		text-align: center;
+	}
+	.input_right_border{
+		width: 7% !important;float: left;border-top-left-radius: 0!important;border-bottom-left-radius: 0!important;border-left: 0!important;text-align: center;
+	}
+	.input_right_border_radius{
+		border-top-right-radius: 0!important;
+		border-bottom-right-radius: 0!important;
+		border-right: 0!important;
+	}
+	.input_left_border_radius{
+		border-top-left-radius: 0!important;border-bottom-left-radius: 0!important;border-left: 0!important;
+	}
+	.m5{
+		margin-bottom: 10px;
+	}
+	.w40 {
+		float: left;
+		width: 20% !important;
+	}
+	
+	.ml5 {
+		margin-left: 5px;
+	}
+	
+	.bors {
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+		border-radius: 0 !important;
+	}
+	
+	.border0 {
+		border-radius: 0 !important;
+	}
+	
+	.mgt5 {
+		margin-top: 5px;
+	}
+	.float_mar_10{
+		float: left;
+		margin: 0 10px;
+	}
+	.clockpicker{
+		width: 21% !important;
+		float: left;
+	}
+	.clockpicker input{
+		width: 100% !important;
+		border-radius: 0 !important;float: left;
+	}
+	.nones{
+		display: none;	
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper no-sidebar-second">
+	<!--本页自定义样式-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="<?php  echo $this->createWebUrl('plsugins',array('op'=>'delivery','in'=>'add'))?>" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">团长配送设置</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否启用团长配送时间选择 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-checkbox-inline am-success">
+											<input type="radio"  value="1" name="delivery_de[value]" data-am-ucheck <?php echo $info['delivery_de']==1?"checked":''; ?>>
+											开启
+										</label>
+										<label class="am-checkbox-inline am-success">
+											<input type="radio"  value="2" name="delivery_de[value]"  data-am-ucheck <?php echo $info['delivery_de']!=1?"checked":''; ?>>
+											关闭
+										</label>
+										<br/>
+										<input type="hidden" name="delivery_de[name]" id="" value="是否启用团长配送时间选择" />
+										<span class="color-9">是否启用团长配送时间选择</span>
+									</div>
+								</div>
+								<!--//用户下单过后几小时开始可以配送   配送具体时间-->
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">用户下单配送时间 </label>
+									<div class="col-sm-9 col-xs-12" style="padding: 0;">
+										<div class="col-sm-9 col-xs-12 m5">
+											<input type="text" name="" id="" value="用户下单过后" style="width: 10% !important;" readonly="" class="form-control input_left_border" />
+											<input type='text' id='' name='delivery[value]' value="<?php echo $info['delivery'] ? $info['delivery']: 1;?>" class='form-control input_left_border input_left_border_radius' placeholder="默认1小时"/>
+											<input type='text' id='' name='' readonly="" value="小时开始可以配送" class='form-control' style="width: 15%;border-top-left-radius: 0;border-bottom-left-radius: 0;border-left: 0;"/>
+										</div>
+									</div>
+									<div class="col-sm-9 col-xs-12 m5" style="padding: 0;">
+										<input type="hidden" name="delivery[name]" id="" value="用户下单配送时间(几小时后开始配送)" />
+									</div>
+								</div>
+								
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">配送时间具体时间 </label>
+									<div id="proba" class="col-sm-9 col-xs-12" style="padding: 0;">
+										<!--<div class="col-sm-9 col-xs-12 m5" style="color: red">
+											如：用户下单后1个小时开始配送，那么这里比如第一个在
+										</div>-->
+										<div style="clear: both;"></div>
+										<?php  if($info['delivery_time']) { ?>
+											<?php  if(is_array($info['delivery_time'])) { foreach($info['delivery_time'] as $key => $itms) { ?>
+												<div class="col-sm-9 col-xs-12 m5">
+													<input type="text" name="" id="" value="开始时间" style="width: 10% !important;" readonly="" class="form-control input_left_border" />
+													<?php  echo tpl_form_field_clock('star_time[]',$itms['star_time'])?>
+													<input type="text" name="" id="" value="结束时间" readonly="" style="width: 10% !important;" class="form-control input_right_border input_right_border_radius" />
+													<?php  echo tpl_form_field_clock('end_time[]', $itms['end_time'])?>
+													<?php  if($key == 0) { ?>
+														<span class="input-group-btn wauto" onclick="add()" style="width: auto;">
+								                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+								                        </span>
+							                        <?php  } else { ?>
+								                        <span class="input-group-btn wauto" onclick="time_del(this,1)" style="width: auto;">
+								                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+								                        </span>
+							                        <?php  } ?>
+												</div>
+											<?php  } } ?>
+										<?php  } else { ?>
+											<div class="col-sm-9 col-xs-12 m5">
+												<input type="text" name="" id="" value="开始时间" style="width: 10% !important;" readonly="" class="form-control input_left_border" />
+												<?php  echo tpl_form_field_clock('star_time[]','')?>
+												<input type="text" name="" id="" value="结束时间" readonly="" style="width: 10% !important;" class="form-control input_right_border input_right_border_radius" />
+												<?php  echo tpl_form_field_clock('end_time[]', '')?>
+												<span class="input-group-btn wauto" onclick="add()" style="width: auto;">
+						                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+						                        </span>
+											</div>
+										<?php  } ?>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).on("change","select[name='card_id[value]']",function () {
+	if($(this).val()=="1"){
+	    $("#is-show").removeClass("hidden");
+	}else{
+        $("#is-show").addClass("hidden");
+	}
+})
+$('#btn').click(function(res){
+	layer.load(3,{shade: [0.7,'#000']});
+	return true;
+})
+function add(){
+	var myDate = new Date();
+	var getHours=myDate.getHours();
+	var getMinutes=myDate.getMinutes();
+	var time = getHours+":"+getMinutes;
+	var str = '';
+	
+	str += '<div class="col-sm-9 col-xs-12 m5">';
+	str += '	<input type="text" name="" id="" value="开始时间" style="width: 10% !important;" readonly="" class="form-control input_left_border">';
+	str += '	<div class="input-group clockpicker">';
+	str += '		<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>';
+	str += '		<input type="text" name="star_time[]" value="'+time+'" class="form-control">';
+	str += '	</div>';
+	str += '	<input type="text" name="" id="" value="结束时间" readonly="" style="width: 10% !important;" class="form-control input_right_border input_right_border_radius">';
+	str += '	<div class="input-group clockpicker">';
+	str += '		<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>';
+	str += '		<input type="text" name="end_time[]" value="'+time+'" class="form-control">';
+	str += '	</div>';
+	str += '	<span class="input-group-btn wauto" onclick="time_del(this,1)" style="width: auto;">';
+    str += '        <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>';
+    str += '    </span>';
+	str += '</div>';
+	
+	$("#proba").append(str);
+	res();
+}
+function time_del(obj,num){
+	$(obj).parent().remove();
+}
+function res(){
+	require(["clockpicker"], function($){
+		$(".clockpicker").clockpicker({
+			autoclose: true
+		});
+	});
+}
+</script>
+<?php (!empty($this) && $this instanceof WeModuleSite || 1) ? (include $this->template('footer', TEMPLATE_INCLUDEPATH)) : (include template('footer', TEMPLATE_INCLUDEPATH));?>

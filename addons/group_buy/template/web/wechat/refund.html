@@ -1,0 +1,18 @@
+<div class="widget-head am-cf">
+	<div class="widget-title am-fl">退款模板</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">退款发送消息模板id </label>
+	<div class="am-u-sm-9 am-u-end">
+		<input type='text' name='wechat_refund_template[value]' value="{$info['wechat_refund_template']}" class='tpl-form-input' />
+		<input type="hidden" name="wechat_refund_template[name]" id="" value="退款发送消息模板id" />
+		<span class="color-9">注：一级行业请选择<span style="color: red;">'商家自营'</span> ,二级行业请选择<span style="color: red;">'服装/鞋/箱包'</span>,搜索<span style="color: red;">退款通知</span>,请依次选择<span style="color: red;">1.订单号2.申请时间3.退款金额4.商品名称5.退款原因</span></span>
+	</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">退款发送消息模板内容 </label>
+	<div class="am-u-sm-9 am-u-end">
+		<textarea name="wechat_refund_content[value]" rows="" cols="" class='tpl-form-input'>{$info['wechat_refund_content']}</textarea>
+		<input type="hidden" name="wechat_refund_content[name]" id="" value="退款发送消息模板内容" />
+	</div>
+</div>

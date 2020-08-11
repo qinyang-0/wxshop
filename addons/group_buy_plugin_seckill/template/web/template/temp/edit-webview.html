@@ -1,0 +1,16 @@
+<div class="temp_item temp_item_basic" >
+	<div class="frm_control_group">
+		<label for="" class="frm_label">网页链接</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.url">
+			</span>
+			<p class="font_999">注意一：链接的网页必须支持SSL ，链接必须以 https:// 开头，否则无法跳转<br/>
+注意二：链接的域名必须是备案域名，否则无法跳转<br/>
+注意三：您的网站域名必须加到微信小程序公众平台的业务域名处.</p>
+		</div>
+	</div>	
+	<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">
+		<i class="icon20_commons add_grays"></i> 
+	</a>
+</div>

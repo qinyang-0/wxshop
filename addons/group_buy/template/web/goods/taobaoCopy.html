@@ -1,0 +1,79 @@
+{template 'header'}
+<!-- 内容区域 start -->
+ 
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">淘宝CSV上传助手</div>
+					</div>
+					<div class="am-alert  notice_box" style="background-color: #fff;border-color: #22c397;color: #4c4c4c;" >
+						<strong>注：</strong>尽量在服务器空闲时间来操作，会占用大量内存与带宽，在获取过程中，请不要进行任何操作!
+					</div>
+					<div style="border: 1px solid #ccc; padding: 25px;line-height: 24px;margin-bottom: 30px;">
+						<div>功能介绍：可将淘宝助理以及其他途径获取的淘宝商品CSV文件快速上传至商城,节约您的大量时间! </div>
+						<div  >
+							<div>使用方法：</div>
+							<div>
+								<span> 1. 将您获取到的CSV文件转存为Excel格式,否则将无法识别</span>
+								<br>
+								<span>2. 将配套的图片文件包压缩为Zip格式压缩包并且导入(图片需在压缩包根目录下) </span>
+								<br>
+								<span>3. 确认上传即可</span>
+							</div>
+						</div>
+						<div  >
+							<div>示例文件：</div>
+							<div>
+								<a href="{php echo $excelurl}" style="color: red">Excel示例文件</a>
+								<br>
+								<a href="{php echo $zipurl}" style="color: red">Zip示例文件</a>
+							</div>
+						</div>
+						<div class="text-danger">注意：导入的商品尽量控制在10个以内</div>
+					</div>
+					<div>
+						<form method="post" action="{php echo $this->createWebUrl('goods',array('op'=>'taobaoCopy'))}" enctype="multipart/form-data"  >
+							<div class="form-group row">
+								<div class="form-group-label col-sm-2 text-right">
+									<label class="col-form-label required">EXCEL</label>
+								</div>
+								<div class="col-sm-6">
+									<input class="form-control" type="file" name="excel"
+										   value="">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="form-group-label col-sm-2 text-right">
+									<label class="col-form-label required">ZIP</label>
+								</div>
+								<div class="col-sm-6">
+									<input class="form-control" type="file" name="zip"
+										   value="">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="form-group-label col-sm-2 text-right">
+								</div>
+								<div class="col-sm-6">
+									<input type="hidden" name="submit" value="提交"/>
+									<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}" >确定导入</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+{template 'footer'}
+

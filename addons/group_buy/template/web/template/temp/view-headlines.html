@@ -1,0 +1,8 @@
+<style type="text/css">
+	.zsz{		width: 100%;padding-left: 10px;	}	.zx{		float: left;width: 20%;color: #00cc99;border-radius: 5px;border:1px solid #00cc99;text-align: center;font-size: 12px;margin-top: 3px;	}	.zxs{float: left;width: 80%;color: #000;margin-top: 3px;}
+</style><div class="app-images-box" ng-style="{'background':item.params.bgcolor}">	<div class="app-images ">		<li ng-style="{'padding':item.params.padding+'px',width:(item.params.type == 1 ? 100 : (item.params.type == 2 ? 50 : 33.3)) +'%'}">
+			<div style="width: 30%;float: left;" ng-repeat="goods in item.params.data"><img ng-src="{{goods.img}}" alt="" /></div>
+			<div style="width: 70%;float: left;">								<div class="zsz" ng-repeat="good in item.params.datas">					<div class="zx" ng-style="{'color':item.params.color,'border-color':item.params.color}">{{good.text}}</div>
+					<div class="zxs" ng-style="{'font-size':item.params.fontsize+'px',color:item.params.fontcolor}">{{good.title}}</div>				</div>				
+			</div>		</li>
+		<div class="clear"></div>	</div></div>

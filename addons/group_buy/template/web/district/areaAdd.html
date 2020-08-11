@@ -1,0 +1,175 @@
+{template 'common/header'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #428bca;
+	    color: #fff;
+	}
+</style>
+<ul class="nav nav-tabs">
+	<li>
+		<a href="{php echo $this->createWebUrl('district',array('op'=>'area'))}">地区列表</a>
+	</li>
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('district',array('op'=>'areaAdd'))}">添加地区</a>
+	</li>
+</ul>
+
+<div class="main">
+	<form action="{php echo $this->createWebUrl('district',array('op'=>'areaAdd'))}" method="post" class="form-horizontal form" enctype="multipart/form-data">
+		<div class="panel panel-default">
+			<div class="panel-heading">地区</div>
+			<div class="panel-body">
+				<input type="hidden" name="id" id="id" value="{$info['rg_id']}" />
+				<input type="hidden" name="province_name"  value="" />
+				<input type="hidden" name="city_name"  value="" />
+				<input type="hidden" name="area_name"  value="" />
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><b class="text-danger">*</b>省：</label>
+					<div class="col-sm-9 col-xs-12">
+						{if !empty($province)}
+						<select name="province" class="form-control">
+							<option>请选择省份</option>
+						{loop $province $key $item}
+							<option value="{$item['ad_code']}" {if $info['rg_province_id'] == $item['ad_code'] }selected{/if}>{$item['name']}</option>
+						{/loop}
+						</select>
+						{else}
+						<span class="text-danger">获取失败，请刷新...</span>
+						{/if}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><b class="text-danger">*</b>市：</label>
+					<div class="col-sm-9 col-xs-12">
+						{if !empty($city)}
+						<select name="city" class="form-control">
+							<option>请选择城市</option>
+							{loop $city $key $items}
+							<option value="{$items['ad_code']}" {if $info['rg_city_id'] == $items['ad_code'] }selected{/if}>{$items['name']}</option>
+							{/loop}
+						</select>
+						{else}
+						<select name="city" class="form-control">
+							<option >请选择城市</option>
+						</select>
+						{/if}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><b class="text-danger">*</b>区：</label>
+					<div class="col-sm-9 col-xs-12">
+						{if !empty($area)}
+						<select name="area" class="form-control">
+							<option>请选择县/区</option>
+							{loop $area $keyss $itemss}
+							<option value="{$itemss['ad_code']}" {if $info['rg_area_id'] == $itemss['ad_code'] }selected{/if}>{$itemss['name']}</option>
+							{/loop}
+						</select>
+						{else}
+						<select name="area" class="form-control">
+							<option >请选择县/区</option>
+						</select>
+						{/if}
+
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">地区名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type='text' id='name' name='name' value="{$info['rg_name']}" class='form-control'/>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--<div class="form-group col-md-offset-3 col-md-9">-->
+			<!--<input type="submit" name="submit" id="btn" value="提交" class="btn btn-primary col-xs-12 col-sm-1 col-md-1" />-->
+			<!--&nbsp;&nbsp; &nbsp; &nbsp;-->
+			<!--<input type="submit" name="submit" value="返回" class="btn  col-xs-12 col-sm-1 col-md-1" />-->
+		<!--</div>-->
+		<div class=" form-group col-md-offset-3 col-md-9">
+			<button class="btn  btn-primary" type="submit" name="submit" id="btn" value="提交">
+				提交
+			</button>
+			<a href="{php echo $this->createWebUrl('district',array('op'=>'area'))}">
+				<button class="btn" type="button" value="返回">
+					返回
+				</button>
+			</a>
+		</div>
+	</form>
+</div>
+
+{template 'footer'}
+<script>
+	//加载时初始为原本的值（省市区）
+    var province_name = $.trim($("select[name=province] option:selected").text());
+    var city_name = $.trim($("select[name=city] option:selected").text());
+    var area_name = $.trim($("select[name=area] option:selected").text());
+    $("input[name=province_name]").val(province_name);
+    $("input[name=city_name]").val(city_name);
+    $("input[name=area_name]").val( area_name );
+    $('#btn').click(function(){
+        var province = parseInt($.trim($("select[name=province]").val()));
+        var city = parseInt($.trim($("select[name=city]").val()));
+        var area = parseInt($.trim($("select[name=area]").val()));
+        var name = $.trim($("input[name='name']").val());
+        if(isNaN(province)  || province<= 0){
+            alert("请选择省份");
+           return false;
+        }
+        if(isNaN(city) || city <= 0){
+            alert("请选择城市");
+            return false;
+        }
+        if(isNaN(area) || area <= 0){
+            alert("请选择区/县");
+            return false;
+        }
+        if(name == '' || name == undefined){
+            alert("请输入地区名称");
+            return false;
+        }
+    });
+    //选省请求市
+    $(document).on("change","select[name=province]",function () {
+        var id = parseInt($(this).val());
+        $("input[name=city_name]").val("");
+        $("input[name=area_name]").val( "" );
+        if( !isNaN(id) ){
+            $("input[name=province_name]").val( $(this).find("option:selected").text() );
+            $("select[name=area]").html('<option >请选择县/区</option>');
+            $.post("{php echo $this->createWebUrl('district',array('op'=>'getArea'))}",{area_id:id},function(res){
+                $str = "<option >请选择城市</option>";
+                for( x in res ){
+                    $str += "<option value='"+res[x]['ad_code']+"'>"+res[x]['name']+"</option>";
+                }
+                $("select[name=city]").html($str);
+            },"JSON")
+		}
+
+
+    });
+    //选市请求区
+    $(document).on("change","select[name=city]",function () {
+        var id = parseInt($(this).val());
+        $("input[name=area_name]").val( "" );
+        if( !isNaN(id) ){
+            $("input[name=city_name]").val( $(this).find("option:selected").text() );
+            $.post("{php echo $this->createWebUrl('district',array('op'=>'getArea'))}",{area_id:id},function(res){
+                $str = "<option >请选择县/区</option>";
+                for( x in res ){
+                    $str += "<option value='"+res[x]['ad_code']+"'>"+res[x]['name']+"</option>";
+                }
+                $("select[name=area]").html($str);
+            },"JSON")
+		}
+
+    });
+    $(document).on("change","select[name=area]",function () {
+        var id = parseInt($(this).val());
+        if( !isNaN(id) ){
+            $("input[name=area_name]").val( $(this).find("option:selected").text() );
+        }
+    });
+</script>

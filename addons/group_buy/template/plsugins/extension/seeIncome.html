@@ -1,0 +1,94 @@
+{template 'header'}
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">团长： <span class="text-danger">{$team['m_nickname']}</span> 的营业详情：</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form>
+								<div class="form-group">
+									<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">订单总量</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($all_order_num)?0:$all_order_num;}（单）
+									</div>
+									<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">商品总量</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($all_goods_num)?0:$all_goods_num;}（件）
+									</div>
+									<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">营业额</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($all_money)?0:$all_money;}（元）
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">退款订单</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($all_back_order)?0:$all_back_order;}（单）
+									</div>
+									<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">退款金额</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($all_back_order_money)?0:$all_back_order_money;}（元）
+									</div>
+								</div>
+							</form>
+
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+									<thead class="navbar-inner">
+									<tr>
+										<th style="width:150px;">日期</th>
+										<th style="width:150px;">订单数</th>
+										<th style="width:150px;">订单金额</th>
+									</tr>
+									</thead>
+									<tbody>
+									{if !empty($info)}
+									{loop $info $key $item}
+									<tr>
+										<td>{$item['days']}</td>
+										<td>
+											{$item['num']}
+										</td>
+										<td>
+											{$item['total']}
+										</td>
+									</tr>
+									{/loop}
+									{else}
+									<tr>
+										<td colspan="3">
+											没有数据
+										</td>
+									</tr>
+									{/if}
+									</tbody>
+								</table>
+							</div>
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+								<div class="am-fr pagination-total am-margin-right">
+									<div class="am-vertical-align-middle">总记录：{$total}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+{template 'footer'}
+<script type="text/javascript">
+
+</script>

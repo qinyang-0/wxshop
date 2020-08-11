@@ -1,0 +1,172 @@
+{template 'header'}
+{template 'template'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	.input-group-btn{
+		display: inline-block;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('index',array('op'=>'add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">专题信息</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">专题名称 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text'  name='titles' value="{$info['title']}" class='tpl-form-input'/>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">标签 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text'  name='tag' value="{$info['tag']}" class='tpl-form-input'/>
+										<span class="color-9">显示在首页橱窗头部，和商品详情页面</span>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">分类 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<select class="tpl-form-input" name="cateid" >
+											<option value="" data-level="-1" ></option>
+											{if !empty($category)}
+											{loop $category $k $v}
+											<option value="{$k}" {if $info['cateid']==$k}selected{/if}>{$v['name']}</option>
+											{/loop}
+											{/if}
+										</select>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">秒杀点 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<div style="width: 460px;">
+										<?php for($i=0;$i<=23;$i++) { ?>
+										<label class="am-checkbox-inline am-success" style="width:60px;margin-left: 0;">
+											<input type="checkbox" name="times[]" value="{$i}" data-am-ucheck {if is_array($alltimes) && in_array($i, $alltimes)}checked{/if} />{$i}点
+										</label>
+										<?php } ?>
+										</div>
+										<br/>
+										<span class="color-9"></span>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">自动取消 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text'  name='closesec' value="{php echo $info['closesec']<=0?'120':$info['closesec']}" class='tpl-form-input'/>
+										<span class="color-9">抢购成功，不付款多少秒之后，自动取消资格，默认120秒(2分钟)</span>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">状态 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline am-success" >
+											<input name="enabled" type="radio" value="1" data-am-ucheck  {if $info['enabled']!=0}checked{/if}>
+											启用
+										</label>
+										<label class="am-radio-inline am-success">
+											<input name="enabled" type="radio"  value="0" data-am-ucheck {if $info['enabled']==0}checked{/if}>
+											禁用
+										</label>
+										<br/>
+										<span class="color-9">设置禁用，不出现在搜索列表</span>
+									</div>
+								</div>
+
+								<!--<div class="widget-head am-cf">-->
+									<!--<div class="widget-title am-fl">分享及标题设置</div>-->
+								<!--</div>-->
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label ">页面标题 </label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--<input type='text'  name='page_title' value="{$info['page_title']}" class='tpl-form-input'/>-->
+										<!--<span class="color-9">专题的页面标题 ,默认为 专题标题</span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label">分享标题 </label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--<input type='text'  name='share_title' value="{$info['share_title']}" class='tpl-form-input'/>-->
+										<!--<span class="color-9">如果不填写，默认为页面标题</span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label">分享图标</label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--{php /*echo tpl_form_field_image('share_icon',$info['share_icon']?$info['share_icon']:"");*/}-->
+										<!--<span class="color-9"></span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<!--<div class="am-form-group">-->
+									<!--<label class="am-u-sm-3 am-u-lg-2 am-form-label">分享描述 </label>-->
+									<!--<div class="am-u-sm-9 am-u-end">-->
+										<!--<textarea name="share_desc" rows="4" style="width: 460px;" placeholder="分享描述">{$info['share_desc']}</textarea>-->
+										<!--<span class="color-9"></span>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<button type="submit" class="j-submit zx-addBut" name="submit" id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a href="{php echo $this->createWebUrl('index',array('op'=>'index'))}" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'footer'}
+<script>
+    $('#btn').click(function(){
+        var titles = $.trim($("input[name='titles']").val());
+        var times = '';
+        $("input[name='times[]']:checked").each(function () {
+            times += ','+$(this).val();
+        });
+        if(titles == '' || titles == undefined){
+            layer.msg("请输入专题名称");
+            $("input[name='titles']").focus();
+            return false;
+        }
+        if(times == '' || times == undefined){
+            layer.msg("请选择秒杀点时间");
+            return false;
+        }
+    })
+
+
+</script>

@@ -1,0 +1,174 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">退款管理</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form id="form-search" class="toolbar-form" action="./index.php">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="finance">
+								<input type="hidden" name="op" value="back_money">
+								<div class="am-u-sm-12 am-u-md-12">
+									<div class="am fr">
+										<div class="am-form-group am-fl">
+											<div class="am-input-group am-input-group-sm tpl-form-border-form">
+												<input class="am-form-field zx-butInput" name="num" type="text" value="{$num}" placeholder="订单号">
+											</div>
+										</div>
+										<span class="zx-form-span">
+											买家：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input class="am-form-field zx-butInput" name="buyer" type="text" value="{$buyer}" placeholder="买家名称">
+										</div>
+										<span class="zx-form-span">
+											团长：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input class="am-form-field zx-butInput" name="team" type="text" value="{$team}" placeholder="团长名称">
+										</div>
+										<span class="zx-form-span">
+											小区：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input class="am-form-field zx-butInput" name="vg" type="text" value="{$vg}" placeholder="小区名称">
+										</div>
+										<!-- 查询按钮样式 -->
+										<div class="zx-but-check">
+											<button type="submit" >
+												<i class="fa fa-search"></i> 查询
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+								<thead class="navbar-inner">
+								<tr>
+									<th style="width:50px;">订单号</th>
+									<!--<th style="width:100px;">链接类型</th>-->
+									<th style="width:90px;">小区/团长</th>
+									<th style="width:80px;">商品</th>
+									<th style="width:80px;">买家昵称</th>
+									<th style="width:100px;">申请时间</th>
+									<th style="width:80px;">退款(元)</th>
+									<th style="width:80px;">扣除团长佣金(元)</th>
+									<th style="width:80px;">处理状态</th>
+									<th style="width:160px;">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								{if !empty($info)}
+								{loop $info $key $item}
+								<tr>
+									<td>{$item['gbm_go_code']}</td>
+									<!-- <td>
+                                        {if $item['link_type'] == 1}
+                                        列表
+                                        {elseif $item['link_type'] == 2}详情
+                                        {elseif $item['link_type'] == 3}webview
+                                        {/if}
+                                    </td> -->
+									<td>
+										{$item['oss_v_name']} / {$item['oss_head_name']}
+									</td>
+									<td>{$item['oss_g_name']}</td>
+									<td>
+										{$item['oss_buy_name']}
+									</td>
+									<td>{php echo empty($item['gbm_add_time'])?'':date('Y-m-d H:i:s',$item['gbm_add_time']);}</td>
+									<td>
+										{$item['gbm_money']}
+									</td>
+									<td>
+										{$item['gpb_head_money']}
+									</td>
+									<td>
+										{if $item['gbm_status'] == 10}
+										<span class="text-danger">未审核</span>
+										{else if $item['gbm_status'] == 20}
+										<span class="text-info">已退款</span>
+										{else if $item['gbm_status'] == 30}
+										<span class="text-warning">拒绝</span>
+										{else if $item['gbm_status'] == 40}
+										<span class="text-warning">退款失败,请重试或线下退</span>
+										{/if}
+									</td>
+									<td><!--删除可以用ajax实现-->
+										{if $item['gbm_status'] == 10}
+										<a data-href="{php echo $this->createWebUrl('finance',array('op'=>'sure_back_money','id'=>$item['gbm_id']))}" onclick="bts(this)" href="javascript:;"  class="btn btn-warning btn-xs">同意</a>
+										<a href="{php echo $this->createWebUrl('finance',array('op'=>'backSayNo','id'=>$item['gbm_id']))}"  class="btn btn-danger btn-xs">拒绝</a>
+										{else if $item['gbm_status'] == 40}
+										<a class="btn btn-danger btn-xs" onclick="downBackMoney({$item['gbm_id']});return false;">已手动退款</a>
+										<a href="{php echo $this->createWebUrl('finance',array('op'=>'sure_back_money','id'=>$item['gbm_id']))}"  class="btn btn-warning btn-xs">重新退款</a>
+										{/if}
+										<a href="{php echo $this->createWebUrl('finance',array('op'=>'seeBackInfo','id'=>$item['gbm_id']))}"  class="btn btn-info btn-xs">详情</a>
+									</td>
+								</tr>
+								{/loop}
+								{else}
+								<tr>
+									<td colspan="999">
+										没有数据
+									</td>
+								</tr>
+								{/if}
+								</tbody>
+							</table>
+						</div>
+
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+    //downBackMoney手动线下退款
+    function downBackMoney(id) {
+        var  id = id ;
+        layer.confirm('您确定已线下手动退款了？',{icon: 3, title:'提示'},function (index) {
+            $.post("{php echo $this->createWebUrl('finance',array('op'=>'downBackMoney'))}",{id:id},function(res){
+                layer.close(index);
+                if(res.status == 0){
+                    layer.msg(res.msg,{icon:1,time:1000});
+                    setTimeout(function () {
+                        location.reload();
+                    },1000)
+
+                }else{
+                    layer.msg(res.msg,{icon:2,time:1000});
+                }
+            },"JSON")
+        })
+    }
+    function bts(obj){
+		var href = $(obj).data('href');
+		layer.confirm('是否确定退款?', {icon: 1, title:'提示'}, function(index){
+			layer.closeAll();
+			layer.load(3, {shade: [0.8, '#393D49']});
+			window.location.href = href;
+		});
+		return false;
+	}
+</script>
+{template 'footer'}

@@ -1,0 +1,201 @@
+{template 'header'}
+{template 'template'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form id="my-form" action="{php echo $this->createWebUrl('set',array('op'=>'add','in'=>'add'))}" class="am-form tpl-form-line-form"
+					 method="post" novalidate="novalidate">
+						<div class="widget-body">
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">积分设置</div>
+								</div>
+								<div class="am-form-group am-form-success">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">是否显示分类导航 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline">
+											<input type="radio" name="integral_nav" value="1" data-am-ucheck="" {if $this->sc('integral_nav') == 1} checked="" {/if} class="am-ucheck-radio am-field-valid" autocomplete="off" ><span
+											 class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span><span class="am-ucheck-icons"><i
+												 class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span> 开启</label>
+										<label class="am-radio-inline">
+											<input type="radio" name="integral_nav" value="2" data-am-ucheck="" autocomplete="off"  {if empty($this->sc('integral_nav')) || $this->sc('integral_nav')==2} checked="" {/if}
+											 class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i
+												 class="am-icon-checked"></i></span><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+											<span class="am-link-muted">关闭</span>
+										</label>
+									</div>
+								</div>
+								<div class="am-form-group am-form-success">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">积分商城首页背景图 </label>
+									<div class="am-u-sm-9 am-u-end zx-sendNotice ">
+										{php echo tpl_form_field_image('integral_bj',$this->sc('integral_bj'));}
+									</div>
+								</div>
+								<div class="am-form-group am-form-success">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">积分商城首页栏目名称 </label>
+									<div class="am-u-sm-9 am-u-end zx-sendNotice ">
+										<input type="text" class="tpl-form-input" name="inter_name" value="{$item['inter_name']}" placeholder="请输入积分首页栏目名称，默认热门兑换">
+									</div>
+								</div>
+								
+								<div class="am-form-group am-form-success">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">是否开启获取积分 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline">
+											<input type="radio" name="pay_sign_status" value="1" data-am-ucheck="" {if $this->sc('pay_sign_status') == 1} checked="" {/if} class="am-ucheck-radio am-field-valid" autocomplete="off" ><span
+											 class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span><span class="am-ucheck-icons"><i
+												 class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span> 开启</label>
+										<label class="am-radio-inline">
+											<input type="radio" name="pay_sign_status" value="2" data-am-ucheck="" autocomplete="off"  {if empty($this->sc('pay_sign_status')) || $this->sc('pay_sign_status')==2} checked="" {/if}
+											 class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i
+												 class="am-icon-checked"></i></span><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+											<span class="am-link-muted">关闭</span>
+										</label>
+									</div>
+								</div>
+								<div id='sign' {if $this->sc('pay_sign_status') == 1} style="display:block"{else}style="display:none" {/if} >
+									<div class="am-form-group" style="display: none;">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">签到赠送积分 </label>
+										<div class="am-u-sm-9 am-u-end zx-sendNotice" style="width: 620px;">
+											<input type="text" class="tpl-form-input zx-set-input left_input" name="" value="每次签到送" readonly="">
+											<input type="text" class="tpl-form-input zx-set-input z_input" autocomplete="off"  name="sign" value="{php echo $this->sc('sign')}" required="">
+											<input type="text" class="tpl-form-input zx-set-input right_input" name="" value="积分" readonly="">
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">订单消费获得积分 </label>
+										<div class="am-u-sm-9 am-u-end zx-sendNotice" style="width: 620px;">
+											<input type="text" class="tpl-form-input zx-set-input left_input" name="" value="每消费" readonly="">
+											<input type="text" class="tpl-form-input zx-set-input z_input" autocomplete="off"  name="pay_sign" value="{php echo $this->sc('pay_sign')}" required="">
+											<input type="text" class="tpl-form-input zx-set-input right_input" name="" value="元，获得一积分" readonly="">
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">分享获得积分 </label>
+										<div class="am-u-sm-9 am-u-end zx-sendNotice" style="width: 620px;">
+											<input type="text" class="tpl-form-input zx-set-input left_input" style="width: 15% !important;" name="" value="分享一次获得" readonly="">
+											<input type="text" class="tpl-form-input zx-set-input z_input" autocomplete="off"  style="width: 15% !important;" name="share_sign" value="{php echo $this->sc('share_sign')}" required="">
+											<input type="text" class="tpl-form-input zx-set-input z_input" style="width: 25% !important;" name="" value="积分，每天最高分享" readonly="">
+											<input type="text" class="tpl-form-input zx-set-input z_input" autocomplete="off"  style="width: 15% !important;" name="highest_sign" value="{php echo $this->sc('highest_sign')}" required="">
+											<input type="text" class="tpl-form-input zx-set-input right_input" style="width: 30% !important;" name="" value="次，为0表示不限制次数" readonly="">
+										</div>
+									</div>
+								</div>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">积分说明</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">积分说明 </label>
+									<div class="am-u-sm-9 am-u-end zx-sendNotice" style="width: 620px;">
+										{php echo tpl_ueditor('pay_explain',$this->sc('pay_explain'));}
+									</div>
+								</div>
+								
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">轮播信息</div>
+								</div>
+
+								<div id="lb">
+									<a href="javascript:;" class="zx-addBut " id="lbs" style="margin-left: 189px;">新增轮播</a>
+									{if !empty($tumb)} 
+										{loop $tumb $item}
+											<div class="am-form-group">
+												<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">轮播图片 </label>
+												<div class="col-sm-9 col-xs-12 zx-sendNotice ">
+													{php echo tpl_form_field_image('images[]',$item['img']);}
+												</div>
+											</div>
+											<div class="am-form-group">
+												<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">链接地址 </label>
+												<div class="col-sm-9 col-xs-12 zx-sendNotice ">
+													<input type="text" class="tpl-form-input" name="phones[]" value="{$item['href']}" required="">
+												</div>
+											</div>
+											<div class="am-form-group">
+												<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">排序 </label>
+												<div class="col-sm-9 col-xs-12 zx-sendNotice ">
+													<input type="text" class="tpl-form-input" name="sort[]" value="{$item['sort']}" required="">
+												</div>
+											</div>
+										{/loop}
+									{else}
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">轮播图片 </label>
+											<div class="col-sm-9 col-xs-12 zx-sendNotice ">
+												{php echo tpl_form_field_image('images[]');}
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">链接地址 </label>
+											<div class="col-sm-9 col-xs-12 zx-sendNotice ">
+												<input type="text" class="tpl-form-input" name="phones[]" value="" required="">
+											</div>
+										</div>
+										<div class="am-form-group">
+											<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">排序 </label>
+											<div class="col-sm-9 col-xs-12 zx-sendNotice ">
+												<input type="text" class="tpl-form-input" name="sort[]" value="" required="">
+											</div>
+										</div>
+									{/if}
+								</div>
+						</div>
+						
+						<!--<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">首页轮播图片 </label>
+									<div class="col-sm-9 col-xs-12">
+										{php echo tpl_form_field_multi_image('thumb',$this->sc('thumb'));}
+									</div>
+								</div>-->
+
+						<div class="am-form-group">
+							<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+								<button type="submit" class="j-submit zx-addBut ">提交</button>
+								<a href="javascript:;" class="zx-addBut" id="ql">所有商品积分清0</a>
+							</div>
+						</div>
+						</fieldset>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{template 'footer'}
+<script type="text/javascript">
+	$("input[name='pay_sign_status']").change(function(){
+		var id = $(this).val();
+		if(id == 1){
+			$('#sign').show();
+		}else{
+			$('#sign').hide();
+		}
+		
+	})
+	$('#lbs').click(function () {
+		var str =
+			'<div class="am-form-group"><label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">轮播图片 </label><div class="col-sm-9 col-xs-12 zx-sendNotice"><div class="input-group "><input type="text" name="images[]" value="" class="form-control" autocomplete="off"><span class="input-group-btn"><button class="btn btn-default" type="button" onclick="showImageDialog(this);">选择图片</button></span></div><div class="input-group " style="margin-top:.5em;"><img src="./resource/images/nopic.jpg" onerror="this.src=\'./resource/images/nopic.jpg\'; this.title=\'图片未找到.\'" class="img-responsive img-thumbnail" width="150"><em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="deleteImage(this)">×</em></div></div></div>';
+		str += '<div class="am-form-group"><label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">链接地址 </label><div class="am-u-sm-9 am-u-end"><input type="text" class="tpl-form-input" name="phones[]" value="" required=""></div></div>';
+		str += '<div class="am-form-group"><label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">排序 </label><div class="col-sm-9 col-xs-12 zx-sendNotice "><input type="text" class="tpl-form-input" name="sort[]" value="" required=""></div></div>';
+		$('#lb').append(str);
+	})
+	$('#ql').click(function(res){
+		layer.load(1,{shade: [0.3, '#000000']});
+		layer.confirm('确定清零吗？一但清楚将无法恢复', {icon: 3, title:'提示'}, function(index){
+			layer.confirm('请再次确定', {icon: 3, title:'提示'}, function(index){
+				$.post("{php echo $this->createWebUrl('set',array('op'=>'save'))}",{id:1},function(res){
+					layer.closeAll();
+					layer.msg(res.msg);
+					if(res.code == 1){
+						location.reload();
+					}
+				},"JSON")
+			})
+		})
+		
+	})
+</script>

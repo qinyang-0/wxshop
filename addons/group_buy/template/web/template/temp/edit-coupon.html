@@ -1,0 +1,86 @@
+<div class="">
+
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">优惠卷</div>
+	</div>
+	<div class="widget am-cf">
+<div class="temp_item temp_item_space"  >
+
+	<div class="frm_control_group" >
+	  	<label for="" class="frm_label">图片类型</label>
+	   	<div class="frm_controls">
+	   		<label class="frm_radio_label "  ng-click="imageType(item.id,1)">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">单图</span>
+	   			<input type="radio" name="type" value="1" on-selected class="frm_radio"  ng-model="item.params.type" />
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="imageType(item.id,2)">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">双图</span>
+	   			<input type="radio" name="type" value="2" on-selected  class="frm_radio"  ng-model="item.params.type"  />
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="imageType(item.id,3)">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">三图</span>
+	   			<input type="radio" name="type" value="3" on-selected  class="frm_radio"  ng-model="item.params.type"  />
+	   		</label>
+
+	   	</div>
+	</div>
+
+	<div class="frm_control_group">
+		<label for="" class="frm_label">图片间距</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="60" value="{{item.params.padding}}" name="padding"></li>
+			<span class="my_slider_notice">{{item.params.padding}} 像素</span>
+		</div>
+	</div>
+
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+			</span>
+		</div>
+	</div>
+
+	<div class="am-panel am-panel-default am-g" ui-sortable="sortableOptions" ng-model="item.params.data">
+		<!--<div class="am-panel-hd">基础（默认）样式</div>-->
+		<div class="am-panel-bd am-u-md-12" ng-repeat="good in item.params.data">
+			<div class="am-u-md-3 " style=""  >
+				<div class="am-u-md-12" ng-click="uploadImage(good,'goodimg')" style="border: 1px dashed #ccc;vertical-align: middle;height: 70px;width: 100px;line-height: 70px;padding: 0;">
+					<img ng-if="good.img" class="upload_image_img"  ng-src="{{good.img}}"/>
+					<div ng-if="!good.img " style="width: 100%;text-align: center;" ><i class="fa fa-plus fa-lg" ></i></div>
+				</div>
+				<div class="" style="text-align: center;color: #ccc;font-size: 12px;padding: 0;width: 100px;clear: both;">尺寸：375*210</div>
+			</div>
+
+			<div class="am-u-md-9" >
+				<div class="am-form-group" style="min-height: 30px;" ng-show="item.params.istext == 1">
+					<label class="am-u-sm-3 am-form-label">文字内容:</label>
+					<div class="am-u-sm-9">
+						<input type="text" value="" class="" style="padding:0;line-height: 1.4;"  ng-model="good.title">
+					</div>
+				</div>
+				<div class="am-form-group">
+					<label class="am-u-sm-3 am-form-label">链接:</label>
+					<div class="am-u-sm-9">
+						<span style="border: 1px solid #ccc;padding: 5px 10px;border: 1px solid #ccc;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;" class="showLink{{item.id}}{{good.id}}" >
+							<i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;<span class="link-select" >优惠卷列表页</span><input type="hidden" class="link-select-val" value="/pages/template/couponHall"/>
+						</span>
+					</div>
+				</div>
+				<span></span>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+	</div>
+</div>

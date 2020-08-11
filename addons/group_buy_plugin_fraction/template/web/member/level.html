@@ -1,0 +1,123 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">等级列表</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<div class="am-u-sm-12 am-u-md-3">
+
+								<a class="zx-addBut" href="{php echo $this->createWebUrl('member',array('op'=>'add'))}">
+									<!-- <span class="am-icon-plus"></span>  -->
+									新增
+								</a>
+
+
+								<!-- <div class="am-form-group">
+									<div class="am-btn-group am-btn-group-xs">
+
+										<a class="am-btn am-btn-default am-btn-success" href="{php echo $this->createWebUrl('member',array('op'=>'add'))}">
+											<span class="am-icon-plus"></span> 新增
+										</a>
+
+									</div>
+								</div> -->
+							</div>
+
+						</div>
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped
+                         tpl-table-black am-text-nowrap">
+								<thead>
+									<tr>
+										<th>等级ID</th>
+										<th>等级名称</th>
+										<th>优惠类型</th>
+										<th>优惠金额</th>
+										<th>添加时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									{if !empty($info)}
+									{loop $info $item}
+									<tr>
+										<td class="am-text-middle">{$item['id']}</td>
+										<td class="am-text-middle">{$item['title']}</td>
+										<td class="am-text-middle">{php echo $item['type'] == 1 ? '立减' : '折扣'}</td>
+										<td class="am-text-middle">{php echo $item['type'] == 1 ? '立减':'折扣'}{$item['money']}{php echo $item['type']
+											== 1 ? '元':'折'}</td>
+										<td class="am-text-middle">{php echo date('Y-m-d H:i',$item['time'])}</td>
+										<td class="am-text-middle">
+											<div class="tpl-table-black-operation">
+												<a href="{php echo $this->createWebUrl('member',array('op'=>'add','id'=>$item['id']))}">
+													<!-- <i class="am-icon-pencil"></i> -->
+													编辑
+												</a>
+												<a href="javascript:;" class="item-delete tpl-table-black-operation-del" data-id="{$item['id']}">
+													<!-- <i class="am-icon-trash"></i>  -->
+													删除
+												</a>
+											</div>
+										</td>
+									</tr>
+									{/loop}
+									{else}
+									<tr>
+										<td colspan="6" style="text-align: center;">暂无数据</td>
+									</tr>
+									{/if}
+
+								</tbody>
+							</table>
+						</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function () {
+			// 删除元素
+			$('.item-delete').click(function (res) {
+				var id = $(this).data('id');
+				if (id == '' || id == undefined) {
+					layer.msg('请传入删除等级的id');
+					return false;
+				}
+				layer.confirm('确定要删除该商品吗？', {
+					title: '友情提示'
+				}, function (index) {
+					$.post("{php echo $this->createWebUrl('member',array('op'=>'delete'))}", {
+						id: id
+					}, function (res) {
+						if (res.code == 0) {
+							layer.msg(res.msg);
+							location.reload();
+						} else {
+							layer.msg(res.msg);
+
+						}
+					}, "JSON");
+				})
+
+			})
+		});
+	</script>
+
+</div>
+<!-- 内容区域 end -->
+template 'footer'}

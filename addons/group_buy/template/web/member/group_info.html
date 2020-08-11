@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<style>
+	.tpl-table-black tbody>tr>td{
+		padding: 10px 6px;
+	}
+</style>
+<body>
+<!-- 内容区域 start -->
+
+<div class=" ">
+		<div class="">
+				<div class="" style="padding: 10px 0;">
+
+					<div class="">
+						<!-- 工具栏 -->
+						<div class="page_toolbar  am-cf">
+							<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="member">
+								<input type="hidden" name="op" value="group_info">
+								<input type="hidden" name="ids" id="ids" value="{$ids}" />
+								<div class="am-u-sm-12 ">
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<input type="text" class="am-form-field" name="title" placeholder="分销商昵称" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">
+									</div>
+									<!-- 查询按钮样式 -->
+									<div class="zx-but-check">
+										<button type="submit" >
+											<i class="fa fa-search"></i> 查询
+										</button>
+									</div>
+								</div>
+							</form>
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+									<thead class="navbar-inner">
+									<tr>
+										<th>信息</th>
+										<th >操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									{if !empty($arr)}
+									{loop $arr $key $item}
+									<tr data-id="{$item['m_id']}">
+										<td class="am-text-middle">
+											<img src="{$item['m_photo']}" width="50" style="border-radius: 50%;margin-right: 10px;"/>{$item['m_nickname']}
+										</td>
+										<td class="am-text-middle"><!--删除可以用ajax实现-->
+											{if $item['m_id'] != $ids && $item['m_id'] != $id}
+												<button type="button" class="btn btn-info btn-xs select-manger" data-id="{$item['m_id']}"  data-name="{$item['m_nickname']}" data-icon="{$item['m_photo']}">选取</button>
+											{/if}
+										</td>
+									</tr>
+									{/loop}
+									{else}
+									<tr>
+										<td colspan="3">
+											没有数据
+										</td>
+									</tr>
+									{/if}
+									</tbody>
+								</table>
+							</div>
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<span class=" close-click  zx-but-check" style="float: right;margin-right: 20px;color: #0a0a0a;">返回</span>
+
+
+</body>
+
+<script type="text/javascript">
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    //点确定取消弹窗
+    $(document).on("click",".close-click",function () {
+        parent.layer.close(index);
+    });
+    //选取
+    $(document).on("click",".select-manger",function () {
+        var data = $(this).data();
+        var id= data.id;
+        var name= data.name;
+        var icon = data.icon;
+        var ids = '';
+        parent.$('#showGoodsImg').html('');
+        var str  = '<div class="multi-item goods_item">\n' +
+            '<img src="'+icon+'"  class="img-responsive img-thumbnail" title="'+name+'">\n' +
+            '<input type="hidden" name="ids" value="'+id+'">\n' +
+//          '<span class="goods_float">'+name+'</span>' +
+            '<em class="close" title="删除" data-id="'+id+'">×</em>' +
+            '</div>';
+		// var str = "<tr><td>"+name+"</td><td><img src='"+icon+"' width='25'></td><td>&yen;"+old_price+"</td><td>&yen;"+price+"</td><td><span class='btn btn-xs btn-danger del-manager'  data-id='"+id+"'>删除<input type='hidden' name='ids[]' value='"+id+"'/></span></td></tr>";
+        parent.$("#showGoodsImg").append(str);
+        $(this).addClass("btn-warning").removeClass("btn-info").removeClass("select-manger").addClass("cancel-manger").html('取消');
+        parent.$("input[name=ids]").val(id);
+        parent.$("#showGoodsName").val(name);
+        parent.layer.close(index);
+    });
+</script>

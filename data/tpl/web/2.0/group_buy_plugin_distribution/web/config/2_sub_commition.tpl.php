@@ -1,0 +1,137 @@
+<?php defined('IN_IA') or exit('Access Denied');?><?php (!empty($this) && $this instanceof WeModuleSite || 1) ? (include $this->template('header', TEMPLATE_INCLUDEPATH)) : (include template('header', TEMPLATE_INCLUDEPATH));?>
+<style type="text/css">
+    .btn-group .active {
+        background-color: #428bca;
+        color: #fff;
+    }
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+        border: 0;
+    }
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+    <!--本页自定义样式-->
+    <!--<link rel="stylesheet" href="<?php  echo MODULE_URL?>style/css/goods.css">-->
+    <!--<link rel="stylesheet" href="<?php  echo MODULE_URL?>style/css/umeditor.css">-->
+    <!--右侧详细内容区域，灰框之内,from 妹子-->
+    <div class="row-content am-cf">
+        <!--2列式简单布局,from bootstap-->
+        <div class="row">
+            <!--12列布局,from 妹子-->
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+                <div class="widget am-cf">
+                    <form action="<?php  echo $this->createWebUrl('config_money')?>" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+                        <!--右侧正文 from 自定义 -->
+                        <div class="widget-body">
+                            <!--右侧正文 规定所有边距为0 from bootstap -->
+                            <fieldset>
+                                <!--小标题 from 自定义-->
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl">分佣设置设置</div>
+                                </div>
+                                <!--是否开启-->
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">分销类型 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <label class="am-radio-inline am-success" >
+                                            <input type='radio'  name='distribution_type' value="1" <?php echo $config['distribution_type']==1?'checked':'';?> data-am-ucheck/>百分比
+                                        </label>
+                                        <label class="am-radio-inline am-success" >
+                                            <input type='radio'  name='distribution_type' value="2" <?php echo $config['distribution_type']==2?'checked':'';?> data-am-ucheck />固定金额
+                                        </label>
+                                        <div>
+                                            <em class="text-danger">设置为百分比，则佣金按订单实际金额的百分比计算（不含运费）,若设置为固定金额，则无论订单金额为多少固定获得改数额佣金</em>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 百分比金额设置 -->
+                                <div class="am-form-group" style="display: <?php  if($config['distribution_type']==1) { ?>block<?php  } else { ?>none<?php  } ?>;">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">百分比佣金设置 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <label class="am-radio-inline am-success" >
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th>一级分销佣金/%</th>
+                                                    <td>
+                                                        <input name="distribution_lv1_parsent" value="<?php  echo $config['distribution_lv1_parsent'];?>" type="text" class="tpl-form-input" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>二级分销佣金/%</th>
+                                                    <td>
+                                                        <input name="distribution_lv2_parsent" value="<?php  echo $config['distribution_lv2_parsent'];?>" type="text" class="tpl-form-input" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>三级分销佣金/%</th>
+                                                    <td>
+                                                        <input name="distribution_lv3_parsent" value="<?php  echo $config['distribution_lv3_parsent'];?>" type="text" class="tpl-form-input" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </label>
+                                        <div>
+                                            <em class="text-danger">一级代表购买者直属上级可以获得佣金，二级为购买者直属上级的上级以此类推</em>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 固定佣金 -->
+                                <div class="am-form-group" style="display: <?php  if($config['distribution_type']==2) { ?>block<?php  } else { ?>none<?php  } ?>;">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">固定佣金设置 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <label class="am-radio-inline am-success" >
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th>一级分销佣金/元</th>
+                                                    <td>
+                                                        <input name="distribution_lv1_fixed" value="<?php  echo $config['distribution_lv1_fixed'];?>" type="text" class="tpl-form-input" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>二级分销佣金/元</th>
+                                                    <td>
+                                                        <input name="distribution_lv2_fixed" value="<?php  echo $config['distribution_lv2_fixed'];?>" type="text" class="tpl-form-input" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>三级分销佣金/元</th>
+                                                    <td>
+                                                        <input name="distribution_lv3_fixed" value="<?php  echo $config['distribution_lv3_fixed'];?>" type="text" class="tpl-form-input" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </label>
+                                        <div>
+                                            <em class="text-danger">一级代表购买者直属上级可以获得佣金，二级为购买者直属上级的上级以此类推</em>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group sub_btn">
+                                    <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                        <button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php (!empty($this) && $this instanceof WeModuleSite || 1) ? (include $this->template('common/footer', TEMPLATE_INCLUDEPATH)) : (include template('common/footer', TEMPLATE_INCLUDEPATH));?>
+<?php (!empty($this) && $this instanceof WeModuleSite || 1) ? (include $this->template('footer', TEMPLATE_INCLUDEPATH)) : (include template('footer', TEMPLATE_INCLUDEPATH));?>
+<script>
+    $("input[name='distribution_type']").change(function(){
+        var va = $(this).val();
+        // console.log(va);
+        $(".am-form-group").hide();
+        $(".am-form-group").eq(0).show();
+        $(".am-form-group").eq(va).show();
+        $(".sub_btn").show();
+    });
+</script>

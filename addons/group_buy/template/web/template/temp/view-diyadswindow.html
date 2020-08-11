@@ -1,0 +1,22 @@
+<div class="app-mod app-mod-2" >
+	<div class="app-mod-top" >
+		<span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+		<span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+		<span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+	</div>
+
+<div class="app-images-box" >
+	<div class="app-images ">
+		<li ng-repeat="images in item.params.data" ng-style="{'padding':item.params.padding+'px',width:'100%'}">
+
+			<a href="javascript:;">
+				<p >
+					<img ng-src="{{images.img}}" ng-style="{'display':(images.img ==undefind || images.img==''?'none':'block')}" err-src="../addons/group_buy/public/images/stemp.jpg"  />
+					<img ng-src="../addons/group_buy/public/images/stemp.jpg" ng-style="{'display':(images.img ==undefind || images.img==''?'block':'none')}" />
+				</p>
+				<!--<p class="app-images-font" ng-if="item.params.istext == 1" ng-style="{'font-size':item.params.fontsize+'px','color':item.params.fontcolor}">{{images.title}}</p>-->
+			</a>
+		</li>
+		<div class="clear"></div>
+	</div>
+</div></div>

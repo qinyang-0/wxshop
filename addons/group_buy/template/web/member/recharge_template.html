@@ -1,0 +1,85 @@
+<div class="">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<div class="am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data" id="from_data">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<div class="widget-body">
+							<fieldset>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label " style="margin-top: 13px;">信息 </label>
+									<div class="am-u-sm-9 am-u-end am-form-label" style="text-align: left;">
+										<img src="{$member['m_photo']}" alt="" width="50" id="avatar_img" style="border-radius: 50%;"/>
+										<span id="nickname">{$member['m_nickname']}</span>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">当前积分 </label>
+									<div class="am-u-sm-9 am-u-end am-form-label" style="text-align: left;">
+										<span class='tpl-form-input' id="jf">{$member['integral']}</span>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">当前余额 </label>
+									<div class="am-u-sm-9 am-u-end am-form-label" style="text-align: left;">
+										<span class='tpl-form-input' id="inter">{$member['m_money_balance']}</span>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">类型</label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="types" data-am-ucheck  value="1" checked> 充值积分
+											</label>
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="types" data-am-ucheck  value="2" > 充值余额
+											</label>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label">变化</label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="change" data-am-ucheck  value="1" checked> 增加
+											</label>
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="change" data-am-ucheck  value="2" > 减少
+											</label>
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="change" data-am-ucheck  value="3" > 最终
+											</label>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label " id="type_inter" >充值积分 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='number' id='' name='inters' value="" class='tpl-form-input' />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label " id="type_inter" >备注 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<textarea name="remarks" id="remarks" rows="" cols=""class='tpl-form-input'></textarea>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$("input[name='types']").change(function(res){
+		var i = $(this).val();
+		if(i== 1){
+			$('#type_inter').html("充值积分");
+		}else if(i == 2){
+			$('#type_inter').html("充值余额");
+		}
+	})
+</script>

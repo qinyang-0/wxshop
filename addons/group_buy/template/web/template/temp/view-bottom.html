@@ -1,0 +1,20 @@
+<style type="text/css">
+    .center{
+        text-align: center;
+    }
+    .wi50{min-width: 50px;}
+</style>
+<div class="app-mod app-mod-12"  ng-style="{'background-color':item.params.bgcolor,width:'100%'}" >
+    <div class="app-mod-top" >
+        <span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+        <span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+        <span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+    </div>
+    <div ng-repeat="menu in item.params.data" ng-hide="$index+1 > item.params.num " class="app-mod-12-nav" ng-style="{'width':item.params.num == 5 ? '20%' : (item.params.num == 4 ? '25%' : (item.params.num == 3 ? '33.33%' : (item.params.num == 2 ? '50%' : '100%' ) ) ),'padding':item.params.padding + 'px'}">
+        <div class="app-mod-12-img center" ng-style="{'padding': item.params.space +'px'}">
+            <img ng-src="{{menu.img}}" ng-style="{'border-radius':item.params.radius,width:'50px'}" />
+        </div>
+        <div class="app-mod-12-text wi50" ng-style="{'color':item.params.fontcolor}">{{menu.title}}</div>
+    </div>
+</div>
+<!--,text-align:'center',-->

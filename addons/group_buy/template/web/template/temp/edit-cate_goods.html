@@ -1,0 +1,200 @@
+<div class="">
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">普通商品模块</div>
+	</div>
+	<div class="widget am-cf">
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">商品显示风格</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label "  ng-click="goodsType(item.id,1)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格1</span>
+					<input type="radio" name="goods_module" value="1" on-selected class="frm_radio"  ng-model="item.params.goods_module" />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsType(item.id,2)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格2</span>
+					<input type="radio" name="goods_module" value="2" on-selected  class="frm_radio"  ng-model="item.params.goods_module"  />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsType(item.id,3)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格3</span>
+					<input type="radio" name="goods_module" value="3" on-selected  class="frm_radio"  ng-model="item.params.goods_module"  />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsType(item.id,4)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格4</span>
+					<input type="radio" name="goods_module" value="4" on-selected  class="frm_radio"  ng-model="item.params.goods_module"  />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsType(item.id,5)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格5</span>
+					<input type="radio" name="goods_module" value="5" on-selected  class="frm_radio"  ng-model="item.params.goods_module"  />
+				</label>
+			</div>
+		</div>
+		
+		<div class="frm_control_group" ng-show="item.params.goods_module==5">
+			<label for="" class="frm_label" style="width: 7em;">每行商品数量</label>
+			<div class="frm_controls">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="1" max="3" value="{{item.params.nums}}" name="nums"></li>
+				<span class="my_slider_notice">{{item.params.nums}} 个</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-show="item.params.goods_module==5">
+			<label for="" class="frm_label" style="width: 6em;">原价</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label" ng-click="item.params.present_price = 1">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">显示</span>
+					<input type="radio" name="present_price" value="1" on-selected class="frm_radio"  ng-model="item.params.present_price" />
+				</label>
+				<label class="frm_radio_label " ng-click="item.params.present_price = 2">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">隐藏</span>
+					<input type="radio" name="present_price" value="2" on-selected  class="frm_radio"  ng-model="item.params.present_price"  />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-show="item.params.goods_module==5">
+			<label for="" class="frm_label" style="width: 6em;">现价</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label" ng-click="item.params.original_price = 1">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">显示</span>
+					<input type="radio" name="original_price" value="1" on-selected class="frm_radio"  ng-model="item.params.original_price" />
+				</label>
+				<label class="frm_radio_label" ng-click="item.params.original_price = 2">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">隐藏</span>
+					<input type="radio" name="original_price" value="2" on-selected  class="frm_radio"  ng-model="item.params.original_price"  />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-show="item.params.goods_module==5">
+			<label for="" class="frm_label" style="width: 6em;">购物车图标</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label" ng-click="item.params.stats = 1">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">显示</span>
+					<input type="radio" name="stats" value="1" on-selected class="frm_radio"  ng-model="item.params.stats" />
+				</label>
+				<label class="frm_radio_label" ng-click="item.params.stats = 2">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">隐藏</span>
+					<input type="radio" name="stats" value="2" on-selected  class="frm_radio"  ng-model="item.params.stats"  />
+				</label>
+			</div>
+		</div>
+		<!--<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">是否显示分类</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label "  ng-click="goodsIsclass(item.id,1)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">显示</span>
+					<input type="radio" name="is_class" value="1" on-selected class="frm_radio"  ng-model="item.params.is_class" />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsIsclass(item.id,0)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">不显示</span>
+					<input type="radio" name="is_class" value="0" on-selected  class="frm_radio"  ng-model="item.params.is_class"  />
+				</label>
+			</div>
+		</div>-->
+		<!--<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">是否显示新品</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label "  ng-click="goodsIsNew(item.id,1)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">显示</span>
+					<input type="radio" name="is_new" value="1" on-selected class="frm_radio"  ng-model="item.params.is_new" />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsIsNew(item.id,0)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">不显示</span>
+					<input type="radio" name="is_new" value="0" on-selected  class="frm_radio"  ng-model="item.params.is_new"  />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group" >
+			<label for="" class="frm_label" style="width: 6em;">是否显示热销</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label "  ng-click="goodsIsHot(item.id,1)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">显示</span>
+					<input type="radio" name="is_hot" value="1" on-selected class="frm_radio"  ng-model="item.params.is_hot" />
+				</label>
+				<label class="frm_radio_label " ng-click="goodsIsHot(item.id,0)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">不显示</span>
+					<input type="radio" name="is_hot" value="0" on-selected  class="frm_radio"  ng-model="item.params.is_hot"  />
+				</label>
+			</div>
+		</div>-->
+		<div class="frm_control_group">
+			<label for="" class="frm_label">圆角处理</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="100" value="{{item.params.radius}}" name="radius"></li>
+				<span class="my_slider_notice">{{item.params.radius}} 像素</span>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">边距</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.margin}}" name="margin"></li>
+				<span class="my_slider_notice">{{item.params.margin}} 像素</span>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label" style="width: 6em;">选择商品</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label" ng-click="item.params.choose_commodity = 1">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">手动选择</span>
+					<input type="radio" name="choose_commodity" value="1" on-selected class="frm_radio"  ng-model="item.params.choose_commodity" />
+				</label>
+				<label class="frm_radio_label" ng-click="item.params.choose_commodity = 2">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">自动选择</span>
+					<input type="radio" name="choose_commodity" value="2" on-selected  class="frm_radio"  ng-model="item.params.choose_commodity"  />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-show="item.params.choose_commodity == 2">
+			<label for="" class="frm_label">产品数量</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="4" max="30" value="{{item.params.num}}" name="num"></li>
+				<span class="my_slider_notice">{{item.params.num}} 个</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-show="item.params.choose_commodity == 2">
+			<label for="" class="frm_label">产品来源</label>
+			<div class="am-u-sm-9">
+				<span style="border: 1px solid #ccc;padding: 5px 10px;border: 1px solid #ccc;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;" class="showLink{{item.id}}{{good.id}}" ng-click="loadStat(item.id)">
+					<i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;<span class="link-select" >{{item.params.source_name?item.params.source_name:'请选择商品来源'}}</span><input type="hidden" name="source" class="link-select-val" value="" ng-model="item.params.source"/>
+				</span>
+			</div>
+		</div>
+		<!--手动选择商品-->
+		<div class="am-panel am-panel-default am-g" ui-sortable="sortableOptions" ng-model="item.params.data" ng-show="item.params.choose_commodity == 1">
+			<div class="am-panel-bd am-u-md-12" ng-repeat="good in item.params.data">
+				<div class="am-u-md-3 " style=""  >
+					<div class="am-u-md-12" ng-click="uploadImage(good,'goodimg')" style="border: 1px dashed #ccc;vertical-align: middle;height: 70px;width: 100px;line-height: 70px;padding: 0;">
+						<img ng-if="good.img" class="upload_image_img"  ng-src="{{good.img}}"/>
+						<div ng-if="!good.img " style="width: 100%;text-align: center;" ><i class="fa fa-plus fa-lg" ></i></div>
+					</div>
+				</div>
+				<div class="am-u-md-9" style="display: flex;align-items: center;justify-content: space-around;height: 70px;">
+					<span>链接:</span>
+					<span style="border: 1px solid #ccc;padding: 5px 10px;border: 1px solid #ccc;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;" class="showLink{{item.id}}{{good.id}}" ng-click="cate(item.id,good.id,'',item.params.data)">
+						<i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;<span class="link-select" >{{good.text?good.text:'请选择链接商品'}}</span><input type="hidden" class="link-select-val" value=""/>
+					</span>
+					<span class="delete_this" ng-click="deleteItem(item.id,good.id,$index)"><i class="fa fa-minus"></i></span>
+				</div>
+			</div>
+			<a  href="javascript:;" class="btn btn-default" ng-click="addgood(item.params.data)">
+				<i class="icon14_common add_gray"></i>新增
+			</a>
+		</div>
+	</div>
+</div>

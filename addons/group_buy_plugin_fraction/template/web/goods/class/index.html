@@ -1,0 +1,118 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">商品分类</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!--<div class="tips am-margin-bottom-sm am-u-sm-12">
+							<div class="pre">
+								<p> 注：商品分类最多添加2级</p>
+							</div>
+						</div>-->
+						<div class="am-u-sm-12 am-u-md-6 am-u-lg-6" style="margin-bottom: 16px">
+							<div class="am-form-group">
+								<div class="am-btn-toolbar">
+									<div class="am-btn-group am-btn-group-xs">
+										<a class="zx-addBut" href="{php echo $this->createWebUrl('goods',array('op'=>'class','in'=>'add'))}">
+											新增分类
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+								<thead>
+									<tr>
+										<th>分类ID</th>
+										<th>分类名称</th>
+										<th>分类排序</th>
+										<th>添加时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									{loop $info $item}
+									<tr>
+										<td class="am-text-middle">{$item['gc_id']}</td>
+										<td class="am-text-middle">{$item['gc_name']}</td>
+										<td class="am-text-middle">{$item['gc_order']}</td>
+										<td class="am-text-middle">{php echo date('Y-m-d H:i',$item['gc_add_time'])}</td>
+										<td class="am-text-middle">
+											<div class="tpl-table-black-operation">
+												<a href="{php echo $this->createWebUrl('goods',array('op'=>'class','in'=>'add','id'=>$item['gc_id']))}">
+													<i class="am-icon-pencil"></i> 编辑
+												</a>
+												<a href="javascript:;" class="item-delete tpl-table-black-operation-del" data-id="{$item['gc_id']}">
+													<i class="am-icon-trash"></i> 删除
+												</a>
+											</div>
+										</td>
+									</tr>
+									{if !empty($item['data'])}
+									{loop $item['data'] $list}
+									<tr>
+										<td class="am-text-middle">{$list['gc_id']}</td>
+										<td class="am-text-middle">　-- {$list['gc_name']}</td>
+										<td class="am-text-middle">{$list['gc_order']}</td>
+										<td class="am-text-middle">{php echo date('Y-m-d H:i',$list['gc_add_time'])}</td>
+										<td class="am-text-middle">
+											<div class="tpl-table-black-operation">
+												<a href="{php echo $this->createWebUrl('goods',array('op'=>'class','in'=>'add','id'=>$list['gc_id']))}">
+													<!-- <i class="am-icon-pencil"></i>  -->
+													编辑
+												</a>
+												<a href="javascript:;" class="item-delete tpl-table-black-operation-del" data-id="{$list['gc_id']}">
+													<!-- <i class="am-icon-trash"></i> -->
+													 删除
+												</a>
+											</div>
+										</td>
+									</tr>
+									{/loop}
+									{/if}
+									{/loop}
+								</tbody>
+							</table>
+							<div style="text-align: center;">{$page}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function () {
+			// 删除元素
+			var url = "{php echo $this->createWebUrl('goods',array('op'=>'class','in'=>'delete'))}";
+			//			$('.item-delete').delete('category_id', url);
+			$('.item-delete').click(function () {
+				var id = $(this).data('id');
+				if (id == '' || id == undefined) {
+					layer.msg('请传入id');
+					return false;
+				}
+				$.post(url, {
+					id: id
+				}, function (res) {
+					if (res.code == 0) {
+						layer.msg('删除成功');
+						location.reload();
+					} else {
+						layer.msg('删除失败');
+					}
+				}, "JSON")
+			})
+
+		});
+	</script>
+</div>
+<!-- 内容区域 end -->
+</div>
+
+{template 'footer'}

@@ -1,0 +1,13 @@
+<div class="temp_item temp_viewitem_timer" ng-style="{height : item.params.height + 'px',background : item.params.bgcolor,color : item.params.fontcolor,fontSize:item.params.fontsize+'px'}">
+	<div class="app_time_left" ng-if="item.params.isfont == 0">
+		<span>{{item.params.title}}</span>
+	</div>
+	<div class="app_time_right" >
+		<ul time-desc class="app_time_endtime" time="{{item.params.time}}" ng-class="{ 'textcenter' : item.params.isfont == 1 }">
+			<span class='day'>00</span> 天
+			<span class='hour'>00</span> :
+			<span class='minite'>00</span> :
+			<span class='second'>00</span>
+		</ul>
+	</div>
+</div>

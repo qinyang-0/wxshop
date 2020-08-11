@@ -1,0 +1,10 @@
+<div class="app-mod app-mod-2" >
+	<div class="app-mod-top" >
+		<span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+		<span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+		<span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+	</div>
+<div class="temp_item temp_item_text" >
+	<div string-html="item.params.content" ng-style="{background : item.params.bgcolor,margin:item.params.margin+'px',padding:item.params.padding+'px',}"></div>
+</div>
+</div>

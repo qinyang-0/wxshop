@@ -1,0 +1,127 @@
+{template 'header'}
+{template 'template'}
+<style>
+    #check_layer,#check_layer_step2,#change_money_layer{
+
+        display: none;
+    }
+    .check_list{
+        text-align: center;
+    }
+    .check_list li{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .am-tabs-d2 .am-tabs-nav{
+        background: #fff;
+        border-bottom: 1px solid #eef1f5;
+    }
+    .am-tabs-nav{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .am-tabs .am-tabs-nav li{
+        width: 120px;
+        line-height: 40px;
+        height: 40px;
+        padding: 0;
+    }
+    .am-tabs .am-tabs-nav li a{
+        width: 120px;
+        line-height: 40px;
+        height: 40px;
+        padding: 0;
+        display: block;
+        margin: 0;
+        text-align: center;
+        background: #fff;
+    }
+    .am-tabs-d2 .am-tabs-nav>.am-active {
+        position: relative;
+        background-color: #fcfcfc;
+        border-bottom: 2px solid #22c397;
+    }
+    .am-tabs-d2 .am-tabs-nav>.am-active a{
+        color: #22c397;
+    }
+    .am-tabs-d2 .am-tabs-nav>.am-active:after{
+        border-bottom-color: #22c397;
+    }
+    /*微擎底层时间插件样式*/
+    .daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect{
+        width: auto;
+        padding-right: 40px;
+    }
+</style>
+<div class="tpl-content-wrapper ">
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-cf">拼团设置</div>
+
+                    </div>
+                    <form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data" id="pteam_from">
+                        <div class="widget-body">
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团列表顶部图</label>
+                                <div class="col-sm-9 col-xs-12  zx-sendNotice">
+                                    {php echo tpl_form_field_image('pteam_img',$list['pteam_img']);}
+                                    <span class="color-9">推荐上传图片尺寸为375像素*230像素</span>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团列表页标题</label>
+                                <div class="col-sm-9 col-xs-12  zx-sendNotice">
+                                    <input type="text" value="{$list['pteam_title_info']}" name="pteam_title_info" class="tpl-form-input" placeholder="默认：一起来拼团">
+                                    <sapn class="color-9">小程序页面,拼团列表页标题文字更改</sapn>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团分享标题</label>
+                                <div class="col-sm-9 col-xs-12  zx-sendNotice">
+                                    <input type="text" value="{$list['pteam_share_title']}" name="pteam_share_title" class="tpl-form-input" placeholder="默认：为对应页面标题">
+                                    <sapn class="color-9">小程序页面,拼团列表页标题文字更改</sapn>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团分享描述</label>
+                                <div class="col-sm-9 col-xs-12  zx-sendNotice">
+                                    <input type="text" value="{$list['pteam_share_des']}" name="pteam_share_des" class="tpl-form-input" placeholder="默认：为对应页面内容">
+                                    <sapn class="color-9">小程序页面,拼团列表页标题文字更改</sapn>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团分享图片</label>
+                                <div class="col-sm-9 col-xs-12  zx-sendNotice">
+                                    {php echo tpl_form_field_image('pteam_share_img',$list['pteam_share_img']);}
+                                    <sapn class="color-9">小程序页面,拼团列表页标题文字更改.</sapn>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团规则详情</label>
+                                <div class="col-sm-9 col-xs-12">
+                                    {php echo tpl_ueditor('pteam_content',$list['pteam_content']);}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="am-am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                <button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{template 'footer'}

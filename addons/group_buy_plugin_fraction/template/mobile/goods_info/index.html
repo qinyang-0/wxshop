@@ -1,0 +1,179 @@
+{template 'common/header'}
+<link rel="stylesheet" href="{php echo MODULE_URL}style/mobile/css/xyk.css">
+<body>
+	<!--静态化需要往里面填商品ID-->
+	<input type="hidden" name="pId" value="1000000000003695">
+	<input type="hidden" name="otype" value="3">
+	<input type="hidden" name="inId" value="1000000007015711">
+
+	<input type="hidden" id="maxCash" value="$maxCash">
+	<input type="hidden" id="cashToPointRatio" value="$cashToPointRatio">
+	<!-- 中间内容开始 -->
+	<article id="wrapper ">
+		<div id="scroller" style="margin-bottom:88px;">
+			<h1>
+		<a href="{php echo $this->createMobileUrl('goods')}" class="go_back" style="height: 100%;width: 4rem;top: 0px;"></a>
+   		 商品详情
+	</h1>
+			<div class="centerBox">
+				<div class="slide">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							{loop $info['g_thumb'] $item}
+								<div class="swiper-slide">
+									<img src="{php echo tomedia($item)}" height="750" width="750" class="scrollLoading" />
+								</div>
+							{/loop}
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<div class="gds-detail">
+					<div class="gds-name">{$info['g_name']}</div>
+					<div class="gds-name"></div>
+					<div class="gds-num">商品编号 &nbsp;{$info['g_product_num']}</div>
+					<div class="gds-pay">
+						<div class="gds-stock">库存<span id="pint"></span></div>
+						所需积分<span class="pink">&nbsp;{$info['g_price']}</span>
+					</div>
+				</div>
+				<!--<div class="gds-path">
+					兑换卡种&nbsp;&nbsp;&nbsp; 龙卡家庭挚爱信用卡（员工）（C标白） 龙卡家庭挚爱信用卡
+				</div>-->
+				<div class="gds-tit">商品详情</div>
+				<div style="background: #fff;">
+					{$info['g_info']}
+				</div>
+
+			</div>
+			<script type="text/javascript">
+				var frontPath = '';
+			</script>
+
+			<a href="javascript:void(0);" class="btnbottom insertOrder">立即兑换</a>
+
+		</div </article>
+		<!-- 中间内容结束 -->
+{template 'common/footer'}
+		<script>
+			$(function() {
+				var swiper = new Swiper('.slide .swiper-container', {
+					pagination: '.swiper-pagination',
+					paginationClickable: true,
+					autoplay: 5000,
+					loop: true
+				});
+			});
+			$('.insertOrder').click(function() {
+				//获取id
+				var id = "{$_GPC['id']}";
+				var top = document.documentElement.scrollTop;
+				document.documentElement.scrollTop = 0;
+				$('body').css('height','84.4rem');
+				$('body').css('overflow','hidden');
+				$.post("{php echo $this->createMobileUrl('goods_info',array('op'=>'ceta'))}",{id:id},function(res){
+					if(res.code == 1){
+						app.alert(res.msg,'提示',function(){
+							if(res.data != ''){
+								window.location.href = res.data;
+							}
+							detr(top);
+						});
+					}else{
+						//跳转，能够购买
+						window.location.href = "{php echo $this->createMobileUrl('order',array('id'=>$id))}";
+					}
+				},"JSON");
+			});
+			function detr(top){
+				setTimeout(function(){
+					$('body').css('height','auto');
+				$('body').css('overflow','auto');
+				document.documentElement.scrollTop = top;
+				},500)
+			}
+			//增加数量
+			$('.c-add').click(function() {
+				var _num = $('.c-number').text();
+				_num++;
+				$('.c-number').html(_num);
+				$(this).siblings('.c-reduce').addClass('cur');
+
+				changePoints(_num);
+			});
+
+			// 减少数量
+			$('.c-reduce').click(function() {
+				var _num = $('.c-number').text();
+				_num--;
+				if(_num < 1) {
+					$(this).removeClass('cur');
+					$('.c-number').html('0');
+				} else {
+					$(this).addClass('cur');
+					$('.c-number').html(_num);
+				}
+				changePoints(_num);
+			});
+
+			function changePoints(_num) {
+				var pricePoints = 104000;
+				var maxCash = $('#maxCash').val();
+				if("" == _num) {
+					$(".points").text(pricePoints);
+					$('.c-number').text(0);
+					return;
+				}
+				var reg = /^(0|[1-9][0-9]*)$/;
+				if(!reg.test(_num)) {
+					$(".points").text(pricePoints);
+					$('.c-number').text(0);
+					return;
+				}
+				if($('.c-number').text() >= maxCash) {
+					$('.c-number').text(maxCash);
+				} else if($('.c-number').text() < 0) {
+					$('.c-number').text(0);
+				};
+				var payPoints = parseInt(pricePoints - parseFloat($('.c-number').text()) * $('#cashToPointRatio').val());
+				if(payPoints <= 0) {
+					$(".points").text(pricePoints);
+					$('.c-number').text(0);
+					sweetAlert({
+						title: '',
+						text: "最少积分值需大于0",
+						type: null,
+						showCancelButton: false,
+						confirmButtonColor: "rgba(231, 83, 74, 0.77)",
+						confirmButtonText: "确定",
+						closeOnConfirm: false
+					});
+					return;
+				} else {
+					$(".points").text(payPoints);
+				}
+			}
+
+			pageCache = {
+				pInvent: 500,
+				pLimit: 200,
+				pid: $('#pid').val(),
+				otype: $('#otype').val()
+			};
+			//查询库存
+			$.post("{php echo $this->createMobileUrl('goods_info',array('op'=>'save'))}",{id:"{$_GPC['id']}"},function(res){
+				if(res.code == 0){
+					var price = "{$info['g_price']}";
+					if(res.data.num <= 0 || parseInt(res.data.ints) < price){
+						//没有库存了 
+						$('#pint').html(res.data.num);
+						$('.btnbottom').css('background','#67595b');
+					}else{
+						$('#pint').html(res.data.num);
+					}
+				}
+			},"JSON");
+		</script>
+</body>
+
+</html>

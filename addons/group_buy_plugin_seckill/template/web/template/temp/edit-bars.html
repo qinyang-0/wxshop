@@ -1,0 +1,364 @@
+
+<div class="temp_item temp_item_space"  >
+
+	<div class="frm_control_group" > 
+		<label for="" class="frm_label">导航数量</label>
+	   	<div class="frm_controls"> 
+	   		<label class="frm_radio_label " ng-click="item.params.num = 1"> 
+	   			<i class="icon_radio"></i> 
+	   			<span class="lbl_content">1个</span>
+	   			<input type="radio" name="ischange" value="1" on-selected class="frm_radio"  ng-model="item.params.num" /> 
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="item.params.num = 2"> 
+	   			<i class="icon_radio"></i> 
+	   			<span class="lbl_content">2个</span>
+	   			<input type="radio" name="ischange" value="2" on-selected class="frm_radio"  ng-model="item.params.num" /> 
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="item.params.num = 3"> 
+	   			<i class="icon_radio"></i> 
+	   			<span class="lbl_content">3个</span>
+	   			<input type="radio" name="ischange" value="3" on-selected class="frm_radio"  ng-model="item.params.num" /> 
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="item.params.num = 4"> 
+	   			<i class="icon_radio"></i> 
+	   			<span class="lbl_content">4个</span>
+	   			<input type="radio" name="ischange" value="4" on-selected class="frm_radio"  ng-model="item.params.num" /> 
+	   		</label>
+	   		<label class="frm_radio_label " ng-click="item.params.num = 5">
+	   			<i class="icon_radio"></i>
+	   			<span class="lbl_content">5个</span>
+	   			<input type="radio" name="ischange" value="5" on-selected  class="frm_radio"  ng-model="item.params.num"  /> 
+	   		</label>
+	   	</div>
+	</div>
+
+	<div class="frm_control_group">
+		<label for="" class="frm_label">圆角处理</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="100" value="{{item.params.radius}}" name="radius"></li>
+			<span class="my_slider_notice">{{item.params.radius}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">导航间距</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.padding}}" name="padding"></li>
+			<span class="my_slider_notice">{{item.params.padding}} 像素</span>
+		</div>
+	</div>
+
+	<div class="frm_control_group">
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">文字颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.foncolortcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.fontcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">文字激活颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.actcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.actcolor" />
+			</span>
+		</div>
+	</div>
+
+	<div class="edit_data_box" ui-sortable="sortableOptions" ng-model="item.params.data">
+		<div class="edit_data_item" ng-repeat="good in item.params.data" ng-hide="$index+1 > item.params.num">
+			<span class="delete_this" ng-click="deleteItem(item.id,good.id)">x</span>
+			<div class="design_single_box item_cell_box">
+				<div class="item_cell_flex">
+					<div class="frm_control_group frm_control_group_editin">
+						<label for="" class="frm_label">导航名称{{$index}}</label>
+						<div class="frm_controls">
+							<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="good.title" >
+							</span>
+						</div>
+					</div>
+					<div class="frm_control_group frm_control_group_editin" >
+						<label for="" class="frm_label">点击动作</label>
+						<div class="frm_controls">
+					    	<label class="frm_radio_label" ng-click="good.type = 'url'"> 
+					    		<i class="icon_radio"></i> 
+					    		<span class="lbl_content">跳转页面</span>
+					    		<input type="radio" name="type{{$index}}" on-selected value="url" class="frm_radio"  ng-model="good.type"  /> 
+					    	</label>
+					    	<label class="frm_radio_label " ng-click="good.type = 'weburl'">
+					    		<i class="icon_radio"></i>
+					    		<span class="lbl_content">跳转网页</span>
+					    		<input type="radio" name="type{{$index}}" on-selected value="weburl" class="frm_radio"  ng-model="good.type"  />
+					    	</label>
+					    	<label class="frm_radio_label" ng-click="good.type = 'other'"> 
+					    		<i class="icon_radio"></i> 
+					    		<span class="lbl_content">其他小程序</span>
+					    		<input type="radio" name="type{{$index}}" on-selected value="other" class="frm_radio"  ng-model="good.type"  /> 
+					    	</label>	    	
+					    	<label class="frm_radio_label " ng-click="good.type = 'tel'">
+					    		<i class="icon_radio"></i>
+					    		<span class="lbl_content">拨打电话</span>
+					    		<input type="radio" name="type{{$index}}" on-selected value="tel" class="frm_radio"  ng-model="good.type"  /> 
+					    	</label>
+					    	<!--<label class="frm_radio_label " ng-click="good.type = 'share'">
+					    		<i class="icon_radio"></i>
+					    		<span class="lbl_content">分享提示</span>
+					    		<input type="radio" name="type{{$index}}" on-selected value="share" class="frm_radio"  ng-model="good.type"  /> 
+					    	</label>-->
+					    	<label class="frm_radio_label " ng-click="good.type = 'map'">
+					    		<i class="icon_radio"></i>
+					    		<span class="lbl_content">地图位置</span>
+					    		<input type="radio" name="type{{$index}}" on-selected value="map" class="frm_radio"  ng-model="good.type"  /> 
+					    	</label>
+					    	<label class="frm_radio_label " ng-click="good.type = 'kefu'">
+					    		<i class="icon_radio"></i>
+					    		<span class="lbl_content">联系客服</span>
+					    		<input type="radio" name="type{{$index}}" on-selected value="kefu" class="frm_radio"  ng-model="good.type"  />
+					    	</label>
+						</div>
+					</div>
+					<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'url'">
+						<label for="" class="frm_label">跳转页面</label>
+						<div class="frm_controls">
+							<span class="frm_input_box frm_input_200 readonlybg">
+								<input type="text" class="frm_input " ng-model="good.urlname" readonly>
+							</span><a href="javascript:;" ng-click="showLink(item.id,good.id,'my')">设置链接</a>
+						</div>
+					</div>
+					<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'tel'">
+						<label for="" class="frm_label">电话号码</label>
+						<div class="frm_controls">
+							<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="good.tel" >
+							</span>
+						</div>
+					</div>
+					<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'map'">
+						<label for="" class="frm_label">地图坐标</label>
+						<div class="frm_controls">
+							<span class="frm_input_box frm_input_200 readonlybg">
+								<input type="text" class="frm_input " value="{{good.lat +','+ good.lng}}" readonly>
+							</span><a href="javascript:;" ng-click="showMap( item.id,good.id )">选择坐标</a>
+						</div>
+					</div>
+					<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'other'">
+						<label for="" class="frm_label">小程序appid</label>
+						<div class="frm_controls">
+							<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="good.tel" >
+								<!--<input type="text" class="frm_input" ng-model="good.appid" >-->
+							</span>
+							<!--<a href="javascript:;" ng-click="showLink(item.id,good.id,'app')">选择</a>-->
+						</div>
+					</div>
+					<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'other'">
+						<label for="" class="frm_label">页面路径</label>
+						<div class="frm_controls">
+							<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="good.appurl" >
+							</span>
+						</div>
+					</div>
+					<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'weburl'">
+						<label for="" class="frm_label">网页链接</label>
+						<div class="frm_controls">
+							<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="good.weburl" >
+							</span>
+							<p class="font_999">注意一：链接的网页必须支持SSL ，链接必须以 https:// 开头，否则无法跳转<br/>
+注意二：链接的域名必须是备案域名，否则无法跳转<br/>
+注意三：您的网站域名必须加到微信小程序公众平台的业务域名处.</p>
+						</div>
+					</div>				
+				</div>
+				<div class="edit_image_upload edit_image_upload60" ng-click="uploadImage(good,'goodimg')" style="margin-right: 5px;">
+					<img class="upload_image_img" ng-src="{{good.img}}" >
+					<span class="edit_image_notice">默认图标</span>
+				</div>
+				<div class="edit_image_upload edit_image_upload60" ng-click="uploadImage(good,'actimg')">
+					<img class="upload_image_img" ng-src="{{good.actimg}}" >
+					<span class="edit_image_notice">激活图标</span>
+				</div>	
+			</div>
+		</div>
+	</div>
+	<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">
+		<i class="icon20_commons add_grays"></i> 
+	</a>
+</div>
+
+<!--<div class="temp_item temp_item_basic" >
+	<div class="frm_control_group" > 
+	  	<label for="" class="frm_label">导航数量</label> 
+	   	<div class="frm_controls"> 
+	    	<label class="frm_radio_label" ng-click="changeNum(2)"> 
+	    		<i class="icon_radio"></i> 
+	    		<span class="lbl_content">2个</span>
+	    		<input type="radio" name="num" on-selected value="2" class="frm_radio"  ng-model="item.num"  /> 
+	    	</label> 
+	    	<label class="frm_radio_label " ng-click="changeNum(3)">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">3个</span>
+	    		<input type="radio" name="num" on-selected value="3" class="frm_radio"  ng-model="item.num"  /> 
+	    	</label>
+	    	<label class="frm_radio_label " ng-click="changeNum(4)">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">4个</span>
+	    		<input type="radio" name="num" on-selected value="4" class="frm_radio"  ng-model="item.num"  /> 
+	    	</label>
+	    	<label class="frm_radio_label " ng-click="changeNum(5)">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">5个</span>
+	    		<input type="radio" name="num" on-selected value="5" class="frm_radio"  ng-model="item.num"  /> 
+	    	</label>	    		    	
+	   	</div>
+	</div>
+
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.bgcolor" />
+			</span>
+		</div>
+	</div>	
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">默认颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.color" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.color" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">激活颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.actcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.actcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="edit_data_box" >
+		<div class="edit_data_item" ng-repeat="vv in item.params.data">
+			<div class="design_single_box item_cell_box">
+				<div class="item_cell_flex">
+					<div>
+						导航名称
+						<span class="frm_input_box frm_input_200">
+							<input type="text" class="frm_input" ng-model="vv.name">
+						</span>
+					</div>
+					<div class="item_cell_box" style="margin-top: 5px;">
+						<div class="nowrap" >导航类型</div>
+						<div>
+				    	<label class="frm_radio_label" ng-click="vv.type = 'url'"> 
+				    		<i class="icon_radio"></i> 
+				    		<span class="lbl_content">跳转页面</span>
+				    		<input type="radio" name="type{{$index}}" on-selected value="url" class="frm_radio"  ng-model="vv.type"  /> 
+				    	</label>
+				    	<label class="frm_radio_label " ng-click="vv.type = 'weburl'">
+				    		<i class="icon_radio"></i>
+				    		<span class="lbl_content">跳转网页</span>
+				    		<input type="radio" name="type{{$index}}" on-selected value="weburl" class="frm_radio"  ng-model="vv.type"  />
+				    	</label>
+				    	<label class="frm_radio_label" ng-click="vv.type = 'other'" ng-if="$index > 0"> 
+				    		<i class="icon_radio"></i> 
+				    		<span class="lbl_content">其他小程序</span>
+				    		<input type="radio" name="type{{$index}}" on-selected value="other" class="frm_radio"  ng-model="vv.type"  />
+				    	</label>
+				    	<label class="frm_radio_label " ng-click="vv.type = 'tel'" ng-if="$index > 0">
+				    		<i class="icon_radio"></i>
+				    		<span class="lbl_content">拨打电话</span>
+				    		<input type="radio" name="type{{$index}}" on-selected value="tel" class="frm_radio"  ng-model="vv.type"  /> 
+				    	</label>
+				    	<label class="frm_radio_label " ng-click="vv.type = 'share'" ng-if="$index > 0">
+				    		<i class="icon_radio"></i>
+				    		<span class="lbl_content">分享提示</span>
+				    		<input type="radio" name="type{{$index}}" on-selected value="share" class="frm_radio"  ng-model="vv.type"  /> 
+				    	</label>
+				    	<label class="frm_radio_label " ng-click="vv.type = 'map'" ng-if="$index > 0">
+				    		<i class="icon_radio"></i>
+				    		<span class="lbl_content">地图位置</span>
+				    		<input type="radio" name="type{{$index}}" on-selected value="map" class="frm_radio"  ng-model="vv.type"  /> 
+				    	</label>
+				    	<label class="frm_radio_label " ng-click="vv.type = 'kefu'" ng-if="$index > 0">
+				    		<i class="icon_radio"></i>
+				    		<span class="lbl_content">联系客服</span>
+				    		<input type="radio" name="type{{$index}}" on-selected value="kefu" class="frm_radio"  ng-model="vv.type"  />
+				    	</label>				    	
+						</div>				    	
+					</div>
+					<div style="margin-top: 5px;" ng-show="vv.type == 'url'">
+						跳转页面
+						<span class="frm_input_box frm_input_200 readonlybg">
+							<input type="text" class="frm_input " ng-model="vv.urlname" readonly>
+						</span><a href="javascript:;" ng-click="showLink(vv.id,'my',$index)">设置链接</a>
+					</div>
+					<div style="margin-top: 5px;" ng-show="vv.type == 'tel'">
+						电话号码
+						<span class="frm_input_box frm_input_200">
+							<input type="text" class="frm_input" ng-model="vv.tel" >
+						</span>
+					</div>
+					<div style="margin-top: 5px;" ng-show="vv.type == 'map'">
+						地图坐标<span class="frm_input_box frm_input_200 readonlybg">
+							<input type="text" class="frm_input " value="{{vv.lat +','+ vv.lng}}" readonly>
+						</span><a href="javascript:;" ng-click="showMap( $index )">选择坐标</a>
+					</div>
+					<div style="margin-top: 5px;" ng-show="vv.type == 'other'">
+						appid&nbsp;&nbsp;&nbsp;
+						<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="vv.appid" >
+							</span><a href="javascript:;" ng-click="showLink(vv.id,'app')">选择</a>
+					</div>
+					<div style="margin-top: 5px;" ng-show="vv.type == 'other'">
+						页面路径<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="vv.appurl" >
+							</span>
+					</div>
+					<div style="margin-top: 5px;" ng-show="vv.type == 'weburl'">
+						网页链接<span class="frm_input_box frm_input_200">
+								<input type="text" class="frm_input" ng-model="vv.weburl" >
+							</span>
+						<p class="font_999">一定要在微信小程序后台设置此域名为业务域名</p>
+					</div>
+				</div>
+				<div class="edit_image_upload edit_image_upload60" ng-click="uploadImage(vv,'goodimg')" style="margin-right: 5px;">
+					<img class="upload_image_img" ng-src="{{siteroot + vv.img}}" >
+					<span class="edit_image_notice">默认图标</span>
+				</div>
+				<div class="edit_image_upload edit_image_upload60" ng-click="uploadImage(vv,'actimg')">
+					<img class="upload_image_img" ng-src="{{siteroot + vv.actimg}}" >
+					<span class="edit_image_notice">激活图标</span>
+				</div>				
+			</div>
+		</div>
+	</div>
+
+</div>-->

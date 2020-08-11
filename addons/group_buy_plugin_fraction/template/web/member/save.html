@@ -1,0 +1,111 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form id="my-form" action="" class="am-form tpl-form-line-form" method="post" novalidate="novalidate">
+						<input type="hidden" name="id" id="id" value="{$info['m_id']}" />
+						<input type="hidden" name="types" id="types" value="1" />
+						<div class="widget-body">
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">基本信息</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">微信昵称</label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="m_nickname" value="{$info['m_nickname']}" readonly="">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">会员等级 </label>
+									<div class="am-u-sm-9 am-u-end ">
+										<select name="level_id" required="" data-am-selected="{searchBox: 1, btnSize: &#39;sm&#39;,
+                                             placeholder:&#39;会员等级&#39;, maxHeight: 400}" style="display: none;">
+                                             <option value=""></option>
+                                             {loop $level $item}
+	                                             <option value="{$item['id']}" {if $info['level_id'] == $item['id']} selected="" {/if}>{$item['title']}</option>
+                                             {/loop}
+										</select>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">联系电话 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="m_phone" value="{$info['m_phone']}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">真实姓名 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="m_name" value="{$info['m_name']}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">地址 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="m_address" value="{$info['m_address']}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">身份证号码 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="text" class="tpl-form-input" name="m_ids" value="{$info['m_ids']}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">积分 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="number" class="tpl-form-input" name="integral" readonly="" value="{$info['integral']}">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">增加积分 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type="number" class="tpl-form-input" name="integrals" value="0">
+									</div>
+								</div>
+								<div class="am-form-group am-form-success">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">状态 </label>
+									<div class="am-u-sm-9 am-u-end">
+									<label class="am-radio-inline">
+                                        <input type="radio" name="status" value="1" data-am-ucheck="" {if empty($info['status'])}checked="" {else if $info['status'] == 1}checked=""{/if}   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span> 未审核</label>
+									<label class="am-radio-inline">
+                                        <input type="radio" name="status" value="2" data-am-ucheck=""{if $info['status'] == 2}checked=""{/if} class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                        <span class="am-link-muted">已审核</span>
+                                    </label>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<a href="javascript:;" id="btn" class="j-submit am-btn am-btn-secondary">提交</a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 内容区域 end -->
+{template 'footer'}
+<script type="text/javascript">
+	$('#btn').click(function(){
+		var data = $('#my-form').serialize();
+		$.post("{php echo $this->createWeburl('member',array('op'=>'save'))}",data,function(res){
+			console.log(res)
+			if(res.code == 0){
+				layer.msg(res.msg);
+				location.reload();				
+			}else{
+				layer.msg(res.msg);
+			}
+		},"JSON")
+	})
+</script>

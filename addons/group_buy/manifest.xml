@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="1.0">
+	<application setting="false">
+		<name><![CDATA[麦芒社区团购]]></name>
+		<identifie><![CDATA[group_buy]]></identifie>
+		<version><![CDATA[2.5.9]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[包含社区团购等功能]]></ability>
+		<description><![CDATA[包含社区团购等功能]]></description>
+		<author><![CDATA[scmmwl]]></author>
+		<url><![CDATA[http://www.scmmwl.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+			<item type="wxapp"/>
+		</supports>
+		<plugins>
+			<item name='group_buy_plugin_fraction'></item>
+			<item name='group_buy_plugin_distribution'></item>
+			<item name='group_buy_plugin_seckill'></item>
+			<item name='group_buy_plugin_bargain'></item>
+			<item name='group_buy_plugin_team'></item>
+		</plugins>  
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="用户管理" do="member" state="" direct="false" />
+			<entry title="团长管理" do="head" state="" direct="false" />
+			<entry title="区域管理" do="district" state="" direct="false" />
+			<entry title="商品管理" do="goods" state="" direct="false" />
+			<entry title="广告管理" do="adv" state="" direct="false" />
+			<entry title="订单管理" do="order" state="" direct="false" />
+			<entry title="活动管理" do="action" state="" direct="false" />
+			<entry title="营销管理" do="market" state="" direct="false" />
+			<entry title="配置管理" do="config" state="" direct="false" />
+            <entry title="财务管理" do="finance" state="" direct="false" />
+			<entry title="配送管理" do="distribution" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>
+
+
+

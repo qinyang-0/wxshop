@@ -1,0 +1,1 @@
+<?php defined('IN_IA') or exit('Access Denied');?><script type="text/javascript" src="./resource/js/require.js?v=20170426"></script>

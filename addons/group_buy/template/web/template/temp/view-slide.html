@@ -1,0 +1,32 @@
+<div class="app-mod app-mod-2" ng-style="{'marginTop':(item.params.margin_top),'marginRight':(item.params.margin_right),'marginBottom':(item.params.margin_boottom),'marginLeft':(item.params.margin_left),'borderRadius':(item.params.radius)}" style="width: auto;">
+    <div class="app-mod-top" >
+        <span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+        <span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+        <span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+    </div>
+        <div style="line-height:150px;min-height: 150px; text-align: center; color: #999; font-size: 16px;" ng-style="{display:(item.params.data[0].img =='' ||item.params.data[0].img ==undefined || item.params.data[0].img.length < 1? 'block':'none') }">请选择图片...</div>
+
+    <div>
+        <div ng-repeat="img in item.params.data">
+            <img ng-src='{{img.img}}' ng-show='$index == 0' style="width:100%;" />
+        </div>
+        <div class="app-mod-2-dots" ng-show="item.params.showpoint == 0 && item.params.point_type != 2" style="bottom: 15px;">
+            <a ng-style="{'background-color':$index == 0 ? item.params.actcolor : item.params.pointcolor}" ng-repeat="dot in item.params.data"></a>
+        </div>
+        <div class="app-mod-2-dots" ng-show="item.params.showpoint == 0 && item.params.point_type == 2 && item.params.point_align == 1" style="bottom: 15px;text-align: left;">
+            <span style="border-radius: 5px;padding: 2px;line-height: 12px;font-size: 12px;" ng-style="{'background-color': item.params.pointcolor,'color':item.params.actcolor}">
+                1/2
+            </span>
+        </div>
+        <div class="app-mod-2-dots" ng-show="item.params.showpoint == 0 && item.params.point_type == 2 && (item.params.point_align == 2 || item.params.point_align == undefined)" style="bottom: 15px;text-align: center;">
+            <span style="border-radius: 5px;padding: 2px;line-height: 12px;font-size: 12px;" ng-style="{'background-color': item.params.pointcolor,'color':item.params.actcolor}">
+                1/2
+            </span>
+        </div>
+        <div class="app-mod-2-dots" ng-show="item.params.showpoint == 0 && item.params.point_type == 2 && item.params.point_align == 3" style="bottom: 15px;text-align: right;">
+            <span style="border-radius: 5px;padding: 2px;line-height: 12px;font-size: 12px;" ng-style="{'background-color': item.params.pointcolor,'color':item.params.actcolor}">
+                1/2
+            </span>
+        </div>
+    </div>
+</div>

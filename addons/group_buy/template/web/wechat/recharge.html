@@ -1,0 +1,18 @@
+<div class="widget-head am-cf">
+	<div class="widget-title am-fl">充值成功通知模板</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">充值成功通知发送消息模板id </label>
+	<div class="am-u-sm-9 am-u-end">
+		<input type='text' name='wechat_recharge_template[value]' value="{$info['wechat_recharge_template']}" class='tpl-form-input' />
+		<input type="hidden" name="wechat_recharge_template[name]" id="" value="充值成功通知发送消息模板id" />
+		<!--<span class="color-9">注：一级行业请选择<span style="color: red;">'IT科技'</span> ,二级行业请选择<span style="color: red;">'互联网|电子商务'</span>,搜索<span style="color: red;">订单支付成功提醒</span>,选择编号为<span style="color: red;">OPENTM416836000</span>的模板</span>-->
+	</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">充值成功通知发送消息模板内容 </label>
+	<div class="am-u-sm-9 am-u-end">
+		<textarea name="wechat_recharge_content[value]" rows="" cols="" class='tpl-form-input'>{$info['wechat_recharge_content']}</textarea>
+		<input type="hidden" name="wechat_recharge_content[name]" id="" value="充值成功通知发送消息模板内容" />
+	</div>
+</div>

@@ -1,0 +1,1 @@
+<?phpif (!(defined('IN_IA'))) {	exit('Access Denied');}class Group_buy_plugin_fractionModule extends WeModule{	public function welcomeDisplay()	{		global $_W,$_GPC;		$url = "./index.php?c=site&a=entry&do=index&m=group_buy_plugin_fraction&prid=".$_W['uniacid'];		header('location: ' . $url);		exit();	}}?>

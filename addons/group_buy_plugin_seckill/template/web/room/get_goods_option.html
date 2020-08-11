@@ -1,0 +1,311 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<style>
+    .tpl-table-black tbody>tr>td{
+        padding: 10px 6px;
+    }
+</style>
+<body>
+<!-- 内容区域 start -->
+
+<div class=" ">
+    <div class="">
+        <div class="" style="padding: 10px 0;">
+
+            <div class="">
+                <!-- 工具栏 -->
+                <div class="page_toolbar  am-cf">
+                    <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+                        <input type="hidden" name="c" value="site">
+                        <input type="hidden" name="a" value="entry">
+                        <input type="hidden" name="m" value="group_buy_plugin_seckill">
+                        <input type="hidden" name="do" value="room">
+                        <input type="hidden" name="op" value="get_goods">
+                        <input type="hidden" name="time" value="{$time}">
+                        <input type="hidden" name="package_goods" data-goodsid="{$goodsid}" data-id="{$packgoods['id']}" value="{$goodsid}">
+                        <div class="am-u-sm-12 ">
+
+                            <!--<div class=" tpl-form-border-form zx-form-input zx-display zx-group">-->
+                                <!--<input type="text" class="am-form-field" name="keyword" placeholder="商品名称" value="{$_GPC['keyword']}" style="border-radius: 4px;width: 240px;">-->
+                            <!--</div>-->
+
+                            <!-- 查询按钮样式 -->
+                            <!--<div class="zx-but-check">-->
+                                <!--<button type="submit" >-->
+                                    <!--<i class="fa fa-search"></i> 查询-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        </div>
+                    </form>
+                    <div class="am-scrollable-horizontal am-u-sm-12">
+                        <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+                            <thead class="navbar-inner">
+                            <tr>
+                                <th style="">{if $option}规格{else}商品{/if}</th>
+                                <th style="">原价</th>
+                                <th style="">
+                                    {if $option}
+                                   秒杀价格
+                                    {else}秒杀价格{/if}
+                                </th>
+                                <th style="">佣金</th>
+                                <!--<th style="">二级分销</th>-->
+                                <!--<th style="">三级分销</th>-->
+                                <th style="">
+                                    {if $option}
+                                   库存
+
+                                    {else}
+                                    库存
+                                    {/if}
+                                </th>
+                                <th style="">
+                                    {if $option}
+                                   限购
+
+                                    {else}
+                                    限购
+                                    {/if}
+                                </th>
+                                {if $option}
+                                <th style="">
+                                    <label class="am-checkbox-inline am-success">
+                                        <input name="all_check" type="checkbox" data-am-ucheck class="all_check" value="{$item['ggo_id']}" >
+                                    </label>
+                                </th>
+                                {/if}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if $option}
+                            {loop $option $item}
+                            <tr class="multi-product-item option-item" data-id="{$item['ggo_id']}">
+                                <td>
+                                	<img src="{php echo tomedia($goods['g_icon'])}" width="25"/>
+                              <!--  	<span style="width: 200px;overflow: hidden;display: inline-block;" class="option_title">{$item['g_name']}</span>-->
+                                	<span style="overflow: hidden;display: inline-block;" class="">{$item['ggo_title']}</span>
+                                </td>
+                                <td >{$item['ggo_market_price']}</td>
+                                <td style="">
+                                    <input name="option_price[]" type="text" class="form-control option_price option_price_{$item['ggo_id']}" placeholder="0" value="{$item['packageprice']}" style="width: 70px;">
+                                </td>
+
+                                <td style="">
+                                    <input name="option_commission1[]" type="text" class="form-control option_commission1 option_commission1_{$item['ggo_id']}" placeholder="0" value="{$item['commission1']}" style="width: 70px;">
+                                </td>
+
+
+                                <td style="">
+                                    <input name="option_total[]" type="text" class="form-control option_total option_total_{$item['ggo_id']}" placeholder="0" value="{$item['total']}" style="width: 70px;">
+                                </td>
+
+                                <td style="">
+                                    <input name="option_maxbuy[]" type="text" class="form-control option_maxbuy option_maxbuy_{$item['ggo_id']}" placeholder="0" value="{$item['maxbuy']}" style="width: 70px;">
+                                </td>
+
+                                <td>
+                                    <label class="am-checkbox-inline am-success">
+                                        <input name="package_goods_checked[]" type="checkbox" data-am-ucheck class="package_goods_checked" value="{$item['ggo_id']}" {if $item['ggo_id']==$item['optionid'] } checked{/if}>
+                                    </label>
+
+                                </td>
+                            </tr>
+                            {/loop}
+                            {else}
+                            <tr>
+                                <td >
+                                    <img src="{php echo tomedia($goods['g_icon'])}" width="25"/><span style="width: 250px;overflow: hidden;display: inline-block;" class="goods_text">{$packgoods['title']}</span>
+                                </td>
+                                <td>
+                                    &yen;{$packgoods['marketprice']}
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control goods_price package_goods_price{$goodsid} " name="package_goods_price{$goodsid}" value="{$packgoods['packageprice']}" style="width: 70px;">
+
+                                </td>
+                                <td>
+                                    <input name="package_goods_commission1{$goodsid} " type="text" class="goods_commission1 form-control package_goods_commission1{$goodsid}" value="{$packgoods['commission1']}" style="width: 70px;">
+                                </td>
+                                <!--<td>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                <!--</td>-->
+                                <td>
+                                    <input name="package_goods_total_{$goodsid}" type="text" class="goods_total form-control package_goods_total{$goodsid}" value="{$goods['num']}" style="width: 70px;">
+                                </td>
+                                <td>
+                                    <input name="package_goods_maxbuy_{$goodsid}" type="text" class="goods_maxbuy form-control package_goods_maxbuy{$goodsid}" value="{$goods['g_day_limit_num']}" style="width: 70px;">
+                                </td>
+
+                            </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<span class="  zx-but-check" style="float: right;margin-right: 20px;color: #0a0a0a;" id="{if $option}option_submit{else}submit{/if}">确定</span>
+<span class=" close-click  zx-but-check" style="float: right;margin-right: 20px;color: #0a0a0a;">返回</span>
+
+
+</body>
+
+<script type="text/javascript">
+    var container = $('.content-option-{$selectorid}');
+    var time = "time-"+$("input[name=time]").val();
+    var goodsid = $("input[name=package_goods]").val();
+    var val = parent.$('input[name="'+time+'packgoods'+goodsid+'"]').val();
+
+    var str = '';
+    var str_key='';
+    var goods_maxbuy = 0;//限购
+    var goods_total = 0;//库存
+    var goods_commission1 = 0;//佣金
+    var goods_price = 0;//秒杀价
+    var goods_text = "";//商品名
+    var option_id ="";//规格id
+
+    {if $option}
+    if( val !='' && val !=undefined &&val.length>0){
+        var val_arr = val.split(',');
+        for( var i in val_arr){
+            console.log(val_arr[i]);
+        }
+    }
+
+
+    {else}
+    if( val !='' && val !=undefined &&val.length>0){
+        var val_arr = val.split(',');
+        $(".goods_maxbuy").val(val_arr[5]?val_arr[5]:0);
+        $(".goods_total").val(val_arr[4]?val_arr[4]:0);
+        $(".goods_commission1").val(val_arr[1]?val_arr[1]:0);
+        $(".goods_price").val(val_arr[0]?val_arr[0]:0);
+    }
+
+    {/if}
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    //点确定取消弹窗
+    $(document).on("click",".close-click",function () {
+        parent.layer.close(index);
+    });
+    $(document).on('click','#submit',function () {
+         goods_maxbuy = $(".goods_maxbuy").val();//限购
+         goods_total = $(".goods_total").val();//库存
+         goods_commission1 = $(".goods_commission1").val();//佣金
+         goods_price = $(".goods_price").val();//秒杀价
+         goods_text = $(".goods_text").val();//商品名
+
+        var id='';
+
+        if(goods_total == '' || goods_total==undefined || goods_total==0){
+            layer.msg('库存不能为空');
+            $(".goods_total").focus();
+            return false;
+        }
+        if(goods_price == '' || goods_price==undefined || goods_price==0){
+            layer.msg('设置价格');
+            $(".goods_price").focus();
+            return false;
+        }
+        parent.$('.set-time-goods').each(function () {
+            id = $(this).attr('data-id');
+
+            if(goodsid == id){
+                var str = "<input type='hidden' name='"+time+"packgoods"+goodsid+"' value='"+[goods_price,goods_commission1,0,0,goods_total,goods_maxbuy,goods_maxbuy]+"'/><input type='hidden' name='"+time+"packagegoods["+goodsid+"]' value=''/>";
+                $(this).parent('td').parent('tr').append(str);
+                $(this).html('&yen'+goods_price+'/&yen'+goods_commission1).removeClass('btn-info').addClass('btn-default');
+            }
+
+        });
+
+        layer.msg('确认成功,请点击页面底部提交按钮保存！',{time:1500});
+        setTimeout(function () {
+            parent.layer.close(index);
+        },1500);
+    });
+    //多规格设置
+    $(document).on('click','#option_submit',function () {
+        var status = true;
+        goods_text = $('.option_title').html();
+        if( $('.package_goods_checked:checked').length <=0){
+            layer.msg('请勾选需要的规格');
+            return false;
+        }
+        $('.package_goods_checked:checked').each(function () {
+            console.log($(this).parent('label').parent('td').parent('tr').html());
+            goods_maxbuy = $(this).parent('label').parent('td').parent('tr').find('.option_maxbuy').val();
+            goods_total = $(this).parent('label').parent('td').parent('tr').find('.option_total').val();
+            goods_commission1 = $(this).parent('label').parent('td').parent('tr').find('.option_commission1').val();
+            goods_price = $(this).parent('label').parent('td').parent('tr').find('.option_price').val();
+            option_id = $(this).val();
+            // if(goods_maxbuy <=0 || goods_maxbuy==undefined){
+            //     layer.msg('限购不能为空');
+            //     $(this).parent('td').parent('tr').find('input[name=option_maxbuy]').focus();
+            //     return false;
+            // }
+            if(goods_total <=0 || goods_total==undefined){
+                layer.msg('库存不能为空');
+                status=false;
+                $(this).parent('label').parent('td').parent('tr').find('input[name=option_total]').focus();
+                return false;
+            }
+            // if(goods_commission1 <=0 || goods_commission1==undefined){
+            //     layer.msg('佣金不能为空');
+            //     $(this).parent('td').parent('tr').find('input[name=option_commission1]').focus();
+            //     return false;
+            // }
+            if(goods_price <=0 || goods_price==undefined){
+                layer.msg('价格不能为空');
+                status=false;
+                $(this).parent('label').parent('td').parent('tr').find('input[name=option_price]').focus();
+                return false;
+            }
+            str +="<input type='hidden' name='"+time+"packagegoodsoption"+option_id+"' value='"+[goods_price,goods_commission1,0,0,goods_total,goods_maxbuy,goods_maxbuy]+"'/>";
+            str_key +=','+option_id;
+            console.log(str);
+        });
+        console.log("AAA");
+        console.log(str);
+        if(!status){
+            return false;
+        }
+        str +="<input type='hidden' name='"+time+"packagegoods["+goodsid+"]' value='"+str_key+"'/>";
+
+        parent.$('.set-time-goods').each(function () {
+            id = $(this).attr('data-id');
+
+            if(goodsid == id){
+                $(this).parent('td').parent('tr').append(str);
+                $(this).html('&yen'+goods_price+'/&yen'+goods_commission1).removeClass('btn-info').addClass('btn-default');
+            }
+
+        });
+        layer.msg('成功');
+        setTimeout(function () {
+            parent.layer.close(index);
+        },800);
+    });
+    //全选或不全选
+    $(document).on('click','.all_check',function () {
+        if($(this).is(':checked')){
+            $(".package_goods_checked").prop("checked",true);
+        }else{
+            $(".package_goods_checked").prop("checked",false);
+        }
+    });
+</script>

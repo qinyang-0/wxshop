@@ -1,0 +1,80 @@
+{template 'common/header'}
+
+<article id="wrapper">
+	<div id="scroller">
+		<header class="header">
+			<a href="javascript:window.history.go(-1)" class="left"><img src="{php echo MODULE_URL}style/mobile/images/left-white.png"></a>
+			<div class="center">收货地址</div>
+			<input type="hidden" name="customer.userAccount" id="userAccount" value="">
+		</header>
+		{loop $info $item}
+			<div class="address">
+				<div class="addr-top">
+					<p><span>{$item['name']}</span><span>{$item['phone']}</span></p>
+					<p>{$item['address']}</p>
+					<!--<span class="idval" style="display:none">1000000004174399</span>-->
+				</div>
+				<div class="addr-btm">
+					<div class="fr">
+						<a href="{php echo $this->createMobileUrl('address',array('op'=>'add','id'=>$item['id']))}" class="edit">编辑</a>
+						<a href="javascript:void(0);" onclick="dele({$item['id']})" class="del">删除</a>
+					</div>
+					<a href="javascript:void(0);" class="radio {if $item['mr'] == 2}cur{/if}" onclick="updateDefault({$item['id']},this)">默认地址</a>
+				</div>
+			</div>
+		{/loop}
+		<!--<div class="address">
+			<div class="addr-top">
+				<p><span>张三</span><span>13212351236</span></p>
+				<p>安徽省 安庆市 枞阳县 中国</p>
+				<span class="idval" style="display:none">1000000004174376</span>
+			</div>
+			<div class="addr-btm">
+				<div class="fr">
+					<a href="javascript:void(0);" onclick="updateAddress(1000000004174376)" class="edit">编辑</a>
+					<a href="javascript:void(0);" onclick="deleteAddress(1000000004174376)" class="del">删除</a>
+				</div>
+				<a href="javascript:void(0);" class="radio" onclick="updateDefault(1000000004174376,this)">默认地址</a>
+			</div>
+		</div>-->
+
+		<div style="height:200px; position:relative;">
+			<a href="{php echo $this->createMobileUrl('address',array('op'=>'add'))}" class="btn_col1">新增</a>
+		</div>
+		
+	</div>
+	
+</article>
+{template 'common/nav'}
+{template 'common/footer'}
+<script type="text/javascript">
+	function updateDefault(id,obj){
+		if(id == '' || id == undefined){
+			alert('非法进入');
+			return false;
+		}
+		$.post("{php echo $this->createMobileUrl('address',array('op'=>'save'))}",{id:id},function(res){
+			if(res.code == 0){
+				location.reload();
+			}else{
+				alert(res.msg);
+			}
+		},"JSON");
+	}
+	
+	function dele(id,obj){
+		app.confirm('确定删除吗?', function () {
+	        if(id == '' || id == undefined){
+				alert('非法进入');
+				return false;
+			}
+			$.post("{php echo $this->createMobileUrl('address',array('op'=>'delete'))}",{id:id},function(res){
+				if(res.code == 0){
+					location.reload();
+				}else{
+					alert(res.msg);
+				}
+			},"JSON");
+	    });
+	}
+</script>

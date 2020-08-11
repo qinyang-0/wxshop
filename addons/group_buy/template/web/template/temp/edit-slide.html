@@ -1,0 +1,374 @@
+<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+
+		<div class="widget-head am-cf">
+			<div class="widget-title am-cf">幻灯片模块</div>
+		</div>
+	<div class="widget am-cf">
+		<div class="temp_item temp_item_space"  >
+
+			<div class="frm_control_group" >
+				<label for="" class="frm_label">自动切换</label>
+				<div class="frm_controls">
+					<label class="frm_radio_label " ng-click="item.params.ischange = 0">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">切换</span>
+						<input type="radio" name="ischange" value="0" on-selected class="frm_radio"  ng-model="item.params.ischange" />
+					</label>
+					<label class="frm_radio_label " ng-click="item.params.ischange = 1">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">不切换</span>
+						<input type="radio" name="ischange" value="1" on-selected  class="frm_radio"  ng-model="item.params.ischange"  />
+					</label>
+				</div>
+			</div>
+			<!--<div class="frm_control_group" ng-show="item.params.ischange == 0">-->
+				<!--<label for="" class="frm_label">切换时间间隔</label>-->
+				<!--<div class="frm_controls ">-->
+					<!--<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="10" value="{{item.params.changetime}}" name="changetime"></li>-->
+					<!--<span class="my_slider_notice">{{item.params.changetime}} 秒</span>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="frm_control_group">-->
+				<!--<label for="" class="frm_label">图片高度</label>-->
+				<!--<div class="frm_controls ">-->
+					<!--<li class="frm_input_box_200 my_slider_line slider" my-slider min="150" max="500" value="{{item.params.height}}" name="height"></li>-->
+					<!--<span class="my_slider_notice">{{item.params.height}} px</span>-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<!--<div class="frm_control_group">-->
+				<!--<label for="" class="frm_label">滑动时长</label>-->
+				<!--<div class="frm_controls ">-->
+					<!--<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="5000" value="{{item.params.changelast}}" name="changelast"></li>-->
+					<!--<span class="my_slider_notice">{{item.params.changelast}} 毫秒 <font class="font_mini">(1秒=1000毫秒)</font></span>-->
+				<!--</div>-->
+			<!--</div>-->
+
+
+			<div class="frm_control_group" >
+				<label for="" class="frm_label">显示指示点</label>
+				<div class="frm_controls">
+					<label class="frm_radio_label " ng-click="item.params.showpoint = 0">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">是</span>
+						<input type="radio" name="showpoint" value="0" on-selected class="frm_radio"  ng-model="item.params.showpoint" />
+					</label>
+					<label class="frm_radio_label " ng-click="item.params.showpoint = 1">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">否</span>
+						<input type="radio" name="showpoint" value="1" on-selected  class="frm_radio"  ng-model="item.params.showpoint"  />
+					</label>
+				</div>
+			</div>
+			<div class="frm_control_group" ng-show="item.params.showpoint == 0">
+				<label for="" class="frm_label">指示点风格类型</label>
+				<div class="frm_controls">
+					<label class="frm_radio_label " ng-click="item.params.point_type = 1" ng-if="item.params.point_type != undefined ">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">类型1默认圆点</span>
+						<input type="radio" name="point_type" value="1" on-selected class="frm_radio"  ng-model="item.params.point_type" ng-show="item.params.point_type == 1" />
+
+					</label>
+					<label class="frm_radio_label selected" ng-click="item.params.point_type = 1" ng-if="item.params.point_type == undefined ">
+							<i class="icon_radio"></i>
+							<span class="lbl_content">类型1默认圆点</span>
+							<input type="radio" name="point_type" value="1" on-selected class="frm_radio"  ng-model="item.params.point_type" ng-show="item.params.point_type == 1" ng-checked="true"/>
+
+					</label>
+					<label class="frm_radio_label " ng-click="item.params.point_type = 2">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">类型2数字翻页</span>
+						<input type="radio" name="point_type" value="2" on-selected  class="frm_radio"  ng-model="item.params.point_type"  />
+					</label>
+				</div>
+			</div>
+			<div class="frm_control_group" ng-show="item.params.showpoint == 0 && item.params.point_type == 2">
+				<label for="" class="frm_label" ng-show="item.params.point_type == 2">水平排列方式</label>
+				<div class="frm_controls">
+					<label class="frm_radio_label " ng-click="item.params.point_align = 1">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">左边</span>
+						<input type="radio" name="point_align" value="1" on-selected class="frm_radio"  ng-model="item.params.point_align" />
+					</label>
+					<label class="frm_radio_label selected" ng-click="item.params.point_align = 2" ng-if="item.params.point_align == undefined ">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">居中</span>
+						<input type="radio" name="point_align"  value="2"  on-selected class="frm_radio"  ng-model="item.params.point_align" ng-checked="true"/>
+
+					</label>
+					<label class="frm_radio_label " ng-click="item.params.point_align = 2" ng-if="item.params.point_align != undefined ">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">居中</span>
+						<input type="radio" name="point_align"  value="2"  on-selected class="frm_radio"  ng-model="item.params.point_align" />
+
+					</label>
+					<label class="frm_radio_label " ng-click="item.params.point_align = 3">
+						<i class="icon_radio"></i>
+						<span class="lbl_content">右边</span>
+						<input type="radio" name="point_align"  value="3" on-selected class="frm_radio"  ng-model="item.params.point_align" />
+					</label>
+				</div>
+			</div>
+			<!--<div class="frm_control_group">-->
+				<!--<label for="" class="frm_label">轮播图间间距</label>-->
+				<!--<div class="frm_controls ">-->
+					<!--<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.margin_out}}" name="margin_out"></li>-->
+					<!--<span class="my_slider_notice">{{item.params.margin_out}} 像素</span>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="frm_control_group">-->
+				<!--<label for="" class="frm_label">前边距，可用于露出前一项的一小部分</label>-->
+				<!--<div class="frm_controls ">-->
+					<!--<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.previous_margin}}" name="previous_margin"></li>-->
+					<!--<span class="my_slider_notice">{{item.params.previous_margin}} 像素</span>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="frm_control_group">-->
+				<!--<label for="" class="frm_label">后边距，可用于露出后一项的一小部分</label>-->
+				<!--<div class="frm_controls ">-->
+					<!--<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.next_margin}}" name="next_margin"></li>-->
+					<!--<span class="my_slider_notice">{{item.params.next_margin}} 像素</span>-->
+				<!--</div>-->
+			<!--</div>-->
+			<div class="frm_control_group" ng-show="item.params.showpoint == 0">
+				<label for="" class="frm_label" ng-show="item.params.point_type != 2">指示点颜色</label>
+				<label for="" class="frm_label" ng-show="item.params.point_type == 2">背景色</label>
+				<div class="frm_controls">
+					<span class="frm_input_box frm_input_box_50">
+						<input class="frm_input" type="color" ng-model="item.params.pointcolor" />
+					</span>
+					<span class="frm_input_box frm_input_box_100">
+						<input class="frm_input" type="text" ng-model="item.params.pointcolor" />
+					</span>
+				</div>
+			</div>
+
+			<div class="frm_control_group" ng-show="item.params.showpoint == 0">
+				<label for="" class="frm_label" ng-show="item.params.point_type != 2">选中的指示点颜色</label>
+				<label for="" class="frm_label" ng-show="item.params.point_type == 2">字体色</label>
+				<div class="frm_controls">
+					<span class="frm_input_box frm_input_box_50">
+						<input class="frm_input" type="color" ng-model="item.params.actcolor" />
+					</span>
+					<span class="frm_input_box frm_input_box_100">
+						<input class="frm_input" type="text" ng-model="item.params.actcolor" />
+					</span>
+				</div>
+			</div>
+			<div class="frm_control_group">
+				<label for="" class="frm_label">圆角处理</label>
+				<div class="frm_controls ">
+					<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.radius}}" name="radius"></li>
+					<span class="my_slider_notice">{{item.params.radius}} 像素</span>
+				</div>
+			</div>
+			<div class="frm_control_group">
+				<label for="" class="frm_label">上边距</label>
+				<div class="frm_controls ">
+					<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.margin_top}}" name="margin_top"></li>
+					<span class="my_slider_notice">{{item.params.margin_top}} 像素</span>
+				</div>
+			</div>
+			<div class="frm_control_group">
+				<label for="" class="frm_label">下边距</label>
+				<div class="frm_controls ">
+					<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.margin_boottom}}" name="margin_boottom"></li>
+					<span class="my_slider_notice">{{item.params.margin_boottom}} 像素</span>
+				</div>
+			</div>
+			<div class="frm_control_group">
+				<label for="" class="frm_label">左边距</label>
+				<div class="frm_controls ">
+					<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.margin_left}}" name="margin_left"></li>
+					<span class="my_slider_notice">{{item.params.margin_left}} 像素</span>
+				</div>
+			</div>
+			<div class="frm_control_group">
+				<label for="" class="frm_label">右边距</label>
+				<div class="frm_controls ">
+					<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.margin_right}}" name="margin_right"></li>
+					<span class="my_slider_notice">{{item.params.margin_right}} 像素</span>
+				</div>
+			</div>
+
+			<!--<div class="edit_data_box" ui-sortable="sortableOptions" ng-model="item.params.data">-->
+				<!--<div class="edit_data_item" ng-repeat="good in item.params.data">-->
+					<!--<span class="delete_this" ng-click="deleteItem(item.id,good.id)">x</span>-->
+					<!--<div class="design_single_box item_cell_box">-->
+						<!--<div class="item_cell_flex">-->
+							<!--<div class="frm_control_group frm_control_group_editin" >-->
+								<!--<label for="" class="frm_label">点击动作</label>-->
+								<!--<div class="frm_controls">-->
+									<!--<label class="frm_radio_label" ng-click="good.type = 'url'">-->
+										<!--<i class="icon_radio"></i>-->
+										<!--<span class="lbl_content">跳转页面</span>-->
+										<!--<input type="radio" name="type{{$index}}" on-selected value="url" class="frm_radio"  ng-model="good.type"  />-->
+									<!--</label>-->
+									<!--<label class="frm_radio_label " ng-click="good.type = 'weburl'">-->
+										<!--<i class="icon_radio"></i>-->
+										<!--<span class="lbl_content">跳转网页</span>-->
+										<!--<input type="radio" name="type{{$index}}" on-selected value="weburl" class="frm_radio"  ng-model="good.type"  />-->
+									<!--</label>-->
+									<!--<label class="frm_radio_label" ng-click="good.type = 'other'">-->
+										<!--<i class="icon_radio"></i>-->
+										<!--<span class="lbl_content">其他小程序</span>-->
+										<!--<input type="radio" name="type{{$index}}" on-selected value="other" class="frm_radio"  ng-model="good.type"  />-->
+									<!--</label>-->
+									<!--<label class="frm_radio_label " ng-click="good.type = 'tel'">-->
+										<!--<i class="icon_radio"></i>-->
+										<!--<span class="lbl_content">拨打电话</span>-->
+										<!--<input type="radio" name="type{{$index}}" on-selected value="tel" class="frm_radio"  ng-model="good.type"  />-->
+									<!--</label>-->
+									<!--&lt;!&ndash;<label class="frm_radio_label " ng-click="good.type = 'share'">-->
+										<!--<i class="icon_radio"></i>-->
+										<!--<span class="lbl_content">分享提示</span>-->
+										<!--<input type="radio" name="type{{$index}}" on-selected value="share" class="frm_radio"  ng-model="good.type"  />-->
+									<!--</label>-->
+									<!--<label class="frm_radio_label " ng-click="good.type = 'map'">-->
+										<!--<i class="icon_radio"></i>-->
+										<!--<span class="lbl_content">地图位置</span>-->
+										<!--<input type="radio" name="type{{$index}}" on-selected value="map" class="frm_radio"  ng-model="good.type"  />-->
+									<!--</label>&ndash;&gt;-->
+									<!--<label class="frm_radio_label " ng-click="good.type = 'kefu'">-->
+										<!--<i class="icon_radio"></i>-->
+										<!--<span class="lbl_content">联系客服</span>-->
+										<!--<input type="radio" name="type{{$index}}" on-selected value="kefu" class="frm_radio"  ng-model="good.type"  />-->
+									<!--</label>-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'url'">-->
+								<!--<label for="" class="frm_label">跳转页面</label>-->
+								<!--<div class="frm_controls">-->
+									<!--<span class="frm_input_box frm_input_200 readonlybg">-->
+										<!--<input type="text" class="frm_input " ng-model="good.urlname" readonly>-->
+									<!--</span><a href="javascript:;" ng-click="showLink(item.id,good.id,'my')">设置链接</a>-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'tel'">-->
+								<!--<label for="" class="frm_label">电话号码</label>-->
+								<!--<div class="frm_controls">-->
+									<!--<span class="frm_input_box frm_input_200">-->
+										<!--<input type="text" class="frm_input" ng-model="good.tel" >-->
+									<!--</span>-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'map'">-->
+								<!--<label for="" class="frm_label">地图坐标</label>-->
+								<!--<div class="frm_controls">-->
+									<!--<span class="frm_input_box frm_input_200 readonlybg">-->
+										<!--<input type="text" class="frm_input " value="{{good.lat +','+ good.lng}}" readonly>-->
+									<!--</span><a href="javascript:;" ng-click="showMap( item.id,good.id )">选择坐标</a>-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'other'">-->
+								<!--<label for="" class="frm_label">小程序appid</label>-->
+								<!--<div class="frm_controls">-->
+									<!--<span class="frm_input_box frm_input_200">-->
+										<!--<input type="text" class="frm_input" ng-model="good.appid" >-->
+									<!--</span>-->
+									<!--&lt;!&ndash;<a href="javascript:;" ng-click="showLink(item.id,good.id,'app')">选择</a>&ndash;&gt;-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'other'">-->
+								<!--<label for="" class="frm_label">页面路径</label>-->
+								<!--<div class="frm_controls">-->
+									<!--<span class="frm_input_box frm_input_200">-->
+										<!--<input type="text" class="frm_input" ng-model="good.appurl" >-->
+									<!--</span>-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="frm_control_group frm_control_group_editin" ng-show="good.type == 'weburl'">-->
+								<!--<label for="" class="frm_label">网页链接</label>-->
+								<!--<div class="frm_controls">-->
+									<!--<span class="frm_input_box frm_input_200">-->
+										<!--<input type="text" class="frm_input" ng-model="good.weburl" >-->
+									<!--</span>-->
+									<!--<p class="font_999">注意一：链接的网页必须支持SSL ，链接必须以 https:// 开头，否则无法跳转<br/>-->
+		<!--注意二：链接的域名必须是备案域名，否则无法跳转<br/>-->
+		<!--注意三：您的网站域名必须加到微信小程序公众平台的业务域名处.</p>-->
+								<!--</div>-->
+							<!--</div>-->
+
+
+							<!--&lt;!&ndash; <div style="margin-top: 5px;">-->
+								<!--跳转页面<span class="frm_input_box frm_input_200 readonlybg">-->
+									<!--<input readonly type="text" class="frm_input" ng-model="good.urlname">-->
+								<!--</span><a href="javascript:;" ng-click="showLink(item.id,good.id)">设置链接</a>-->
+							<!--</div> &ndash;&gt;-->
+						<!--</div>-->
+						<!--<div class="edit_image_upload" ng-click="uploadImage(good,'goodimg')">-->
+							<!--<img class="upload_image_img" ng-src="{{good.img}}" >-->
+							<!--<span class="edit_image_notice">修改图片</span>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+			<div class="am-panel am-panel-default am-g" ui-sortable="sortableOptions" ng-model="item.params.data">
+				<!--<div class="am-panel-hd">基础（默认）样式</div>-->
+				<div class="am-panel-bd am-u-md-12" ng-repeat="good in item.params.data">
+					<div class="am-u-md-3 " style=""  >
+						<div class="am-u-md-12" ng-click="uploadImage(good,'goodimg')" style="border: 1px dashed #ccc;vertical-align: middle;height: 70px;width: 100px;line-height: 70px;padding: 0;">
+							<img ng-if="good.img" class="upload_image_img"  ng-src="{{good.img}}"/>
+							<div ng-if="!good.img " style="width: 100%;text-align: center;" ><i class="fa fa-plus fa-lg" ></i></div>
+						</div>
+						<div class="" style="text-align: center;color: #ccc;font-size: 12px;padding: 0;width: 100px;clear: both;">尺寸：750*370</div>
+					</div>
+					<div class="am-u-md-9" style="display: flex;align-items: center;justify-content: space-around;height: 70px;">
+						<span>链接:</span>
+						<span style="border: 1px solid #ccc;padding: 5px 10px;border: 1px solid #ccc;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;" class="showLink{{item.id}}{{good.id}}" ng-click="showLink(item.id,good.id)">
+							<i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;<span class="link-select" >{{good.url_name?good.url_name:'请选择链接页面'}}</span><input type="hidden" class="link-select-val" value=""/>
+						</span>
+						<span class="delete_this" ng-click="deleteItem(item.id,good.id)"><i class="fa fa-minus"></i></span>
+					</div>
+				</div>
+
+			</div>
+			<!--<div class="link-list clearfix">-->
+				<!--<div index="0" class="link-item clearfix" draggable="false" style="">-->
+					<!--<div class="ivu-row">-->
+					<!--<div class="ivu-col ivu-col-span-6">-->
+						<!--<div class="link-img-block" style="cursor: pointer; margin: 0px auto;">-->
+							<!--<div class="link-img-block-content">-->
+								<!--<div class="link-img2"><i class="layui-icon add"></i></div>-->
+								<!--<input type="hidden" name="LinkImage">-->
+							<!--</div>-->
+							<!--<div class="imgsize">尺寸：750*370</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="ivu-col ivu-col-span-18"><div class="linktextrow ivu-row">-->
+						<!--<div class="ivu-col ivu-col-span-4">-->
+							<!--<div style="text-align: center;">链接：</div>-->
+						<!--</div>-->
+						<!--<div class="ivu-col ivu-col-span-17">-->
+						<!--<div class="linkdiv">-->
+							<!--<span class="linkeditbtn">-->
+							<!--<i class="layui-icon"></i>-->
+							<!--</span> <span class="linkdesc layui-elip">请选择链接页面</span>-->
+							<!--<input type="hidden" name="LinkType">-->
+							<!--<input type="hidden" name="LinkID">-->
+							<!--<input type="hidden" name="LinkDesc" value="请选择链接页面">-->
+						<!--</div>-->
+					<!--</div>-->
+						<!--<div class="ivu-col ivu-col-span-3">-->
+							<!--<div class="movehandle"><i class="ivu-icon ivu-icon-arrow-move"></i></div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--</div>-->
+				<!--<div>-->
+					<!--<div style="text-align: center; padding: 0px 0px 10px;">-->
+						<!--<div class="layui-btn layui-btn-sm layui-btn-primary">  + 添加  </div>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+				<a  href="javascript:;" class="btn btn-default" ng-click="addgood(item.params.data)">
+					<i class="icon14_common add_gray"></i>添加
+				</a>
+			</div>
+			<!--<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">-->
+				<!--<i class="icon20_commons add_grays"></i>-->
+			<!--</a>-->
+		<div style="clear: both;"></div>
+		</div>
+	</div>
+</div>

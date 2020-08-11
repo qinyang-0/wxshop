@@ -1,0 +1,131 @@
+<div class="temp_item temp_item_space"  >
+	<div class="frm_control_group" > 
+	  	<label for="" class="frm_label">注:</label> 
+	   	<div class="frm_controls"> 
+	   		需在万能表单页面添加首页表单，前台调取数据是万能表单页面数据.
+	   	</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">边距距离</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="50" value="{{item.params.padding}}" name="padding"></li>
+			<span class="my_slider_notice">{{item.params.padding}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+			</span>
+		</div>
+	</div>
+	<!--<div class="frm_control_group" > 
+	  	<label for="" class="frm_label">添加表单</label> 
+	   	<div class="frm_controls"> 
+	   		<a class="a_btn" href="javascript:;" ng-click="addForm(item.id,'input')">输入框</a>
+	   		<a class="a_btn" href="javascript:;" ng-click="addForm(item.id,'text')">多行输入框</a>
+	   		<a class="a_btn" href="javascript:;" ng-click="addForm(item.id,'time')">日期选择器</a>
+	   		<a class="a_btn" href="javascript:;" ng-click="addForm(item.id,'times')">时间选择器</a>
+	   		<a class="a_btn" href="javascript:;" ng-click="addForm(item.id,'city')">省市区选择器</a>
+	   		<a class="a_btn" href="javascript:;" ng-click="addForm(item.id,'radio')">单项选择器</a>
+	   		<a class="a_btn" href="javascript:;" ng-click="addForm(item.id,'checkbox')">多项选择器</a>
+	   		<p class="font_mini">请点击按钮添加表单</p>
+	   	</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">边距距离</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="50" value="{{item.params.padding}}" name="padding"></li>
+			<span class="my_slider_notice">{{item.params.padding}} 像素</span>
+		</div>
+	</div>
+
+	<div class="frm_control_group">
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+			</span>
+		</div>
+	</div>	
+
+	<div class="frm_control_group">
+		<label for="" class="frm_label">按钮背景</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.btnbg" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.btnbg" />
+			</span>
+		</div>
+	</div>				
+
+	<div class="frm_control_group">
+		<label for="" class="frm_label">按钮颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.btncolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.btncolor" />
+			</span>
+		</div>
+	</div>	
+
+	<div class="edit_data_box" ui-sortable="sortableOptions" ng-model="item.params.data">
+		<div class="edit_data_item" ng-repeat="vv in item.params.data">
+			<span class="delete_this" ng-click="deleteItem(item.id,vv.id)">x</span>
+			<div class="design_single_box item_cell_box" >
+				<div class="item_cell_flex">
+					<div>
+						表单名称
+						<span class="frm_input_box frm_input_200">
+							<input type="text" class="frm_input" ng-model="vv.name">
+						</span>
+					</div>
+					<div style="margin-top: 5px;" ng-if="vv.type == 'input' || vv.type == 'text' || vv.type == 'time' || vv.type == 'city' || vv.type == 'times'">
+						提示文字
+						<span class="frm_input_box frm_input_200">
+							<input type="text" class="frm_input" ng-model="vv.pla">
+						</span>
+					</div>
+					<div style="margin-top: 5px;" ng-if="vv.type == 'radio' || vv.type == 'checkbox'">
+						选择内容
+						<span class="frm_input_box frm_input_100" ng-repeat="vvv in vv.data">
+							<input type="text" class="frm_input" ng-model="vvv.name">
+							<span class="delete_this_in" ng-click="deleteFormIn(item.id,vv.id,vvv.id)">×</span>
+						</span>
+						<a class="a_btn" href="javascript:;" ng-click="addFormIn(item.id,vv.id)">添加选择内容</a>
+					</div>
+					<div>
+						是否必须
+				    	<label class="frm_radio_label" ng-click="vv.ismust = 0"> 
+				    		<i class="icon_radio"></i> 
+				    		<span class="lbl_content">必须填写</span>
+				    		<input type="radio" name="ismust{{vv.id}}" on-selected value="0" class="frm_radio"  ng-model="vv.ismust"  /> 
+				    	</label> 
+				    	<label class="frm_radio_label " ng-click="vv.ismust = 1">
+				    		<i class="icon_radio"></i>
+				    		<span class="lbl_content">不必填写</span>
+				    		<input type="radio" name="ismust{{vv.id}}" on-selected value="1" class="frm_radio"  ng-model="vv.ismust"  /> 
+				    	</label>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>-->
+	<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">
+		<i class="icon20_commons add_grays"></i> 
+	</a>
+</div>

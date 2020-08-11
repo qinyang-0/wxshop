@@ -1,0 +1,114 @@
+{template 'header'}
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">团长<span class="text-danger">{$user['m_nickname']}</span>的佣金：</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form class="am-margin-bottom-xs">
+								<div class="form-group col-xs-10 col-sm-10 col-md-10 col-lg-10">
+									<label class="col-xs-12 col-sm-1 col-md-1 col-lg-1 control-label">今日预估收入</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($today_commission)?0:$today_commission;}（元）
+									</div>
+									<label class="col-xs-12 col-sm-1 col-md-1 col-lg-1 control-label">本月收入</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($month_commission)?0:$month_commission;}（元）
+									</div>
+									<label class="col-xs-12 col-sm-1 col-md-1 col-lg-1 control-label">累计收入</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{$all_commission}（元）
+									</div>
+									<label class="col-xs-12 col-sm-1 col-md-1 col-lg-1 control-label">待审核佣金</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($wait_commission)?0:$wait_commission;}（元）
+									</div>
+									<label class="col-xs-12 col-sm-1 col-md-1 col-lg-1 control-label">可提现余额</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($cash_money)?0:$cash_money;}（元）
+									</div>
+									<label class="col-xs-12 col-sm-1 col-md-1 col-lg-1 control-label">已打款金额</label>
+									<div class="col-xs-12 col-sm-2 col-lg-2 control-label">
+										{php echo empty($already_cash_commission)?0:$already_cash_commission;}（元）
+									</div>
+
+								</div>
+							</form>
+
+
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+									<thead class="navbar-inner">
+									<tr>
+										<th style="width:150px;">日期</th>
+										<th style="width:150px;">订单号</th>
+										<th style="width:150px;">订单成交价格（元）</th>
+										<th style="width:150px;">佣金(元)/佣金比例(%)</th>
+										<th style="width:100px;">变更说明</th>
+										<th style="width:150px;">操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									{if !empty($info)}
+									{loop $info $key $item}
+									<tr>
+										<td>{php echo date('Y-m-d H:i:s',$item['go_add_time']);}</td>
+										<td>
+											{$item['go_code']}
+										</td>
+										<td>
+											{$item['go_real_price']}
+										</td>
+										<td>
+											{if $item['gos_type']==2}<font color="green">+{else}<font color="red">-{/if}{$item['gos_order_money']}</font>
+											<br/>/
+											{$item['go_commission_num']}
+										</td>
+										<td>
+											{$item['gos_commet']}
+										</td>
+										<td>
+											{if $item['go_is_cash'] == 1}
+												<a href="javascript:;"  class="btn btn-warning btn-xs">已审核</a>
+											{else if $item['go_is_cash'] == -1 }
+											<!--if $item['go_is_cash'] == -1 && round($item['go_real_price']*$item['go_commission_num']/100,2) == $item['go_commission'] && $item['go_commission_num'] != 0-->
+												<a href="{php echo $this->createWebUrl('head',array('op'=>'setCommission','id'=>$item['go_id'],'openid'=>$openid))}"  class="btn btn-success btn-xs">审核</a>
+											{/if}
+										</td>
+									</tr>
+									{/loop}
+									{else}
+									<tr>
+										<td colspan="999">
+											没有数据
+										</td>
+									</tr>
+									{/if}
+									</tbody>
+								</table>
+							</div>
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+								<div class="am-fr pagination-total am-margin-right">
+									<div class="am-vertical-align-middle">总记录：{$total}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+
+
+{template 'footer'}
+<script type="text/javascript">
+
+</script>

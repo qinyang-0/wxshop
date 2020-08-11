@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<style>
+
+</style>
+<body style="background: #fff;">
+<form class="am-form tpl-form-line-form" id="form_express">
+<div class="widget am-cf">
+    <input type="hidden"  value="提交" name="submit">
+        <input type="hidden" value="{$order['go_id']}" name="id">
+        <div class="am-form-group">
+            <label class="am-u-sm-3 am-u-lg-2 am-form-label">收货人</label>
+            <div class="am-u-sm-9 am-u-end">
+              联系人：{$sn[0]['oss_buy_name']} / {$sn[0]['oss_buy_phone']}
+                <br>
+                地址：{$sn[0]['oss_address']}
+            </div>
+        </div>
+        <div class="am-form-group">
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require" >快递公司</label>
+                <div class="am-u-sm-9 am-u-end">
+                    <select class="tpl-form-input" name="express" >
+                        {if !empty($express)}
+                        <option value="">请选择..</option>
+                        {loop $express $k $v}
+                        <option value="{$v['id']}" {if $info['todo'] == $v['simplecode']}selected{/if}>{$v['name']}</option>
+                        {/loop}
+                        {else}
+                        <option value="">请先添加快递公司</option>
+                        {/if}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">快递单号</label>
+            <div class="am-u-sm-9 am-u-end">
+                <input type='text' name='num' value="{$info['todo']}" class='tpl-form-input'/>
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">发货商品</label>
+            <div class="am-u-sm-9 am-u-end">
+                {if !empty($sn)}
+                {loop $sn $k $v}
+                    <img src="{php echo tomedia($v['oss_g_icon']);}" width="30">{$v['oss_g_name']}
+                    <br/>
+                {/loop}
+                {/if}
+            </div>
+        </div>
+
+</div>
+<div class="modal-footer" style="padding: 10px;text-align: center">
+    <button type="button" class="j-submit zx-addBut " id="btnSubmit" value="提交" name="submit" >确定</button>
+    <!--<button class="btn" type="button" id="close_layer">关闭</button>-->
+
+</div>
+</form>
+</body>
+<script>
+    var index = parent.layer.getFrameIndex(window.name);
+    $(function () {
+	    $(document).on("click","#btnSubmit",function () {
+	        console.log(1)
+	        $.post("{php echo $this->createWebUrl('order',array('op'=>'shipSendTpl'))}", $('#form_express').serialize(), function (res) {
+	            if(res.status === 0){
+	                layer.msg(res.msg, {
+	                    icon: 1
+	                });
+	                setTimeout(function(){
+	                    parent.location.reload();
+	                }, 1000);
+	            }else if(res.status === 1){
+	                layer.msg(res.msg, {
+	                    icon: 2
+	                });
+	            }
+	        }, "JSON");
+	    })
+    })
+
+
+</script>

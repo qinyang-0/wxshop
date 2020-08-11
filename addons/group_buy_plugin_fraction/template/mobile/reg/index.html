@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<title>注册</title>
+		<script type="text/javascript" src="{php echo MODULE_URL}style/mobile/js/jquery.2.1.min.js" ></script>
+		<link rel="stylesheet" href="{php echo MODULE_URL}style/mobile/css/logins.css" />
+		<script src="{php echo MODULE_URL}style/mobile/layer/layer.js"></script>
+		
+		<style type="text/css">
+			.top{
+			    text-align: center;
+			    margin: auto;
+			    color: #fff;
+			    font-size: 1.5rem;
+			}
+		</style>
+	</head>
+	<body style="position: absolute;width: 100%;">
+		<div class="login" style="position: relative;z-index: auto;">
+			<div>
+				<div class="welcome" style="padding: 15% 0;margin: 0;">
+					<div class="top">用户注册</div>
+					<!--<img src="{php echo MODULE_URL}style/mobile/images/welcome.png">-->
+				</div>
+				<div class="login-form">
+					<form method="post" id="myform">
+						<div class="login-inp">
+							<label>真实姓名</label>
+							<input type="text" name="name" placeholder="">
+						</div>
+						<div class="login-inp">
+							<label>电话</label>
+							<input type="number" name="mobile" placeholder="">
+						</div>
+						<div class="login-inp">
+							<label>身份证</label>
+							<input type="text" name="id" placeholder="">
+						</div>
+						<div class="login-inp">
+							<label>地址</label>
+							<input type="text" name="address" placeholder="">
+						</div>
+						<div class="login-inp">
+							<label>登录密码</label>
+							<input type="password" name="pws1" placeholder="">
+						</div>
+						<div class="login-inp">
+							<label>确认密码</label>
+							<input type="password" name = 'pws2' placeholder="">
+						</div>
+						<div class="login-inp">
+							<a href="javascript:;" id="btn">立即注册</a>
+						</div>
+					</form>
+				</div>
+				<div class="login-txt">
+					<a href="{php echo $this->createMobileUrl('login')}">返回登录</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+	$('body').height($(window).height());
+//	$("input").focus(function(){
+//		var winHeight = $(window).height();
+//            $(window).resize(function() {
+//                var thisHeight = $(this).height();
+//                if (winHeight - thisHeight > 50) {
+//                    //当软键盘弹出
+//                    $('body').css('height', winHeight + 'px');
+//                } else {
+//                    //当软键盘收起
+//                    $('body').css('height', '100%');
+//                }
+//            });
+//	})
+	$('#btn').click(function(re){
+		var name = $("input[name='name']").val();
+		var mobile = $("input[name='mobile']").val();
+		var id = $("input[name='id']").val();
+		var address = $("input[name='address']").val();
+		var pws1 = $("input[name='pws1']").val();
+		var pws2 = $("input[name='pws2']").val();
+		if(name == '' || name == undefined){
+			layer.open({
+			    content: '请输入真实姓名'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			  });
+			  return false;
+		}
+		var myreg =/^1(3|4|5|6|7|8|9)\d{9}$/;
+	    if(!myreg.test(mobile)){
+			layer.open({
+			    content: '请输入正确的电话号码'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			  });
+			  return false;
+		}
+	    var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+	    if(reg.test(id) === false){
+			layer.open({
+			    content: '请输入正确的身份证号码'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			  });
+			  return false;
+		}
+	    if(address == '' || address == undefined){
+			layer.open({
+			    content: '请输入地址'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			  });
+			  return false;
+		}
+	    if(pws1 == '' || pws1 == undefined){
+			layer.open({
+			    content: '请输入密码'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			});
+			  return false;
+		}
+	    if(pws1 != pws2){
+			layer.open({
+			    content: '两次密码输入不一致'
+			    ,skin: 'msg'
+				,time: 2 //2秒后自动关闭
+			});
+			return false;
+		}
+	    //通过验证
+	    $.post("{php echo $this->createMobileUrl('reg',array('op'=>'add'))}",$('#myform').serialize(),function(res){
+	    	console.log(res);
+	    	layer.open({
+			    content: res.msg
+			    ,btn: ['我知道了']
+			    ,yes: function(index){
+			    	if(res.code == 0){
+			    		window.location.href = "{php echo $this->createMobileUrl('login')}";
+			    	}
+			    	layer.close(index);
+			    }
+			});
+	    },"JSON");
+	})
+</script>

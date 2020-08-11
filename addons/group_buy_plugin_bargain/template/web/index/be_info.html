@@ -1,0 +1,89 @@
+{template 'header'}
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">砍价用户列表</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="id" id="id" value="{$id}" />
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy_plugin_bargain">
+								<input type="hidden" name="do" value="index">
+								<input type="hidden" name="op" value="be_info">
+								<div class="am-u-sm-12 ">
+									<span class="zx-form-span">
+										用户昵称：
+									</span>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<input type="text" class="am-form-field" name="name" placeholder="用户昵称" value="{$_GPC['name']}" style="border-radius: 4px;width: 240px;">
+									</div>
+                                    <!-- 查询按钮样式 -->
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="zx-but-check">
+                                        <button type="submit" >
+                                            <i class="fa fa-search"></i> 查询
+                                        </button>
+                                    </div>
+								</div>
+							</form>
+						</div>
+						
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+								<thead class="navbar-inner">
+								<tr>
+									<th>序号</th>
+									<th>头像/昵称</th>
+									<th>砍价</th>
+									<th>时间</th>
+								</tr>
+								</thead>
+								<tbody>
+								{if !empty($list)}
+									{loop $list $item}
+										<tr>
+											<td class="am-text-middle">{$item['id']}</td>
+											<td class="am-text-middle">
+												<img src="{$item['head_img']}" width="50" style="border-radius: 50%;"/>
+												{if func_is_base64($item['nickname'])}
+													{php echo base64_decode($item['nickname'])}
+												{else}
+													{$item['nickname']}
+												{/if}
+											</td>
+											<td class="am-text-middle">
+												{$item['price']}
+											</td>
+											<td class="am-text-middle">{php echo date('Y-m-d H:i:s',$item['status_time'])}</td>
+										</tr>
+									{/loop}
+								{else}
+									<tr>
+										<td colspan="10">
+											没有数据
+										</td>
+									</tr>
+								{/if}
+								</tbody>
+							</table>
+						</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}

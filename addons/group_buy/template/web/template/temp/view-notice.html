@@ -1,0 +1,14 @@
+<div class="app-mod" >
+    <div class="app-mod-top" >
+        <span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+        <span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+        <span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+    </div>
+    <div ng-style="{background: (item.params.bgcolor)}" style="height: 30px;width: 100%;cursor: pointer;background-repeat: no-repeat;background-size: 100% 100%;">
+        <div style="padding: 0 12px;width: 100%;height: 100%;display: flex;align-items: center;" ng-style="{'background': (item.params.bgcolor),'color': (item.params.color)}">
+            <img ng-src="{{item.params.icon}}" style="height: 20px;">
+            <span style="margin-left: 10px;max-width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-break: break-all;line-height: 30px;">{{item.params.name}}&nbsp;{{item.params.content}}</span>
+        </div>
+    </div>
+</div>
+

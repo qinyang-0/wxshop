@@ -1,0 +1,191 @@
+{template 'header'}
+<style>
+    #check_layer,#check_layer_step2,#change_money_layer{
+
+        display: none;
+    }
+    .check_list{
+        text-align: center;
+    }
+    .check_list li{
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-cf">用户提现申请列表</div>
+                    </div>
+                    <div class="widget-body am-fr">
+                        <!-- 工具栏 -->
+                        <div class="page_toolbar am-margin-bottom-xs am-cf">
+                            <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+
+                                <div class="am-scrollable-horizontal am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+                                        <thead class="navbar-inner">
+                                        <tr>
+                                            <th style="width:120px;">昵称</th>
+                                            <th style="width:90px;">申请时间</th>
+                                            <th>提现金额</th>
+                                            <th>手续费</th>
+                                            <th>打款类型</th>
+                                            <th>打款信息</th>
+                                            <th style="width:80px;">审核状态</th>
+                                            <th style="width:160px;">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {if !empty($list)}
+                                        {loop $list $k $value_item}
+                                        <tr>
+                                            <td>{$value_item['m_nickname']}</td>
+                                            <td>{$value_item['ctime']}</td>
+                                            <td>{$value_item['money']}元</td>
+                                            <td>{$value_item['charge_money']}元</td>
+                                            <td>
+                                                {if $value_item['cash_type'] == 1}
+                                                <span class="btn btn-success btn-xs">微信打款</span>
+                                                {else if $value_item['cash_type'] == 2}
+                                                <span class="btn btn-warning btn-xs">支付宝</span>
+                                                {else if $value_item['cash_type'] == 3}
+                                                <span class="btn btn-danger btn-xs">网银</span>
+                                                {/if}
+                                            </td>
+                                            <td>
+                                                {if $value_item['cash_type'] != 1}
+                                                <?php 
+                                            			$types = unserialize($value_item['case_value']);
+                                            			if(!empty($types)){
+	                                            			foreach($types as $kk=>$vv){
+                                                echo $vv['name'].":"."<span style='color:red;'>".$vv['value']."</span>".'<br/>';
+                                                }
+                                                }
+                                                ?>
+                                                {/if}
+                                            </td>
+                                            <td>{php echo intval($value_item['check_state'])===1?'<span class="btn btn-success btn-xs">审核通过</span>':(intval($value_item['check_state'])===0?'<span class="btn btn-warning btn-xs">未审核</span>':'<span class="btn btn-danger btn-xs">审核未通过</span>')}</td>
+                                            <td>
+                                                {if $value_item['check_state'] ==0}
+                                                {if $value_item['cash_type'] != 1}
+                                                <a class="btn btn-success btn-xs" data-id="{$value_item['id']}" onclick="aggres({$value_item['id']})">提现</a>
+                                                {else}
+                                                <a class="btn btn-success btn-xs" onclick="aggre('{$value_item['id']}','{$value_item['check_state']}')">同意</a>
+                                                {/if}
+                                                <a class="btn btn-success btn-xs" onclick="refuse('{$value_item['id']}','{$value_item['check_state']}')">拒绝</a>
+                                                {/if}
+                                            </td>
+                                        </tr>
+                                        {/loop}
+                                        {else}
+                                        <tr>
+                                            <td colspan="999">
+                                                暂无数据
+                                            </td>
+                                        </tr>
+                                        {/if}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+                                    <div class="am-fr" style="float: left;">
+                                        <a class="zx-addBut" href="javascript:window.history.go(-1) ;">返回</a>
+                                    </div>
+
+                                    {$list['page']}
+                                    <div class="am-fr pagination-total am-margin-right">
+                                        <div class="am-vertical-align-middle">总记录：{$total}</div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="check_layer">
+        <ul class="check_list">
+            <li>用户申请说明<textarea class="up_comment"></textarea></li>
+            <li><button class="agree btn btn-info btn-xs">通过</button>&nbsp;<button class="refuse btn btn-danger btn-xs">拒绝</button></li>
+        </ul>
+    </div>
+    <div id="check_layer_step2">
+        <ul class="check_list">
+            <li><span class="comment_title"></span>理由<textarea class="comment"></textarea></li>
+            <li><button class="sub btn btn-info btn-xs">确认提交</button></li>
+        </ul>
+    </div>
+    <div id="change_money_layer">
+        <ul class="check_list">
+            <li>变动金额<input class="tpl-form-input money_change" type="text" name="money"/></li>
+            <li>变动理由<textarea class="change_comment"></textarea></li>
+            <li><a class="addmoney btn btn-success btn-xs">增加资金</a>
+                <a  class="frize btn btn-info btn-xs">冻结资金</a>
+                <a class="unfrize btn btn-danger btn-xs">解冻资金</a>
+            </li>
+        </ul>
+    </div>
+    {template 'footer'}
+    <script type="text/javascript">
+
+        function aggre(id){
+            layer.confirm('确认提现吗?', {icon: 1, title:'提示'}, function(index){
+                $.post(
+                    "{php echo $this->createWebUrl('Cashcheck')}",
+                    {cid:id,state:1},
+                    function(res){
+                        layer.closeAll();
+                        console.log(res);
+                        layer.msg(res.data.msg);
+                        if(res.data.code==0){
+                            setTimeout(function(){
+                                location.reload();
+                            },'1000')
+                            return false;
+                        }
+                    },'JSON'
+                );
+            });
+        }
+        function aggres(id){
+            layer.confirm('确认提现吗?', {icon: 1, title:'提示'}, function(index){
+                $.post(
+                    "{php echo $this->createWebUrl('Cashcheck')}",
+                    {cid:id,state:1},
+                    function(res){
+                        layer.closeAll();
+                        console.log(res);
+                        layer.msg(res.data.msg);
+                        if(res.data.code==0){
+                            setTimeout(function(){
+                                location.reload();
+                            },'1000')
+                            return false;
+                        }
+                    },'JSON'
+                );
+            });
+        }
+        function refuse(id){
+            layer.confirm('确认拒绝吗?', {icon: 2, title:'提示'}, function(index){
+                $.post(
+                    "{php echo $this->createWebUrl('Cashcheck')}",
+                    {cid:id,state:-1},
+                    function(res){
+                        layer.msg(res.data.msg);
+                        if(res.data.code==0){
+                            setTimeout(function(){
+                                location.reload();
+                            },'1000')
+                            return false;
+                        }
+                    },'JSON'
+                );
+            })
+        }
+    </script>

@@ -1,0 +1,235 @@
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/amazeui.min.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/app.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/font_783249_3sbba6jrt9y.css">
+<link rel="stylesheet" href="{php echo MODULE_URL}style/css/layer.css" >
+<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+<script src="{php echo MODULE_URL}style/js/font_783249_e5yrsf08rap.js"></script>
+<script src="{php echo MODULE_URL}style/js/layer.js "></script>
+<script src="{php echo MODULE_URL}style/js/jquery.form.min.js "></script>
+<script src="{php echo MODULE_URL}style/js/amazeui.min.js "></script>
+<link href="{php echo MODULE_URL}style/css/bootstrap.css" rel="stylesheet">
+<body style="background: #fff;">
+<div class="widget am-cf">
+    <div class="am-tabs" id="doc-my-tabs">
+        <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify am-tabs-nav am-cf">
+            <li class="{if $type=='page'}am-active{/if} " ><a href="{php echo $this->createWebUrl('adv',array('op'=>'adLinkUrl','type'=>'page','dataid'=>$dataid));}">页面</a></li>
+            <li class="{if $type=='goods'}am-active{/if} "><a href="{php echo $this->createWebUrl('adv',array('op'=>'adLinkUrl','type'=>'goods','dataid'=>$dataid));}">产品</a></li>
+            <li class="{if $type=='action_goods'}am-active{/if} "><a href="{php echo $this->createWebUrl('adv',array('op'=>'adLinkUrl','type'=>'action_goods','dataid'=>$dataid));}">活动产品</a></li>
+            <li class="{if $type=='out_link'}am-active{/if} "><a href="{php echo $this->createWebUrl('adv',array('op'=>'adLinkUrl','type'=>'out_link','dataid'=>$dataid));}">H5页面</a></li>
+            <!--<li class="{if $type=='small'}am-active{/if} "><a href="{php echo $this->createWebUrl('adv',array('op'=>'adLinkUrl','type'=>'small','dataid'=>$dataid));}">小程序</a></li>-->
+            <li class="{if $type=='phone'}am-active{/if} "><a href="{php echo $this->createWebUrl('adv',array('op'=>'adLinkUrl','type'=>'phone','dataid'=>$dataid));}">拨打电话</a></li>
+
+        </ul>
+        <div class="am-tabs-bd">
+            <div class="am-tab-panel {if $type=='page'|| empty($type) }am-active{/if}" style="min-height: 300px;overflow: scroll;">
+                 <!--页面-->
+                <select data-am-selected="" class="tpl-form-input" id="link_page" >
+                    <option value="" data-val="">请选择...</option>
+                    <option value="/pages/template/index" data-val="首页">首页</option>
+                    <option value="/pages/personal/personal" data-val="个人中心">个人中心</option>
+                    <option value="/pages/template/cart" data-val="购物车">购物车</option>
+                    <!--<option value="..//" data-val="产品列表">产品列表</option>-->
+                    <!--<option value="..//" data-val="服务列表">服务列表</option>-->
+                    <!--<option value="..//" data-val="文章列表">文章列表</option>-->
+                    <option value="/pages/template/classify" data-val="产品分类列表">产品分类列表</option>
+                    <option value="/pages/template/coupon" data-val="优惠券列表">优惠券列表</option>
+                    <option value="/pages/group/groupApply" data-val="申请团长页">申请团长页</option>
+                    <option value="/pages/personal/supplier" data-val="申请供应商页">申请供应商页</option>
+                    {if $fraction ==1}
+                    <option value="/pages/integralMall/index/index" data-val="积分商城页">积分商城页</option>
+                    {/if}
+                    {if $distribution ==1}
+                    <option value="/pages/commission/index" data-val="分销中心页">分销中心页</option>
+                    {/if}
+                    <!--<option value="..//" data-val="领券中心">领券中心</option>-->
+                    <!--<option value="../coupon/coupon" data-val="优惠卷">优惠卷</option>-->
+                    <!--<option value="..//" data-val="会员充值">会员充值</option>-->
+                    <!--<option value="..//" data-val="分销中心">分销中心</option>-->
+                    <!--<option value="..//" data-val="分销中心">拼团列表</option>-->
+                    <!--<option value="..//" data-val="分销中心">秒杀列表</option>-->
+                    <!--<option value="..//" data-val="分销中心">一键拨号</option>-->
+                    <!--<option value="..//" data-val="分销中心">一键导航</option> -->
+                    <!--<option value="..//" data-val="分销中心">砍价列表</option>-->
+                    <!--<option value="..//" data-val="分销中心">砍价详情</option>-->
+                </select>
+
+            </div>
+            <div class="am-tab-panel {if $type=='goods'}am-active{/if}" style="min-height: 200px;">
+                <!--产品-->
+                <table class="am-table am-table-compact am-table-striped  am-text-nowrap" style="min-width: 300px;">
+                    <thead class="navbar-inner">
+                    <tr>
+                    <th>名称</th>
+                    <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {if !empty($goods)}
+                    {loop $goods $k $v}
+                    <tr align="left">
+                    <td>{$v['g_name']}</td>
+                    <td>
+                    <span class="btn btn-info btn-xs content-checked" data-content="/pages/goods/goodsDetail?id={$v['g_id']}" >选取</span>
+                    </td>
+                    </tr>
+                    {/loop}
+                    {/if}
+                    </tbody>
+                </table>
+                <div>
+                    {$page}
+                </div>
+            </div>
+            <div class="am-tab-panel {if $type=='action_goods'}am-active{/if}" style="min-height: 200px;">
+                <!--活动产品-->
+                <table class="am-table am-table-compact am-table-striped  am-text-nowrap" style="min-width: 300px;">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th>名称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {if !empty($action_goods)}
+                    {loop $action_goods $key $val}
+                    <tr align="left">
+                        <td>{$val['g_name']}</td>
+                        <td>
+                            <span class="btn btn-info btn-xs content-checked" data-content="/pages/goods/goodsDetail?id={$val['g_id']}&&at_id={$val['at_id']}" >选取</span>
+                        </td>
+                    </tr>
+                    {/loop}
+                    {/if}
+
+                    </tbody>
+                </table>
+                <div>
+                    {$page}
+                </div>
+            </div>
+            <div class="am-tab-panel {if $type=='out_link'}am-active{/if} am-form tpl-form-line-form" style="min-height: 200px;">
+                <!--h5-->
+                <div class="am-form-group">
+                    <label class="am-u-sm-3 label-f am-form-label">H5链接地址：</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" class="form-control out-link-val"  value="" placeholder="H5外链地址">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label class="am-u-sm-3 label-f am-form-label"></label>
+                    <label class="am-u-sm-9 am-form-label" style="text-align: left;">
+                        注意一：链接的网页必须支持SSL ，链接必须以 https:// 开头，否则无法跳转
+                    </label>
+                    <label class="am-u-sm-3 label-f am-form-label"></label>
+                    <label class="am-u-sm-9 am-form-label" style="text-align: left;">
+                        注意二：链接的域名必须是备案域名，否则无法跳转
+                    </label>
+                    <label class="am-u-sm-3 label-f am-form-label"></label>
+                    <label class="am-u-sm-9 am-form-label" style="text-align: left;">
+                        注意三：您的网站域名必须加到微信小程序公众平台的业务域名处,
+                    </label>
+                </div>
+            </div>
+
+            <div class="am-tab-panel {if $type=='small'}am-active{/if} am-form tpl-form-line-form" style="min-height: 200px;">
+                <!--h5-->
+                <div class="am-form-group">
+                    <label class="am-u-sm-3 label-f am-form-label">小程序APPID：</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" class="form-control small-appid"  value="" placeholder="appid">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label class="am-u-sm-3 label-f am-form-label">页面路径：</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" class="form-control small-val"  value="" placeholder="页面路径">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label class="am-u-sm-3 label-f am-form-label"></label>
+                    <label class="am-u-sm-9 am-form-label" style="text-align: left;">
+                        注意一：同一个小程序链接其他小程序，最多只能链接10个，超过将不生效
+                    </label>
+                    <label class="am-u-sm-3 label-f am-form-label"></label>
+                    <label class="am-u-sm-9 am-form-label" style="text-align: left;">
+                        注意二：不能填写自身小程序appid
+                    </label>
+                    <label class="am-u-sm-3 label-f am-form-label"></label>
+                    <label class="am-u-sm-9 am-form-label" style="text-align: left;">
+                        注意三：小程序链接留空默认跳到小程序首页
+                    </label>
+                </div>
+            </div>
+            <div class="am-tab-panel {if $type=='phone'}am-active{/if} am-form tpl-form-line-form" style="min-height: 200px;">
+                <!--h5-->
+                <div class="am-form-group">
+                    <label class="am-u-sm-3 label-f am-form-label">号码：</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" class="form-control phone-val"  value="" placeholder="电话号码">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+        <div style="margin-left: 20px;">
+            链接到&nbsp;&nbsp;<span id ="reslut"></span> <span class="btn btn-success sure-click" style="float: right">确定</span>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    $(function() {
+        // $('#doc-my-tabs').tabs();
+    })
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    //选择页面中传值
+    $(document).on("change","#link_page",function () {
+        $("#reslut").html($("#link_page").children("option:selected").attr("data-val"));
+        parent.$("#link").val($("#link_page").children("option:selected").val());
+    });
+    //点确定取消弹窗
+    $(document).on("click",".sure-click",function () {
+        parent.layer.close(index);
+    });
+    //点击选取的时候传值
+    $(document).on("click",".content-checked",function () {
+        console.log($(this).parent().siblings('td').html())
+        $("#reslut").html($(this).parent().siblings('td').html());
+        // parent.$(".showLink{$dataid}").children('.link-select').html($(this).parent().siblings('td').html());
+        // parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).attr("data-content"));
+        $(this).removeClass("btn-info").addClass("btn-success").html('已选取');
+        // parent.$("#link").val($(this).parent().siblings('td').html());
+        parent.$("#link").val($(this).attr("data-content"));
+        // parent.$("#ifrname_type").val('url');
+    });
+    //当输入外链时
+    $(document).on("input propertychange",".out-link-val",function () {
+        $("#reslut").html('h5页面：'+$(this).val());
+        // parent.$(".showLink{$dataid}").children('.link-select').html($(this).val());
+        // parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).val());
+        // parent.$("#ifrname_name").val($(this).val());
+        parent.$("#link").val($(this).val());
+        // parent.$("#ifrname_type").val('out_link');
+    });
+    //当输入小程序时
+    // $(document).on("input propertychange",".small-val",function () {
+        // $("#reslut").html('小程序，'+$(".small-val").val());
+        // parent.$(".showLink{$dataid}").children('.link-select').html($(this).val());
+        // parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).val());
+        // parent.$("#ifrname_name").val($('.small-appid').val());
+        // parent.$("#link").val($(this).val());
+        // parent.$("#ifrname_type").val('app');
+    // });
+    //拨打电话
+    $(document).on("input propertychange",".phone-val",function () {
+        $("#reslut").html('电话号码：'+$(".phone-val").val());
+        // parent.$(".showLink{$dataid}").children('.link-select').html($(this).val());
+        // parent.$(".showLink{$dataid}").children('.link-select-val').val($(this).val());
+        // parent.$("#ifrname_name").val('电话');
+        parent.$("#link").val($(this).val());
+        // parent.$("#ifrname_type").val('tel');
+    });
+</script>

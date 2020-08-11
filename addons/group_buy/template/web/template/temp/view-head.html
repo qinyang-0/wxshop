@@ -1,0 +1,75 @@
+
+<div class="app-mod app-mod-3" style="padding:0;background: #fff;" ng-style="{'margin':(item.params.margin),'borderRadius':(item.params.radius)}" style="width: auto;">
+	<div class="app-mod-top" style="z-index: 20000" >
+		<span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+		<span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+		<span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+	</div>
+	<div style="margin: 5px 0;" ng-style="{display:(item.params.head_module==1?'block':'none')}">
+		<div style="float: left;width: 42px;height: 42px;margin: 8px 5px 8px 0;">
+			<img src="../addons/group_buy/style/img/head.jpg" style="width: 100%;border-radius: 100%;">
+		</div>
+		<div style="float: left;width: 70px;    margin-top: 10px;">
+			<div style="width: 70px;color: #666;font-size: 12px;" >小区名称</div>
+			<div style="width: 70px;font-size: 14px;">团长昵称</div>
+		</div>
+		<div style="float: right;margin-top: 10px;margin-right: 5px;">
+			<div style="height: 20px;border-radius: 10px;border:1px solid #EFEFEF;line-height: 18px;padding: 0 8px;font-size: 12px;color:#999;margin-top: 10px;">
+				<!--<i class="fa fa-phone" style="color:"></i>-->
+				<img src="../addons/group_buy/public/diyimages/phone2.png" style="width: 12px;margin-top: 4px;">
+				联系团长</div>
+		</div>
+		<div  ng-style="{display:(item.params.showAddress==1?'block':'none')}">
+			<div style="clear: both;margin-bottom:4px; "></div>
+			<div style="margin: 0 2px;padding-top: 2px; font-size:12px;border-top:1px solid #eee;">
+				<!--<i class="fa fa-map-marker"></i>-->
+				<img src="../addons/group_buy/public/diyimages/location.png" style="width: 10px;margin-top:3px;">
+				取货地址：小区所在地址
+			</div>
+		</div>
+
+	</div>
+	<div style="height:auto;align-items: center;justify-content: space-between;" ng-style="{display:(item.params.head_module==2?'flex':'none')}">
+		<div style="width: 50%">
+			<div style="margin-right: 5px;">
+				<img src="../addons/group_buy/style/img/groupadr.png" style="width: 19px;height: 19px;border-radius: 100%;">
+				<span style="width: 70px;color: #666;font-size: 12px;" >小区名称</span>
+				<i class="fa fa-angle-right"></i>
+			</div>
+			<div  ng-style="{display:(item.params.showAddress==1?'block':'none')}" style="font-size:12px;">
+				提货地址：某某地点...
+			</div>
+			<span style="clear: both;"></span>
+		</div>
+
+		<div ng-style="{display:(item.params.rightTpye==0?'block':'none')}" style="width:40%;background: rgba(0,0,0,.5);border-radius: 10px;padding:0 5px;color:#fff;font-size: 12px;line-height: 22px;margin:1px 0;height: 24px;"><img src="../addons/group_buy/style/img/head.jpg" style="border-radius: 50%;width: 18px;height: 18px;margin: 2px 0;"/>云落风行下单成功</div>
+		<div  ng-style="{display:(item.params.rightTpye==1?'flex':'none')}" style="width:50%;height: 24px;justify-content: flex-end;">
+			<div style="padding: 0 12px;width: 100%;height: 100%;border-style: solid ;border-width: 1px ;" ng-style="{'background': (item.params.incolor),'borderRadius': (item.params.border_radius)+'px','color': (item.params.text_color),'borderColor':(item.params.border_color),'width':(item.params.search_width)+'%'}">
+				<i class="fa fa-search" style="float: left;line-height: 22px;"></i>
+				<span style="margin-left: 10px;max-width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-break: break-all;line-height: 22px;float: left;">{{item.params.text}}</span>
+			</div>
+		</div>
+	</div>
+	<div style="height:auto;align-items: center;justify-content: space-between;" ng-style="{display:(item.params.head_module==3?'flex':'none')}">
+		<div style="width: 50%">
+			<div style="margin-right: 5px;">
+				<img src="../addons/group_buy/style/img/head.jpg" style="width: 20px;height: 20px;border-radius: 100%;">
+				<span style="width: 70px;color: #666;font-size: 12px;" >小区名称</span>
+				<i class="fa fa-angle-right"></i>
+			</div>
+			<div  ng-style="{display:(item.params.showAddress==1?'block':'none')}" style="font-size:12px;">
+				提货地址：某某地点...
+			</div>
+			<span style="clear: both;"></span>
+		</div>
+
+
+		<div ng-style="{display:(item.params.rightTpye==0?'block':'none')}" style="width:40%;background: rgba(0,0,0,.5);border-radius: 10px;padding:0 5px;color:#fff;font-size: 12px;line-height: 22px;margin:1px 0;height: 24px;"><img src="../addons/group_buy/style/img/head.jpg" style="border-radius: 50%;width: 18px;height: 18px;margin: 2px 0;"/>云落风行下单成功</div>
+		<div  ng-style="{display:(item.params.rightTpye==1?'flex':'none')}" style="width:50%;height: 24px;justify-content: flex-end;">
+			<div style="padding: 0 12px;width: 100%;height: 100%;border-style: solid ;border-width: 1px ;" ng-style="{'background': (item.params.incolor),'borderRadius': (item.params.border_radius)+'px','color': (item.params.text_color),'borderColor':(item.params.border_color),'width':(item.params.search_width)+'%'}">
+				<i class="fa fa-search" style="float: left;line-height: 22px;"></i>
+				<span style="margin-left: 10px;max-width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-break: break-all;line-height: 22px;float: left;">{{item.params.text}}</span>
+			</div>
+		</div>
+	</div>
+</div>

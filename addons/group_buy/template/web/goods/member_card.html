@@ -1,0 +1,71 @@
+<div class="nav_discount nav_goods_add" style="display: none;">
+	<div class="am-form-group">
+		<label class="am-u-sm-3 am-u-lg-2 am-form-label">会员价格</label>
+		<div class="am-u-sm-9 am-u-end">
+			<label class="am-radio-inline am-success">
+				<input type="radio" name="goods_discount" data-am-ucheck  value="1" {if $info['member_card_discount'] == 1 || empty($info['member_card_discount']) }checked{/if}> 关闭会员价格
+			</label>
+			<label class="am-radio-inline am-success">
+				<input type="radio" name="goods_discount" data-am-ucheck  value="2" {if $info['member_card_discount'] == 2}checked{/if}> 统一设置会员价格
+			</label>
+			<span id="goods_discount_info" {if $info['g_has_option'] != 1}style="display:none;"{/if}>
+				<label class="am-radio-inline am-success" >
+					<input type="radio" name="goods_discount" data-am-ucheck  value="3" {if $info['member_card_discount'] == 3}checked{/if}> 详细设置会员价格
+				</label>
+			</span>
+			<span style="display: inherit;color: red;">注:如果这里开启了会员价格，但是有没有填写，那么用户支付的价格就是正常价格乘会员卡等级的折扣</span>
+		</div>
+	</div>
+	<div {if $info['member_card_discount'] == 2}style="display: block;"{else}style="display: none;"{/if} id="goods_discount_unified">
+		<!--单规格  直接设置每个会员等级的价格-->
+		{loop $gpb_member_card $item}
+			<div class="am-form-group">
+				<label class="am-u-sm-3 am-u-lg-2 am-form-label">{$item['title']}</label>
+				<div class="am-u-sm-9 am-u-end">
+					<input type='text' id='price_{$item["id"]}' name='price_{$item["id"]}' value="{php echo $item['price']/100}" class='tpl-form-input' style="float: left;border-right: 0;border-top-right-radius: 0;border-bottom-right-radius: 0;"/>
+					<input type="text" readonly="" name="" id="" value="元" class="yuan" />
+				</div>
+			</div>
+		{/loop}
+		
+	</div>
+	<div {if $info['member_card_discount'] == 3}style="display: block;"{else}style="display: none;"{/if} id="goods_discount_detailed">
+		<link rel="stylesheet" type="text/css" href="../addons/group_buy/style/css/member_discount.css"/>
+		<!--详细设置   就是说详细设置多规格的会员价-->
+		<div id="" class="goods-spec-many am-form-group" style="display: block;">
+			<div class="goods-spec-box am-u-sm-9 am-u-sm-push-2 am-u-end">
+				<div class="am-scrollable-horizontal" style="display: block;" id="goods_discount">
+					<div class="goods-spec-line am-margin-top-lg am-margin-bottom-lg"></div>
+					<div class="spec-batchs am-form-inline">
+						<div class="am-form-group">
+							<label class="am-form-label">批量设置</label>
+						</div>
+						{loop $gpb_member_card $items}
+							<div class="am-form-group am-form-success">
+								<input type="text" data-type="goods_discount_price" placeholder="{$items['title']}" data-id="{$items['id']}"  class="am-field-valid batch-spec-price">
+							</div>
+						{/loop}
+						<div class="am-form-group">
+							<button type="button" class="btn-specBatchBtns am-btn am-btn-sm am-btn-secondary am-radius">确定</button>
+				       	</div>
+					</div>
+					<table class="spec-sku-tabel am-table am-table-bordered am-table-centered am-margin-bottom-xs am-text-nowrap">
+						<tbody>
+						{if !empty($spec)}
+							<tr>
+								{loop array_reverse($spec) $k $v}
+									<th>{$v['title']}</th>
+								{/loop}
+								{loop $gpb_member_card $items}
+									<th>{$items['title']}</th>
+								{/loop}
+							</tr>
+							{$discounts}
+						{/if}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

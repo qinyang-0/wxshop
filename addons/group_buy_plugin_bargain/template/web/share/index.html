@@ -1,0 +1,66 @@
+{template 'header'}
+{template 'template'}
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data" id="beagiaon_from">
+						<div class="widget-body">
+							<div class="widget-head am-cf">
+								<div class="widget-title am-fl">分享设置</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">分享头部标题</label>
+								<div class="col-sm-9 col-xs-12">
+									<input type="text" value="{$arr['beagiaon_title']}" name="beagiaon_title" class="tpl-form-input">
+								</div>
+							</div>
+							<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">砍价分享样式 </label>
+								<div class="am-u-sm-9 am-u-end">
+									<label class="am-checkbox-inline am-success">
+										<input type="radio"  value="1" name="beagiaon_style" data-am-ucheck {php echo $arr['beagiaon_style'] !=2?"checked":''; }>
+										商品图片
+									</label>
+									<label class="am-checkbox-inline am-success">
+										<input type="radio"  value="2" name="beagiaon_style"  data-am-ucheck {php echo $arr['beagiaon_style'] ==2?"checked":''; }>
+										页面截图
+									</label>
+									<label class="am-checkbox-inline am-success">
+										<input type="radio"  value="3" name="beagiaon_style"  data-am-ucheck {php echo $arr['beagiaon_style'] ==3?"checked":''; }>
+										本地上传
+									</label>
+								</div>
+							</div>
+							<div class="am-form-group" {if $arr['beagiaon_style'] != 3} style="display: none;" {/if} id="prture">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">本地图片 </label>
+								<div class="am-u-sm-9 am-u-end zx-sendNotice">
+									{php echo tpl_form_field_image('beagiaon_style_img',$arr['beagiaon_style_img']);}
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="token" id="token" value="submit" />
+						<div class="am-am-form-group">
+							<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+								<input type="hidden" name="token" id="token" value="submit" />
+								<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}
+<script type="text/javascript">
+	$("input[name='beagiaon_style']").change(function(e){
+		var id = $(this).val();
+		if(id == 3){
+			$('#prture').show();
+		}else{
+			$('#prture').hide();
+		}
+	})
+</script>

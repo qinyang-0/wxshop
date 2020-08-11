@@ -1,0 +1,7 @@
+<div class="app-images-box" ng-style="{'background':item.params.bgcolor}">	<div class="app-images ">		<li ng-repeat="images in item.params.data" ng-style="{'padding':item.params.padding+'px',width:(item.params.type == 1 ? 100 : (item.params.type == 2 ? 50 : 33.3)) +'%'}">
+			<a href="javascript:;">
+				<p ng-style=""><img ng-src="{{images.img}}" /></p>
+				<p class="app-images-font" ng-if="item.params.istext == 1" ng-style="{'font-size':item.params.fontsize+'px','color':item.params.fontcolor}">{{images.title}}</p>
+			</a>
+		</li>
+		<div class="clear"></div>	</div></div>

@@ -1,0 +1,234 @@
+{template 'header'}
+{template 'template'}
+<style>
+    .tpl-form-line-form #zx-diy-day-text .zx-half-width-input{
+        width: 120px;
+    }
+    .input-group-btn {
+        display: block !important;
+    }
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+    <!--本页自定义样式-->
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+    <!--右侧详细内容区域，灰框之内,from 妹子-->
+    <div class="row-content am-cf">
+        <!--2列式简单布局,from bootstap-->
+        <div class="row">
+            <!--12列布局,from 妹子-->
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+                <div class="widget am-cf">
+                    <form id="form" action="{php echo $this->createWebUrl('supplier',array('op'=>'add'))}" class="am-form tpl-form-line-form" method="post">
+                        <!--本页隐藏传值-->
+                        <input type="hidden" name="id" id="id" value="{$info['gsp_id']}" />
+                        <input type="hidden" name="ids" id="ids" value="{$ids}" />
+                        <!--右侧正文 from 自定义 -->
+                        <div class="widget-body">
+                            <!--右侧正文 规定所有边距为0 from bootstap -->
+                            <fieldset>
+                                <!--小标题 from 自定义-->
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl">{$act_title}供应商</div>
+                                </div>
+                                <!--表单项开始 from 妹子-->
+                                <div class="am-form-group">
+                                    <!-- form-require表单项必填 from 自定义-->
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">供应商名称 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type="text" class="tpl-form-input" name="shop_name" value="{$info['gsp_shop_name']}" required="" data-validation-message="供应商名称">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">供应商图标 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        {php echo tpl_form_field_image('gsp_icon',!empty($info['gsp_icon'])?$info['gsp_icon']:"");}
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">负责人 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type="text" class="tpl-form-input" name="name" value="{$info['gsp_name']}">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">联系电话 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type="text" class="tpl-form-input" name="phone" value="{$info['gsp_phone']}">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group am-form-success">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">是否审核 </label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <label class="am-radio-inline">
+                                            <input type="radio" name="is_show" value="1" data-am-ucheck="" {if $info['gsp_status'] != 2  }checked{/if} class="am-ucheck-radio am-field-valid">
+                                            <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                            <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                            是
+                                        </label>
+                                        <label class="am-radio-inline">
+                                            <input type="radio" name="is_show" value="2" data-am-ucheck="" {if $info['gsp_status']==2} checked="" {/if} class="am-ucheck-radio am-field-valid">
+                                            <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                            <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                            否
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--<div class="am-form-group">-->
+                                    <!--<label class="am-u-sm-3 am-u-lg-2 am-form-label ">排序 </label>-->
+                                    <!--<div class="am-u-sm-9 am-u-end">-->
+                                        <!--<input type="text" class="tpl-form-input" name="order" value="{$info['gsp_order']}">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                {if $this->supplier_role !=1}
+                                <div class="am-form-group" style="">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">技术服务费（%）</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type='text' id='gsp_server_fee' name='gsp_server_fee' value="{php echo !empty($info['gsp_server_fee'])?$info['gsp_server_fee']:'0.00'}" class='tpl-form-input' />
+                                        <span class="color-9">请填写百分比,例如：6 那么平台抽成是6%。实付金额的百分比，扣除此比例 再扣除团长佣金，剩余货款归供应商</span>
+                                    </div>
+                                </div>
+                                {/if}
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl">后台登录信息</div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">登录帐号</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type='text' id='gsp_account' name='gsp_account' value="{php echo !empty($info['gsp_account'])?$info['gsp_account']:''}" class='tpl-form-input' />
+                                        <span class="color-9">供应商登录的帐号</span>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">登录密码</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type='password' id='gsp_pwd' name='gsp_pwd' value="" class='tpl-form-input' />
+                                        <span class="color-9">供应商登录的密码(留空不修改)，至少8位</span>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">重复登录密码</label>
+                                    <div class="am-u-sm-9 am-u-end">
+                                        <input type='password' id='repassword' name='repassword' value="" class='tpl-form-input' />
+                                        <span class="color-9">请保证和登录密码输入一致</span>
+                                    </div>
+                                </div>
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title am-fl">操作员管理&nbsp;&nbsp;&nbsp;<span class="zx-addBut add-manger" style="display: inline;">
+                                        <i class="fa fa-plus"></i> 添加操作员
+                                    </span></div>
+
+                                </div>
+                                <div class="am-form-group">
+                                    <!--<label class="am-u-sm-3 am-u-lg-2 am-form-label "></label>-->
+                                    <div class="am-u-sm-12 am-u-end">
+                                    <table class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap" id="table" >
+                                        <thead>
+                                        <tr>
+                                            <th>昵称</th>
+                                            <th >头像</th>
+                                            <th >电话</th>
+                                            <th >操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {if !empty($manger)}
+                                            {loop $manger $k $v}
+                                            <tr>
+                                                <td>{$v['m_nickname']}</td>
+                                                <td><img src="{$v['m_photo']}" width='25'></td>
+                                                <td>{$v['m_phone']}</td>
+                                                <td>
+                                                    <span class='btn btn-xs btn-danger del-manager' data-openid='{$v["m_openid"]}' data-id='{$v["m_id"]}'>删除
+                                                        <input type='hidden' name='openid[]' value='{$v["m_openid"]}'/>
+                                                        <input type='hidden' name='ids[]' value='{$v["m_id"]}'/>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            {/loop}
+                                        {/if}
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                                <!--<div class="am-form-group">-->
+                                    <!--<label class="am-u-sm-3 am-u-lg-2 am-form-label ">备注 </label>-->
+                                    <!--<div class="am-u-sm-9 am-u-end">-->
+                                        <!--<textarea name="comment" style="width: 460px;" row="4" >{$info['gsp_comment']}</textarea>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                        <input type="hidden" name="submit" value="提交"/>
+                                        <button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+                                        <a href="{php echo $this->createWebUrl('supplier')}" id="a-back-index"  ><button class="btn" type="button">返回</button></a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //提交表单验证
+        $(document).on("click","#btn",function () {
+            var name = $.trim($("input[name='name']").val());
+            console.log(name)
+            var shop_name = $.trim($("input[name='shop_name']").val());
+            var phone = $.trim($("input[name='phone']").val());
+            if(shop_name == '' || shop_name == undefined){
+                layer.msg("请输入供应商名称",{icon:2,time:1000});
+                return false;
+            }
+            if(name == '' || name == undefined){
+                layer.msg("请输入负责人名称",{icon:2,time:1000});
+                return false;
+            }
+
+            if(phone == '' || phone == undefined){
+                layer.msg("请输入联系电话",{icon:2,time:1000});
+                return false;
+            }
+        })
+        //点击选择管理员
+        $(document).on("click",".add-manger",function () {
+            var ids = $('input[name=ids]').val();
+            layer.open({
+                title:'用户信息',
+                type: 2,
+                area: ['750px', '500px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: "{php echo $this->createWebUrl('supplier',array('op'=>'getUser'))}&ids="+ids
+            });
+        });
+        //取消管理员关联
+        $(document).on("click",".del-manager",function () {
+            $(this).parent("td").parent("tr").remove();
+            var ids = '';
+            $(".del-manager").each(function () {
+                var did = $(this).data().id;
+                ids +=','+did;
+            });
+            $("input[name=ids]").val(ids);
+        })
+    </script>
+
+
+<!-- 内容区域 end -->
+{template 'footer'}
+</div>

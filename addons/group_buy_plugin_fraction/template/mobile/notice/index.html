@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>消息中心</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/mobile/pos/css/swiper.css">
+		<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/mobile/pos/mui/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/mobile/pos/css/base.css">
+		<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/mobile/pos/css/style.css">
+		<script type="text/javascript" src="{php echo MODULE_URL}style/mobile/pos/js/jquery-3.2.1.min.js"></script>
+		<script src="{php echo MODULE_URL}style/mobile/pos/mui/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="{php echo MODULE_URL}style/mobile/pos/mui/js/mui.picker.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="{php echo MODULE_URL}style/mobile/pos/mui/css/mui.picker.min.css">
+	</head>
+	<body class="information mui-ios mui-ios-11 mui-ios-11-0">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:;"></a>
+			<h1 class="mui-title">消息中心</h1>
+		</header>
+		<div class="mui-content information-list">
+			<ul id="ul">
+				{loop $info $item}
+				<li>
+					<p class="info-time"><span>{php echo date('m月d日 H:i',$item['time'])}</span></p>
+					<span class="new-ico">new <i></i></span>
+					<div class="info-content" onclick="show_box(this,{$item['id']},{$item['code']})">
+						<a href="javascript:;">
+							<span>系统消息</span>
+							<p>{$item['content']}</p>
+							<i>点击查看</i>
+							<img src="../addons/group_buy_plugin_fraction/style/mobile/pos/img/san.png" class="san">
+						</a>
+					</div>
+				</li>
+				{/loop}
+			</ul>
+		</div>
+		<div class="show_box" style="display: none;"></div>
+
+		<script type="text/javascript" src="{php echo MODULE_URL}style/mobile/pos/layer/layer.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			function show_box(obj,id,code) {
+				$('.show_box').text($(obj).find('p').text())
+				layer.open({
+					type: 1,
+					title: $(obj).find('span').text(),
+					content: $('.show_box'),
+					area: '300px',
+					cancel: function(index, layero) {
+						$('.show_box').hide();
+					},
+				});
+				if(code == 1){
+					$.post("{php echo $this->createMobileUrl('notice',array('op'=>'save'))}",{id:id},function(res){
+						console.log(res)
+					},"JSON")
+				}
+			}
+
+			var control = 1;
+			var page = 2;
+			var winH = $(window).height();
+			$(window).scroll(function() {
+				var pageH = $(document.body).height(); //页面总高度 
+				var scrollT = $(window).scrollTop(); //滚动条top 
+				//滚动条的位置
+				var aa = (pageH - winH - scrollT) / winH;
+				if(aa < 0.02) { //当滚动条小于0.02是  就开始加载
+					if(control == 1) {
+						control = 2;
+						$.post("{php echo $this->createMobileUrl('notice',array('type'=>2))}", {
+							page: page,status:"{$status}"
+						}, function(res) {
+							console.log(res)
+							if(res.data != '') {
+								var data = res.data;
+								var str = '';
+								$.each(data, function(index, vaule) {
+									if(vaule['type'] == 1) {
+										var type = '系统消息';
+									}
+									str += '<li><p class="info-time"><span>' + vaule['time'] + '</span></p>';
+									str += '<span class="new-ico">new <i></i></span><div class="info-content"  onclick="show_box(this,'+vaule['id']+','+vaule['code']+')"><a href="javascript:;"><span>系统消息</span>';
+									str += '<p>' + vaule['content'] + '</p><i>点击查看</i><img src="../addons/group_buy_plugin_fraction/style/mobile/pos/img/san.png" class="san"/></a></div></li>';
+								});
+								$('#ul').append(str);
+								page++;
+								control = 1;
+							} else {
+								mui.toast('没有数据了');
+							}
+						}, "JSON")
+					} else {
+						//				mui.toast('请等等,还在加载中');
+					}
+				}
+			})
+		</script>
+		<div class="layui-layer-move" style="cursor: move; display: none;"></div>
+	</body>
+
+</html>

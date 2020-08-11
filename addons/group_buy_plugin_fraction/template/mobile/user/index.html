@@ -1,0 +1,163 @@
+{template 'common/header'}
+<style>
+	#scroller {
+		margin-bottom: 118px;
+	}
+	.img_top{
+		float: left;
+	    margin-right: 45px;
+	}
+	.img_top img{
+		border-radius: 50%;
+	}
+	.lo{
+	    position: absolute;
+	    top: -0.8rem;
+	    left: 6rem;
+	    background: red;
+	    width: 2rem;
+	    height: 2rem;
+	    text-align: center;
+	    line-height: 2rem;
+	    border-radius: 36%;
+	    color: #fff;
+	}
+</style>
+
+<article id="wrapper">
+	<div id="scroller">
+		<!--<header class="header">-->
+			<!-- <a href="javascript:window.history.go(-1)" class="left"><img src="picture/left-white.png" /></a> -->
+			<!--<div class="center">个人中心</div>-->
+		<!--</header>-->
+		<div class="userbox" style="margin-top: -1px;">
+			<div class="img_top">
+				<img src="{$user['m_photo']}"/>
+			</div>
+			<p>{$user['m_nickname']}</p>
+			<p>积分:{$user['integral']}</p>
+			<!--<p>{$user['m_phone']}</p>-->
+		</div>
+		<div class="module" style="margin-top:-178px;">
+			<a href="{php echo $this->createMobileUrl('order_list')}" class="allist"><span class="alltxt">查看全部</span>兑换订单</a>
+			<div class="odl-type">
+				<!--<a href="javascript:queryByTab(1);">
+                 <div class="o-icon i01"></div>
+                 <div class="o-txt">待支付</div>
+              </a>-->
+				<a href="{php echo $this->createMobileUrl('order_list',array('status'=>20))}" style="position: relative;">
+					<div class="o-icon i02"></div>{if !empty($di)}<span class="lo">{$di}</span>{/if}
+					<div class="o-txt">待发货</div>
+				</a>
+				<a href="{php echo $this->createMobileUrl('order_list',array('status'=>30))}" style="position: relative;">
+					<div class="o-icon i01"></div>{if !empty($yi)}<span class="lo">{$yi}</span>{/if}
+					<div class="o-txt">已发货</div>
+				</a>
+				<a href="{php echo $this->createMobileUrl('order_list',array('status'=>100))}">
+					<div class="o-icon i03"></div>
+					<div class="o-txt">已完成</div>
+				</a>
+			</div>
+		</div>
+		<div class="module">
+			<a href="{php echo $this->createMobileUrl('notice')}" class="allist">
+				<span class="alltxt">查看全部</span>
+				通知消息</a>
+			<div class="odl-type">
+				<a href="{php echo $this->createMobileUrl('notice',array('status'=>1))}" style="position: relative;">
+					<div class="o-icon i01"></div>{if !empty($number)}<span class="lo">{$number}</span>{/if}
+					<div class="o-txt">待查看</div>
+				</a>
+				<a href="{php echo $this->createMobileUrl('notice',array('status'=>2))}">
+					<div class="o-icon i05"></div>
+					<div class="o-txt">已查看</div>
+				</a>
+			</div>
+		</div>
+		<div class="module">
+			<a href="{php echo $this->createMobileUrl('notice',array('op'=>'feedback'))}" class="allist">意见反馈</a>
+		</div>
+		<div class="module">
+			<a href="{php echo $this->createMobileUrl('address')}" class="allist">收货地址管理</a>
+		</div>
+
+		<style>
+			.tk_box {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				left: 0;
+				top: 0;
+				z-index: 100;
+				background: rgba(0, 0, 0, 0.5);
+				font-size: 0.52rem;
+			}
+			
+			.erweima_box {
+				width: 560px;
+				height: 420px;
+				border-radius: 0.6rem;
+				background: #fff;
+				position: relative;
+				left: 50%;
+				top: 50%;
+				margin: -310px 0 0 -280px;
+				box-sizing: border-box;
+			}
+			
+			.erweima_img {
+				padding: 14px 0 14px;
+				text-align: center;
+				position: relative;
+			}
+			
+			.erweima_img>img {
+				width: 330px;
+				height: 330px;
+				display: inline-block;
+				-webkit-touch-callout: default;
+			}
+			
+			.ewm_text {
+				padding-top: 20px;
+				font-size: 30px;
+			}
+			
+			.tk_box_close {
+				position: absolute;
+				top: 0.6rem;
+				right: 0.8rem;
+			}
+			
+			.tk_box_close img {
+				width: 40px;
+				height: 40px;
+			}
+		</style>
+		<script>
+			$("#mask").click(function() {
+				$(this).hide();
+			});
+			$("#weixin").click(function() {
+				$("#mask").show();
+			});
+		</script>
+	</div>
+	{template 'common/nav'}
+</article>
+<!--{template 'common/footer'}-->
+<!--<script type="text/javascript" src="{php echo MODULE_URL}style/mobile/js/framework7.min.js"></script>
+<script type="text/javascript">
+	var $$ = Dom7;
+	var app = new Framework7({
+		pushState: true,
+		router: false,
+	});
+	app.confirm('Are you sure?','提示', function () {
+        app.alert('You clicked Ok button');
+    });
+	
+</script>-->
+</body>
+
+</html>

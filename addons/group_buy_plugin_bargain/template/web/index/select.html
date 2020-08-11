@@ -1,0 +1,190 @@
+{template 'header'}
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">砍价列表</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="id" id="id" value="{$id}" />
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy_plugin_bargain">
+								<input type="hidden" name="do" value="index">
+								<input type="hidden" name="op" value="select">
+								<div class="am-u-sm-12 ">
+									<span class="zx-form-span">
+										用户昵称：
+									</span>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<input type="text" class="am-form-field" name="name" placeholder="用户昵称" value="{$_GPC['name']}" style="border-radius: 4px;width: 240px;">
+									</div>
+									<span class="zx-form-span">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态：
+									</span>
+                                    <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                        <select name="online" data-am-selected="{ btnSize: 'sm',placeholder:'请选择状态', maxHeight: 400}" style="display: none;">
+                                            <option value="">请选择...</option>
+                                            <option value="1" {if $_GPC['online'] == 1}selected{/if}>砍价中</option>
+                                            <option value="2" {if $_GPC['online'] == 2}selected{/if}>已结束</option>
+                                            <!--<option value="3" {if $_GPC['online'] == 3}selected{/if}>已下单</option>-->
+                                        </select>
+                                    </div>
+                                    <!-- 查询按钮样式 -->
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="zx-but-check">
+                                        <button type="submit" >
+                                            <i class="fa fa-search"></i> 查询
+                                        </button>
+                                    </div>
+								</div>
+							</form>
+						</div>
+						<link rel="stylesheet" type="text/css" href="../addons/group_buy_plugin_bargain/style/css/index.css"/>
+						<div class="flex-items todayboxs">
+	                        <a class="flex-item" href="javascript:;">
+				                <img class="icon" src="../addons/group_buy/public/bg/Block-1.png">
+				                <div class="text">
+				                    <div class="num">{$total}</div>
+				                    <div class="title">活动次数</div>
+				                </div>
+				            </a>
+				            <a class="flex-item" href="javascript:;">
+								<img class="icon" src="../addons/group_buy/public/bg/Block-3.png">
+								<div class="text">
+									<div class="num"><span>{$gpb_bargaion_record}</span></div>
+									<div class="title">砍价次数</div>
+								</div>
+							</a>
+				            <a class="flex-item" href="javascript:;">
+				                <img class="icon" src="../addons/group_buy/public/bg/Block-6.png">
+				                <div class="text">
+				                    <div class="num">{$bargaion_price['num']}</div>
+				                    <div class="title">砍价总额</div>
+				                </div>
+				            </a>
+							<a class="flex-item" href="javascript:;">
+								<img class="icon" src="../addons/group_buy/public/bg/Block-5.png">
+								<div class="text">
+									<div class="num"><span>{$bargain_action_num}</span></div>
+									<div class="title">已下单</div>
+								</div>
+							</a>
+						</div>
+						
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+								<thead class="navbar-inner">
+								<tr>
+									<!--<th >序号</th>-->
+									<th>头像/昵称</th>
+									<th>商品</th>
+									<th>标价</th>
+									<th>底价</th>
+									<th>当前价</th>
+									<th>已砍</th>
+									<th>时间</th>
+									<th>状态</th>
+									<th>人数/次数</th>
+								</tr>
+								</thead>
+								<tbody>
+								{if !empty($info)}
+									{loop $info $item}
+										<tr>
+											<!--<td class="am-text-middle">{$item['id']}</td>-->
+											<td class="am-text-middle">
+												<img src="{$item['head_img']}" width="50" style="border-radius: 50%;"/>
+												{if func_is_base64($item['nickname'])}
+													{php echo base64_decode($item['nickname'])}
+												{else}
+													{$item['nickname']}
+												{/if}
+											</td>
+											<td class="am-text-middle">
+												<img src="{php echo tomedia($item['g_icon'])}" width="50"/>
+												{$item['g_name']}
+											</td>
+											<td class="am-text-middle">{$item['g_price']}</td>
+											<td class="am-text-middle">{$item['end_price']}</td>
+											<td class="am-text-middle">{$item['now_price']}</td>
+											<td class="am-text-middle">{$item['bargaion_price']}</td>
+											<td class="am-text-middle">
+												{php echo date("Y-m-d H:i",$item['create_time'])}
+												<br />
+												{php echo date("Y-m-d H:i",$item['end_time'])}
+											</td>
+											<td class="am-text-middle">
+												{if $item['end_time'] > time() && empty($item['order_id'])}
+													<lable class="label label-warning">砍价中</lable>
+												{else if $item['end_time'] < time() && empty($item['order_id'])}
+													{if $item['status'] == 5}
+														<lable class="label label-danger">砍价失败</lable>
+													{else}
+														<lable class="label label-info">砍价结束</lable>
+													{/if}
+												{else}
+													{if $item['order_id']}
+														<lable class="label label-success">已够买</lable>
+													{else}
+														<lable class="label label-danger">未购买</lable>
+													{/if}
+													<br/>	
+													<!--<a href="{php echo $this->createWebUrl('order',array('status'=>0,'key_field'=>'order_num','key'=>$item['order_id'],'m'=>'group_buy'))}">查看订单</a>-->
+													<a href="./index.php?c=site&a=entry&status=0&key_field=order_num&key={$item['order_id']}&m=group_buy&do=order" target="_blank">查看订单</a>
+													
+													
+													
+												{/if}
+											</td>
+											<td class="am-text-middle">
+												<a class="label label-success" href="{php echo $this->createWebUrl('index',array('op'=>'be_info','id'=>$item['id']))}">{$item['nums']}/{$item['num']}</a>
+											</td>
+										</tr>
+									{/loop}
+								{else}
+									<tr>
+										<td colspan="10">
+											没有数据
+										</td>
+									</tr>
+								{/if}
+								</tbody>
+							</table>
+						</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}
+<!--<script type="text/javascript">
+	function del(id){
+		if(id == '' || id == undefined){
+			layer.msg('参数错误',{time:2000,icon:2},function(res){
+				location.reload();
+			});
+		}
+		$.post("{php echo $this->createWebUrl('index',array('op'=>'del'))}",{id:id},function(res){
+			console.log(res);
+			layer.closeAll();
+			layer.msg(res.msg,{time:2000,icon:res.code},function(ress){
+				if(res.code == 1){
+					location.reload();
+				}
+			})
+		},"JSON");
+	}
+</script>-->

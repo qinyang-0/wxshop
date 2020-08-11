@@ -1,0 +1,141 @@
+<div class="">
+
+	<div class="widget-head am-cf">
+		<div class="widget-title am-cf">团长模块</div>
+	</div>
+	<div class="widget am-cf">
+		<div class="frm_control_group" >
+			<label for="" class="frm_label">显示风格</label>
+			<div class="frm_controls">
+				<label class="frm_radio_label "  ng-click="headType(item.id,1)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格1</span>
+					<input type="radio" name="head_module" value="1" on-selected class="frm_radio"  ng-model="item.params.head_module" />
+				</label>
+				<label class="frm_radio_label "  ng-click="headType(item.id,2)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格2</span>
+					<input type="radio" name="head_module" value="2" on-selected class="frm_radio"  ng-model="item.params.head_module" />
+				</label>
+				<label class="frm_radio_label "  ng-click="headType(item.id,3)">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">风格3</span>
+					<input type="radio" name="head_module" value="3" on-selected class="frm_radio"  ng-model="item.params.head_module" />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">是否显示地址</label>
+			<div class="frm_controls ">
+				<label class="frm_radio_label " ng-click="item.params.showAddress = 0">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">否</span>
+					<input type="radio" name="showAddress" value="0" on-selected class="frm_radio"  ng-model="item.params.showAddress" />
+				</label>
+				<label class="frm_radio_label " ng-click="item.params.showAddress = 1">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">是</span>
+					<input type="radio" name="showAddress" value="1" on-selected  class="frm_radio"  ng-model="item.params.showAddress"  />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group"  ng-style="{display:((item.params.head_module==2 || item.params.head_module==3 )?'block':'none')}">
+			<label for="" class="frm_label">右边区域显示内容</label>
+			<div class="frm_controls ">
+				<label class="frm_radio_label " ng-click="item.params.rightTpye = 0">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">下单滚动提示</span>
+					<input type="radio" name="rightTpye" value="0" on-selected class="frm_radio"  ng-model="item.params.rightTpye" />
+				</label>
+				<label class="frm_radio_label " ng-click="item.params.rightTpye = 1">
+					<i class="icon_radio"></i>
+					<span class="lbl_content">搜索栏</span>
+					<input type="radio" name="rightTpye" value="1" on-selected  class="frm_radio"  ng-model="item.params.rightTpye"  />
+				</label>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.rightTpye==1?'block':'none')}">
+			<label for="" class="frm_label">搜索栏宽度</label>
+				<div class="frm_controls ">
+					<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="100" value="{{item.params.search_width}}" name="search_width"></li>
+					<span class="my_slider_notice">{{item.params.search_width}} %</span>
+				</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.rightTpye==1?'block':'none')}">
+			<label for="" class="frm_label">搜索栏框内颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.incolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.incolor" />
+				</span>
+
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.rightTpye==1?'block':'none')}">
+			<label for="" class="frm_label">搜索栏边框颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.border_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.border_color" />
+				</span>
+
+			</div>
+		</div>
+
+		<div class="frm_control_group" ng-style="{display:(item.params.rightTpye==1?'block':'none')}" >
+			<label for="" class="frm_label">搜索栏背景颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.rightTpye==1?'block':'none')}">
+			<label for="" class="frm_label">搜索栏边框圆角</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.border_radius}}" name="border_radius"></li>
+				<span class="my_slider_notice">{{item.params.border_radius}} 像素</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.rightTpye==1?'block':'none')}">
+			<label for="" class="frm_label">搜索栏文本內容</label>
+			<div class="frm_controls ">
+				<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.text">
+			</span>
+			</div>
+		</div>
+		<div class="frm_control_group" ng-style="{display:(item.params.rightTpye==1?'block':'none')}">
+			<label for="" class="frm_label">搜索栏文本颜色</label>
+			<div class="frm_controls">
+				<span class="frm_input_box frm_input_box_50">
+					<input class="frm_input" type="color" ng-model="item.params.text_color" />
+				</span>
+				<span class="frm_input_box frm_input_box_100">
+					<input class="frm_input" type="text" ng-model="item.params.text_color" />
+				</span>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">模块边距</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.margin}}" name="margin"></li>
+				<span class="my_slider_notice">{{item.params.margin}} 像素</span>
+			</div>
+		</div>
+		<div class="frm_control_group">
+			<label for="" class="frm_label">模块圆角化</label>
+			<div class="frm_controls ">
+				<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="30" value="{{item.params.radius}}" name="radius"></li>
+				<span class="my_slider_notice">{{item.params.radius}} 像素</span>
+			</div>
+		</div>
+	</div>
+</div>

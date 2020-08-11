@@ -1,0 +1,97 @@
+{template 'common/header'}
+<style type="text/css">
+	.btn-group .active {
+	    background-color: #428bca;
+	    color: #fff;
+	}
+</style>
+<ul class="nav nav-tabs">
+	<li class="">
+		<a href="{php echo $this->createWebUrl('config',array('op'=>'index'))}">基本配置</a>
+	</li>
+	<li class="">
+		<a href="{php echo $this->createWebUrl('config',array('op'=>'commission'))}">佣金配置</a>
+	</li>
+	<li class="">
+		<a href="{php echo $this->createWebUrl('config',array('op'=>'msg'))}">短信配置</a>
+	</li>
+	<li class="">
+		<a href="{php echo $this->createWebUrl('config',array('op'=>'index_set'))}">首页配置</a>
+	</li>
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('config',array('op'=>'cloud_save'))}">云存储配置</a>
+	</li>
+	<li class="">
+		<a href="{php echo $this->createWebUrl('config',array('op'=>'title_set'))}">页面标题配置</a>
+	</li>
+	<li class="">
+		<a href="{php echo $this->createWebUrl('config',array('op'=>'order_set'))}">订单配置</a>
+	</li>
+</ul>
+
+<div class="main">
+	<form action="{php echo $this->createWebUrl('config',array('op'=>'cloud_save'))}" method="post" class="form-horizontal form" enctype="multipart/form-data">
+		<div class="panel panel-default">
+			<div class="panel-heading">云存储配置</div>
+			<div class="panel-body">
+				{if !empty($info)}
+				<!--云存储配置-->
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">{$info['cloud_save']['name']}</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type='radio'  name='{$info['cloud_save']['id']}' value="1" {php echo $info['cloud_save']['value']==1?'checked':'';} />开启
+						<input type='radio'  name='{$info['cloud_save']['id']}' value="-1" {php echo $info['cloud_save']['value']!=1?'checked':'';}  />不开启
+						<div class="col-sm-12 col-xs-12">
+							<span class="color-9">当开启了微擎云存储后，请开启此配置项</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="{php echo $info['cloud_save']['value']==1?'':'hidden';}" id="show-save-name">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">{$info['cloud_save_name']['name']}</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type='text' placeholder="如：https://www.scmmwl.com"  name='{$info['cloud_save_name']['id']}' value="{php echo $info['cloud_save_name']['value']}" class="form-control" />
+						<div class="col-sm-12 col-xs-12">
+							<span class="color-9">请填写您的云存储服务器域名</span>
+						</div>
+					</div>
+				</div>
+				</div>
+				{else}
+				缺少配置，请联系管理员
+				{/if}
+
+
+		<div class="form-group col-sm-9">
+            <button class="btn  btn-primary" type="submit" name="submit" id="btn" value="提交">
+                提交
+            </button>
+		</div>
+	</form>
+</div>
+
+
+
+
+<script>
+    $(document).on("click","#btn",function () {
+		var key = $("input[name={$info['cloud_save']['id']}]:checked").val();
+		var text = $("input[name={$info['cloud_save_name']['id']}]").val();
+		console.log(key);
+		if(key == 1 && (text =="" || text==undefined) ){
+		    alert("开启云存储后必须填写域名");
+		    return false;
+		}
+    });
+    $(document).on("change","input[name={$info['cloud_save']['id']}]",function () {
+		var val = $(this).val();
+		if(val == 1){
+			$("#show-save-name").removeClass("hidden");
+		}else{
+            $("#show-save-name").addClass("hidden");
+		}
+    })
+</script>
+
+{template 'footer'}

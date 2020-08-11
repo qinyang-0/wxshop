@@ -1,0 +1,36 @@
+<div class="widget-head am-cf">
+	<div class="widget-title am-fl">订单支付成功模板</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">订单支付成功发送消息模板id </label>
+	<div class="am-u-sm-9 am-u-end">
+		<input type='text' name='wechat_order_payment_template[value]' value="{$info['wechat_order_payment_template']}" class='tpl-form-input' />
+		<input type="hidden" name="wechat_order_payment_template[name]" id="" value="订单支付成功发送消息模板id" />
+		<span class="color-9">注：一级行业请选择<span style="color: red;">'IT科技'</span> ,二级行业请选择<span style="color: red;">'硬件与设备'</span>,搜索<span style="color: red;">订单支付成功通知</span>,请依次选择<span style="color: red;">1.订单号码2.订单金额3.订单状态4.支付时间5.温馨提示</span></span>
+	</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">订单支付成功发送消息模板内容 </label>
+	<div class="am-u-sm-9 am-u-end">
+		<textarea name="wechat_order_payment_content[value]" rows="" cols="" class='tpl-form-input'>{$info['wechat_order_payment_content']}</textarea>
+		<input type="hidden" name="wechat_order_payment_content[name]" id="" value="订单支付成功发送消息模板内容" />
+	</div>
+</div>
+<div class="widget-head am-cf">
+	<div class="widget-title am-fl">订单核销模板</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">订单核销发送消息模板id </label>
+	<div class="am-u-sm-9 am-u-end">
+		<input type='text' name='wechat_order_cancellation_template[value]' value="{$info['wechat_order_cancellation_template']}" class='tpl-form-input' />
+		<input type="hidden" name="wechat_order_cancellation_template[name]" id="" value="订单核销发送消息模板id" />
+		<!--<span class="color-9">注：一级行业请选择<span style="color: red;">'IT科技'</span> ,二级行业请选择<span style="color: red;">'互联网|电子商务'</span>,搜索<span style="color: red;">订单支付成功提醒</span>,选择编号为<span style="color: red;">OPENTM416836000</span>的模板</span>-->
+	</div>
+</div>
+<div class="am-form-group">
+	<label class="am-u-sm-3 am-u-lg-2 am-form-label">订单核销发送消息模板内容 </label>
+	<div class="am-u-sm-9 am-u-end">
+		<textarea name="wechat_order_cancellation_content[value]" rows="" cols="" class='tpl-form-input'>{$info['wechat_order_cancellation_content']}</textarea>
+		<input type="hidden" name="wechat_order_cancellation_content[name]" id="" value="订单核销发送消息模板内容" />
+	</div>
+</div>

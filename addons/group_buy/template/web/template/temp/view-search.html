@@ -1,0 +1,13 @@
+<div class="app-mod app-mod-2" >
+    <div class="app-mod-top" >
+        <span ng-click="moveup(item.id,$event)"><i class="fa fa-angle-up"></i></span>
+        <span ng-click="movedown(item.id,$event)"><i class="fa fa-angle-down"></i></span>
+        <span ng-mousedown="delItem(item.id,$event)"><i class="fa fa-trash-o"></i></span>
+    </div>
+    <div ng-style="{background: (item.params.bgcolor)}" style="height: 50px;padding: 10px;width: 100%;cursor: pointer;background-repeat: no-repeat;background-size: 100% 100%;">
+        <div style="padding: 0 12px;width: 100%;height: 100%;border-style: solid ;border-width: 1px ;" ng-style="{'background': (item.params.incolor),'borderRadius': (item.params.border_radius)+'px','color': (item.params.text_color),'borderColor':(item.params.border_color)}">
+            <i class="fa fa-search" style="float: left;line-height: 30px;"></i>
+            <span style="margin-left: 10px;max-width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-break: break-all;line-height: 30px;float: left;">{{item.params.text}}</span>
+        </div>
+    </div>
+</div>

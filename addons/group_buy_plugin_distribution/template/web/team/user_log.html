@@ -1,0 +1,91 @@
+{template 'header'}
+<style>
+    #check_layer,#check_layer_step2{
+
+        display: none;
+    }
+    .check_list{
+        text-align: center;
+    }
+    .check_list li{
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+    <div class="row-content am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-cf">用户"{$nick_name}"佣金流水</div>
+                    </div>
+                    <div class="widget-body am-fr">
+                        <!-- 工具栏 -->
+                        <div class="page_toolbar am-margin-bottom-xs am-cf">
+                            <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+
+                                <div class="am-scrollable-horizontal am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+                                        <thead class="navbar-inner">
+                                        <tr>
+                                            <th style="width:120px;">类型</th>
+                                            <th style="width:180px;">金额</th>
+                                            <th style="width:60px;">剩余余额</th>
+                                            <th style="width:60px;">说明</th>
+                                            <th style="width:60px;">操作时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {if !empty($log)}
+                                        {loop $log $k $v}
+                                        <tr>
+                                            <td>{php echo $v['type']==1?'增加':($v['type']==2?'减少':($v['type']==3?'冻结':($v['type']==4?'提现':'解冻')))}</td>
+                                            <td>{$v['money']}</td>
+                                            <td>{$v['change']}</td>
+                                            <td>{$v['info']}</td>
+                                            <td>{php echo date('Y-m-d H:i:s',$v['create_time'])}</td>
+                                        </tr>
+                                        {/loop}
+                                        {else}
+                                        <tr>
+                                            <td colspan="999">
+                                                暂无数据
+                                            </td>
+                                        </tr>
+                                        {/if}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="am-u-lg-12 am-cf">
+                                    <div class="am-fr" style="float: left;">
+                                        <a class="zx-addBut" href="javascript:window.history.go(-1) ;">返回</a>
+                                    </div>
+
+                                    {$page}
+                                    <div class="am-fr pagination-total am-margin-right">
+                                        <div class="am-vertical-align-middle">总记录：{$total}</div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="check_layer">
+        <ul class="check_list">
+            <li>用户申请说明<textarea class="up_comment"></textarea></li>
+            <li><button class="agree btn btn-info btn-xs">通过</button>&nbsp;<button class="refuse btn btn-danger btn-xs">拒绝</button></li>
+        </ul>
+    </div>
+    <div id="check_layer_step2">
+        <ul class="check_list">
+            <li><span class="comment_title"></span>理由<textarea class="comment"></textarea></li>
+            <li><button class="sub btn btn-info btn-xs">确认提交</button></li>
+        </ul>
+    </div>
+    {template 'footer'}
+

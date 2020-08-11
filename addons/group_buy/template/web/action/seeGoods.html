@@ -1,0 +1,379 @@
+{template 'header'}
+{template 'template'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">查看编辑活动商品</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form class="toolbar-form" action="./index.php">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="action">
+								<input type="hidden" name="op" value="seeGoods">
+								<input type="hidden" name="id" value="{$ac_id}">
+								<div class="am-u-sm-12 ">
+									<div class="am fr">
+										<span class="zx-form-span">
+										商品名称：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+												<input type="text" class="am-form-field" name="title" placeholder="商品名称" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">
+										</div>
+										<span class="zx-form-span">
+										商品ID：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+
+												<input type="text" class="am-form-field" name="g_id" placeholder="商品ID" value="{$_GPC['g_id']}" style="border-radius: 4px;width: 240px;">
+										</div>
+										<span class="zx-form-span">
+										商品价格范围：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input type="text" class="am-form-field" name="min_price" placeholder="最小值" value="{$_GPC['min_price']}" style="border-radius: 4px;width: 240px;">
+										</div>
+										<span style="margin-left: 0.5rem">--</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input type="text" class="am-form-field" name="max_price" placeholder="最大值" value="{$_GPC['max_price']}" style="border-radius: 4px;width: 240px;">
+										</div>
+
+										<span class="zx-form-span">
+										商品分类：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<select name="pid" data-am-selected="{searchBox: 1, btnSize: &#39;sm&#39;,placeholder:&#39;请选择商品分类&#39;, maxHeight: 400}"style="display: none;">
+												<option value="">请选择...</option>
+												{if !empty($cate)}
+												{loop $cate $k $v}
+												<option value="{$v['gc_id']}" data-level="{$v['gc_level']}" data-tree="{$v['gc_tree']}" {if $_GPC['pid'] == $v['gc_id']}selected{/if}>{php echo str_repeat("&nbsp;&nbsp;&nbsp;",$v['gc_level'])}{$v['gc_name']}</option>
+												{/loop}
+												{/if}
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="am-u-sm-12 ">
+									<div class="am fr">
+
+										<span class="zx-form-span">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<select name="status" data-am-selected="{searchBox: 1, btnSize: &#39;sm&#39;,placeholder:&#39;请选择商品状态&#39;, maxHeight: 400}" style="display: none;">
+												<option value="">请选择...</option>
+												<option value="1" {if $_GPC['status'] == 1}selected{/if}>上架</option>
+												<option value="-1" {if $_GPC['status'] == -1}selected{/if}>下架</option>
+											</select>
+										</div>
+
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<!-- 查询按钮样式 -->
+										<div class="zx-but-check">
+											<button type="submit" >
+												<i class="fa fa-search"></i> 查询
+											</button>
+										</div>
+									</div>
+								</div>
+								<!-- 订单导出外层Box -->
+								<div class="am-u-sm-12 am-fl">
+									<!-- 查询按钮样式 -->
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button" class="btn btn-info" id="all-add">
+											<i class="fa fa-check"></i> 批量参与
+										</button>
+									</div>
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button"class="btn btn-warning" id="all-cancle">
+											<i class="fa fa-close"></i> 批量取消
+										</button>
+									</div>
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button"class="btn btn-info" id="all-adds">
+											<i class="fa fa-check"></i> 全部参与
+										</button>
+									</div>
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button"class="btn btn-info" id="all-up">
+											<i class="fa fa-check"></i> 批量上架
+										</button>
+									</div>
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button"class="btn btn-warning" id="all-down">
+											<i class="fa fa-close"></i> 批量下架
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+
+
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+								<thead class="navbar-inner">
+									<tr>
+										<th >
+											<label class="am-checkbox-inline am-success">
+												<input type="checkbox"  id="check-all" data-am-ucheck data-id="0">&nbsp;
+											</label>
+										</th>
+										<!--<th >商品货号</th>-->
+										<th >商品</th>
+										<!--<th >分类</th>-->
+										<th >库存</th>
+										<th >状态</th>
+										<!--<th >是否在活动</th>-->
+										<th >操作</th>
+									</tr>
+								</thead>
+								<tbody>
+								{if !empty($info)}
+									{loop $info $key $item}
+									<tr>
+										<td class="am-text-middle ">
+											<label class="am-checkbox-inline am-success">
+												<input type="checkbox" data-id="{$item['g_id']}" data-atid="{$ac_id}" data-am-ucheck class="check-order">&nbsp;
+											</label>
+										</td>
+										<!--<td class="am-text-middle">{$item['g_product_num']}</td>-->
+										<td style="display: flex;align-items: center;">
+											<a href="{php echo tomedia($item['g_icon'])}" target="_blank"><img src="{php echo tomedia($item['g_icon'])}" width="50"/></a>
+											<div style="margin-left: 3px;">
+												<span style="width: 300px;display: block;height: 20px;" class="zx-edit-td-input"><input class="zx-edit-td-input" type="text" value="{php echo empty($item['g_name'])?'':$item['g_name'];}" class="" style="border:0;background:transparent;width: 300px;text-align: left;" data-id="{$item['g_id']}" data-key="g_name" data-val="{$item['g_name']}"></span>
+
+												<span class="text-danger">
+											{php foreach($cate as $k => $val){ }
+												{if in_array($val['gc_id'],explode(',',$item['cate']))}
+													[{$val['gc_name']}]
+												{/if}
+											{php } }
+											</span>
+												<br>
+												<span style="color: #E97312;font-weight: 600;display: flex;align-items: center;">￥<input class="zx-edit-td-input" type="number" value="{php echo empty($item['g_price'])?'0.00':$item['g_price'];}" class="" style="border:0;background:transparent;width: 100px;text-align: left;" data-id="{$item['g_id']}" data-key="g_price" data-val="{$item['g_price']}"></span>
+												<!--<span style="color: #E97312;font-weight: 600;">￥{$item['g_price']}</span>-->
+											</div>
+										</td>
+										<!--<td class="am-text-middle">{$item['gc_name']}</td>-->
+										<td class="am-text-middle">{php echo array_sum(explode(",",$item['sum']))}</td>
+										<td class="am-text-middle">{if $item['g_is_online'] == -1}
+											<span class="text-danger">已下架</span>
+											{else}
+											<span class="text-success">已上架</span>
+											{/if}</td>
+										<!--<td class="am-text-middle">-->
+											<!--{if $item['gcg_at_id'] > 0 }-->
+											<!--<span class="text-success">是</span>-->
+											<!--{else}-->
+											<!--<span>否</span>-->
+											<!--{/if}-->
+										<!--</td>-->
+										<td class="am-text-middle"><!--删除可以用ajax实现-->
+											{if in_array($ac_id,explode(',',$item['isaction']))  > 0 }
+											<a onclick="linkGoods('{$item['g_id']}','{$ac_id}','cancel')"  class="btn btn-warning btn-xs">取消参与</a>
+											{else}
+											<a onclick="linkGoods('{$item['g_id']}','{$ac_id}','add')" class="btn btn-info btn-xs">参与</a>
+											{/if}
+										</td>
+									</tr>
+									{/loop}
+								{else}
+									<tr>
+										<td colspan="3">
+											没有数据
+										</td>
+									</tr>
+								{/if}
+								</tbody>
+							</table>
+                		</div>
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+    function linkGoods(gid,ac_id,act){
+        if(gid == '' || gid == undefined || ac_id == '' || ac_id == undefined){
+            layer.msg('非法进入');
+            return false;
+        }
+        if(act == 'cancel'){
+            var notice = '确定取消？';
+		}else if( act == 'add'){
+            var notice = '确定参与？';
+		}else{
+            return false;
+		}
+        layer.confirm(notice, {icon: 3, title:'提示'}, function(index){
+            $.post("{php echo $this->createWebUrl('action',array('op'=>'linkGoods'))}",{id:ac_id,gid:gid,act:act},function(res){
+                layer.close(index);
+                if(res.status == 0){
+                    // alert(res.msg);
+                    location.reload();
+                }else{
+                    // alert(res.msg);
+                    layer.msg(res.msg)
+                }
+            },"JSON")
+
+        });
+        return false;
+    }
+    //勾选本页全部
+    $(document).on("click","#check-all",function () {
+        if($(this).is(':checked')){
+            $(".check-order").prop("checked",true);
+        }else{
+            $(".check-order").prop("checked",false);
+        }
+    });
+    //批量参与
+    $(document).on("click","#all-add",function () {
+        var id = '';
+        $(".check-order:checked").each(function () {
+            id +=$(this).attr("data-id")+',';
+        });
+        var acid =  $(".check-order:checked").attr("data-atid");
+        $.post("{php echo $this->createWebUrl('action',array('op'=>'linkGoods'))}",{id:acid,gid:id,act:'add'},function(res){
+
+            if(res.status == 0){
+                layer.msg(res.msg)
+                setTimeout(function () {
+                    location.href = "{php echo $this->createWebUrl('action',array('op'=>'seeGoods','id'=>$ac_id,'page'=>$_GPC['page']))}";
+                },1500)
+            }else{
+                layer.msg(res.msg)
+            }
+        },"JSON")
+		return false;
+    });
+    //批量取消
+    $(document).on("click","#all-cancle",function () {
+        var id = '';
+        $(".check-order:checked").each(function () {
+            id +=$(this).attr("data-id")+',';
+        });
+        var acid =  $(".check-order:checked").attr("data-atid");
+        $.post("{php echo $this->createWebUrl('action',array('op'=>'linkGoods'))}",{id:acid,gid:id,act:'cancel'},function(res){
+
+            if(res.status == 0){
+                layer.msg(res.msg)
+                setTimeout(function () {
+                    location.href = "{php echo $this->createWebUrl('action',array('op'=>'seeGoods','id'=>$ac_id,'page'=>$_GPC['page']))}";
+                },1500)
+            }else{
+                layer.msg(res.msg)
+            }
+        },"JSON")
+        return false;
+    });
+    //一键全部参与
+    $(document).on("click","#all-adds",function () {
+        var acid =  "{$ac_id}";
+        $.post("{php echo $this->createWebUrl('action',array('op'=>'linkGoods'))}",{id:acid,act:'add',type:'all'},function(res){
+            if(res.status == 0){
+                layer.msg(res.msg)
+                setTimeout(function () {
+                    location.href = "{php echo $this->createWebUrl('action',array('op'=>'seeGoods','id'=>$ac_id,'page'=>$_GPC['page']))}";
+                },1500)
+            }else{
+                layer.msg(res.msg)
+            }
+        },"JSON")
+        return false;
+    });
+    //批量上架
+    $(document).on("click","#all-up",function () {
+        var id = '';
+        $(".check-order:checked").each(function () {
+            id +=$(this).attr("data-id")+',';
+        });
+        var acid =  $(".check-order:checked").attr("data-atid");
+        $.post("{php echo $this->createWebUrl('goods',array('op'=>'setOnlines'))}",{id:acid,gid:id,act:'up'},function(res){
+
+            if(res.status == 0){
+                layer.msg(res.msg)
+                setTimeout(function () {
+                    location.href = "{php echo $this->createWebUrl('action',array('op'=>'seeGoods','id'=>$ac_id,'page'=>$_GPC['page']))}";
+                },1500)
+            }else{
+                layer.msg(res.msg)
+            }
+        },"JSON")
+        return false;
+    });
+    //批量下架
+    $(document).on("click","#all-down",function () {
+        var id = '';
+        $(".check-order:checked").each(function () {
+            id +=$(this).attr("data-id")+',';
+        });
+        $.post("{php echo $this->createWebUrl('goods',array('op'=>'setOnlines'))}",{gid:id,act:'down'},function(res){
+
+            if(res.status == 0){
+                layer.msg(res.msg)
+                setTimeout(function () {
+                    location.href = "{php echo $this->createWebUrl('action',array('op'=>'seeGoods','id'=>$ac_id,'page'=>$_GPC['page']))}";
+                },1500)
+            }else{
+                layer.msg(res.msg)
+            }
+        },"JSON")
+        return false;
+    });
+    //监听可修改单元格的值编号
+    $(document).on("blur",".zx-edit-td-input",function () {
+
+        var id = $(this).attr("data-id");
+        var old = $(this).attr("data-val");
+        var now = $(this).val();
+        var key = $(this).attr("data-key");
+        console.log(now)
+        console.log(old)
+        if( old == now ){
+            return false;
+        }else if( $.trim(now) != '' && $.trim(now)!=undefined ){
+            $.post("{php echo $this->createWebUrl('goods',array('op'=>'editText'))}", {id: id,val:now,key:key}, function (res) {
+                if(res.status === 0){
+                    layer.msg(res.msg, {
+                        icon: 1
+                    });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                    // if(key=='g_order'){
+                    //     setTimeout(function(){
+                    //             location.reload();
+                    //         }, 1000);
+                    // }else{
+                    //     $(this).val(res.data.val);
+                    //     $(this).attr("data-val",res.data.val);
+                    // }
+
+                }else if(res.status === 1){
+                    layer.msg(res.msg, {
+                        icon: 2
+                    });
+                }
+            }, "JSON");
+        }
+    })
+</script>
+</div>
+{template 'footer'}

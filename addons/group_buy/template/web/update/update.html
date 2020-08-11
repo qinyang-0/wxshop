@@ -1,0 +1,149 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	.input-group div{
+		background:#f2f2f2;
+	}
+	#div_data{
+	    border: 1px solid #ccc;
+	    max-height: 562px;
+	    display: block;
+	    overflow: auto;
+	    border-radius: 4px;
+	    padding: 5px;
+	}
+	#div_data .a{
+		width: 539px;
+	    height: 30px;
+	    display: block;
+	    line-height: 30px;
+	    text-align: left;
+	    float: left;
+	}
+	#div_data .b{
+		display: block;
+	    line-height: 30px;
+	    height: 30px;
+	    float: left;
+	    text-align: left;
+	}
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">更新</div>
+								</div>
+								<!--//显示当前版本   和线上最新版本-->
+								<div class="page-content">
+									<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+									    <div class="form-group">
+									        <label class="col-sm-2 control-label">文件</label>
+									        <div class="col-sm-6 col-xs-2">
+									            <div class="input-group" id="div_data">
+									            </div>
+									        </div>
+									    </div>
+									</form>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var us = 1;
+	var bh = "{$bh}";
+	var zip = "{php echo base64_encode($zip)}";
+	$(function(){
+		layer.load(3, {shade: [0.5, '#393D49']});
+		if(typeof(EventSource) !== "undefined") {
+		    let source = new EventSource("web.php?url="+zip);
+		    source.onmessage = (e) => {
+		        if (e.data == 'null') {
+		            return false;
+		        } else {
+		            let edata = JSON.parse(e.data);
+		            if(edata.code == 1 || edata.code == 2){
+		            	if(edata.code == 1){
+		            		var errors = "<span class='b'>更新成功<span>";
+		            	}else{
+		            		us = 2;
+		            		var errors = "<span class='b' style='color:red;'>更新失败</span>";
+		            	}
+		            	var urls = "<span class='a'>"+edata.url+"</span>";
+		            	$('#div_data').append(urls+ errors + "<br/>");
+		            }else{
+		            	//关闭服务通信
+		            	source.close();
+		            	layer.closeAll();
+		            	if(us == 2){
+		            		//更新失败  或者有文件没有更新下来  执行回滚
+		            		layer.msg("更新失败，请手动覆盖文件",{icon:2,time:4000},function(res){
+		            			history.back(-1);
+		            		})
+		            	}else{
+		            		//更新完成     开始更新数据库文件
+		            		layer.msg("文件更新完成，开始更新数据库.",{icon:1,time:2000},function(res){
+		            			layer.load(3, {shade: [0.5, '#393D49']});
+			            		$.post("{php echo $this->createWebUrl('update',array('op'=>'update_sql'))}",{ver:bh},function(res){
+			            			console.log(res)
+			            			if(res.code == 1){
+			            				layer.msg('数据库更新成功,开始更新版本号',{icon:1,time:1000},function(res){
+			            					//开始更新版本号	
+						            		$.post("{php echo $this->createWebUrl('update',array('op'=>'update_php'))}",{ver:bh},function(res){
+						            			if(res.code == 1){
+						            				//更新成功
+						            				layer.msg(res.msg,{icon:1,time:2000},function(res){
+						            					window.location.href = "{php echo $this->createWebUrl('update')}";
+						            				});
+						            			}else{
+						            				//更新失败  请重试
+						            				layer.msg(res.msg,{icon:2,time:2000},function(res){
+						            					window.location.href = "{php echo $this->createWebUrl('update')}";
+						            				});
+						            			}
+						            		},"JSON")
+			            				});
+			            			}else{
+			            				//数据库更新失败    当数据库备份文件大于5M的时候  叫他去手动覆盖  小于5M自动覆盖
+			            				layer.msg('数据库更新失败',{icon:2,time:1000},function(res){
+			            					history.back(-1);
+			            				})
+			            			}
+			            		},"JSON");
+		            		})
+		            	}
+		            }
+		        }
+		    };
+		} else {
+		    alert('请更换谷歌内核的浏览器进行更新，当前更新不支持ie浏览器');
+		}
+	});
+</script>
+
+{template 'footer'}

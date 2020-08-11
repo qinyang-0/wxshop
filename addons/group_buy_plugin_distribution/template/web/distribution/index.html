@@ -1,0 +1,224 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">活动列表</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+        					<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="distribution">
+								<div class="am-u-sm-12 ">
+									<div class="am fr">
+
+										<div class="am-form-group am-fl">
+											<div class="am-input-group am-input-group-sm tpl-form-border-form">
+												<!--<input class="form-control" name="name" id="" type="text" value="{$name}" placeholder="活动名称">-->
+												<input type="text" class="am-form-field" name="num" placeholder="配送单号" value="{$num}" style="border-radius: 4px;width: 240px;">
+											</div>
+										</div>
+										<span class="zx-form-span">
+										小区/团长：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input class="am-form-field zx-butInput" name="title" type="text" value="{$title}" placeholder="小区/店铺名/团长">
+										</div>
+
+										<span class="zx-form-span">
+										配送路线:
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<select name="route" class="am-form-field zx-butInput">
+												<option value="">请选择...</option>
+												{loop $route $item}
+												<option value="{$item['dr_id']}" {php echo $route_check == $item['dr_id'] ?'selected':'';}>{$item['dr_name']}</option>
+												{/loop}
+											</select>
+										</div>
+
+										<span class="zx-form-span">
+										配送状态:
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<select name="status" class="am-form-field zx-butInput">
+												<option value="0" {php echo empty($status)?'selected':'';}>全部</option>
+												<option value="10" {php echo $status == '10' ?'selected':'';}>未配送</option>
+												<option value="20" {php echo $status == '20' ?'selected':'';}>已配送</option>
+												<option value="30" {php echo $status == '30' ?'selected':'';}>已签收</option>
+											</select>
+										</div>
+										<!-- 查询按钮样式 -->
+										<div class="zx-but-check">
+											<button type="submit" >
+												<i class="fa fa-search"></i> 查询
+											</button>
+										</div>
+									</div>
+								</div>
+								<!-- 订单导出外层Box -->
+								<div class="am-u-sm-12 am-fl">
+									<div class="am-btn-group am-btn-group-xs zx-end-checked-box show_down" style="display: none;">
+										<span class="btn btn-info down-buy-goods"><i class="fa  fa-download"></i> 按商品导出</span>
+										<span class="btn btn-info down-buy-vg"><i class="fa  fa-download"></i> 按小区/店铺导出</span>
+										<span class="btn btn-info down-buy-order"><i class="fa  fa-download"></i> 按订单导出</span>
+										<input type="hidden" class="checked-val" value="">
+
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="am-scrollable-horizontal am-u-sm-12">
+							<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+								<thead class="navbar-inner">
+								<tr>
+									<th style="width:6px;">
+										<input type="checkbox" id="check-all" data-id="0">
+									</th>
+									<th style="width:70px;">配送单号</th>
+									<!--<th style="width:100px;">链接类型</th>-->
+									<th style="width:80px;">店铺/小区</th>
+									<th style="width:90px;">地址</th>
+									<th style="width:80px;">配送路线</th>
+									<th style="width:90px;">生成时间</th>
+									<th style="width:80px;">状态</th>
+									<th style="width:90px;">配送时间</th>
+									<th style="width:80px;">商品总数</th>
+									<th style="width:100px;">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								{if !empty($info)}
+								{loop $info $key $item}
+								<tr>
+									<td>
+										<input type="checkbox" data-id="{$item['dl_id']}" class="check-order">
+									</td>
+									<td>{$item['dl_code']}</td>
+									<td>{$item['dl_shop_name']}</td>
+									<td>{$item['dl_shop_address']}</td>
+									<td>{$item['dr_name']}</td>
+									<td>{php echo empty($item['dl_add_time'])?'':date('Y-m-d H:i:s',$item['dl_add_time'])}</td>
+									<td>
+										{if $item['dl_status'] == 10}
+										未配送
+										{elseif $item['dl_status'] == 20}已配送
+										{elseif $item['dl_status'] == 30}已签收
+										{/if}
+									</td>
+									<td>{php echo empty($item['dl_send_time'])?'':date('Y-m-d H:i:s',$item['dl_send_time'])}</td>
+									<td>{$item['dl_goods_num']}</td>
+									<td><!--删除可以用ajax实现-->
+										<a href="{php echo $this->createWebUrl('distribution',array('op'=>'info','id'=>$item['dl_id']))}"  class="btn btn-info btn-xs">详情</a>
+										{if $item['dl_status'] == 10 }
+										<a class="btn btn-danger btn-xs" onclick="send('{$item['dl_id']}')">出票配送</a>
+										{/if}
+									</td>
+								</tr>
+								{/loop}
+								{else}
+								<tr>
+									<td colspan="999">
+										没有数据
+									</td>
+								</tr>
+								{/if}
+								</tbody>
+							</table>
+						</div>
+
+						<div class="am-u-lg-12 am-cf" style="text-align: right;">
+							{$page}
+							<div class="am-fr pagination-total am-margin-right">
+								<div class="am-vertical-align-middle">总记录：{$total}</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+{template 'common/footer'}
+</div>
+{template 'footer'}
+<script type="text/javascript">
+	function send(id){
+		if(id == '' || id == undefined){
+			layer.msg('非法进入',{icon:2,time:2000});
+			return false;
+		}
+		layer.confirm("确定开始配送？",{icon:3,title:'提示'},function (index) {
+            $.post("{php echo $this->createWebUrl('distribution',array('op'=>'sureSend'))}",{id:id},function(res){
+                layer.close(index);
+                if(res.status == 0){
+                    layer.msg(res.msg,{icon:1,time:1000});
+                    setTimeout(function () {
+                        location.reload();
+                    },1000)
+                }else{
+                    layer.msg(res.msg,{icon:2,time:1000});
+                }
+            },"JSON");
+        });
+
+	}
+    //勾选本页全部
+    $(document).on("click","#check-all",function () {
+        if($(this).is(':checked')){
+            $(".check-order").prop("checked",true);
+        }else{
+            $(".check-order").prop("checked",false);
+        }
+        is_show_down();
+    });
+    //勾选单项
+    $(document).on("click",".check-order",function () {
+        is_show_down();
+    });
+    //检查本页全部勾选
+    function is_show_down() {
+        var count = 0 ;
+        var id = '';
+		$('.check-order').each(function () {
+            if($(this).is(':checked')){
+                count++;
+                id +=','+$(this).attr('data-id');
+            }
+        });
+		if(count>0){
+		    $('.show_down').show();
+		}else{
+		    $('.show_down').hide();
+            $("#check-all").prop("checked",false);
+		}
+		$('.checked-val').val(id);
+    }
+    //按商品导出
+	$(document).on('click','.down-buy-goods',function () {
+		var id = $('.checked-val').val();
+        window.location.href="{php echo $this->createWebUrl('distribution',array('op'=>'downBuyGoods'))}&id="+id;
+
+    });
+    //按订单导出
+    $(document).on('click','.down-buy-order',function () {
+        var id = $('.checked-val').val();
+        window.location.href="{php echo $this->createWebUrl('distribution',array('op'=>'downBuyOrder'))}&id="+id;
+    });
+    //按店铺/小区导出
+    $(document).on('click','.down-buy-vg',function () {
+        var id = $('.checked-val').val();
+        window.location.href="{php echo $this->createWebUrl('distribution',array('op'=>'downBuyVg'))}&id="+id;
+    });
+</script>

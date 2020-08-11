@@ -1,0 +1,70 @@
+<div class="temp_item temp_item_basic" >
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">边距距离</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="50" value="{{item.params.padding}}" name="padding"></li>
+			<span class="my_slider_notice">{{item.params.padding}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group" > 
+	  	<label for="" class="frm_label">视频来源</label> 
+	   	<div class="frm_controls"> 
+	    	<label class="frm_radio_label" ng-click="item.params.type = 0"> 
+	    		<i class="icon_radio"></i> 
+	    		<span class="lbl_content">腾讯视频</span>
+	    		<input type="radio" name="type" on-selected value="0" class="frm_radio"  ng-model="item.params.type"  /> 
+	    	</label> 
+	    	<label class="frm_radio_label " ng-click="item.params.type = 1">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">其他</span>
+	    		<input type="radio" name="type" on-selected value="1" class="frm_radio"  ng-model="item.params.type"  /> 
+	    	</label>
+	   	</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">视频链接</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_400">
+				<input type="text" class="frm_input" ng-model="item.params.url">
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group" >
+	  	<label for="" class="frm_label">自动播放</label>
+	   	<div class="frm_controls">
+	    	<label class="frm_radio_label" ng-click="item.params.isauto = 0">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">自动播放</span>
+	    		<input type="radio" name="isauto" on-selected value="0" class="frm_radio"  ng-model="item.params.isauto"  />
+	    	</label>
+	    	<label class="frm_radio_label " ng-click="item.params.isauto = 1">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">不自动播放</span>
+	    		<input type="radio" name="isauto" on-selected value="1" class="frm_radio"  ng-model="item.params.isauto"  />
+	    	</label>
+	   	</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">封面图片</label>
+		<div class="frm_controls">
+			<div class="edit_image_upload" ng-click="uploadImage(item.id,'thumb')">
+				<img class="upload_image_img" ng-src="{{item.params.thumb}}" >
+				<span class="edit_image_notice">修改</span>
+			</div>
+		</div>
+	</div>
+	<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">
+		<i class="icon20_commons add_grays"></i> 
+	</a>
+</div>

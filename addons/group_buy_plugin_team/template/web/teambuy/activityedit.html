@@ -1,0 +1,1460 @@
+{template 'header'}
+
+{template 'template'}
+
+
+
+<style type="text/css">
+
+    .btn-group .active {
+
+        background-color: #428bca;
+
+        color: #fff;
+
+    }
+
+    .input-group-btn{
+
+        display: block;
+
+    }
+
+    .valid{
+
+        width: 160px !important;
+
+    }
+
+    table .input-group{
+
+        width: 160px;
+
+    }
+
+    .input-group{
+
+        width: 160px;
+
+    }
+
+    .fixmore-input-group {
+
+        width: 600px;
+
+    }
+
+    @media (min-width: 768px) .col-sm-9 {
+
+            width: 75%;
+
+        }
+
+    em{
+
+        font-style: normal !important;
+
+    }
+
+    .gray{
+
+        background-color: #f7f7f7;
+
+    }
+
+    .w90{
+
+        width: 90px !important;
+
+    }
+
+    #ladder_box>.input-group{
+
+        width: 200px;
+
+    }
+
+    .w75{
+
+        width: 75px !important;
+
+    }
+
+    .w110{
+
+        width: 110px !important;
+
+    }
+
+    .lader_inp{
+
+        border:0;
+
+    }
+
+
+
+    /*砍价样式*/
+
+        .input_left_border{
+
+            width: 8% !important;
+
+            float: left;
+
+            border-top-right-radius: 0!important;
+
+            border-bottom-right-radius: 0!important;
+
+            border-right: 0!important;
+
+            text-align: center;
+
+        }
+
+        .input_right_border{
+
+            width: 7% !important;float: left;border-top-left-radius: 0!important;border-bottom-left-radius: 0!important;border-left: 0!important;text-align: center;
+
+        }
+
+        .input_right_border_radius{
+
+            border-top-right-radius: 0!important;
+
+            border-bottom-right-radius: 0!important;
+
+            border-right: 0!important;
+
+        }
+
+        .input_left_border_radius{
+
+            border-top-left-radius: 0!important;border-bottom-left-radius: 0!important;border-left: 0!important;
+
+        }
+
+        .m5{
+
+            margin-bottom: 10px;
+
+        }
+
+</style>
+
+<!--右侧详细内容区域 from 自定义-->
+
+<div class="tpl-content-wrapper ">
+
+    <!--本页自定义样式-->
+
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+
+    <!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+
+    <!--右侧详细内容区域，灰框之内,from 妹子-->
+
+    <div class="row-content am-cf">
+
+        <!--2列式简单布局,from bootstap-->
+
+        <div class="row">
+
+            <!--12列布局,from 妹子-->
+
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+
+                <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+
+                <div class="widget am-cf">
+
+                    <form action="" method="post" class="am-form tpl-form-line-form" onsubmit="return checkthisform();" enctype="multipart/form-data">
+
+
+
+
+
+                        {if !empty($info['id'])}
+
+                        <input type="hidden" name="id" value="{$info['id']}" />
+
+                        {/if}
+
+                        <!--右侧正文 from 自定义 -->
+
+                        <div class="widget-body">
+
+                            <!--右侧正文 规定所有边距为0 from bootstap -->
+
+                            <fieldset>
+
+                                <!--小标题 from 自定义-->
+
+                                <div class="widget-head am-cf">
+
+                                    <div class="widget-title am-fl">{php echo !empty($info)?'编辑':'新增'}商品</div>
+
+                                </div>
+
+                                <!--商品提交-->
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">商品名称</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+                                            <div class="input-group">
+
+                                            <input readonly class="form-control" name="goods_title" value="{$info['goods_title']}" type="text"/>
+
+                                                <span class="input-group-btn">
+
+                                                    <button class="btn btn-default" {if !empty($info)}disabled{/if} id="chose_goods" type="button">选择商品</button>
+
+                                                    <input type="hidden" name="gid" value="{$info['gid']}" />
+
+                                                </span>
+
+
+
+                                            </div>
+
+                                        <div>
+
+                                            <em class="color-9"></em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">商品副标题</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+                                        <div class="input-group">
+
+                                            <input readonly class="form-control" name="goods_btitle" value="{$info['goods_btitle']}" type="text"/>
+
+                                            <span class="input-group-btn">
+
+                                                </span>
+
+
+
+                                        </div>
+
+                                        <div>
+
+                                            <em class="color-9"></em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">商品图片</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+                                        <!--<div class="input-group">-->
+
+                                        <div class="input-group multi-img-details">
+
+                                            {if !empty($info) && !empty($info['banner'])}
+
+                                            <div class="multi-item"><img onerror="this.src='./resource/images/nopic.jpg'; this.title='图片未找到.'" src="{$_W['attachurl']}{$info['banner']}" class="img-responsive img-thumbnail"><input type="hidden" name="banner" value="{$info['banner']}"></div>
+
+                                            {/if}
+
+                                        </div>
+
+                                        <!--</div>-->
+
+                                        <div>
+
+                                            <em class="color-9"></em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">商品单购价</label>
+
+                                    <div class="col-xs-12 col-sm-9">
+
+
+
+                                            <input readonly type="text" class="tpl-form-input input_left_border" name="old_price" value="{$info['old_price']}" /><input type="text" name="" id="" value="元" readonly="" class="tpl-form-input input_right_border">
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团价格</label>
+
+                                    <div class="col-xs-12 col-sm-9">
+
+                                        <input {if !empty($info)}readonly{/if} type="text" class="tpl-form-input input_left_border" name="price" value="{$info['price']}" /><input type="text" name="" id="" value="元" readonly="" class="tpl-form-input input_right_border">
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团库存</label>
+
+                                    <div class="col-xs-12 col-sm-9 fixmore-input-group">
+
+                                        <div class="input-group">
+
+                                            <input type="text" {if !empty($info)}readonly{/if} class="form-control" value="{$info['goods_num']}" name="goods_num" >
+
+                                        </div>
+
+                                        <div>
+
+                                            <em class="color-9"><font color="red" id="stock"></font></em>
+
+                                        </div>
+
+
+                                        <div>
+
+                                            <em class="color-9">建议设置能被开团人数的倍数</em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">成团人数</label>
+
+                                    <div class="col-xs-12 col-sm-9 ">
+
+                                            <input type="text" {if !empty($info)}readonly{/if} class="tpl-form-input input_left_border" value="{$info['team_num']}" name="team_num" ><input type="text" name="" id="" value="人" readonly="" class="tpl-form-input input_right_border">
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group" style="display: none;">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">显示单位</label>
+
+                                    <div class="col-xs-12 col-sm-9 ">
+
+                                        <div class="input-group">
+
+                                            <input type="text" class="form-control" value="{$info['unit']}" name="unit" >
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">虚拟拼团人数</label>
+
+                                    <div class="col-xs-12 col-sm-9 ">
+
+                                        <input type="text" class="tpl-form-input input_left_border" value="{$info['virtual_num']}" name="virtual_num" ><input type="text" name="" id="" value="人" readonly="" class="tpl-form-input input_right_border">
+
+                                        <span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">前端显示XXX人拼团成功</span>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">组团限时</label>
+
+                                    <div class="col-xs-12 col-sm-9 ">
+
+                                            <input type="text" {if !empty($info)}readonly{/if} class="tpl-form-input input_left_border" value="{php echo !empty($info)?($info['limit_time']/(60*60)):0}" name="limit_time" ><input type="text" name="" id="" value="小时" readonly="" class="tpl-form-input input_right_border">
+
+                                        <span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">用户开启拼团限定X小时内拼团人数满足拼团成功</span>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">购买次数限制</label>
+
+                                    <div class="col-xs-12 col-sm-9 ">
+
+                                            <input type="text" class="tpl-form-input input_left_border" value="{php echo !empty($info['buy_num'])?$info['buy_num']:'0'}" name="buy_num" {if !empty($info)}readonly{/if} ><input type="text" name="" id="" value="次" readonly="" class="tpl-form-input input_right_border">
+
+                                            <span style="display: inline-block;width: 100%;color: #8e8b8b;margin-top: 6px;">用户个人购买次数限制，默认是0，没有次数限制</span>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">是否多规格</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+                                        <label class="am-checkbox-inline am-success">
+
+                                            <input type="radio" {if !empty($info)}disabled="" class="am-ucheck-radio" {/if} value="0" name="is_spec" data-am-ucheck {php echo $info['is_spec']!=1?"checked":''; }>
+
+                                        非多规格
+
+                                        </label>
+
+                                        <label class="am-checkbox-inline am-success">
+
+                                            <input type="radio" {if !empty($info)}disabled="" class="am-ucheck-radio"{/if}  value="1" name="is_spec"  data-am-ucheck {php echo $info['is_spec']==1?"checked":''; }>
+
+                                            多规格
+
+                                        </label>
+
+                                        <div>
+
+                                            <em class="color-9"></em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group" id="spec_info" {if empty($info['is_spec']) || $info['is_spec']!=1}style="display: none;"{/if} >
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">规格选择</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+                                        <table class="table table-bordered table-condensed">
+
+                                            <thead>
+
+                                                <th>
+
+                                                    规格名称
+
+                                                </th>
+
+                                                <th>
+
+                                                    原价
+
+                                                    {if empty($info)}
+
+                                                    <div class="input-group">
+
+                                                        <input type="text" class="form-control  input-sm option_marketprice_all valid" value="" id="oprice_pl">
+
+                                                        <span class="input-group-addon">
+
+                                                            <a href="javascript:;" class="fa fa-angle-double-down" title="批量设置" id="oprice_pl_btn"></a>
+
+                                                        </span>
+
+                                                    </div>
+
+                                                    {/if}
+
+                                                </th>
+
+                                                <th>
+
+                                                    拼团价
+
+                                                    {if empty($info)}
+
+                                                    <div class="input-group">
+
+                                                        <input type="text" class="form-control  input-sm option_marketprice_all valid" value="" id="price_pl">
+
+                                                        <span class="input-group-addon">
+
+                                                            <a href="javascript:;" class="fa fa-angle-double-down" title="批量设置" id="price_pl_btn"></a>
+
+                                                        </span>
+
+                                                    </div>
+
+                                                    {/if}
+
+                                                </th>
+
+                                                <th>
+
+                                                    库存
+
+                                                    {if empty($info)}
+
+                                                    <div class="input-group">
+
+                                                        <input type="text" class="form-control  input-sm option_marketprice_all valid" value="" id="num_pl">
+
+                                                        <span class="input-group-addon">
+
+                                                            <a href="javascript:;" class="fa fa-angle-double-down" title="批量设置" id="num_pl_btn"></a>
+
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div>
+
+                                                        <em class="color-9">库存值必须小于主模块库存，否则无法下单购买</em>
+
+                                                    </div>
+
+                                                    {/if}
+
+                                                </th>
+
+                                            </thead>
+
+                                            <tbody id="spec_s">
+
+                                            <!--{if $info['is_spec']==1 and !empty($info['spec_info'])}-->
+
+                                            {php $spec_info = unserialize($info['spec_info']);}
+
+                                            {loop $spec_info $k $v}
+
+                                            <tr>
+
+                                                <td>
+
+                                                    <input disabled readonly name="spec[{$k}][title]" class="form-control" value="{$v['title']}">
+
+                                                </td>
+
+                                                <td>
+
+                                                    <input disabled readonly name="spec[{$k}][old_price]" class="form-control old_price" value="{$v['old_price']}">
+
+                                                </td>
+
+                                                <td>
+
+                                                    <input disabled readonly name="spec[{$k}][price]" class="form-control price" value="{$v['price']}">
+
+                                                </td>
+
+                                                <td>
+
+                                                    <input disabled readonly name="spec[{$k}][num]" class="form-control num" value="{$v['num']}">
+
+                                                </td>
+
+                                            </tr>
+
+                                            {/loop}
+
+                                            <!--{/if}-->
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">团购类型</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+                                        <label class="am-checkbox-inline am-success">
+
+                                            <input type="radio"  value="0" name="is_ladder" data-am-ucheck {php echo $info['is_ladder']!=1?"checked":''; } {if !empty($info)}disabled=""{/if}>
+
+                                            普通团
+
+                                        </label>
+
+                                        <label class="am-checkbox-inline am-success">
+
+                                            <input type="radio"  value="1" name="is_ladder"  data-am-ucheck {php echo $info['is_ladder']==1?"checked":''; } {if !empty($info)}disabled=""{/if} >
+
+                                            阶梯团
+
+                                        </label>
+
+                                        <div>
+
+                                            <em class="color-9">设置团购类型保存后无法修改！！</em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group" {if empty($info) || $info['is_ladder']==0}style="display: none;"{/if} id="ladder_setting">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">阶梯团设置</label>
+
+                                    <div class="col-xs-12 col-sm-9 fixmore-input-group" id="ladder_box" >
+
+                                        <div class="input-group">
+
+                                            {if empty($info)}
+
+                                            <button class="btn btn-default" id="add_ladder" type="button">添加拼团价格区间</button>
+
+                                            {/if}
+
+                                        </div>
+
+                                        <!--{if $info['is_ladder']==1 && !empty($info['ladder_info'])}-->
+
+                                        {php $info['ladder_info']=unserialize($info['ladder_info']);}
+
+                                        {loop $info['ladder_info'] $kk $vv}
+
+                                        <div class="input-group fixmore-input-group" style="margin-top: 10px;border: 1px solid #e5e5e5;border-radius: 4px;">
+
+                                            <input type="hidden" name="ladder_id[]" value="{$kk}">
+
+                                            <input type="text" disabled readonly name="ladder_num[{$kk}]" class="form-control w90 lader_inp" value="{$vv['num']}">
+
+                                            <span class="input-group-addon">人团</span>
+
+                                            <input type="text" disabled readonly name="ladder_price[{$kk}]" class="form-control w90 lader_inp" value="{$vv['price']}">
+
+                                            <span class="input-group-addon">元/件</span>
+
+                                            <!--<span class="input-group-addon">
+
+                                                <a href="javascript:;"  title="删除">
+
+                                                    <i class="fa fa-times"></i>
+
+                                                </a>
+
+                                            </span>-->
+
+                                        </div>
+
+                                        {/loop}
+
+                                        <!--{/if}-->
+
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                <div class="am-form-group" {if empty($info)} style="display: none;"{/if}>
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">状态</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+
+
+                                        <label class="am-checkbox-inline am-success">
+
+                                            <input type="radio"  value="1" name="state" data-am-ucheck {php echo $info['state']==1 || empty($info)?"checked":''; }>
+
+                                            上架
+
+                                        </label>
+
+
+
+                                        <label class="am-checkbox-inline am-success">
+
+                                            <input type="radio"  value="-1" name="state" data-am-ucheck {php echo !empty($info) && $info['state']!=1 ?"checked":''; }>
+
+                                            下架
+
+                                        </label>
+
+                                        <div>
+
+                                            <em class="color-9"></em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团开始时间</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+
+
+
+
+                                        <label class="am-checkbox-inline am-success" style="padding-left: 0 !important;">
+
+                                            {if empty($info)}
+
+                                            {php echo _tpl_form_field_date("star_time", $info['star_time'], true)}
+
+                                            {else}
+
+                                            <input type="text" value="{php echo date('Y-m-d',$info['star_time']);}" readonly class="form-control" />
+
+                                            {/if}
+
+                                        </label>
+
+                                        <div>
+
+                                            <em class="color-9">该时间后，用户可以发起拼团活动</em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">拼团结束时间</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+
+
+
+
+                                        <label class="am-checkbox-inline am-success" style="padding-left: 0 !important;">
+
+                                            {if empty($info)}
+
+                                            {php echo _tpl_form_field_date("end_time", $info['end_time'], true)}{else}
+
+                                            <input type="text" value="{php echo date('Y-m-d',$info['end_time']);}" readonly class="form-control" />
+
+                                            {/if}
+
+                                        </label>
+
+                                        <div>
+
+                                            <em class="color-9">该时间后，用户不能发起拼团活动</em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div class="am-form-group">
+
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label">排序</label>
+
+                                    <div class="am-u-sm-9 am-u-end">
+
+                                        <div class="input-group" >
+
+                                            <input name="sort" type="text" class="form-control" value="{php echo !empty($info['sort'])?$info['sort']:'0'}" />
+
+                                        </div>
+
+                                        <div>
+
+                                            <em class="color-9">排序数字越小越靠前,相同则按照添加时间排序</em>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+
+                                <div class="am-form-group">
+
+                                    <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+
+                                        <button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+{template 'common/footer'}
+
+{template 'footer'}
+
+<script>
+
+    /**
+
+     * 表单提交前检查
+
+     * */
+
+    function checkthisform(){
+
+        //商品检查
+
+        var info = $("form").serializeArray();
+
+        info = getarray(info);
+
+        if(info.gid=='' || info.gid==undefined){
+
+            layer.msg("请选择商品");
+
+            return false;
+
+        }
+
+
+
+        if(info.goods_title=='' || info.goods_title==undefined){
+
+            layer.msg("商品名称不能为空");
+
+            return false;
+
+        }
+
+
+
+
+
+        if(info.old_price==undefined || info.old_price=='' ){
+
+            layer.msg("请填写商品原价");
+
+            return false;
+
+        }
+
+
+
+        if((info.price==undefined || info.price=='') && info.is_ladder==0 ){
+
+            layer.msg("请填写拼团价");
+
+            return false;
+
+        }
+
+        if(info.goods_num==undefined || info.goods_num=='' || info.goods_num<=0){
+
+            layer.msg("请填写正确的商品数量");
+
+            return false;
+
+        }
+
+        if(info.team_num==undefined || info.team_num=='' || info.team_num<2){
+
+            layer.msg("开团人数至少为2人!");
+
+            return false;
+
+        }
+
+        if(info.limit_time==undefined || info.limit_time=='' || info.limit_time<=0){
+
+            layer.msg("请输入正确的组团限时");
+
+            return false;
+
+        }
+
+        var star_time = new Date(info.star_time).getTime();
+
+        info.star_time = star_time/1000;
+
+        var end_time = new Date(info.end_time).getTime();
+
+        info.end_time = end_time/1000;
+
+        if(info.end_time<=info.star_time){
+
+            layer.msg("结束时间不能小于开始时间");
+
+            return false;
+
+        }
+
+        //是否使用多规格
+
+        if(info.is_spec==1){
+
+            //检查拼团价是否填写
+
+            var st = 0;
+
+            $.each(info,function(k,v){
+
+                if(k.indexOf("[price]")>-1 && (v=='' || v==undefined || v<=0)){
+
+                    layer.msg("请设置规格对应拼团价格");
+
+                    st = 1;
+
+                    return false;
+
+                }
+
+                if(k.indexOf("[old_price]")>-1 && (v=='' || v==undefined || v<=0)){
+
+                    layer.msg("请设置规格对应原价");
+
+                    st = 1;
+
+                    return false;
+
+                }
+
+                if(k.indexOf("[num]")>-1 && (v=='' || v==undefined || v<0)){
+
+                    layer.msg("请设置规格库存");
+
+                    st = 1;
+
+                    return false;
+
+                }
+
+            });
+
+            if(st==1){
+
+                return false;
+
+            }
+
+        }
+
+        //是否使用阶梯团
+
+        if(info.is_ladder==1){
+
+            var st2 = 0;
+
+            $.each(info,function(k,v){
+
+                if(k.indexOf("ladder_num[")>-1 && (v=='' || v==undefined || v<=0)){
+
+                    console.log(k,v);
+
+                    console.log(k.indexOf("ladder_num["));
+
+                    layer.msg("请设置阶梯团对应人数");
+
+                    st2 = 1;
+
+                    return false;
+
+                }
+
+                if(k.indexOf("ladder_price[")>-1 && (v=='' || v==undefined || v<=0)){
+
+                    console.log(k,v);
+
+                    layer.msg("请设置阶梯团对应拼团价格");
+
+                    st2 = 1;
+
+                    return false;
+
+                }
+
+            });
+
+            if(st2==1){
+
+                console.log("111");
+
+                return false;
+
+            }
+
+        }
+
+        console.log(info);
+
+    }
+
+    function getarray(info){
+
+        var arr = {'banner':{}};
+
+        var bke = 0;
+
+        $.each(info,function(k,v){
+
+            if(v['name']=='banner[]'){
+
+                arr['banner'][bke] = v['value'];
+
+                bke++;
+
+            }else{
+
+                arr[v['name']] = v['value'];
+
+            }
+
+        });
+
+        return arr;
+
+    }
+
+    var ladder_index = 0;
+
+    //添加拼团价格区间
+
+    $( '#add_ladder' ).click(function(){
+
+        /*{if !empty($info)}*/
+
+        alert("不能修改数据");return;
+
+        /*{/if}*/
+
+        if($( '#ladder_box' ).children().length>10){
+
+            alert('最多添加10个');return;
+
+        }
+
+        $( '#ladder_box' ).append("<div class=\"input-group fixmore-input-group\" style=\"margin-top: 10px;border: 1px solid #e5e5e5;border-radius: 5px;\"><input type='hidden' name='ladder_id[]' value=''>\n" +
+
+            "            <input type=\"text\" name=\"ladder_num["+ladder_index+"]\" class=\"form-control w90 lader_inp\" value=\"\">\n" +
+
+            "            <span class=\"input-group-addon\">人团</span>\n" +
+
+            "            <input type=\"text\" name=\"ladder_price["+ladder_index+"]\" class=\"form-control w90 lader_inp\" value=\"\">\n" +
+
+            "            <span class=\"input-group-addon\">元/件</span>\n" +
+
+            "            <span class=\"input-group-addon\"><a href=\"javascript:;\" onclick='del_ladder(this)' title=\"删除\"><i class=\"fa fa-times\"></i></a></span>\n" +
+
+            "        </div>");
+
+        ladder_index++;
+
+    });
+
+    //删除拼团价格区间
+
+    function del_ladder( self )
+
+    {
+
+        $( self ).parent().parent().remove();
+
+    }
+
+
+
+    //阶梯团状态
+
+    $("input[name='is_ladder']").click(function(){
+
+        /*{if !empty($info)}*/
+
+        return false;
+
+        /*{/if}*/
+
+        var now = $(this).prop("checked");
+
+        var now_val = $(this).val();
+
+        //是否开启多规格
+
+        if($("input[name='is_spec'][value='1']").prop("checked") && now_val==1){
+
+            $(this).prop("checked",false);
+
+            $("input[name='is_ladder'][value='0']").prop("checked",true);
+
+            layer.msg("多规格与阶梯团不能同时开启");
+
+            return false;
+
+        }
+
+        if(now_val==1){
+
+            $("#ladder_setting").show();
+
+        }else{
+
+            $("#ladder_setting").hide();
+
+        }
+
+    });
+
+
+
+
+
+    $("input[name='is_spec']").click(function(){
+
+
+
+        /*{if !empty($info)}*/
+
+        return false;
+
+        /*{/if}*/
+
+
+
+        var is_spec = $(this).val();
+
+        var _this = $(this);
+
+        console.log(is_spec);
+
+        if(is_spec==1){
+
+            //检查是否已经开了阶梯团
+
+            if($("input[name='is_ladder'][value='1']").prop("checked")){
+
+                $(_this).prop("checked",false);
+
+                $("input[name='is_spec'][value='0']").prop("checked",true);
+
+                layer.msg("多规格与阶梯团不能同时开启");
+
+                return false;
+
+            }
+
+            var goods_id = $("input[name='gid']").val();
+
+            console.log(goods_id);
+
+            $.post(
+
+                "{php echo $this->createWebUrl('goods',array('op'=>'spec'))}",
+
+                {goods_id:goods_id},
+
+                function(res){
+
+                    console.log(res);
+
+                    if(res.status==1){
+
+                        layer.msg(res.msg);
+
+                        $(_this).prop("checked",false);
+
+                        $("input[name='is_spec'][value='0']").prop("checked",true);
+
+                        return false;
+
+                    }else{
+
+                        var list = res.data;
+
+                        var str = "";
+
+                        $.each(list,function(k,v){
+
+                            str += "<tr>" +
+
+                                "<td>" +
+
+                                "<input name='spec["+v.ggo_id+"][title]' class='form-control' value='"+v.ggo_title+"' />" +
+
+                                "</td>" +
+
+                                "<td>" +
+
+                                "<input name='spec["+v.ggo_id+"][old_price]' class='form-control old_price' value='"+v.ggo_market_price+"' />" +
+
+                                "</td>" +
+
+                                "<td>" +
+
+                                "<input name='spec["+v.ggo_id+"][price]' class='form-control price' value='' />" +
+
+                                "</td>" +
+
+                                "<td>" +
+
+                                "<input name='spec["+v.ggo_id+"][num]' class='form-control num' value='"+v.ggo_stock+"' />" +
+
+                                "</td>" +
+
+                                "</tr>";
+
+                        });
+
+                        $("#spec_s").html(str);
+
+                        $("#spec_info").show();
+
+                    }
+
+                },'json'
+
+            )
+
+        }else{
+
+            $("#spec_info").hide();
+
+        }
+
+    });
+
+    $("#chose_goods").click(function(){
+
+        /*{if !empty($info)}*/
+
+        return false;
+
+        /*{/if}*/
+
+
+
+        var ifm = layer.open({
+
+            type: 2,
+
+            title: '选择商品',
+
+            shadeClose: true,
+
+            shade: 0.8,
+
+            area: ['920px', '70%'],
+
+            content: ["{php echo $this->createWebUrl('goods')}",'yes'],
+
+            scrollbar:false,
+
+        });
+
+        layer.style(ifm, {
+
+            overflow: 'hidden'
+
+        });
+
+    });
+
+    function chosegoods(_this){
+
+        var info = $(_this).data("info")
+
+        var banner = info.banner;
+
+        if(banner=='' || banner==undefined){
+
+            banner = info.goods_image;
+
+        }
+
+        // console.log(banner);
+
+        var banner_html = ""
+
+        var name = "banner";
+
+        if(banner.indexOf(",")!=-1){
+
+            //多张图
+
+            banner = banner.split(",");
+
+            // console.log(banner);
+
+            $.each(banner,function(k,v){
+
+                banner_html += '<div class="multi-item"><img onerror="this.src=\'./resource/images/nopic.jpg\'; this.title=\'图片未找到.\'" src="{$_W['attachurl']}'+v+'" class="img-responsive img-thumbnail"><input type="hidden" name="'+name+'[]" value="'+v+'"></div>';
+
+            });
+
+        }else{
+
+            //单张图
+
+            banner_html = '<div class="multi-item"><img onerror="this.src=\'./resource/images/nopic.jpg\'; this.title=\'图片未找到.\'" src="{$_W['attachurl']}'+banner+'" class="img-responsive img-thumbnail"><input type="hidden" name="'+name+'[]" value="'+banner+'"></div>';
+
+        }
+
+        $("div[class='input-group multi-img-details']").html('');
+
+        $("div[class='input-group multi-img-details']").append(banner_html);
+
+        $("input[name='goods_title']").val(info.goods_title);
+
+        $("input[name='goods_btitle']").val(info.g_brief);
+
+        // console.log(info);
+
+        $("input[name='old_price']").val(info.old_price);
+
+        $("input[name='gid']").val(info.goods_id);
+
+        //获取当前库存
+        $.post(
+            "{php echo $this->createWebUrl('goods',array('op'=>'stock'))}",
+            {goods_id:info.goods_id},
+            function(res){
+                console.log(res);
+                $("#stock").text("当前剩余库存"+res.data.num);
+            },'json'
+        );
+
+        layer.closeAll();
+
+    }
+
+    //多规格批量设置
+
+    /**
+
+     * 拼团价批量设置
+
+     * */
+
+    $("#price_pl_btn").click(function(){
+
+        var price = $("#price_pl").val();
+
+        $(".price").val(price);
+
+    });
+
+    /**
+
+     * 原价批量设置
+
+     * */
+
+    $("#oprice_pl_btn").click(function(){
+
+        var price = $("#oprice_pl").val();
+
+        $(".old_price").val(price);
+
+    });
+
+    /**
+
+     * 库存批量设置
+
+     * */
+
+    $("#num_pl_btn").click(function(){
+
+        var num = $("#num_pl").val();
+
+        $(".num").val(num);
+
+    });
+
+</script>

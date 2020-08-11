@@ -1,0 +1,81 @@
+<div class="temp_item temp_item_good" ng-style="{background:item.params.bgcolor}">
+
+	<div class="temp_good_style_group" ng-if="item.params.style == 1">
+		<section class="lines" ng-repeat="good in item.params.data" ng-style="{marginBottom:item.params.margin+'px'}">
+			<ul>
+				<li class="block-pad" >
+					<div class="group_images" >
+						<img ng-src="{{good.img}}">
+					</div>
+					<div class="group_bottom">
+						<h6>{{good.title}}</h6>
+						<footer>
+							<label>￥<b>{{good.nowprice}}</b><span>￥{{good.oldprice}}</span></label>
+							<aside>
+								<span>{{good.people}}人团</span>
+								<font>去开团</font>
+							</aside>
+						</footer>
+					</div>
+				</li>
+			</ul>
+		</section>
+	</div>
+
+	<div class="temp_good_style_single" ng-if="item.params.style == 2">
+		<section class="lines" ng-repeat="good in item.params.data" ng-style="{marginBottom:item.params.margin+'px'}">
+			<div class="single_images">
+				<img ng-src="{{good.img}}">
+			</div>
+			<div class="single_bottom">
+				<span class="nowprice">￥<font>{{good.nowprice}}</font></span>
+				<span class="oldprice">{{good.oldprice}}</span>
+				<span class="go">查看</span>
+			</div>
+		</section>
+	</div>
+
+	<div class="temp_good_style_double" ng-if="item.params.style == 3">
+		<section class="lines" ng-repeat="good in item.params.data" ng-style="{padding:item.params.margin+'px'}">
+			<a href="">
+				<div class="double_images" square-image>
+					<img ng-src="{{good.img}}">
+				</div>
+				<div class="info_con">
+	              <p class="mytitle">{{good.title}}</p>
+	              <div class="info_con2">
+	                    <div class="discount">订购</div>
+	                    <div class="price_con">
+	                  		<div class="new_price">
+	                    		<em>¥</em><span>{{good.nowprice}}</span>
+	                  		</div>
+	                  		<div class="old_price">{{good.oldprice}}</div>
+	                	</div>
+	              </div>
+            	</div>
+			</a>
+		</section>
+	</div>	
+
+	<div class="temp_good_style_heng" ng-if="item.params.style == 4">
+		<div class="commodity_con_small2" ng-repeat="good in item.params.data">
+             <a href="" class="commodity_con_small_link" >
+                <div class="commodity_con_small2_box">
+                    <div class="image-container ">
+                        <div class="inner-box loaded" square-image>
+                            <img class="image" ng-src="{{good.img}}" >
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h3>{{good.title}}</h3>
+                        <div class="inner_info">
+                            <span class="price_tag">¥{{good.nowprice}}</span>
+                            <span class="buy"><span class="buy-text">购买</span></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>

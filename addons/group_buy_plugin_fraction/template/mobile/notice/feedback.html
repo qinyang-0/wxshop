@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/mobile/tpshop/css/index.css" />
+	<script src="{php echo MODULE_URL}style/js/jquery.min.js"></script>
+	<title>意见反馈</title>
+</head>
+<body style="background: #fff;height: auto;">
+<div class="conbox">
+	<div class="conmain login">
+		<div class="logo" style="margin: 6% 0;">
+    		<a href="javascript:;"><img src="{php echo MODULE_URL}style/img/1.jpg"></a>
+    	</div>
+    	<form method="post" action="">
+    		<div>
+    			<input type="text" name="title" placeholder="请输入标题" style="padding: 2.6% 2%;">
+    		</div>
+    		<div>
+    			<span class="areas">请输入：</span>
+    			<textarea name="area" class="area" id="area" rows="10" cols="20" placeholder="请输入意见反馈"></textarea>
+    		</div>
+    		<button id="btn" type="button">提 交</button>
+    	</form>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$('#btn').click(function(){
+		var name = $("input[name='title']").val();
+		var area = $("textarea[name='area']").val();
+		if(name == '' || name == undefined){
+			alert('请输入标题');
+			return false;
+		}
+		if(area == '' || area == undefined){
+			alert('请输入反馈意见');
+			return false;
+		}
+		var data = {};
+		data['title'] = name;
+		data['area'] = area;
+		$.ajax({
+            type: 'POST',
+            dataType:'JSON',
+            url:"{php echo $this->createMobileUrl('notice',array('op'=>'feedback','code'=>'2'))}",
+            data:data,
+            success:function(res){
+                if(res.code == 0){
+                	alert(res.msg);
+                	window.location.href = "{php echo $this->createMobileUrl('user')}";
+                }else{
+                	alert(res.msg);
+                }
+            },
+            error:function(re){
+            	alert('网络异常，请稍后重试');
+            },
+        });
+	})
+</script>
+</body>
+</html>

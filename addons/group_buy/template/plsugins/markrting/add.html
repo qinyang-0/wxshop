@@ -1,0 +1,285 @@
+<!--//新增充值-->
+{template 'header'} {template 'template'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	
+	.input-group-btn {
+		display: block !important;
+	}
+	
+	.am-selected-btn {
+		border-radius: 4px;
+		font-size: 12px;
+	}
+	.w40 {
+		float: left;
+		width: 17% !important;border-radius: 0 !important;
+	}
+	.w40s {
+		float: left;
+		width:6% !important;border-radius: 0 !important;
+	}
+	.ml5 {
+		margin-left: 5px;
+	}
+	.bors {
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+		border-radius: 0 !important;
+	}
+	.border0 {
+		border-radius: 0 !important;
+	}
+	.mgt5 {
+		margin-top: 5px;width: 93%;display: inline-block;
+	}
+	.flol{
+	    float: left;
+	}
+</style>
+<link href="./resource/css/bootstrap.min.css?v=20170426" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170426" rel="stylesheet">
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">
+	<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('plsugins',array('op'=>'markrting','in'=>'add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data" id="from_data">
+						<input type="hidden" name="id" id="id" value="{$info['id']}" />
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">{if $_GPC['type'] == 1}充值返利{else}充值会员{/if}</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label "><b class="text-danger">*</b>标题 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='text' id='title' name='title' value="{$info['title']}" class='tpl-form-input' />
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label "><b class="text-danger">*</b>充值金额 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='number' id='money' name='money' value="{$info['money']}" class='tpl-form-input' />
+									</div>
+								</div>
+								<!--<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label "><b class="text-danger">*</b>赠送金额 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='number' id='give_money' name='give_money' value="{$info['give_money']}" class='tpl-form-input' />
+										<span class="color-9">这里赠送的金额是多少，用户就能得到多少</span>
+									</div>
+								</div>-->
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">赠送 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<div class="mgt5">
+											<input type="text" id="" name="" value="金额" class="form-control w40s" readonly="">
+											<input type="number" id="give_money" name="give_money" value="{$info['give_money']}" class="form-control w40" placeholder="请输入赠送金额">
+											<input type="text" id="" name="" value="积分" class="form-control w40s ml5" readonly="">
+											<input type="number" id="give_integral" name="give_integral" value="{$info['give_integral']}" class="form-control w40" placeholder="请输入赠送积分" style="">
+											<input type="text" id="" name="" value="会员卡" class="form-control w40s ml5" readonly="">
+											<select name="give_level" class="form-control w40 bors" style="width: 15%;">
+												<option value="0">请选择赠送会员卡</option>
+												{loop $card $item}
+													<option value="{$item['id']}" {if $item['id'] == $info['give_level']}selected=""{/if}>{$item['title']}</option>
+												{/loop}
+											</select>
+											<select name="give_level_time" class="form-control w40 bors" style="width: 15%;">
+												{if $res}
+													{loop $res $item}
+														<option value="{$item['id']}" {if $info['give_level_time'] == $item['id']}selected="" {/if}>
+															{if $item['day'] != -1}
+																{$item['day']}
+																{if $item['company'] == 1}日
+																{else if $item['company'] == 2}月
+																{else if $item['company'] == 3}季度
+																{else if $item['company'] == 4}年
+																{/if}
+															{else}
+																永久
+															{/if}
+															</option>
+													{/loop}
+												{else}
+													<option value="0">请选择赠送会员卡日期</option>
+												{/if}
+											</select>
+										</div>
+										<span class="color-9" style="display: inherit;">注:为0代表不赠送.如不需要赠送会员卡，请勿选择.</span>
+									</div>
+								</div>
+								<!--<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label"><b class="text-danger">*</b>赠送金额是否为{php echo $this->sc('markrting_rebate') ?  : '释放金' }</label>
+									<div class="am-u-sm-9 am-u-end">
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="release_gold" data-am-ucheck  value="1" {if $info['release_gold'] ==1}checked{/if}> 是
+											</label>
+										<label class="am-radio-inline am-success">
+												<input type="radio" name="release_gold" data-am-ucheck  value="2" {if $info['release_gold'] !=1}checked{/if}> 否
+											</label>
+									</div>
+								</div>-->
+								<!--<div id="release_gold" {if $info['release_gold'] !=1} style="display:none;" {/if}>-->
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label ">{php echo $this->sc('markrting_rebates') ?  : '释放' }天数 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type='number' id='release' name='release' value="{$info['release']}" class='tpl-form-input' />
+											<span class="color-9">为0代表用户购买完成，就立即将赠送金额增加到账户余额</span>
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label ">每天{php echo $this->sc('markrting_rebates') ?  : '释放' }金额 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<input type='number' id='release_money' name='release_money' value="{$info['release_money']}" class='tpl-form-input' />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">{php echo $this->sc('markrting_rebates') ?  : '释放' }金额是否当天过期</label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-radio-inline am-success">
+													<input type="radio" name="overde" data-am-ucheck  value="1" {if $info['overde'] ==1}checked{/if}> 过期
+												</label>
+											<label class="am-radio-inline am-success">
+													<input type="radio" name="overde" data-am-ucheck  value="2" {if $info['overde'] !=1}checked{/if}> 不过期
+												</label>
+										</div>
+									</div>
+								<!--</div>-->
+								{if $this->sc('markrting_dist_type') == 1}
+								<!--国定金额的三级分销佣金-->
+									<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label " style="color: red;">佣金 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<div class="mgt5">
+											<input type="text" id="" name="" value="1级佣金" class="form-control w40s" readonly="">
+											<input type="number" id="lv1" name="lv1" value="{$info['lv1']}" class="form-control w40" placeholder="请输入1级佣金(固定金额)" style="">
+											<input type="text" id="" name="" value="2级佣金" class="form-control w40s ml5" readonly="">
+											<input type="number" id="lv2" name="lv2" value="{$info['lv2']}" class="form-control w40" placeholder="请输入2级佣金(固定金额)">
+											<input type="text" id="" name="" value="3级佣金" class="form-control w40s ml5" readonly="">
+											<input type="number" id="lv3" name="lv3" value="{$info['lv3']}" class="form-control w40" placeholder="请输入3级佣金(固定金额)">
+										</div>
+										<span class="color-9" style="display: inherit;">注:为0代表不产生佣金.</span>
+									</div>
+								</div>
+								{/if}
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">背景图片 </label>
+									<div class="am-u-sm-9 am-u-end">
+										{if empty($info['bj'])}
+											{php $info['bj'] = "/addons/group_buy/public/bg/zDV2MGYKM8x0NOnv4x2b8n4gD22Kwd.png";}
+										{/if}
+										{php echo tpl_form_field_image('bj', $info['bj'])}
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">充值说明 </label>
+									<div class="am-u-sm-9 am-u-end">
+										{php echo tpl_ueditor('content', $info['content'])}
+									</div>
+								</div>
+								
+								<div class="am-form-group">
+									<label class="am-u-sm-3 am-u-lg-2 am-form-label ">排序 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<input type='number' id='weight' name='weight' value="{$info['weight']}" class='tpl-form-input' />
+										<span class="color-9">数字越小 越在前</span>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交" />
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+										<a href="javascript:javascript:history.go(-1);" id="a-back-index"><button class="btn" type="button">返回</button></a>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'footer'}
+<script type="text/javascript">
+	$("input[name='release_gold']").change(function(){
+		var data = $(this).val();
+		if(data == 1){
+			$("#release_gold").show();
+		}else{
+			$("#release_gold").hide();
+		}
+	})
+	$('#btn').click(function(res){
+		if($("input[name='title']").val() == '' || $("input[name='title']").val() == undefined){
+			layer.msg('请填写标题',{icon:2,time:2000});
+			return false;
+		}
+		if($("input[name='money']").val() == '' || $("input[name='money']").val() == undefined){
+			layer.msg('请填写充值金额',{icon:2,time:2000});
+			return false;
+		}
+		if($('input:radio[name="release_gold"]:checked').val() == 1){
+			if($("input[name='release']").val()*$("input[name='release_money']").val() > parseFloat($("input[name='money']").val())+parseFloat($("input[name='give_money']").val())){
+//				console.log($("input[name='release']").val()*$("input[name='release_money']").val(),parseFloat($("input[name='money']").val())+parseFloat($("input[name='give_money']").val()));
+				layer.msg('赠送总金额不得大于充值金额+赠送金额',{icon:2,time:2000});
+				return false;
+			}
+		}
+		var index = layer.load(3, {shade: [0.7,'#000']});
+		$.post("{php echo $this->createWebUrl('plsugins',array('op'=>'markrting','in'=>'add'))}",$("#from_data").serialize(),function(res){
+			layer.closeAll();
+			if(res.code == 1){
+				layer.msg(res.msg,{icon:2,time:2000});
+			}else{
+				layer.msg(res.msg,{icon:1,time:2000},function(res){
+					location.reload();
+				});
+			}
+		},"JSON");
+		return false;
+	})
+	$("select[name='give_level']").change(function(res){
+		var val = $(this).val();
+		if(val == 0){
+			$("select[name='give_level_time']").html('<option value="0">请选择赠送会员卡日期</option>');
+			return false;
+		}
+		var index = layer.load(3, {shade: [0.7,'#000']});
+		$.post("{php echo $this->createWebUrl('plsugins',array('op'=>'markrting','in'=>'recharge'))}",{val:val},function(res){
+			layer.closeAll();
+			if(res.code != 1){
+				var str = "";
+				$.each(res.data,function(i,j){
+					var is = j.company== 1 ? '日' : j.company== 2 ? '月' : j.company== 3 ? '季度' : '年' ;
+					if(j.day == -1){
+						str += "<option value='"+j.id+"'>永久</option>";
+					}else{
+						str += "<option value='"+j.id+"'>"+j.day+is+"</option>";
+					}
+					
+				})
+				$("select[name='give_level_time']").html(str);
+			}else{
+				layer.msg(res.msg,{icon:2,time:2000});
+			}
+		},"JSON");
+			
+	})
+</script>

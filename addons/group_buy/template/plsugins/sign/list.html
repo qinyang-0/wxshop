@@ -1,0 +1,106 @@
+{template 'header'}
+<style type="text/css">
+	.w10{
+	    width: 62px;
+	}
+	.xu{
+		border: 1px dashed !important;
+	    text-align: center;
+	    color: #aba4a4 !important;
+	}
+</style>
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">签到详情</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<!--<div class="am-u-sm-12 am-fl am-margin-bottom-xs">
+							<div class="am-btn-group am-btn-group-xs ">
+								<a class="zx-addBut" href="{php echo $this->createWebUrl('card',array('op'=>'member_card_add'))}">
+									<i class="fa fa-plus"></i> 添加会员卡
+								</a>
+							</div>
+						</div>-->
+						
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy">
+								<input type="hidden" name="do" value="plsugins">
+								<input type="hidden" name="op" value="sign">
+								<input type="hidden" name="in" value="list">
+								<div class="am-u-sm-12 " style="margin-top: 10px;">
+									<span class="zx-form-span">
+										微信昵称：
+									</span>
+									<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+										<input type="text" class="am-form-field" name="title" placeholder="微信昵称" value="{$_GPC['title']}" style="border-radius: 4px;width: 240px;">
+									</div>
+									<div class="zx-but-check">
+										<button type="submit" >
+											<i class="fa fa-search"></i> 查询
+										</button>
+									</div>
+								</div>
+							</form>
+							<div class="am-scrollable-horizontal am-u-sm-12">
+								<table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+									<thead class="navbar-inner">
+									<tr>
+										<th>会员信息</th>
+										<th>签到类型</th>
+										<th>获得积分</th>
+										<th>备注</th>
+										<th>签到时间</th>
+									</tr>
+									</thead>
+									<tbody>
+									{if !empty($info)}
+									{loop $info $key $item}
+									<tr>
+										<td><img src="{$item['m_photo']}" width="50" style="border-radius: 50%;"/>{$item['m_nickname']}</td>
+										<td>
+											{if $item['type'] == 1}
+												日常签到
+											{else if $item['type'] == 2}
+												连续签到
+											{else}
+												首签
+											{/if}
+										</td>
+										<td>+{$item['reward']}</td>
+										<td>{$item['info']}</td>
+										<td>{php echo date("Y-m-d H:i",$item['specific'])}</td>
+									</tr>
+									{/loop}
+									{else}
+									<tr>
+										<td colspan="999">
+											没有数据
+										</td>
+									</tr>
+									{/if}
+									</tbody>
+								</table>
+							</div>
+							<div class="am-u-lg-12 am-cf" style="text-align: right;">
+								{$page}
+								<div class="am-fr pagination-total am-margin-right">
+									<div class="am-vertical-align-middle">总记录：{$total}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}

@@ -1,0 +1,208 @@
+{template 'header'}{template 'template'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	
+	.input-group-btn {
+		display: block !important;
+	}
+	
+	.am-selected-btn {
+		border-radius: 4px;
+		font-size: 12px;
+	}
+	.w40 {
+		float: left;
+		width: 13% !important;border-radius: 0 !important;
+	}
+	.w40s {
+		float: left;
+		width:6% !important;border-radius: 0 !important;
+	}
+	.ml5 {
+		margin-left: 5px;
+	}
+	.bors {
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+		border-radius: 0 !important;
+	}
+	.border0 {
+		border-radius: 0 !important;
+	}
+	.mgt5 {
+		margin-top: 5px;width: 100%;display: inline-block;
+	}
+	.flol{
+	    float: left;
+	}
+</style>
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<form action="{php echo $this->createWebUrl('plsugins',array('op'=>'sign','in'=>'add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<div class="widget-body">
+							<fieldset>
+								<div class="widget-head am-cf">
+									<div class="widget-title am-fl">积分签到配置</div>
+								</div>
+								<div class="am-form-group">
+								<label class="am-u-sm-3 am-u-lg-2 am-form-label">开启积分签到 </label>
+									<div class="am-u-sm-9 am-u-end">
+										<select name="sign_id[value]" class="tpl-form-input">
+											<option value="1" {php echo $info['sign_id']==='1'?selected:'';}>是</option>
+											<option value="-1" {php echo $info['sign_id']!='1'?selected:'';}>否</option>
+										</select>
+										<input type="hidden" name="sign_id[name]" id="" value="是否开启积分签到" />
+									</div>
+								</div>
+								<div id="is-show" class="{php echo $info['sign_id']!='1'?hidden:'';}">
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">文字定义 </label>
+										<div class="am-u-sm-9 am-u-end">
+											<div class="mgt5">
+												<input type="text" id="" name="sign_integral[name]" value="积分" class="form-control w40s" readonly="">
+												<input type="text" id="give_money" name="sign_integral[value]" value="{$info['sign_integral']}" class="form-control w40">
+												<input type="text" id="" name="sign_in[name]" value="签到" class="form-control w40s ml5" readonly="">
+												<input type="text" id="give_integral" name="sign_in[value]" value="{$info['sign_in']}" class="form-control w40">
+												<!--<input type="text" id="" name="sign_true[name]" value="补签" class="form-control w40s ml5" readonly="">
+												<input type="textber" id="give_integral" name="sign_true[value]" value="{$info['sign_true']}" class="form-control w40">-->
+												<input type="text" id="" name="sign_ed[name]" value="已签" class="form-control w40s ml5" readonly="">
+												<input type="text" id="give_integral" name="sign_ed[value]" value="{$info['sign_ed']}" class="form-control w40">
+												<input type="text" id="" name="sign_missed[name]" value="漏签" class="form-control w40s ml5" readonly="">
+												<input type="text" id="give_integral" name="sign_missed[value]" value="{$info['sign_missed']}" class="form-control w40">
+											</div>
+											<span class="color-9">注意：手机端 所有包含"积分"、"签到"、"已签"、"漏签"文字均可自定义</span>
+										</div>
+									</div>
+									<div class="widget-head am-cf">
+										<div class="widget-title am-fl">签到规则</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">签到周期</label>
+										<div class="am-u-sm-9 am-u-end">
+											<label class="am-radio-inline am-success">
+													<input type="radio" name="sign_cycle[value]" data-am-ucheck  value="1" {if $info['sign_cycle'] ==1}checked{/if}> 不限
+												</label>
+											<label class="am-radio-inline am-success">
+													<input type="radio" name="sign_cycle[value]" data-am-ucheck  value="2" {if $info['sign_cycle'] !=1}checked{/if}> 七天
+												</label>
+												<span class="color-9" style="display: inherit;">不限制签到周期则统计时间为平台上线至今日，七天统计周期则为一周，下周清空</span>
+											<input type="hidden" name="sign_cycle[name]" id="" value="签到周期" />
+										</div>
+									</div>
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">普通奖励(自动发放) </label>
+										<div class="am-u-sm-9 am-u-end">
+											<div class="mgt5">
+												<input type="text" id="" name="sign_first[name]" value="首次奖励(积分)" class="form-control w40s" readonly="" style="width: 9%!important;">
+												<input type="number" id="give_money" name="sign_first[value]" value="{$info['sign_first']}" class="form-control w40" placeholder="默认为0">
+												<input type="text" id="" name="sign_daily[name]" value="日常奖励(积分)" class="form-control w40s ml5" readonly="" style="width: 9%!important;">
+												<input type="number" id="give_integral" name="sign_daily[value]" value="{$info['sign_daily']}" class="form-control w40" placeholder="默认为0">
+											</div>
+											<input type="hidden" name="sing_rule[name]" id="" value="普通奖励" />
+										</div>
+									</div>
+									{if $info['sign_continuity']}
+										{php $sign_continuity = unserialize($info['sign_continuity']);}
+									{/if}
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">连签奖励(自动发放) </label>
+										<div class="am-u-sm-9 am-u-end" id="sign">
+											{if $sign_continuity}
+												{loop $sign_continuity $index $item}
+													<div class="mgt5">
+														<input type="text" id="" name="" value="连续签到" class="form-control w40s" readonly="" style="width: 9%!important;">
+														<input type="number" id="give_money" name="sign_continuity[value][]" value="{$item['contiutiy']}" class="form-control w40" placeholder="默认为0">
+														<input type="text" id="" name="" value="天,奖励" class="form-control w40s" readonly="" style="width: 9%!important;">
+														<input type="number" id="give_integral" name="sign_reward[value][]" value="{$item['reward']}" class="form-control w40" placeholder="默认为0">
+														<input type="text" id="" name="" value="积分" class="form-control w40s" readonly="" style="width: 9%!important;">
+														<span class="input-group-btn wauto flol" onclick="give_add()" style="width: auto;">
+								                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+								                        </span>
+								                        {if $index != 0}
+															<span class="input-group-btn flol" style="width: auto;" onclick="delete_give(this)">
+									                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+									                        </span>
+								                        {/if}
+													</div>
+												{/loop}
+											{else}
+												<div class="mgt5">
+													<input type="text" id="" name="" value="连续签到" class="form-control w40s" readonly="" style="width: 9%!important;">
+													<input type="number" id="give_money" name="sign_continuity[value][]" value="{$info['sign_continuity']}" class="form-control w40" placeholder="默认为0">
+													<input type="text" id="" name="" value="天,奖励" class="form-control w40s" readonly="" style="width: 9%!important;">
+													<input type="number" id="give_integral" name="sign_reward[value][]" value="{$info['sign_reward']}" class="form-control w40" placeholder="默认为0">
+													<input type="text" id="" name="" value="积分" class="form-control w40s" readonly="" style="width: 9%!important;">
+													<span class="input-group-btn wauto flol" onclick="give_add()" style="width: auto;">
+							                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>
+							                        </span>
+													<!--<span class="input-group-btn flol" style="width: auto;" >
+							                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+							                        </span>-->
+												</div>
+											{/if}
+											
+										</div>
+									</div>
+									
+									
+									<div class="am-form-group">
+										<label class="am-u-sm-3 am-u-lg-2 am-form-label">签到规则 </label>
+										<div class="am-u-sm-9 am-u-end">
+											{php echo tpl_ueditor('sing_rule[value]',$info['sing_rule']);}
+											<input type="hidden" name="sing_rule[name]" id="" value="签到规则" />
+										</div>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template 'footer'}
+<script type="text/javascript">
+	$(document).on("change","select[name='sign_id[value]']",function () {
+		if($(this).val()=="1"){
+		    $("#is-show").removeClass("hidden");
+		}else{
+	        $("#is-show").addClass("hidden");
+		}
+	})
+	function give_add(){
+		var str = '<div class="mgt5">'
+		+'										<input type="text" id="" name="" value="连续签到" class="form-control w40s" readonly="" style="width: 9%!important;">'
+		+'										<input type="number" id="give_money" name="sign_continuity[value][]" value="" class="form-control w40" placeholder="默认为0">'
+		+'										<input type="text" id="" name="" value="天,奖励" class="form-control w40s" readonly="" style="width: 9%!important;">'
+		+'										<input type="number" id="give_integral" name="sign_reward[value][]" value="" class="form-control w40" placeholder="默认为0">'
+		+'										<input type="text" id="" name="" value="积分" class="form-control w40s" readonly="" style="width: 9%!important;">'
+		+'										<span class="input-group-btn wauto flol" onclick="give_add()" style="width: auto;">'
+		+'				                            <button class="btn btn-default border0" type="button"><i class="fa fa-plus"></i></button>'
+		+'				                        </span>'
+		+'										<span class="input-group-btn flol" style="width: auto;" onclick="delete_give(this)" >'
+		+'				                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>'
+		+'				                        </span>'
+		+'									</div>';
+		$("#sign").append(str);
+	}
+	function delete_give(obj){
+		$(obj).parent().remove();
+	}
+</script>

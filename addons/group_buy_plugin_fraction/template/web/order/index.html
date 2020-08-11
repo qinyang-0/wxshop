@@ -1,0 +1,270 @@
+{template 'header'}
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+	<div class="row-content am-cf">
+		<div class="row">
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<div class="widget am-cf">
+					<div class="widget-head am-cf">
+						<div class="widget-title am-cf">全部订单列表</div>
+					</div>
+					<div class="widget-body am-fr">
+						<!-- 工具栏 -->
+						<div class="page_toolbar am-margin-bottom-xs am-cf">
+							<form id="form-search" class="toolbar-form" action="./index.php">
+								<input type="hidden" name="c" value="site">
+								<input type="hidden" name="a" value="entry">
+								<input type="hidden" name="m" value="group_buy_plugin_fraction">
+								<input type="hidden" name="do" value="order">
+								<div class="am-u-sm-12 am-u-md-12">
+									<div class="am fr">
+										<div class="am-form-group am-fl zx-form-group ">
+											<div class="am-input-group am-input-group-sm tpl-form-border-form">
+
+												<input type="text" class="am-form-field zx-butInput" value="{$_GPC['order']}" name="order" placeholder="请输入订单号">
+												<!-- 边框 -->
+												<div class="zx-border"></div>
+												<!-- 边框结束 -->
+												<div class="am-input-group-btn am-icon-search"></div>
+											</div>
+										</div>
+										<span class="zx-form-span">
+											下单时间：
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input type="text" autocomplete="off" name="star_time" class="am-form-field" placeholder="请选择起始日期"
+											 data-am-datepicker="" value="{$_GPC['star_time']}">
+										</div>
+										<span class="zx--">
+											-
+										</span>
+										<div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+											<input type="text" autocomplete="off" name="end_time" class="am-form-field" placeholder="请选择截止日期"
+											 data-am-datepicker="" value="{$_GPC['end_time']}">
+										</div>
+										<!-- <span class="zx-day">
+											最近3天
+										</span>
+										<span class="zx-day">
+											最近7天
+										</span>
+										<span class="zx-day">
+											最近15天
+										</span> -->
+									</div>
+								</div>
+
+								<div class="am-u-sm-12 am-u-md-12">
+									<div class="am fr">
+										<!--<span class="zx-form-span" style="margin-left:6px">
+											用户等级：
+										</span>
+										<div class="am-form-group zx-display zx-group">
+											<select name="level" data-am-selected="{btnSize: &#39;sm&#39;, placeholder: &#39;请选择用户等级&#39;}" style="display: none;">
+												<option value=""></option>
+												<option value="0">请选择用户等级</option>
+												{loop $level $items}
+												<option value="{$items['id']}" {if $_GPC['level']==$items['id']}selected="" {/if}>{$items['title']} </option>
+												 {/loop} </select> </div>-->
+												 <span class="zx-form-span" style="margin-left: 16px;">
+													订单状态：
+													</span>
+													<div class="am-form-group zx-display zx-group">
+														<select name="order_status" data-am-selected="{btnSize: &#39;sm&#39;, placeholder: &#39;请选择订单状态&#39;}"
+														 style="display: none;">
+															<option value=""></option>
+															<option value="0">请选择订单状态</option>
+															<option value="10" {if $_GPC['order_status']==10}selected="" {/if}>待支付 </option>
+															<option value="20" {if $_GPC['order_status']==20}selected="" {/if}>待发货 </option>
+															<option value="30" {if $_GPC['order_status']==30}selected="" {/if}>已发货 </option>
+															<option value="100" {if $_GPC['order_status']==100}selected=""{/if}>已收货 </option>
+														</select>
+													</div>
+													<div class="am-form-group tpl-form-border-form zx-display">
+
+													</div>
+										</div>
+									</div>
+
+									<!-- 订单导出外层Box -->
+									<div class="am-u-sm-12 am-fl">
+										<!-- 订单导出样式 -->
+										<div class="zx-but-box">
+											<a class="j-export" href="javascript:void(0);">
+												<!-- <i class="iconfont icon-daochu am-margin-right-xs"></i> -->
+												订单导出
+											</a>
+										</div>
+										<!-- 查询按钮样式 -->
+										<div class="zx-but-check" style="margin-left:8px;">
+											<button type="submit">
+												查询
+											</button>
+										</div>
+									</div>
+
+							</form>
+						</div>
+						<div class="order-list am-scrollable-horizontal am-u-sm-12 am-margin-top-xs">
+							<table width="100%" class="am-table am-table-centered
+                am-text-nowrap am-margin-bottom-xs">
+								<thead>
+									<tr>
+										<th width="20%" class="goods-detail">商品信息</th>
+										<th width="10%">单价/数量</th>
+										<th width="15%">积分</th>
+										<th width="10%">买家</th>
+										<th width="15%">收货人</th>
+										<th width="7%">交易状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									{loop $info $item}
+									<tr class="order-empty">
+										<td colspan="7"></td>
+									</tr>
+									<tr>
+										<td class="am-text-middle am-text-left" colspan="7">
+											<span class="am-margin-right-lg"> {php echo date('Y-m-d H:i:s',$item['go_add_time'])}</span>
+											<span class="am-margin-right-lg">订单号：{$item['go_code']}</span>
+										</td>
+									</tr>
+									{loop $item['data'] $index}
+									<tr>
+										<td class="goods-detail am-text-middle">
+											<div class="goods-image">
+												<img src="{php echo tomedia($index['oss_g_icon'])}" alt="">
+											</div>
+											<div class="goods-info">
+												<p class="goods-title">{$index['oss_g_name']}</p>
+												<!--<p class="goods-spec am-link-muted">官方客服QQ：:1361545828; </p>-->
+											</div>
+										</td>
+										<td class="am-text-middle">
+											<p>{$index['oss_g_price']}</p>
+											<p>×{$index['oss_g_num']}</p>
+										</td>
+										<td class="am-text-middle" rowspan="1">
+											<p>{$index['oss_g_old_price']}</p>
+											<!--<p class="am-link-muted">(含运费：￥0.00)</p>-->
+										</td>
+										<td class="am-text-middle" rowspan="1">
+											<p>{$index['oss_buy_name']}</p>
+											<p class="am-link-muted">(电话：{$index['oss_buy_phone']})</p>
+										</td>
+										<td class="am-text-middle" rowspan="1">
+											<p>{$index['oss_address_name']}</p>
+											<p class="am-link-muted">(电话：{$index['oss_address_phone']})</p>
+											<p class="am-link-muted">(小区:{$item['oss_address_name']})</p>
+											<p class="am-link-muted">(地址：{$item['oss_address']})</p>
+										</td>
+
+										<td class="am-text-middle" rowspan="1">
+											<!--<p>付款状态：<span class="am-badge am-badge-success">已付款</span></p>-->
+												{if $item['go_status'] >= 20 && $item['go_status'] <= 100}
+												<p>
+													<div style="float: left;">发货状态:</div>
+													<div class="am-u-sm-9">
+														<div class="tpl-switch">
+															<input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" name="type" data-type="30" data-time="time1"
+															 data-id="{$item['go_id']}" data-name="go_status" {if $item['go_status']>= 30} checked="" {/if}
+															style="left: 10px;">
+															<div class="tpl-switch-btn-view">
+																<div>
+																</div>
+															</div>
+														</div>
+													</div>
+												<!--<span class="am-badge am-badge-success">已发货</span>-->
+												</p>
+												<p>
+													<div style="float: left;">收货状态：</div>
+														<div class="am-u-sm-9">
+															<div class="tpl-switch">
+																<input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" name="type" data-type="100" data-time="time2"
+																 data-id="{$item['go_id']}" data-name="go_status" {if $item['go_status']==100} checked="" {/if}> <div
+																 class="tpl-switch-btn-view">
+																<div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</p>
+												{else}
+													{if $item['go_status'] == 10}
+														待支付
+													{else}
+														已取消													
+													{/if}
+												{/if}
+												
+						</td>
+						<td class="am-text-middle" rowspan="1">
+							<div class="tpl-table-black-operation">
+								<a class="tpl-table-black-operation-green" href="{php echo $this->createWebUrl('order',array('op'=>'info','id'=>$item['go_id']))}">
+									订单详情</a>
+							</div>
+						</td>
+						</tr>
+						{/loop}
+						{/loop}
+						</tbody>
+						</table>
+					</div>
+					<div class="am-u-lg-12 am-cf">
+						<div class="am-fr"> </div>
+						<div class="am-fr pagination-total am-margin-right">
+							{$page}
+							<!--<div class="am-vertical-align-middle">总记录：{$total}</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function () {
+		/**
+		 * 订单导出
+		 */
+		$('.j-export').click(function () {
+			var order_status = $("select[name='order_status']").val(); //状态
+			var star_time = $("input[name='star_time']").val(); //开始时间
+			var end_time = $("input[name='end_time']").val(); //结束时间
+			var order = $("input[name='order']").val(); //订单号
+			window.location = "{php echo $this->createWebUrl('order',array('op'=>'export'))}&order_status=" + order_status + "&star_time=" + star_time + "&end_time=" + end_time + "&order=" + order;
+		});
+	});
+	$("input[name='type']").click(function () {
+		var data = $(this).data();
+		var is = 1;
+		layer.confirm('是否确认' + (data.type == 30 ? '发货吗？' : '收货吗？'), {
+			icon: 1,
+			title: '提示'
+		}, function (index) {
+			$.post("{php echo $this->createWebUrl('order',array('op'=>'save'))}", data, function (res) {
+				console.log(res);
+				if (res.code == 1) {
+					layer.msg(res.msg, {
+						icon: 2
+					});
+					//							location.reload();
+				} else {
+					layer.msg(res.msg, {
+						icon: 1
+					});
+				}
+			}, "JSON");
+			layer.close(index);
+		}, function (index) {
+			location.reload();
+			$(this).removeAttr("checked");
+		});
+	})
+</script>
+
+</div>
+<!-- 内容区域 end -->
+{template 'footer'}

@@ -1,0 +1,128 @@
+<div class="temp_item temp_item_space"  >
+	<div class="frm_control_group">
+		<label for="" class="frm_label">上下边距</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="50" value="{{item.params.paddingv}}" name="paddingv"></li>
+			<span class="my_slider_notice">{{item.params.paddingv}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">左右边距</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="0" max="50" value="{{item.params.paddings}}" name="paddings"></li>
+			<span class="my_slider_notice">{{item.params.paddings}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.bgcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.bgcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">标题文字</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_200">
+				<input type="text" class="frm_input" ng-model="item.params.title">
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">标题文字颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.topcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.topcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">标题文字大小</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="50" value="{{item.params.topsize}}" name="topsize"></li>
+			<span class="my_slider_notice">{{item.params.topsize}} 像素</span>
+		</div>
+	</div>
+
+	<div class="frm_control_group">
+		<label for="" class="frm_label">底部文字</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_200">
+				<input type="text" class="frm_input" ng-model="item.params.botfont">
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">底部按钮文字颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.botcolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.botcolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">底部按钮边框颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.botbord" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.botbord" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">文章标题颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.titlecolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.titlecolor" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">文章时间颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.timecolor" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.timecolor" />
+			</span>
+			<p style="color: #8c8c8c">提示：中间自动显示排在前3的3篇文章，文章可以在文章管理栏目内添加，前端点击底部按钮会进入文章列表页面</p>
+		</div>
+	</div>	
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">文章类型</label>
+		<div class="frm_controls" >
+	    	<label class="frm_radio_label " ng-class="{'selected' : item.params.sortid == 0 }" ng-click="item.params.sortid = 0"> 
+	    		<i class="icon_radio"></i> 
+	    		<span class="lbl_content">默认</span>
+	    		<input type="radio" name="sortid" value="0" class="frm_radio" model="{{item.params.sortid}}" class="dsadasda"  /> 
+	    	</label>
+	    	<font  ng-repeat="ini in allsort" >
+	    	<label class="frm_radio_label " ng-class="{'selected' : item.params.sortid == ini.id }" ng-click="item.params.sortid = ini.id">
+	    		<i class="icon_radio"></i>
+	    		<span class="lbl_content">{{ini.name}} </span>
+	    		<input  model="{{item.params.sortid}}" type="radio" name="sortid" value="{{ini.id}}" class="frm_radio dsadasda" />
+	    	</label>
+	    	</font>
+	    	<p style="color: #8c8c8c">显示选择分类内的前3篇文章，默认是指全部文章的前3篇。注意：左侧预览内的文章只是预览效果，不是前端真实显示的文章</p>
+		</div>
+	</div>
+
+	
+
+</div>

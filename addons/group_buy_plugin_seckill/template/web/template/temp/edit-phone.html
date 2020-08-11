@@ -1,0 +1,117 @@
+<div class="temp_item temp_item_space"  >
+	<div class="frm_control_group">
+		<label for="" class="frm_label">标题内容</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_300">
+				<input type="text" class="frm_input" ng-model="item.params.title">
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">按钮</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_300">
+				<input type="text" class="frm_input" ng-model="item.params.btn_text">
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">输入框提示信息</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_300">
+				<input type="text" class="frm_input" ng-model="item.params.input_title">
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">左边文字大小</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.title_size}}" name="title_size"></li>
+			<span class="my_slider_notice">{{item.params.title_size}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">输入框文字大小</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.input_size}}" name="input_size"></li>
+			<span class="my_slider_notice">{{item.params.input_size}} 像素</span>
+		</div>
+	</div>
+	<div class="frm_control_group">
+		<label for="" class="frm_label">按钮文字大小</label>
+		<div class="frm_controls ">
+			<li class="frm_input_box_200 my_slider_line slider" my-slider min="12" max="30" value="{{item.params.btn_size}}" name="btn_size"></li>
+			<span class="my_slider_notice">{{item.params.btn_size}} 像素</span>
+		</div>
+	</div>
+	
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">背景颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.background" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.background" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">按钮颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.btn_backgornd" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.btn_backgornd" />
+			</span>
+		</div>
+	</div>
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">左边文字颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.title_color" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.title_color" />
+			</span>
+		</div>
+	</div>
+	<!--<div class="frm_control_group" >
+		<label for="" class="frm_label">输入框文字颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.input_color" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.input_color" />
+			</span>
+		</div>
+	</div>-->
+	<div class="frm_control_group" >
+		<label for="" class="frm_label">按钮文字颜色</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_box_50">
+				<input class="frm_input" type="color" ng-model="item.params.btn_color" />
+			</span>
+			<span class="frm_input_box frm_input_box_100">
+				<input class="frm_input" type="text" ng-model="item.params.btn_color" />
+			</span>
+		</div>
+	</div>
+	
+	<!-- <div class="frm_control_group">
+		<label for="" class="frm_label">跳转页面</label>
+		<div class="frm_controls">
+			<span class="frm_input_box frm_input_200 readonlybg">
+				<input type="text" class="frm_input" ng-model="item.params.urlname" readonly>
+			</span><a href="javascript:;" ng-click="showLink(item.id)">设置链接</a>
+		</div>
+	</div> -->
+
+	<a class="create_access_primary" href="javascript:;" ng-mousedown="delItem(item.id,$event)">
+		<i class="icon20_commons add_grays"></i> 
+	</a>
+</div>
+

@@ -1,0 +1,454 @@
+{template 'header'}
+
+<<<<<<< HEAD
+
+
+<style>
+
+    #check_layer,#check_layer_step2,#change_money_layer{
+
+
+
+        display: none;
+
+    }
+
+    .check_list{
+
+        text-align: center;
+
+    }
+
+    .check_list li{
+
+        margin-top: 10px;
+
+        text-align: center;
+
+    }
+
+    .am-tabs-d2 .am-tabs-nav{
+
+        background: #fff;
+
+        border-bottom: 1px solid #eef1f5;
+
+    }
+
+    .am-tabs-nav{
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: flex-start;
+
+    }
+
+    .am-tabs .am-tabs-nav li{
+
+        width: 120px;
+
+        line-height: 40px;
+
+        height: 40px;
+
+        padding: 0;
+
+    }
+
+    .am-tabs .am-tabs-nav li a{
+
+        width: 120px;
+
+        line-height: 40px;
+
+        height: 40px;
+
+        padding: 0;
+
+        display: block;
+
+        margin: 0;
+
+        text-align: center;
+
+        background: #fff;
+
+    }
+
+    .am-tabs-d2 .am-tabs-nav>.am-active {
+
+        position: relative;
+
+        background-color: #fcfcfc;
+
+        border-bottom: 2px solid #22c397;
+
+    }
+
+    .am-tabs-d2 .am-tabs-nav>.am-active a{
+
+        color: #22c397;
+
+    }
+
+    .am-tabs-d2 .am-tabs-nav>.am-active:after{
+
+        border-bottom-color: #22c397;
+
+    }
+
+    /*微擎底层时间插件样式*/
+
+    .daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect{
+
+        width: auto;
+
+        padding-right: 40px;
+
+    }
+    .hide_s{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .hide_m2{
+        display: -webkit-box!important;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        text-overflow:ellipsis;
+        word-break:break-all;
+        -webkit-line-clamp: 2;
+    }
+    .text{
+        text-align: center;
+    }
+
+</style>
+
+<!-- 内容区域 start -->
+
+<div class="tpl-content-wrapper">
+
+    <div class="row-content am-cf">
+
+        <div class="row">
+
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+
+                <div class="widget am-cf">
+
+                    <div class="widget-head am-cf">
+
+                        <div class="widget-title am-cf">拼团商品管理</div>
+
+
+
+                    </div>
+
+
+
+
+
+                    <div  class="am-tabs am-tabs-d2">
+
+                        <ul class="am-tabs-nav am-cf">
+
+                            <li class="{if empty($_GPC['states']) || $_GPC['states']==1}am-active{/if}"><a href="{php echo $this->createWebUrl('home',array('states'=>'0'))}">进行中</a></li>
+
+                            <li class="{if $_GPC['states']==2}am-active{/if}"><a href="{php echo $this->createWebUrl('home',array('states'=>2))}">已结束</a></li>
+
+                            <li class="{if $_GPC['states']==3}am-active{/if}"><a href="{php echo $this->createWebUrl('home',array('states'=>3))}">未开始</a></li>
+
+                            <!--<li class="{if $_GPC['states']==4}am-active{/if}"><a href="{php echo $this->createWebUrl('home',array('states'=>4))}">仓库中</a></li>-->
+
+                        </ul>
+
+                    </div>
+
+                    <div class="widget-body am-fr">
+
+                        <!-- 工具栏 -->
+
+                        <div class="am-u-sm-12 am-fl am-margin-bottom-xs">
+
+                            <div class="am-btn-group am-btn-group-xs ">
+
+                                <a class="zx-addBut" href="{php echo $this->createWebUrl('home',array('op'=>'edit'))}">
+
+                                    <i class="fa fa-plus"></i> 添加商品
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="page_toolbar am-margin-bottom-xs am-cf">
+
+                            <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+
+
+
+                                <div class="am-scrollable-horizontal am-u-sm-12">
+
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap">
+
+                                        <thead class="navbar-inner">
+
+                                        <tr>
+
+                                            <th style="width:120px;">商品标题</th>
+
+                                            <th>拼团类型</th>
+
+                                            <th style="width:90px;">单购价</th>
+
+                                            <th>拼团价</th>
+
+                                            <th>拼团库存</th>
+
+                                            <th>销量</th>
+
+                                            <th>活动时间</th>
+
+                                            <th>成团人数</th>
+
+                                            <th>排序</th>
+
+                                            <th style="width:80px;">状态</th>
+
+                                            <th style="width:160px;">操作</th>
+
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                        {if !empty($list)}
+
+                                        {loop $list $k $v}
+
+                                        <tr>
+
+                                            <td>
+
+                                                <div style="display: flex;align-items: center;max-width: 400px;">
+
+                                                    <a href="javascript:;" target="_blank" ><img src="{$_W['attachurl']}{$v['goods_image']}" width="70"></a>
+
+                                                    <div style="margin-left: 10px;">
+
+											<span style="width: 300px;display: block;line-height: 20px;" class="zx-edit-td-input hide_s">
+
+												{$v['goods_title']}
+
+                                                <br/>
+
+                                                        <span class="text-danger">{php echo getgoods_class($v['gid'])}</span>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td>
+
+                                                {php echo $v['is_ladder']==1?'阶梯团':'普通团'}
+
+                                            </td>
+
+                                            <td>
+
+                                                {$v['old_price']}元
+
+                                            </td>
+
+                                            <td>
+
+                                                {$v['price']}元
+
+                                            </td>
+
+                                            <td class="text">
+
+                                                {$v['goods_num']}
+
+                                            </td>
+
+                                            <td class="text">
+
+                                                {php echo -$v['all_num']}
+
+                                            </td>
+
+                                            <td>
+
+                                                {$v['date_star_time']}<br/>
+
+
+
+                                                {$v['date_end_time']}
+
+                                            </td>
+
+                                            <td class="text">
+
+                                                {$v['team_num']}
+
+                                            </td>
+
+
+
+                                            <td class="text">
+
+                                                <input class="zx-edit-td-input" type="text" value="{$v['sort']}" style="border:0;background:transparent;width: 30px;text-align: left;" name="sort" data-id="{$v['id']}" >
+
+                                            </td>
+
+                                            <td colspan="2">
+
+                                                {if $v['state']==1 and $v['star_time']<=time() and $v['end_time']>=time()}
+
+                                                <a href="javascript:;">
+
+                                                    <span class="btn btn-success btn-xs">进行中</span>
+
+                                                </a>
+                                                <a href="javascript:;"  onclick="setOnline('{$v['id']}')">
+
+                                                    <span class="btn btn-primary btn-xs">结束活动</span>
+
+                                                </a>
+
+                                                {elseif $v['state']==-1 and $v['end_time']< time() }
+
+                                                <a href="javascript:;">
+
+                                                    <span class="btn btn-primary btn-xs" style="background-color: grey;border-color:grey;"></i>已结束</span>
+
+                                                </a>
+                                                <a href="{php echo $this->createWebUrl('home',array('op'=>'copy','id'=>$v['id']))}">
+
+                                                    <span class="btn btn-primary btn-xs"></i>复制活动</span>
+
+                                                </a>
+
+                                                {elseif $v['star_time']> time()}
+
+                                                <a href="javascript:;">
+
+                                                    <span class="btn btn-primary btn-xs" style="background-color: #f0ad4e;border-color:#f0ad4e;"></i>未开始</span>
+
+                                                </a>
+
+                                                {else}
+
+                                                <a href="javascript:;">
+                                                    <span class="btn btn-warning btn-xs" style="background-color: grey;border-color:grey;">已结束</span>
+                                                </a>
+
+                                                <a href="{php echo $this->createWebUrl('home',array('op'=>'copy','id'=>$v['id']))}">
+
+                                                    <span class="btn btn-primary btn-xs"></i>复制活动</span>
+
+                                                </a>
+
+                                                {/if}
+
+                                                <a class="btn btn-danger btn-xs" onclick="deletes('{$v['id']}')"><i class="fa fa-trash-o"></i> 删除</a>
+                                            </td>
+                                        </tr>
+                                        {/loop}
+                                        {else}
+                                        <tr>
+                                            <td colspan="999">
+                                                暂无数据
+                                            </td>
+                                        </tr>
+                                        {/if}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+                                    <div class="am-fr" style="float: left;">
+                                        <a class="zx-addBut" href="javascript:window.history.go(-1) ;">返回</a>
+                                    </div>
+
+                                    {$pager}
+                                    <div class="am-fr pagination-total am-margin-right">
+                                        <div class="am-vertical-align-middle">总记录：{$count}</div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    //删除
+    function deletes(id){
+        $.post(
+            "{php echo $this->createWebUrl('home',array('op'=>'delete'))}",
+                {id:id},
+                function(res){
+                layer.msg(res.msg);
+                if(res.status==0){
+                    setTimeout(function(){
+                        location.reload();
+                    },1500);
+                }
+            },'json'
+        );
+    }
+    //上下架
+    function setOnline(id){
+        layer.confirm('确定下架结束活动？结束后活动不可恢复', {
+            btn: ['结束','取消'] //按钮
+        }, function(){
+
+            $.post(
+                "{php echo $this->createWebUrl('home',array('op'=>'online'))}",
+                {id:id},
+                function(res){
+                    console.log(res);
+                    layer.msg(res.msg);
+                    if(res.status==0){
+                        setTimeout(function(){
+                            location.reload();
+                        },1500);
+                    }
+                },"json"
+            );
+        }, function(){
+        });
+    }
+    //排序值更改
+    $("input[name='sort']").blur(function(){
+        var id = $(this).data("id");
+        var val = $(this).val();
+        var now = $(this).data("sort");
+        if(now==val){
+            return false;
+        }
+
+        var data = {id:id,sort:val};
+
+        $.post(
+            "{php echo $this->createWebUrl('home',array('op'=>'sort'))}",
+            data,
+            function(res){
+                layer.msg(res.msg);
+                if(res.status==0){
+                    location.reload();
+                }
+            },'json'
+        );
+    });
+</script>
+{template 'footer'}

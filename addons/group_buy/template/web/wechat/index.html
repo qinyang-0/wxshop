@@ -1,0 +1,181 @@
+{template 'header'}
+<style type="text/css">
+	.btn-group .active {
+		background-color: #428bca;
+		color: #fff;
+	}
+	/*选项卡*/
+	.am-tabs-d2 .am-tabs-nav{
+		background: #fff;
+		border-bottom: 1px solid #eef1f5;
+	}
+	.am-tabs-nav{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	.am-tabs .am-tabs-nav li{
+		width: 120px;
+		line-height: 40px;
+		height: 40px;
+		padding: 0;
+	}
+	.am-tabs .am-tabs-nav li a{
+		width: 120px;
+		line-height: 40px;
+		height: 40px;
+		padding: 0;
+		display: block;
+		margin: 0;
+		text-align: center;
+		background: #fff;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active {
+		position: relative;
+		background-color: #fcfcfc;
+		border-bottom: 2px solid #22c397;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active a{
+		color: #22c397;
+	}
+	.am-tabs-d2 .am-tabs-nav>.am-active:after{
+		border-bottom-color: #22c397;
+	}
+	/*选项卡end*/
+	.zx-edit-td-input:focus{
+		outline: 1px  dashed #22c397;
+	}
+	.am-switch-success-zx>input[type=checkbox]:checked~.am-switch-checkbox{
+		background: #22c397;
+	}
+	.none{
+		display: none;
+	}
+	/*controller=user.get_supply_goods*/
+</style>
+<!--右侧详细内容区域 from 自定义-->
+<div class="tpl-content-wrapper ">
+	<!--本页自定义样式-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/goods.css">-->
+	<!--<link rel="stylesheet" href="{php echo MODULE_URL}style/css/umeditor.css">-->
+	<!--右侧详细内容区域，灰框之内,from 妹子-->
+	<div class="row-content am-cf">
+		<!--2列式简单布局,from bootstap-->
+		<div class="row">
+			<!--12列布局,from 妹子-->
+			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+				<!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+				<div class="widget am-cf">
+					<div class="am-tabs am-tabs-d2">
+						<ul class="am-tabs-nav am-cf" style="margin-bottom: 30px;">
+							<li class="am-active" id="order">
+								<a href="javascript:;" class="good_nav" data-id="order">订单模板 </a>
+							</li>
+							<li class="" id="application">
+								<a href="javascript:;" class="good_nav" data-id="application">团长模板</a>
+							</li>
+							<li class="" id="cash">
+								<a href="javascript:;" class="good_nav" data-id="cash">提现模板</a>
+							</li>
+							<li class="" id="refund">
+								<a href="javascript:;" class="good_nav" data-id="refund">退款模板</a>
+							</li>
+							<li class="" id="deliver">
+								<a href="javascript:;" class="good_nav" data-id="deliver">发货模板</a>
+							</li>
+							<li class="" id="recharge">
+								<a href="javascript:;" class="good_nav" data-id="recharge">充值模板</a>
+							</li>
+							<li class="" id="membership">
+								<a href="javascript:;" class="good_nav" data-id="membership">会员卡模板</a>
+							</li>
+							<li class="" id="bargain">
+								<a href="javascript:;" class="good_nav" data-id="bargain">砍价模板</a>
+							</li>
+							<li class="" id="assemble">
+								<a href="javascript:;" class="good_nav" data-id="assemble">拼团模板</a>
+							</li>
+							<li class="" id="wx">
+								<a href="javascript:;" class="good_nav" data-id="wx">公众号模板</a>
+							</li>
+						</ul>
+					</div>
+					<div style="text-align: center;font-size: 16px;color: red;">注：根据微信规定，2020年1月10日起，微信小程序模板消息将无法使用，到时微信的模板消息将会更换为订阅消息。请及时填写以下参数，以便于1月10号系统自动更换消息.</div>
+					<form action="{php echo $this->createWebUrl('wechat',array('op'=>'add'))}" method="post" class="am-form tpl-form-line-form" enctype="multipart/form-data">
+						<!--右侧正文 from 自定义 -->
+						<div class="widget-body">
+							<!--右侧正文 规定所有边距为0 from bootstap -->
+							<fieldset>
+								<!--小标题 from 自定义-->
+								<!--//订单类-->
+								<div class="nav_order nav_goods_add">
+									{template '/web/wechat/order'}
+								</div>
+								<!--团长类-->
+								<div class="nav_application nav_goods_add none">
+									{template '/web/wechat/application'}
+								</div>
+								<!--提现类-->
+								<div class="nav_cash nav_goods_add none">
+									{template '/web/wechat/cash'}
+								</div>
+								<!--退款类-->
+								<div class="nav_refund nav_goods_add none">
+									{template '/web/wechat/refund'}
+								</div>
+								<!--发货类-->
+								<div class="nav_deliver nav_goods_add none">
+									{template '/web/wechat/deliver'}
+								</div>
+								<!--充值类-->
+								<div class="nav_recharge nav_goods_add none">
+									{template '/web/wechat/recharge'}
+								</div>
+								<!--会员卡类-->
+								<div class="nav_membership nav_goods_add none">
+									{template '/web/wechat/membership'}
+								</div>
+								<!--砍价类-->
+								<div class="nav_bargain nav_goods_add none">
+									{template '/web/wechat/bargain'}
+								</div>
+								<!--拼团类-->
+								<div class="nav_assemble nav_goods_add none">
+									{template '/web/wechat/assemble'}
+								</div>
+								<!--公众号类-->
+								<div class="nav_wx nav_goods_add none">
+									{template '/web/wechat/wx'}
+								</div>
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+										<input type="hidden" name="submit" value="提交"/>
+										<button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).on("change","select[name='wechat_id[value]']",function () {
+	if($(this).val()=="1"){
+	    $("#is-show").removeClass("hidden");
+	}else{
+        $("#is-show").addClass("hidden");
+	}
+})
+$('.good_nav').click(function(res){
+	var id = $(this).data('id');
+	$(".am-tabs-nav li").removeClass('am-active');
+	$("#"+id).addClass('am-active');
+	$(".nav_goods_add").hide();
+	$(".nav_"+id).show();
+})
+</script>
+{template 'footer'}
